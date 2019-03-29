@@ -1,6 +1,6 @@
 module.exports = {
   title: 'formvuelatte',
-  description: 'ok',
+  description: 'Forms, Vue & Coffee',
   themeConfig: {
     docsDir: 'docs',
     editLinks: true,
