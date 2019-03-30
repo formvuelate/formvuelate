@@ -15,3 +15,7 @@ footer: MIT Licensed | Copyright © 2019-present Damian Dulisz
 ## Example
 
 <SimpleExample></SimpleExample>
+
+## V-Model Example
+
+<ExampleVModel></ExampleVModel>
