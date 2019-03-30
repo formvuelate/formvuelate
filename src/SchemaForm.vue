@@ -45,26 +45,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-.schema-form
-  width: 250px
-  margin: 0 auto
-  text-align: left
-
-  label
-    font-weight: bold
-    font-size: 0.9rem
-    display: block
-
-  input
-    padding: 8px 10px
-    border-radius: 3px
-    border: 1px solid #ccc
-    margin-bottom: 1rem
-    width: 100%
-    font-size: 1rem
-
-  input[type="checkbox"]
-    width: auto
-</style>
