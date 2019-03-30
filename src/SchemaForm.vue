@@ -31,12 +31,16 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      values: {}
+    }
+  },
   methods: {
     update (property, value) {
-      this.$emit('input', {
-        ...this.values,
-        [property]: value
-      })
+      this.$set(this.values, property, value)
+
+      this.$emit('input', this.values)
     }
   }
 }
