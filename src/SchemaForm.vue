@@ -4,8 +4,8 @@
       v-for="(field, property) in schema"
       :key="property"
       :is="field.component"
-      v-bind="{ ...field }"
-      :value="value[property]"
+      v-bind="binds(field)"
+      :value="val(property, field)"
       @input="update(property, $event)"
     />
     <slot/>
@@ -41,6 +41,18 @@ export default {
       this.$set(this.values, property, value)
 
       this.$emit('input', this.values)
+    },
+    binds (field) {
+      return field.component === 'SchemaForm'
+        ? { schema: field.schema }
+        : field
+    },
+    val (property, field) {
+      if (field.component === 'SchemaForm' && !this.values[property]) {
+        return {}
+      }
+
+      return this.values[property]
     }
   }
 }
