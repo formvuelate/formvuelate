@@ -33,6 +33,16 @@ const SCHEMA = {
       type: 'email'
     }
   },
+  favoriteThingAboutVue: {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
   isVueFan: {
     component: 'FormCheckbox',
     label: 'Are you a Vue fan?'
@@ -54,6 +64,13 @@ const SCHEMA = {
           position: {
             component: 'FormText',
             label: 'Work position'
+          },
+          employees: {
+            component: 'FormSelect',
+            label: 'Number of employees',
+            options: [
+              '1', '2', '3', '4+'
+            ]
           }
         }
       }

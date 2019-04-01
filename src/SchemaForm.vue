@@ -15,11 +15,13 @@
 <script>
 import FormCheckbox from './form-elements/FormCheckbox'
 import FormText from './form-elements/FormText'
+import FormSelect from './form-elements/FormSelect'
 
 export default {
   components: {
     FormCheckbox,
-    FormText
+    FormText,
+    FormSelect
   },
   props: {
     schema: {

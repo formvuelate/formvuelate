@@ -5,6 +5,7 @@
       v-model="userData"
     />
 
+    <p>Form Output:</p>
     <OutputDisplay :data="userData" />
   </div>
 </template>
@@ -26,6 +27,16 @@ const SCHEMA = {
     config: {
       type: 'email'
     }
+  },
+  favoriteThingAboutVue: {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
   },
   isVueFan: {
     component: 'FormCheckbox',
