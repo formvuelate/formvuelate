@@ -23,3 +23,7 @@ footer: MIT Licensed | Copyright © 2019-present Damian Dulisz
 ## Formception
 
 <Formception></Formception>
+
+## Schema Wizard
+
+<WizardExample></WizardExample>
