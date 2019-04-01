@@ -1,15 +1,19 @@
 <template>
-  <form class="schema-form">
-    <component
-      v-for="(field, property) in schema"
-      :key="property"
-      :is="field.component"
-      v-bind="binds(field)"
-      :value="val(property, field)"
-      @input="update(property, $event)"
-    />
-    <slot/>
-  </form>
+  <div>
+    <slot name="beforeForm"></slot>
+    <form class="schema-form">
+      <component
+        v-for="(field, property) in schema"
+        :key="property"
+        :is="field.component"
+        v-bind="binds(field)"
+        :value="val(property, field)"
+        @input="update(property, $event)"
+      />
+      <slot/>
+    </form>
+    <slot name="afterForm"></slot>
+  </div>
 </template>
 
 <script>
