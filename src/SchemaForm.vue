@@ -17,16 +17,7 @@
 </template>
 
 <script>
-import FormCheckbox from './form-elements/FormCheckbox'
-import FormText from './form-elements/FormText'
-import FormSelect from './form-elements/FormSelect'
-
 export default {
-  components: {
-    FormCheckbox,
-    FormText,
-    FormSelect
-  },
   props: {
     schema: {
       type: Object,
@@ -49,12 +40,12 @@ export default {
       this.$emit('input', this.values)
     },
     binds (field) {
-      return field.component === 'SchemaForm'
+      return field.schema
         ? { schema: field.schema }
         : field
     },
     val (property, field) {
-      if (field.component === 'SchemaForm' && !this.values[property]) {
+      if (field.schema && !this.values[property]) {
         return {}
       }
 

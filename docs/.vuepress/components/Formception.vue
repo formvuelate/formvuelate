@@ -16,17 +16,23 @@
 </template>
 
 <script>
+import OutputDisplay from './OutputDisplay'
+import FormText from '../../../src/form-elements/FormText'
+import FormSelect from '../../../src/form-elements/FormSelect'
+import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import SchemaForm from '../../../src/SchemaForm'
+
 const SCHEMA = {
   firstName: {
-    component: 'FormText',
+    component: FormText,
     label: 'First Name',
   },
   lastName: {
-    component: 'FormText',
+    component: FormText,
     label: 'Last Name',
   },
   email: {
-    component: 'FormText',
+    component: FormText,
     label: 'Your email',
     required: true,
     config: {
@@ -34,7 +40,7 @@ const SCHEMA = {
     }
   },
   favoriteThingAboutVue: {
-    component: 'FormSelect',
+    component: FormSelect,
     label: 'Favorite thing about Vue',
     required: true,
     options: [
@@ -44,29 +50,29 @@ const SCHEMA = {
     ]
   },
   isVueFan: {
-    component: 'FormCheckbox',
+    component: FormCheckbox,
     label: 'Are you a Vue fan?'
   },
   work: {
-    component: 'SchemaForm',
+    component: SchemaForm,
     schema: {
       address: {
-        component: 'FormText',
+        component: FormText,
         label: 'Work address'
       },
       phone: {
-        component: 'FormText',
+        component: FormText,
         label: 'Work phone'
       },
       details: {
-        component: 'SchemaForm',
+        component: SchemaForm,
         schema: {
           position: {
-            component: 'FormText',
+            component: FormText,
             label: 'Work position'
           },
           employees: {
-            component: 'FormSelect',
+            component: FormSelect,
             label: 'Number of employees',
             options: [
               '1', '2', '3', '4+'
@@ -78,7 +84,6 @@ const SCHEMA = {
   }
 }
 
-import OutputDisplay from './OutputDisplay'
 export default {
   components: { OutputDisplay },
   data () {
@@ -92,7 +97,7 @@ export default {
         ? {
             ...SCHEMA,
             feedback: {
-              component: 'FormText',
+              component: FormText,
               label: 'Gimme some feedback'
             }
           }
