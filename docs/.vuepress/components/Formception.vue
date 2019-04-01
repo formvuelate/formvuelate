@@ -1,9 +1,18 @@
 <template>
-  <SchemaForm
-    :schema="schema"
-    :value="userData"
-    @input="mergeChanges"
-  />
+  <div>
+    <SchemaForm
+      :schema="schema"
+      v-model="userData"
+    />
+
+    <p>
+      v-model object: <br>
+      {{ userData }}
+    </p>
+
+    <p>Form Output:</p>
+    <OutputDisplay :data="userData" />
+  </div>
 </template>
 
 <script>
@@ -11,6 +20,7 @@ import OutputDisplay from './OutputDisplay'
 import FormText from '../../../src/form-elements/FormText'
 import FormSelect from '../../../src/form-elements/FormSelect'
 import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import SchemaForm from '../../../src/SchemaForm'
 
 const SCHEMA = {
   firstName: {
@@ -29,13 +39,53 @@ const SCHEMA = {
       type: 'email'
     }
   },
+  favoriteThingAboutVue: {
+    component: FormSelect,
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
   isVueFan: {
     component: FormCheckbox,
     label: 'Are you a Vue fan?'
+  },
+  work: {
+    component: SchemaForm,
+    schema: {
+      address: {
+        component: FormText,
+        label: 'Work address'
+      },
+      phone: {
+        component: FormText,
+        label: 'Work phone'
+      },
+      details: {
+        component: SchemaForm,
+        schema: {
+          position: {
+            component: FormText,
+            label: 'Work position'
+          },
+          employees: {
+            component: FormSelect,
+            label: 'Number of employees',
+            options: [
+              '1', '2', '3', '4+'
+            ]
+          }
+        }
+      }
+    }
   }
 }
 
 export default {
+  components: { OutputDisplay },
   data () {
     return {
       userData: {}

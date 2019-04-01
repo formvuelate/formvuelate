@@ -19,6 +19,10 @@ import FormMixin from '../FormMixin'
 export default {
   mixins: [ FormMixin ],
   props: {
+    label: {
+      type: String,
+      required: true
+    },
     config: {
       type: Object,
       default: () => ({ type: 'text' })

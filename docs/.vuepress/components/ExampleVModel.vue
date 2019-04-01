@@ -1,9 +1,13 @@
 <template>
-  <SchemaForm
-    :schema="schema"
-    :value="userData"
-    @input="mergeChanges"
-  />
+  <div>
+    <SchemaForm
+      :schema="schema"
+      v-model="userData"
+    />
+
+    <p>Form Output:</p>
+    <OutputDisplay :data="userData" />
+  </div>
 </template>
 
 <script>
@@ -29,6 +33,16 @@ const SCHEMA = {
       type: 'email'
     }
   },
+  favoriteThingAboutVue: {
+    component: FormSelect,
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
   isVueFan: {
     component: FormCheckbox,
     label: 'Are you a Vue fan?'
@@ -36,6 +50,7 @@ const SCHEMA = {
 }
 
 export default {
+  components: { OutputDisplay },
   data () {
     return {
       userData: {}

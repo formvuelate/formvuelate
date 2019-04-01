@@ -14,5 +14,13 @@
 <script>
 import FormMixin from '../FormMixin'
 
-export default { mixins: [ FormMixin ] }
+export default {
+  mixins: [ FormMixin ],
+  props: {
+    label: {
+      type: String,
+      required: true
+    }
+  }
+}
 </script>
