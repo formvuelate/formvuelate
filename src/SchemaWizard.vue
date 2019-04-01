@@ -29,11 +29,6 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      wizardValues: []
-    }
-  },
   computed: {
     currentSchema () {
       return this.schema[this.step]
@@ -41,9 +36,10 @@ export default {
   },
   methods: {
     update (data) {
-      this.$set(this.wizardValues, this.step, data)
+      const value = [...this.value]
+      value[this.step] = data
 
-      this.$emit('input', this.wizardValues)
+      this.$emit('input', value)
     }
   }
 }
