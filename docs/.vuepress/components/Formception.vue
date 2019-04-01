@@ -1,21 +1,17 @@
 <template>
   <div>
     <SchemaForm
-    :schema="schema"
-    v-model="userData"
-  />
+      :schema="schema"
+      v-model="userData"
+    />
 
-    <div class="output">
-      vModel Output:
-      <ul>
-        <li
-          v-for="(value, prop) in userData"
-          :key="prop"
-        >
-          {{ prop }}: {{ value }}
-        </li>
-      </ul>
-    </div>
+    <p>
+      v-model object: <br>
+      {{ userData }}
+    </p>
+
+    <p>Form Output:</p>
+    <OutputDisplay :data="userData" />
   </div>
 </template>
 
@@ -65,7 +61,9 @@ const SCHEMA = {
   }
 }
 
+import OutputDisplay from './OutputDisplay'
 export default {
+  components: { OutputDisplay },
   data () {
     return {
       userData: {}
@@ -101,10 +99,4 @@ export default {
   text-align: left
   margin: 0 auto 4rem
   line-height: 1.6
-
-.output
-  max-width: 35rem
-  margin: 0 auto 4rem
-  ul
-    list-style: none
 </style>
