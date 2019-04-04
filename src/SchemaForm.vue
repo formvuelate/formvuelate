@@ -28,16 +28,12 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      values: {}
-    }
-  },
   methods: {
     update (property, value) {
-      this.$set(this.values, property, value)
+      const values = { ...this.value }
+      values[property] = value
 
-      this.$emit('input', this.values)
+      this.$emit('input', values)
     },
     binds (field) {
       return field.schema
@@ -45,11 +41,11 @@ export default {
         : field
     },
     val (property, field) {
-      if (field.schema && !this.values[property]) {
+      if (field.schema && !this.value[property]) {
         return {}
       }
 
-      return this.values[property]
+      return this.value[property]
     }
   }
 }
