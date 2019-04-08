@@ -3,10 +3,10 @@ home: true
 actionText: Get Started →
 actionLink: /guide/
 features:
-- title: Fully Featured
-  details: Minimal.
-- title: Completely Customizable
-  details: Enjoy.
+- title: Your Components
+  details: Supports your own form-input components
+- title: Validations!
+  details: Use Vuelidate-compatible schema for your validation rules
 - title: Zero Dependencies
   details: VuePress.
 footer: MIT Licensed | Copyright © 2019-present Damian Dulisz
