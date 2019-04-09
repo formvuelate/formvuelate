@@ -21,7 +21,12 @@ export default {
   props: {
     schema: {
       type: [Object, Array],
-      required: true
+      required: true,
+      validator (schema) {
+        if (!Array.isArray(schema)) return true
+
+        return schema.filter(field => !field.model).length === 0
+      }
     },
     value: {
       type: Object,
