@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     update (property, value) {
-      const values = { ...this.value }
-      values[property] = value
-
-      this.$emit('input', values)
+      this.$emit('input', {
+        ...this.value,
+        [property]: value
+      })
     },
     binds (field) {
       return field.schema
