@@ -16,6 +16,7 @@ import OutputDisplay from './OutputDisplay'
 import FormText from '../../../src/form-elements/FormText'
 import FormSelect from '../../../src/form-elements/FormSelect'
 import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import SchemaForm from '../../../src/SchemaForm'
 
 const SCHEMA = [
   {
@@ -27,6 +28,21 @@ const SCHEMA = [
     component: FormText,
     label: 'Last Name',
     model: 'lastName'
+  },
+  {
+    component: SchemaForm,
+    schema: [
+      {
+        component: FormText,
+        label: 'Work address',
+        model: 'address'
+      },
+      {
+        component: FormText,
+        label: 'Work phone',
+        model: 'phone'
+      }
+    ]
   }
 ]
 
