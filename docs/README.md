@@ -16,6 +16,9 @@ footer: MIT Licensed | Copyright © 2019-present Damian Dulisz
 
 <SimpleExample></SimpleExample>
 
+## With Array Schema
+<ArrayExample></ArrayExample>
+
 ## V-Model Example
 
 <ExampleVModel></ExampleVModel>
