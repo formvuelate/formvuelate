@@ -9,6 +9,7 @@
         v-bind="binds(field)"
         :value="val(field)"
         @input="update(field.model, $event)"
+        @update-batch="updateBatch(field.model, $event)"
       />
       <slot/>
     </form>
@@ -53,6 +54,12 @@ export default {
       this.$emit('input', {
         ...this.value,
         [property]: value
+      })
+    },
+    updateBatch (property, values) {
+      this.$emit('input', {
+        ...this.value,
+        ...values
       })
     },
     binds (field) {

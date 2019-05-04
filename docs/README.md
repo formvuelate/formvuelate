@@ -30,3 +30,10 @@ footer: MIT Licensed | Copyright © 2019-present Damian Dulisz
 ## Schema Wizard
 
 <WizardExample></WizardExample>
+
+## MultiElement
+
+The SchemaForm can handle custom components that wrap two or more child inputs.
+They must emit the `update-batch` event with an object payload that has the values for each of the inputs.
+
+<MultiElementExample></MultiElementExample>
