@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'formvuelatte',
+  title: 'FormVueLatte',
   description: 'Forms, Vue & Coffee',
   themeConfig: {
     docsDir: 'docs',
