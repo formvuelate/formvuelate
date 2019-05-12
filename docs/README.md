@@ -49,7 +49,7 @@ Finally, add it to your component and pass it your **schema** through the `:sche
 The `SchemaForm` will `$emit` **input** events when your components update. This means that you are able to either use `v-model` on it, or manually capture the `@input` event with a method of your own, as well as inject the `:value` property. Either or.
 
 ## Component Requirements and the FormMixin
-In order for FormVueLatte's `SchemaForm` to understand your components, they need to implement the `FormMixin.js` that FormVueLatte provides. In its simplest form, make sure that when your `form element` updates, you call the `update` function with the new value.
+In order for FormVueLatte's `SchemaForm` to understand your components, they need to implement the `FormMixin.js` that FormVueLatte provides. In its simplest form, make sure that when your `form element` wants to make a change to the `value`, it calls the `update` method with the new value.
 
 Here's an example using the `<input>` tag.
 
