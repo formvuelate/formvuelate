@@ -5,7 +5,12 @@
       v-model="userData"
     />
 
-    <p>Form Output:</p>
+    <p>
+      v-model object: <br>
+      {{ userData }}
+    </p>
+
+    <p>Formatted Output:</p>
     <OutputDisplay :data="userData" />
   </div>
 </template>
@@ -67,14 +72,6 @@ export default {
             }
           }
         : SCHEMA
-    }
-  },
-  methods: {
-    mergeChanges (changes) {
-      this.userData = {
-        ...this.userData,
-        ...changes
-      }
     }
   }
 }

@@ -1,13 +1,24 @@
 <template>
-  <SchemaForm
-    :schema="schema"
-    :value="userData"
-    @input="mergeChanges"
-  />
+  <div>
+    <SchemaForm
+      :schema="schema"
+      v-model="userData"
+    />
+
+    <p>
+      v-model object: <br>
+      {{ userData }}
+    </p>
+
+    <p>Form Output:</p>
+    <OutputDisplay :data="userData" />
+  </div>
 </template>
 
 <script>
 import OutputDisplay from './OutputDisplay'
+import SchemaForm from '../../../src/SchemaForm'
+import MultiElementWrapper from '../../../src/form-elements/MultiElementWrapper'
 import FormText from '../../../src/form-elements/FormText'
 import FormSelect from '../../../src/form-elements/FormSelect'
 import FormCheckbox from '../../../src/form-elements/FormCheckbox'
@@ -29,14 +40,28 @@ const SCHEMA = {
       type: 'email'
     }
   },
+  favoriteThingAboutVue: {
+    component: FormSelect,
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
   isVueFan: {
     component: FormCheckbox,
     label: 'Are you a Vue fan?'
+  },
+  favorites: {
+    component: MultiElementWrapper
   }
 }
 
 export default {
-  data () {
+  components: { OutputDisplay },
+  data() {
     return {
       userData: {}
     }
@@ -53,17 +78,10 @@ export default {
           }
         : SCHEMA
     }
-  },
-  methods: {
-    mergeChanges (changes) {
-      this.userData = {
-        ...this.userData,
-        ...changes
-      }
-    }
   }
 }
 </script>
+
 
 <style lang="stylus">
 .steps
