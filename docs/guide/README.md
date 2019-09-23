@@ -14,9 +14,9 @@ To add FormVueLatte to your project, start by installing the package through you
 
 ```bash
 yarn add formvuelatte
-```
 
-```bash
+// OR
+
 npm install formvuelatte
 ```
 
@@ -26,35 +26,36 @@ Now that you have the package in your project, `import` it to your component.
 import { SchemaForm } from 'formvuelatte'
 ```
 
-Finally, add it to your component and pass it your **schema** through the `:schema` property.
+The `SchemaForm` requires two `props`. The first is the `schema`, which is the configuration of your form. The second one is `value`, which will hold the state of the form.
 
-```js
-<template>
-    <SchemaForm :schema="mySchema" />
-</template>
+```html
+<SchemaForm :schema="mySchema" :value="formData" />
 ```
 
 The `SchemaForm` will `$emit` **input** events when your components update. This means that you are able to either use `v-model` on it, or manually capture the `@input` event with a method of your own, as well as inject the `:value` property. Either or.
 
-## Component Requirements and the FormMixin
-In order for FormVueLatte's `SchemaForm` to understand your components, they need to implement the `FormMixin.js` that FormVueLatte provides. In its simplest form, make sure that when your `form element` wants to make a change to the `value`, it calls the `update` method with the new value.
+Below you will find an example of the previous concepts.
 
-Here's an example using the `<input>` tag.
+```html
+<template>
+  <SchemaForm :schema="mySchema" v-model="formData" />
+</template>
 
-```js
-<input
-    :value="value"
-    @input="update($event.target.value)"
-/>
+<script>
+export default {
+  data() {
+    return {
+      formData: {},
+      mySchema: { 
+        //some schema here
+      }
+    }
+  }
+}
+</script>
 ```
 
-The `FormMixin` also adds a required `value` property to your component (for it to comply with v-model capabilities), which is `required`.
-
-**Instructions on how to actually import it here :D**
-
-Once you've imported the mixin to your components, make sure your component makes use of the `update` method provided by the mixin.
-
-## Schema composition
+## The schema prop
 The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`, although under the hood it will be transformed to an `array`.
 
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let's assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
@@ -74,7 +75,7 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
             return {
                 schema: {
                     name: {
-                        component: FormText // Note that this is NOT a string
+                        component: FormText // Note that is NOT a string
                     },
                     lastName: {
                         component: FormText // We pass the component that we imported directly
@@ -85,6 +86,38 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
     }
 </script>
 ```
+
+## Component Requirements and the FormMixin
+Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
+
+In order for `SchemaForm` to understand **your components**, they need to use the `FormMixin` mixin that FormVueLatte provides. 
+
+```js
+// FormText.vue
+import { FormMixin } from 'formvuelatte'
+export default {
+  [...]
+  mixins: [ FormMixin ],
+  [...]
+}
+```
+
+In its simplest form, make sure that when your `form element` wants to make a change to the `value`, it calls the `update` method with the new value.
+
+Here's an example using the `<input>` tag.
+
+```html
+<input
+    :value="value"
+    @input="update($event.target.value)"
+/>
+```
+
+The `FormMixin` adds a required `value` property to your component (for it to comply with v-model capabilities).
+
+Once you've imported the mixin to your components, make sure your component makes use of the `update` method provided by the mixin.
+
+The `update` method `$emit`s the `input` event with whatever value you pass to it.
 
 ## Examples
 Here you will find a few examples on how you can set up your `schema` and the output it would produce. We are using three different custom components to showcase, but you should use your own! 😉
