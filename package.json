@@ -16,6 +16,14 @@
   "main": "dist/formvuelatte.common.js",
   "unpkg": "dist/formvuelatte.umd.js",
   "browser": "dist/formvuelatte.umd.js",
+  "homepage": "https://formvuelatte.netlify.com/",
+  "bugs": {
+    "url": "https://github.com/vuelidate/formvuelatte"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuelidate/formvuelatte.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
