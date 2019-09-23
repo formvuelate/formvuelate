@@ -2,8 +2,6 @@
 
 For the full guide with examples, visit [https://formvuelatte.netlify.com](https://formvuelatte.netlify.com)
 
-## ⚠️ WORK IN PROGRESS. DO NOT USE ⚠
-
 ## Getting Started
 
 FormVueLatte is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
