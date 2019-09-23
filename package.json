@@ -1,6 +1,6 @@
 {
   "name": "formvuelatte",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
@@ -43,7 +43,8 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.6.6",
+    "vue-json-pretty": "^1.6.2",
     "vue-template-compiler": "^2.5.21",
-    "vuepress": "^1.0.0-alpha.44"
+    "vuepress": "^1.1.0"
   }
 }

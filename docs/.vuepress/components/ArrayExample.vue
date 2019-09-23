@@ -6,7 +6,6 @@
       @input="mergeChanges"
     />
 
-    <p>Form Output:</p>
     <OutputDisplay :data="userData" />
   </div>
 </template>

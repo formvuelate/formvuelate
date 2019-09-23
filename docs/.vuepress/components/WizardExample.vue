@@ -15,11 +15,8 @@
         @click="step--">Back</button>
     </SchemaWizard>
 
-    <p>Form Output:</p>
     <OutputDisplay
-      v-for="(section, index) in userData"
-      :key="index"
-      :data="section"
+      :data="userData"
     />
   </div>
 </template>
