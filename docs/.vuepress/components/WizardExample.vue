@@ -16,9 +16,7 @@
     </SchemaWizard>
 
     <OutputDisplay
-      v-for="(section, index) in userData"
-      :key="index"
-      :data="section"
+      :data="userData"
     />
   </div>
 </template>

@@ -134,23 +134,40 @@ const SCHEMA = {
 </splitTab>
 
 ### With Array Schema
-<ArrayExample></ArrayExample>
+<SplitTab>
+  <ArrayExample slot="example" />
+  <<< @/docs/.vuepress/components/ArrayExample.vue
+</SplitTab>
 
 ### V-Model Example
 
-<ExampleVModel></ExampleVModel>
+<SplitTab>
+  <ExampleVModel slot="example" />
+  <<< @/docs/.vuepress/components/ExampleVModel.vue
+</SplitTab>
 
 ### Formception
 
-<Formception></Formception>
+
+<SplitTab>
+  <Formception slot="example" />
+  <<< @/docs/.vuepress/components/Formception.vue
+</SplitTab>
 
 ### Schema Wizard
 
-<WizardExample></WizardExample>
+<SplitTab>
+  <WizardExample slot="example" />
+  <<< @/docs/.vuepress/components/WizardExample.vue
+</SplitTab>
 
 ### MultiElement
 
 The SchemaForm can handle custom components that wrap two or more child inputs.
 They must emit the `update-batch` event with an object payload that has the values for each of the inputs.
 
-<MultiElementExample></MultiElementExample>
+
+<SplitTab>
+  <MultiElementExample slot="example" />
+  <<< @/docs/.vuepress/components/MultiElementExample.vue
+</SplitTab>
