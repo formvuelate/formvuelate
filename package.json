@@ -3,7 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "description": "Schema Form Generator",
-  "author": "Damian Dulisz <damian@dulisz.com>",
+  "author": "Marina Mosti <marina@mosti.com.mx>",
+  "contributors": [
+    {
+      "name": "Damian Dulisz",
+      "email": "damian.dulisz@gmail.com"
+    },
+    {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    }
+  ],
+  "main": "dist/formvuelatte.common.js",
+  "unpkg": "dist/formvuelatte.umd.js",
+  "browser": "dist/formvuelatte.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
