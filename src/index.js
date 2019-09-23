@@ -1,12 +1,11 @@
 import SchemaForm from './SchemaForm'
+import SchemaWizard from './SchemaWizard'
 import FormMixin from './FormMixin'
-import FormText from './form-elements/FormText'
-import FormCheckbox from './form-elements/FormCheckbox'
 
 export default SchemaForm
 
 export {
-  FormMixin,
-  FormText,
-  FormCheckbox
+  SchemaForm,
+  SchemaWizard,
+  FormMixin
 }
