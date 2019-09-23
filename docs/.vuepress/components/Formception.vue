@@ -5,12 +5,6 @@
       v-model="userData"
     />
 
-    <p>
-      v-model object: <br>
-      {{ userData }}
-    </p>
-
-    <p>Form Output:</p>
     <OutputDisplay :data="userData" />
   </div>
 </template>
