@@ -1,24 +1,14 @@
 <template>
   <div class="output">
-      <ul>
-        <li
-          v-for="(value, prop) in data"
-          :key="prop"
-        >
-          <template v-if="typeof value !== 'object'">
-            {{ prop }}: {{ value }}
-          </template>
-
-          <template v-else>
-            <OutputDisplay :data="value" />
-          </template>
-        </li>
-      </ul>
-    </div>
+    <p>Formatted Output:</p>
+    <VueJsonPretty :data="data" />
+  </div>
 </template>
 
 <script>
+import VueJsonPretty from 'vue-json-pretty'
 export default {
+  components: { VueJsonPretty },
   props: {
     data: { type: Object, required: true }
   }
@@ -28,7 +18,4 @@ export default {
 <style lang="stylus">
 .output
   max-width: 35rem
-  ul
-    list-style: none
-    padding-left: 0
 </style>
