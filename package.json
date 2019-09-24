@@ -1,9 +1,29 @@
 {
   "name": "formvuelatte",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.1",
   "description": "Schema Form Generator",
-  "author": "Damian Dulisz <damian@dulisz.com>",
+  "author": "Marina Mosti <marina@mosti.com.mx>",
+  "contributors": [
+    {
+      "name": "Damian Dulisz",
+      "email": "damian.dulisz@gmail.com"
+    },
+    {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    }
+  ],
+  "main": "dist/formvuelatte.common.js",
+  "unpkg": "dist/formvuelatte.umd.js",
+  "browser": "dist/formvuelatte.umd.js",
+  "homepage": "https://formvuelatte.netlify.com/",
+  "bugs": {
+    "url": "https://github.com/vuelidate/formvuelatte"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuelidate/formvuelatte.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
@@ -15,15 +35,15 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
+    "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-e2e-cypress": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
-    "@vue/cli-plugin-unit-jest": "^3.5.0",
+    "@vue/cli-plugin-unit-jest": "^3.11.0",
     "@vue/cli-service": "^3.5.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",

@@ -1,6 +1,6 @@
 module.exports = {
   title: 'FormVueLatte',
-  description: 'Forms, Vue & Coffee',
+  description: 'Forms, Vue & Coffee ☕',
   themeConfig: {
     //docsDir: 'docs',
     editLinks: true,
