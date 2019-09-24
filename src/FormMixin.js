@@ -8,6 +8,10 @@ export default {
     config: {
       type: Object,
       default: () => {}
+    },
+    displayMode: {
+      type: String,
+      default: () => 'EDIT'
     }
   },
   methods: {

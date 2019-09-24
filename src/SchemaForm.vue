@@ -8,6 +8,7 @@
         :is="field.component"
         v-bind="binds(field)"
         :value="val(field)"
+        :display-mode="displayMode"
         @input="update(field.model, $event)"
         @update-batch="updateBatch(field.model, $event)"
       />
@@ -32,6 +33,10 @@ export default {
     value: {
       type: Object,
       required: true
+    },
+    displayMode: {
+      type: String,
+      required: false
     }
   },
   computed: {

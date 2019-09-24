@@ -5,6 +5,7 @@
         type="checkbox"
         :checked="value"
         @input="update($event.target.checked)"
+        :disabled="displayMode === 'VIEW'"
       >
       {{ label }}
     </label>
@@ -20,6 +21,9 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    displayMode: {
+      type: String
     }
   }
 }

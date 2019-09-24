@@ -204,3 +204,13 @@ They must emit the `update-batch` event with an object payload that has the valu
   <MultiElementExample slot="example" />
   <<< @/docs/.vuepress/components/MultiElementExample.vue
 </SplitTab>
+
+### DisplayMode
+
+The SchemaForm can have two modes for View and Edit which will show elements based on chosen mode property.
+display-mode prop must have either of two values: `EDIT` or `VIEW` 
+
+<SplitTab>
+  <DisplayModeExample slot="example" />
+  <<< @/docs/.vuepress/components/DisplayModeExample.vue
+</SplitTab>
