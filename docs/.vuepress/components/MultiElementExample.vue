@@ -12,10 +12,10 @@
 <script>
 import OutputDisplay from './OutputDisplay'
 import SchemaForm from '../../../src/SchemaForm'
-import MultiElementWrapper from '../../../src/form-elements/MultiElementWrapper'
-import FormText from '../../../src/form-elements/FormText'
-import FormSelect from '../../../src/form-elements/FormSelect'
-import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import MultiElementWrapper from './form-elements/MultiElementWrapper'
+import FormText from './form-elements/FormText'
+import FormSelect from './form-elements/FormSelect'
+import FormCheckbox from './form-elements/FormCheckbox'
 
 const SCHEMA = {
   firstName: {

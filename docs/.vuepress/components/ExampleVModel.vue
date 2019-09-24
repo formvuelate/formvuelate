@@ -11,9 +11,9 @@
 
 <script>
 import OutputDisplay from './OutputDisplay'
-import FormText from '../../../src/form-elements/FormText'
-import FormSelect from '../../../src/form-elements/FormSelect'
-import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import FormText from './form-elements/FormText'
+import FormSelect from './form-elements/FormSelect'
+import FormCheckbox from './form-elements/FormCheckbox'
 
 const SCHEMA = {
   firstName: {
