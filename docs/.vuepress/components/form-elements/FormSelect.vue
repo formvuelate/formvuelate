@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import FormMixin from '../FormMixin'
+import FormMixin from '../../../../src/FormMixin'
 
 export default {
   mixins: [FormMixin],
