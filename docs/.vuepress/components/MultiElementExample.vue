@@ -16,6 +16,7 @@ import MultiElementWrapper from '../../../src/form-elements/MultiElementWrapper'
 import FormText from '../../../src/form-elements/FormText'
 import FormSelect from '../../../src/form-elements/FormSelect'
 import FormCheckbox from '../../../src/form-elements/FormCheckbox'
+import FormTextArea from "../../../src/form-elements/FormTextArea";
 
 const SCHEMA = {
   firstName: {
@@ -32,6 +33,13 @@ const SCHEMA = {
     required: true,
     config: {
       type: 'email'
+    }
+  },
+  description: {
+    component: FormTextArea,
+    label: 'Description',
+    config: {
+      rows: 4
     }
   },
   favoriteThingAboutVue: {
