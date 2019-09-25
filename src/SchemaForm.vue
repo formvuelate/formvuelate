@@ -69,7 +69,7 @@ export default {
     binds (field) {
       return field.schema
         ? { schema: field.schema }
-        : { ...field, ...this.sharedConfig }
+        : { ...this.sharedConfig, ...field }
     },
     val (field) {
       if (field.schema && !this.value[field.model]) {
