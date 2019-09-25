@@ -8,6 +8,7 @@
       :type="config.type"
       :required="required"
       :id="label"
+      :disabled="readOnly"
       @input="update($event.target.value)"
     >
   </div>
@@ -26,7 +27,16 @@ export default {
     config: {
       type: Object,
       default: () => ({ type: 'text' })
+    },
+    readOnly: {
+      type: Boolean,
+      default: false
     }
   }
 }
 </script>
+
+<style lang="stylus">
+input:disabled
+  background-color: lightgrey
+</style>

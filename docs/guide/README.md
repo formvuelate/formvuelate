@@ -196,11 +196,22 @@ const SCHEMA = {
 
 ### MultiElement
 
-The SchemaForm can handle custom components that wrap two or more child inputs.
+The `SchemaForm` can handle custom components that wrap two or more child inputs.
 They must emit the `update-batch` event with an object payload that has the values for each of the inputs.
 
 
 <SplitTab>
   <MultiElementExample slot="example" />
   <<< @/docs/.vuepress/components/MultiElementExample.vue
+</SplitTab>
+
+### Shared Config
+
+The `SchemaForm` includes a prop `sharedConfig` that applies a configuration object to all the elements in the form. 
+
+In the following example, the prop `readOnly` is being globally applied to all the child components in the form, the `FormText` component disables and changes the color of the background when `readOnly` is set to true internally.
+
+<SplitTab>
+  <SharedConfigExample slot="example" />
+  <<< @/docs/.vuepress/components/SharedConfigExample.vue
 </SplitTab>
