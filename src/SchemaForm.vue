@@ -32,6 +32,10 @@ export default {
     value: {
       type: Object,
       required: true
+    },
+    sharedConfig: {
+      type: Object,
+      required: false
     }
   },
   computed: {
@@ -65,7 +69,7 @@ export default {
     binds (field) {
       return field.schema
         ? { schema: field.schema }
-        : field
+        : { ...this.sharedConfig, ...field }
     },
     val (field) {
       if (field.schema && !this.value[field.model]) {
