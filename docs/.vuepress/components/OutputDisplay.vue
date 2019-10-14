@@ -10,7 +10,7 @@ import VueJsonPretty from 'vue-json-pretty'
 export default {
   components: { VueJsonPretty },
   props: {
-    data: { type: Object, required: true }
+    data: { type: [Object, Array], required: true }
   }
 }
 </script>
