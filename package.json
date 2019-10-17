@@ -35,7 +35,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-e2e-cypress": "^3.5.0",
     "@vue/cli-plugin-eslint": "^3.11.0",
     "@vue/cli-plugin-unit-jest": "^3.11.0",
