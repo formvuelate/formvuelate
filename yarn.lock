@@ -1333,14 +1333,14 @@
     "@vue/cli-shared-utils" "^4.0.3"
 
 "@vue/cli-plugin-unit-jest@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-4.0.3.tgz#8fa7a5b280325ddb9455104985c719c44768d370"
-  integrity sha512-7IAIJNJK+VJzaEVb9rStR/E9ga3cQKuthwz1wDFJUHyXNP3fuVQ0H6WuMLRs0c2QdEtV+zoWBpQwr++jf6PXJQ==
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-4.0.4.tgz#c9496fc7a33f101daaecf67a83959c0155b4c19f"
+  integrity sha512-+Du5Wv/NfvdbGC2t+orfGZg3dAMwAkRW0tk39DvVxb2IR4+pfQf9VDfqXnPlEBesLPaUz/YFH2KB+OQS/slFSA==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-transform-modules-commonjs" "^7.4.4"
     "@types/jest" "^24.0.18"
-    "@vue/cli-shared-utils" "^4.0.3"
+    "@vue/cli-shared-utils" "^4.0.4"
     babel-core "^7.0.0-bridge.0"
     babel-jest "^24.9.0"
     babel-plugin-transform-es2015-modules-commonjs "^6.26.2"
@@ -1421,28 +1421,10 @@
     webpack-dev-server "^3.4.1"
     webpack-merge "^4.2.1"
 
-"@vue/cli-shared-utils@^3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-3.12.0.tgz#48fcd786129cf02278b9c91f2c3491199f777248"
-  integrity sha512-8XEn4s0Cc+98eqdGSQJSrzSKIsf0FMDmfDvgXjT7I2qZWs9e0toOAm7RooypRSad2FhwxzY2bLPgCkNPDJN/jQ==
-  dependencies:
-    "@hapi/joi" "^15.0.1"
-    chalk "^2.4.1"
-    execa "^1.0.0"
-    launch-editor "^2.2.1"
-    lru-cache "^5.1.1"
-    node-ipc "^9.1.1"
-    open "^6.3.0"
-    ora "^3.4.0"
-    request "^2.87.0"
-    request-promise-native "^1.0.7"
-    semver "^6.0.0"
-    string.prototype.padstart "^3.0.0"
-
-"@vue/cli-shared-utils@^4.0.0", "@vue/cli-shared-utils@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-4.0.3.tgz#10cc29e8caa3f14cffc0416ddf804cf4d10197b9"
-  integrity sha512-MqNg13fDCfzPmj83Wx8115dlGcvpLXGxL0ZFI+0UgO6kpR+RHvjE/yVpr0a/yW5XqQidUZFN6nY2WaA28wGI+Q==
+"@vue/cli-shared-utils@^4.0.0", "@vue/cli-shared-utils@^4.0.3", "@vue/cli-shared-utils@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-4.0.4.tgz#ef94325c3954eaac60ca4af9a6de355131ae6e3f"
+  integrity sha512-f8a9MxZJ89zw783gk2yjG6wPu5IHnmrH8whc1jMJhWNKxRTgCkUxevPVQIobiWy1UtMBdDXXOLxd4PRNK9nyxQ==
   dependencies:
     "@hapi/joi" "^15.0.1"
     chalk "^2.4.1"
