@@ -1306,13 +1306,13 @@
     webpack "^4.0.0"
 
 "@vue/cli-plugin-e2e-cypress@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-e2e-cypress/-/cli-plugin-e2e-cypress-4.0.3.tgz#418970fe582d716f90459cb4a2b106434f46da3f"
-  integrity sha512-2s0EF9YU+jlHSXORSp47/cfNzw+RKI0/7OAaNYI7UY4g1bIE/iWCMrrmozOPZQmzI6a3x2mXHgzQV5oFEUqs3Q==
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-e2e-cypress/-/cli-plugin-e2e-cypress-4.0.5.tgz#81bff4881b306214f46c608f236073358c97589a"
+  integrity sha512-OUIxVV6Sp5FyfJVLV5zzLAm8lC6pP5LFqBVa6akM3OP4mzxWkdIbhJ3/7mZGCDZoHX5vsZkp6eSE3uAWp6pA8A==
   dependencies:
-    "@vue/cli-shared-utils" "^4.0.3"
+    "@vue/cli-shared-utils" "^4.0.5"
     cypress "^3.3.1"
-    eslint-plugin-cypress "^2.2.1"
+    eslint-plugin-cypress "^2.7.0"
 
 "@vue/cli-plugin-eslint@^4.0.1":
   version "4.0.3"
@@ -4291,10 +4291,10 @@ eslint-module-utils@^2.4.0:
     debug "^2.6.8"
     pkg-dir "^2.0.0"
 
-eslint-plugin-cypress@^2.2.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.6.1.tgz#b2728663319709c57d21ee7d0dc055edc341dcaf"
-  integrity sha512-OVdxKbQ5DGcAGxvgZJRng7g01w/4xqEk65FGc8xELMcTdTjzh1m7FFjEQSglv1Y/TIDsOHaA5b+/ojQp4I2QhA==
+eslint-plugin-cypress@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-cypress/-/eslint-plugin-cypress-2.7.0.tgz#117f14ce63698e4c4f3afea3d7e27025c8d504f0"
+  integrity sha512-52Lq5ePCD/8jc536e1RqtLfj33BAy1s7BlYgCjbG39J5kqUitcTlRY5i3NRoeAyPHueDwETsq0eASF44ugLosQ==
   dependencies:
     globals "^11.12.0"
 
