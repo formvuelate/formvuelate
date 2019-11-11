@@ -179,6 +179,12 @@ const SCHEMA = {
   <<< @/docs/.vuepress/components/ExampleVModel.vue
 </SplitTab>
 
+### Modal Example
+<SplitTab>
+  <ModalExample slot="example" />
+  <<< @/docs/.vuepress/components/ModalExample.vue
+</SplitTab>
+
 ### Formception
 
 
