@@ -3,9 +3,15 @@
     <BaseButton class="baseButton" type="button" @click="modalShown = !modalShown">Email</BaseButton>
 
     <Modal v-if="modalShown">
-      <p>Configure your email:</p>
-      <FormText label="Title" v-model="values.title" />
-      <FormText label="Content" v-model="values.content" />
+      <template v-if="!schema">
+        <p>Configure your email:</p>
+        <FormText label="Title" v-model="values.title" />
+        <FormText label="Content" v-model="values.content" />
+      </template>
+
+      <template v-if="schema">
+        <SchemaForm :schema="schema" v-model="values" />
+      </template>
 
       <BaseButton @click="save">Save</BaseButton>
       <BaseButton @click="modalShown = false">Cancel</BaseButton>
@@ -21,16 +27,13 @@ import Modal from './Modal';
 export default {
   components: { Modal, BaseButton, FormText },
   props: {
-    value: { type: Object, required: true },
-
+    value: { required: true },
+    schema: { type: Object, required: false }
   },
   data() {
     return {
       modalShown: false,
-      values: {
-        title: '',
-        content: ''
-      }
+      values: {...this.value}
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
   <div class="curtain">
     <div class="modal">
-      <slot />
+      <slot/>
     </div>
   </div>
 </template>
