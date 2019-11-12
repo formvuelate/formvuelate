@@ -164,12 +164,12 @@ const SCHEMA = {
 />
 ```
 
-#### Result 
-
 <SplitTab>
   <ExampleVModel slot="example"/>
   <<< @/docs/.vuepress/components/ExampleVModel.vue
 </splitTab>
+
+<hr/>
 
 ### With Array Schema
 Your schema can be built in two ways, the first way as showcased by other examples is to set up a wrapper object, in which each `property` of this object is the definition of each of the form's components.
@@ -195,6 +195,8 @@ let schema = [
   <<< @/docs/.vuepress/components/ArrayExample.vue
 </SplitTab>
 
+<hr/>
+
 ### V-Model Example
 `SchemaForm` can be used in conjunction with `v-model` to bind the results of the form with your state.
 
@@ -202,6 +204,8 @@ let schema = [
   <ExampleVModel slot="example" />
   <<< @/docs/.vuepress/components/ExampleVModel.vue
 </SplitTab>
+
+<hr/>
 
 ### Modal Example
 This example showcases the `SchemaForm`s ability to handle a complex component in the schema. We add an `EmailModal` component to the schema, which displays a `<button>` in the form, when clicked, this button opens a modal with two input fields. 
@@ -259,6 +263,8 @@ export default {
   <ModalExample slot="example" />
   <<< @/docs/.vuepress/components/ModalExample.vue
 </SplitTab>
+
+<hr/>
 
 ### Schema Modal/Nested Example
 `SchemaForm` can even be used in conjunction inside components as a sub-renderer. 
@@ -328,11 +334,15 @@ export default {
   <<< @/docs/.vuepress/components/SchemaModalExample.vue
 </SplitTab>
 
+<hr/>
+
 ### Formception
 <SplitTab>
   <Formception slot="example" />
   <<< @/docs/.vuepress/components/Formception.vue
 </SplitTab>
+
+<hr/>
 
 ### Schema Wizard
 
@@ -341,16 +351,19 @@ export default {
   <<< @/docs/.vuepress/components/WizardExample.vue
 </SplitTab>
 
+<hr/>
+
 ### MultiElement
 
 The `SchemaForm` can handle custom components that wrap two or more child inputs.
 They must emit the `update-batch` event with an object payload that has the values for each of the inputs.
 
-
 <SplitTab>
   <MultiElementExample slot="example" />
   <<< @/docs/.vuepress/components/MultiElementExample.vue
 </SplitTab>
+
+<hr/>
 
 ### Shared Config
 
