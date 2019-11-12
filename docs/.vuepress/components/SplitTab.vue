@@ -47,7 +47,7 @@
 export default {
   data () {
     return {
-      display: 'example'
+      display: 'both'
     }
   },
   computed: {
@@ -98,7 +98,11 @@ export default {
   & > div
     padding: 0 10px
     flex-grow: 1
-    width: 50%
+
+  & > div:first-of-type
+    width: 350px
+    flex: 1
+    margin-right: 10px
 
 .split-example
   margin: 0.85rem 0
