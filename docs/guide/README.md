@@ -125,7 +125,9 @@ Here you will find a few examples on how you can set up your `schema` and the ou
 Please note: We are using a few different custom components to showcase, but you should use your own! 😉
 
 ### Basic Usage
-In this example you can see `SchemaForm` being used in its simplest form. A local SCHEMA is created, and passed into the `schema` property, which in return renders the function.
+In this example you can see `SchemaForm` being used in its simplest form. 
+
+A local SCHEMA is created, and passed into the `schema` property, which in return renders the function.
 
 #### Schema
 
@@ -170,6 +172,24 @@ const SCHEMA = {
 </splitTab>
 
 ### With Array Schema
+Your schema can be built in two ways, the first way as showcased by other examples is to set up a wrapper object, in which each `property` of this object is the definition of each of the form's components.
+
+```js
+let schema = {
+  nameOfMyComponent: { component: MyCoolComp, label: 'My label' },
+  firstName: { component: FormText, label: 'First name' }
+}
+```
+
+`SchemaForm` also allows you a second way of constructing your schema by setting it as an array of objects. The key difference to observe, other than the actual schema being an `array`, is that each of the elements inside the array must contain a `model` property that defines the name of the element, and also the name of the `key` of the data that is returned.
+
+```js
+let schema = [
+  { model: 'nameOfMyComponent', component: MyCoolComp, label: 'My label' },
+  { model: 'firstName', component: FormText, label: 'First name' }
+]
+```
+
 <SplitTab>
   <ArrayExample slot="example" />
   <<< @/docs/.vuepress/components/ArrayExample.vue
