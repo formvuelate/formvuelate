@@ -266,7 +266,7 @@ export default {
 
 <hr/>
 
-### Formception/Nested SchemaForms
+### Nested SchemaForms
 Similarly to the Nested Schema Modal example, you can also pass in a `SchemaForm` component directly to your schema, with a schema property of itself. 
 
 Be aware that the data provided by the nested `SchemaForm` will also be nested in the output data.
