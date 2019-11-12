@@ -120,9 +120,12 @@ Once you've imported the mixin to your components, make sure your component make
 The `update` method `$emit`s the `input` event with whatever value you pass to it.
 
 ## Examples
-Here you will find a few examples on how you can set up your `schema` and the output it would produce. We are using three different custom components to showcase, but you should use your own! 😉
+Here you will find a few examples on how you can set up your `schema` and the output it would produce. 
+
+Please note: We are using a few different custom components to showcase, but you should use your own! 😉
 
 ### Basic Usage
+In this example you can see `SchemaForm` being used in its simplest form. A local SCHEMA is created, and passed into the `schema` property, which in return renders the function.
 
 #### Schema
 
