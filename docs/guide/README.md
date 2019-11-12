@@ -260,7 +260,69 @@ export default {
   <<< @/docs/.vuepress/components/ModalExample.vue
 </SplitTab>
 
-### Schema Modal Example
+### Schema Modal/Nested Example
+`SchemaForm` can even be used in conjunction inside components as a sub-renderer. 
+
+In this example, we have added a property `schema` to the `EmailModal`, if this property is set with a schema of itself, it will render additional input fields on our modal by making use of a nested `SchemaForm` component.
+
+Notice in the `EmailModal.vue` example that we now render a sub instance of `<SchemaForm>` when the `schema` property is set. 
+
+The actual schema in the example now includes a `schema` property for `EmailModal` that nests a schema of its own.
+
+```html
+<!-- EmailModal.vue -->
+<template>
+  <div>
+    <BaseButton class="baseButton" type="button" @click="modalShown = !modalShown">Email</BaseButton>
+
+    <Modal v-if="modalShown">
+      <template v-if="!schema">
+        <p>Configure your email:</p>
+        <FormText label="Title" v-model="values.title" />
+        <FormText label="Content" v-model="values.content" />
+      </template>
+
+      <template v-if="schema">
+        <SchemaForm :schema="schema" v-model="values" />
+      </template>
+
+      <BaseButton @click="save">Save</BaseButton>
+      <BaseButton @click="modalShown = false">Cancel</BaseButton>
+    </Modal>
+  </div>
+</template>
+
+<script>
+import FormText from './FormText';
+import BaseButton from './BaseButton';
+import Modal from './Modal';
+
+export default {
+  components: { Modal, BaseButton, FormText },
+  props: {
+    value: { required: true },
+    schema: { type: Object, required: false }
+  },
+  data() {
+    return {
+      modalShown: false,
+      values: {...this.value}
+    }
+  },
+  methods: {
+    save() {
+      this.$emit('input', {
+        ...this.value,
+        ...this.values
+      });
+
+      this.modalShown = false
+    }
+  }
+}
+</script>
+```
+
 <SplitTab>
   <SchemaModalExample slot="example" />
   <<< @/docs/.vuepress/components/SchemaModalExample.vue
