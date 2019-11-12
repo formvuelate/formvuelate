@@ -6,12 +6,12 @@
       @input="mergeChanges"
     />
 
-    <OutputDisplay :data="userData" />
+    <JSONDisplay :data="userData" />
   </div>
 </template>
 
 <script>
-import OutputDisplay from './OutputDisplay'
+import JSONDisplay from './JSONDisplay'
 import FormText from './form-elements/FormText'
 import FormSelect from './form-elements/FormSelect'
 import FormCheckbox from './form-elements/FormCheckbox'

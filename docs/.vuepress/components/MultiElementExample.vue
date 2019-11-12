@@ -5,12 +5,12 @@
       v-model="userData"
     />
 
-    <OutputDisplay :data="userData" />
+    <JSONDisplay :data="userData" />
   </div>
 </template>
 
 <script>
-import OutputDisplay from './OutputDisplay'
+import JSONDisplay from './JSONDisplay'
 import SchemaForm from '../../../src/SchemaForm'
 import MultiElementWrapper from './form-elements/MultiElementWrapper'
 import FormText from './form-elements/FormText'
@@ -54,7 +54,7 @@ const SCHEMA = {
 }
 
 export default {
-  components: { OutputDisplay },
+  components: { JSONDisplay },
   data() {
     return {
       userData: {}

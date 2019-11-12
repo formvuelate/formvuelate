@@ -6,12 +6,12 @@
       :sharedConfig="sharedConfig"
     />
 
-    <OutputDisplay :data="userData" />
+    <JSONDisplay :data="userData" />
   </div>
 </template>
 
 <script>
-import OutputDisplay from './OutputDisplay'
+import JSONDisplay from './JSONDisplay'
 import FormText from './form-elements/FormText'
 import FormSelect from './form-elements/FormSelect'
 import FormCheckbox from './form-elements/FormCheckbox'
@@ -50,7 +50,7 @@ const SCHEMA = {
 }
 
 export default {
-  components: { OutputDisplay },
+  components: { JSONDisplay },
   data () {
     return {
       userData: {},

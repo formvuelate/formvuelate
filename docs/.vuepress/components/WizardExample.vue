@@ -15,14 +15,14 @@
         @click="step--">Back</button>
     </SchemaWizard>
 
-    <OutputDisplay
+    <JSONDisplay
       :data="userData"
     />
   </div>
 </template>
 
 <script>
-import OutputDisplay from './OutputDisplay'
+import JSONDisplay from './JSONDisplay'
 import FormText from './form-elements/FormText'
 import FormSelect from './form-elements/FormSelect'
 import FormCheckbox from './form-elements/FormCheckbox'
