@@ -204,6 +204,57 @@ let schema = [
 </SplitTab>
 
 ### Modal Example
+This example showcases the `SchemaForm`s ability to handle a complex component in the schema. We add an `EmailModal` component to the schema, which displays a `<button>` in the form, when clicked, this button opens a modal with two input fields. 
+
+As long as the component can handle the `value` injection from the `SchemaForm`, and fires an `input` event when the internal data changes, `SchemaForm` will be able to handle the change and append it to the form's data.
+
+```html
+<!-- EmailModal.vue  -->
+<template>
+  <div>
+    <BaseButton class="baseButton" type="button" @click="modalShown = !modalShown">Email</BaseButton>
+
+    <Modal v-if="modalShown">
+      <p>Configure your email:</p>
+      <FormText label="Title" v-model="values.title" />
+      <FormText label="Content" v-model="values.content" />
+
+      <BaseButton @click="save">Save</BaseButton>
+      <BaseButton @click="modalShown = false">Cancel</BaseButton>
+    </Modal>
+  </div>
+</template>
+
+<script>
+import FormText from './FormText';
+import BaseButton from './BaseButton';
+import Modal from './Modal';
+
+export default {
+  components: { Modal, BaseButton, FormText },
+  props: {
+    value: { required: true }
+  },
+  data() {
+    return {
+      modalShown: false,
+      values: {...this.value}
+    }
+  },
+  methods: {
+    save() {
+      this.$emit('input', {
+        ...this.value,
+        ...this.values
+      });
+
+      this.modalShown = false
+    }
+  }
+}
+</script>
+```
+
 <SplitTab>
   <ModalExample slot="example" />
   <<< @/docs/.vuepress/components/ModalExample.vue
