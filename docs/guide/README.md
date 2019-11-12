@@ -266,7 +266,19 @@ export default {
 
 <hr/>
 
-### Schema Modal/Nested Example
+### Formception/Nested SchemaForms
+Similarly to the Nested Schema Modal example, you can also pass in a `SchemaForm` component directly to your schema, with a schema property of itself. 
+
+Be aware that the data provided by the nested `SchemaForm` will also be nested in the output data.
+
+<SplitTab>
+  <Formception slot="example" />
+  <<< @/docs/.vuepress/components/Formception.vue
+</SplitTab>
+
+<hr/>
+
+### Schema Modal with Nested Example
 `SchemaForm` can even be used in conjunction inside components as a sub-renderer. 
 
 In this example, we have added a property `schema` to the `EmailModal`, if this property is set with a schema of itself, it will render additional input fields on our modal by making use of a nested `SchemaForm` component.
@@ -332,14 +344,6 @@ export default {
 <SplitTab>
   <SchemaModalExample slot="example" />
   <<< @/docs/.vuepress/components/SchemaModalExample.vue
-</SplitTab>
-
-<hr/>
-
-### Formception
-<SplitTab>
-  <Formception slot="example" />
-  <<< @/docs/.vuepress/components/Formception.vue
 </SplitTab>
 
 <hr/>
