@@ -1,7 +1,8 @@
 <template>
   <div class="output">
     <p>Formatted Output:</p>
-    <VueJsonPretty :data="data" />
+    <VueJsonPretty :data="data" v-if="Object.keys(data).length" />
+    <div class="no-data" v-else>No data yet!</div>
   </div>
 </template>
 
@@ -18,4 +19,7 @@ export default {
 <style lang="stylus">
 .output
   max-width: 35rem
+
+  .no-data
+    color: lightgrey
 </style>
