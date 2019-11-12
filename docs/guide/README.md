@@ -348,15 +348,6 @@ export default {
 
 <hr/>
 
-### Schema Wizard
-
-<SplitTab>
-  <WizardExample slot="example" />
-  <<< @/docs/.vuepress/components/WizardExample.vue
-</SplitTab>
-
-<hr/>
-
 ### MultiElement
 
 The `SchemaForm` can handle custom components that wrap two or more child inputs.
@@ -378,4 +369,18 @@ In the following example, the prop `readOnly` is being globally applied to all t
 <SplitTab>
   <SharedConfigExample slot="example" />
   <<< @/docs/.vuepress/components/SharedConfigExample.vue
+</SplitTab>
+
+<hr/>
+
+### Schema Wizard
+**FormVueLatte** ships also with a `SchemaWizard` object, which takes an `array` of schema objects, and a `step` property which is 0 based.
+
+It will render the correct `SchemaForm` based on the current `step`, and is fully `v-model` ready.
+
+It exposes a `default` slot that can be used to add control buttons for next and back, if necessary.
+
+<SplitTab>
+  <WizardExample slot="example" />
+  <<< @/docs/.vuepress/components/WizardExample.vue
 </SplitTab>
