@@ -196,6 +196,7 @@ let schema = [
 </SplitTab>
 
 ### V-Model Example
+`SchemaForm` can be used in conjunction with `v-model` to bind the results of the form with your state.
 
 <SplitTab>
   <ExampleVModel slot="example" />
