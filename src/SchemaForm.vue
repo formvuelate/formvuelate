@@ -18,7 +18,54 @@
 </template>
 
 <script>
+import { computed } from '@vue/composition-api'
+
 export default {
+  setup (props, context) {
+    const parsedSchema = computed(() => {
+      if (Array.isArray(props.schema)) return props.schema
+
+      const arraySchema = []
+      for (let model in props.schema) {
+        arraySchema.push({
+          ...props.schema[model],
+          model
+        })
+      }
+
+      return arraySchema
+    })
+
+    const update = (property, value) => {
+      context.emit('input', {
+        ...props.value,
+        [property]: value
+      })
+    }
+
+    const updateBatch = (property, values) => {
+      context.emit('input', {
+        ...props.value,
+        ...values
+      })
+    }
+
+    const binds = (field) => {
+      return field.schema
+        ? { schema: field.schema }
+        : { ...props.sharedConfig, ...field }
+    }
+
+    const val = (field) => {
+      if (field.schema && !props.value[field.model]) {
+        return {}
+      }
+
+      return props.value[field.model]
+    }
+
+    return { parsedSchema, val, binds, update, updateBatch }
+  },
   props: {
     schema: {
       type: [Object, Array],
@@ -36,47 +83,6 @@ export default {
     sharedConfig: {
       type: Object,
       required: false
-    }
-  },
-  computed: {
-    parsedSchema () {
-      if (Array.isArray(this.schema)) return this.schema
-
-      const arraySchema = []
-      for (let model in this.schema) {
-        arraySchema.push({
-          ...this.schema[model],
-          model
-        })
-      }
-
-      return arraySchema
-    }
-  },
-  methods: {
-    update (property, value) {
-      this.$emit('input', {
-        ...this.value,
-        [property]: value
-      })
-    },
-    updateBatch (property, values) {
-      this.$emit('input', {
-        ...this.value,
-        ...values
-      })
-    },
-    binds (field) {
-      return field.schema
-        ? { schema: field.schema }
-        : { ...this.sharedConfig, ...field }
-    },
-    val (field) {
-      if (field.schema && !this.value[field.model]) {
-        return {}
-      }
-
-      return this.value[field.model]
     }
   }
 }
