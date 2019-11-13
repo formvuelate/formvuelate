@@ -4,7 +4,7 @@
       <input
         type="checkbox"
         :checked="value"
-        @input="update($event.target.checked)"
+        @input="$emit('input', $event.target.checked)"
       >
       {{ label }}
     </label>
@@ -12,11 +12,9 @@
 </template>
 
 <script>
-import FormMixin from '../../../../src/FormMixin'
-
 export default {
-  mixins: [ FormMixin ],
   props: {
+    value: { required: true },
     label: {
       type: String,
       required: true

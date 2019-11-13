@@ -87,37 +87,55 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 </script>
 ```
 
-## Component Requirements and the FormMixin
+## Component Requirements
 Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
 
-In order for `SchemaForm` to understand **your components**, they need to use the `FormMixin` mixin that FormVueLatte provides. 
+Your component will receive a `value` property from the `SchemaFrom` that should be used to bind to the input's value. The component should also comply to `v-model` structure by `emit`ting an `input` event with the updated value for the component.
 
+For custom components that wrap two or more input elements, `SchemaForm` will inject an object into the `value` property, with a property per each one of the inputs.
+
+Ex:
 ```js
-// FormText.vue
-import { FormMixin } from 'formvuelatte'
-export default {
-  [...]
-  mixins: [ FormMixin ],
-  [...]
+input: {
+  firstName: '',
+  lastName: ''
 }
 ```
 
-In its simplest form, make sure that when your `form element` wants to make a change to the `value`, it calls the `update` method with the new value.
+These components need to `emit` an `update-batch` event instead, where the payload is an object with this same structure.
 
-Here's an example using the `<input>` tag.
+An example component that wraps two text elements follows.
 
 ```html
-<input
-    :value="value"
-    @input="update($event.target.value)"
-/>
+<template>
+  <div>
+    <FormText label="Favorite color" :value="form.color" @input="textInput('color', $event)"></FormText>
+    <FormText label="Favorite song" :value="form.song" @input="textInput('song', $event)"></FormText>
+  </div>
+</template>
+
+<script>
+import FormText from './FormText'
+
+export default {
+  components: { FormText },
+  data () {
+    return {
+      form: {
+        color: '',
+        song: ''
+      }
+    }
+  },
+  methods: {
+    textInput (field, e) {
+      this.$set(this.form, field, e)
+      this.$emit('update-batch', this.form)
+    }
+  }
+}
+</script>
 ```
-
-The `FormMixin` adds a required `value` property to your component (for it to comply with v-model capabilities).
-
-Once you've imported the mixin to your components, make sure your component makes use of the `update` method provided by the mixin.
-
-The `update` method `$emit`s the `input` event with whatever value you pass to it.
 
 ## Examples
 Here you will find a few examples on how you can set up your `schema` and the output it would produce. 
