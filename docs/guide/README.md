@@ -176,7 +176,7 @@ Your schema can be built in two ways, the first way as showcased by other exampl
 
 ```js
 let schema = {
-  nameOfMyComponent: { component: MyCoolComp, label: 'My label' },
+  nameOfMyModelProperty: { component: MyCoolComp, label: 'My label' },
   firstName: { component: FormText, label: 'First name' }
 }
 ```
@@ -185,7 +185,7 @@ let schema = {
 
 ```js
 let schema = [
-  { model: 'nameOfMyComponent', component: MyCoolComp, label: 'My label' },
+  { model: 'nameOfMyModelProperty', component: MyCoolComp, label: 'My label' },
   { model: 'firstName', component: FormText, label: 'First name' }
 ]
 ```
@@ -374,7 +374,7 @@ In the following example, the prop `readOnly` is being globally applied to all t
 <hr/>
 
 ### Schema Wizard
-**FormVueLatte** ships also with a `SchemaWizard` object, which takes an `array` of schema objects, and a `step` property which is 0 based.
+**FormVueLatte** ships also with a `SchemaWizard` component, which takes an `array` of schema objects, and a `step` property which is 0 based.
 
 It will render the correct `SchemaForm` based on the current `step`, and is fully `v-model` ready.
 
