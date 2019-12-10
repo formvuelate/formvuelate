@@ -14,8 +14,6 @@ import JSONDisplay from './JSONDisplay'
 import SchemaForm from '../../../src/SchemaForm'
 import MultiElementWrapper from './form-elements/MultiElementWrapper'
 import FormText from './form-elements/FormText'
-import FormSelect from './form-elements/FormSelect'
-import FormCheckbox from './form-elements/FormCheckbox'
 
 const SCHEMA = {
   firstName: {
@@ -34,20 +32,6 @@ const SCHEMA = {
       type: 'email'
     }
   },
-  favoriteThingAboutVue: {
-    component: FormSelect,
-    label: 'Favorite thing about Vue',
-    required: true,
-    options: [
-      'Ease of use',
-      'Documentation',
-      'Community'
-    ]
-  },
-  isVueFan: {
-    component: FormCheckbox,
-    label: 'Are you a Vue fan?'
-  },
   favorites: {
     component: MultiElementWrapper
   }
@@ -57,22 +41,10 @@ export default {
   components: { JSONDisplay },
   data() {
     return {
-      userData: {}
+      userData: {},
+      schema: SCHEMA
     }
   },
-  computed: {
-    schema () {
-      return this.userData.isVueFan
-        ? {
-            ...SCHEMA,
-            feedback: {
-              component: FormText,
-              label: 'Gimme some feedback'
-            }
-          }
-        : SCHEMA
-    }
-  }
 }
 </script>
 

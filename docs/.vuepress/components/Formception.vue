@@ -33,20 +33,6 @@ const SCHEMA = {
       type: 'email'
     }
   },
-  favoriteThingAboutVue: {
-    component: FormSelect,
-    label: 'Favorite thing about Vue',
-    required: true,
-    options: [
-      'Ease of use',
-      'Documentation',
-      'Community'
-    ]
-  },
-  isVueFan: {
-    component: FormCheckbox,
-    label: 'Are you a Vue fan?'
-  },
   work: {
     component: SchemaForm,
     schema: {
@@ -82,20 +68,8 @@ export default {
   components: { JSONDisplay },
   data () {
     return {
-      userData: {}
-    }
-  },
-  computed: {
-    schema () {
-      return this.userData.isVueFan
-        ? {
-            ...SCHEMA,
-            feedback: {
-              component: FormText,
-              label: 'Gimme some feedback'
-            }
-          }
-        : SCHEMA
+      userData: {},
+      schema: SCHEMA
     }
   },
   methods: {
