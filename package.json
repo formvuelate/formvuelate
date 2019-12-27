@@ -26,7 +26,7 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
+    "build": "vue-cli-service build --target lib --name formvuelatte src/main.js",
     "lint": "vue-cli-service lint",
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
