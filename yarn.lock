@@ -247,7 +247,7 @@
   dependencies:
     "@babel/types" "^7.7.4"
 
-"@babel/helper-module-transforms@^7.1.0", "@babel/helper-module-transforms@^7.4.4":
+"@babel/helper-module-transforms@^7.1.0":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-transforms/-/helper-module-transforms-7.5.5.tgz#f84ff8a09038dcbca1fd4355661a500937165b4a"
   integrity sha512-jBeCvETKuJqeiaCdyaheF40aXnnU1+wkSiUs/IQg3tB85up1LyL8x77ClY8qJpuRJUcXQo+ZtdNESmZl4j56Pw==
@@ -886,17 +886,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     babel-plugin-dynamic-import-node "^2.3.0"
 
-"@babel/plugin-transform-modules-commonjs@^7.2.0", "@babel/plugin-transform-modules-commonjs@^7.6.0":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.6.0.tgz#39dfe957de4420445f1fcf88b68a2e4aa4515486"
-  integrity sha512-Ma93Ix95PNSEngqomy5LSBMAQvYKVe3dy+JlVJSHEXZR5ASL9lQBedMiCyVtmTLraIDVRE3ZjTZvmXXD2Ozw3g==
-  dependencies:
-    "@babel/helper-module-transforms" "^7.4.4"
-    "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/helper-simple-access" "^7.1.0"
-    babel-plugin-dynamic-import-node "^2.3.0"
-
-"@babel/plugin-transform-modules-commonjs@^7.7.4":
+"@babel/plugin-transform-modules-commonjs@^7.2.0", "@babel/plugin-transform-modules-commonjs@^7.6.0", "@babel/plugin-transform-modules-commonjs@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.7.4.tgz#bee4386e550446343dd52a571eda47851ff857a3"
   integrity sha512-k8iVS7Jhc367IcNF53KCwIXtKAH7czev866ThsTgy8CwlXjnKZna2VHwChglzLleYrcHz1eQEIJlGRQxB53nqA==
@@ -1929,14 +1919,14 @@
     "@vue/cli-shared-utils" "^4.1.1"
 
 "@vue/cli-plugin-unit-jest@^4.0.3":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-4.1.1.tgz#481f706e26afbac3787896cd95c7536e04f65dd6"
-  integrity sha512-JLTLdQ2IRUe3iIpHHpp9LHm4/8HiD0QQ9AG136J8exXbZ6TCaLdE5X2W6fZ19wV/eCaQfje3eRAOySN24MReqw==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-unit-jest/-/cli-plugin-unit-jest-4.1.2.tgz#cd6f5ba5e63666b7287082ae3c6c8b1c2782583c"
+  integrity sha512-9DbN/JA37RmZgEczowDJE2pZjS/6nqMoP21hiT2ZgGq0rcfbqtH7/gDjzqkNX/1URaaPPT0PYSNS6lMMur6eAA==
   dependencies:
     "@babel/core" "^7.7.4"
     "@babel/plugin-transform-modules-commonjs" "^7.6.0"
     "@types/jest" "^24.0.19"
-    "@vue/cli-shared-utils" "^4.1.1"
+    "@vue/cli-shared-utils" "^4.1.2"
     babel-core "^7.0.0-bridge.0"
     babel-jest "^24.9.0"
     babel-plugin-transform-es2015-modules-commonjs "^6.26.2"
