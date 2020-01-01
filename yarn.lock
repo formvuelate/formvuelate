@@ -1902,11 +1902,11 @@
     webpack "^4.0.0"
 
 "@vue/cli-plugin-e2e-cypress@^4.0.3":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-e2e-cypress/-/cli-plugin-e2e-cypress-4.1.1.tgz#22f3568655550d031b5b4a44ba796013e1e19c97"
-  integrity sha512-+wxi66LEhO1QycSaoUX2pbBog1MSU8hFaKyqb4v4ob9DuPLyHcGVHoo5tdgb+RkTXIQjSKVptMqgb/OMEivPbg==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-e2e-cypress/-/cli-plugin-e2e-cypress-4.1.2.tgz#7bd7cf67d5b9c78b7af47360c7b83fea3a544934"
+  integrity sha512-F3vve5zAIp8FkMa7kRPCVwRSnubQDjEnD5EfJ1YuFXDkSJ4Y3lwDlA4TKRLZ+SZPbB/1IUMDwEUzBuogYgjCnQ==
   dependencies:
-    "@vue/cli-shared-utils" "^4.1.1"
+    "@vue/cli-shared-utils" "^4.1.2"
     cypress "^3.3.1"
     eslint-plugin-cypress "^2.7.0"
 
