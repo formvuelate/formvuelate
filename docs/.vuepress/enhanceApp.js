@@ -8,6 +8,6 @@ export default ({
 }) => {
   Vue.use(CompositionAPI)
 
-  Vue.component('SchemaForm', SchemaForm)
+  // Vue.component('SchemaForm', SchemaForm)
   Vue.component('SchemaWizard', SchemaWizard)
 }

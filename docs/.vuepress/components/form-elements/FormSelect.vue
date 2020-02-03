@@ -22,7 +22,10 @@
 </template>
 
 <script>
+import FormMixin from '../../../../src/FormMixin'
+
 export default {
+  mixins: [FormMixin],
   props: {
     value: { required: true },
     label: { type: String, required: true },

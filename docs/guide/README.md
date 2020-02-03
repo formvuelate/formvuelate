@@ -1,7 +1,7 @@
 ---
 sidebar: auto
 ---
-
+<!-- 
 ## Getting Started
 
 FormVueLatte is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       formData: {},
-      mySchema: { 
+      mySchema: {
         //some schema here
       }
     }
@@ -138,7 +138,7 @@ export default {
 ```
 
 ## Examples
-Here you will find a few examples on how you can set up your `schema` and the output it would produce. 
+Here you will find a few examples on how you can set up your `schema` and the output it would produce.
 
 Please note: We are using a few different custom components to showcase, but you should use your own! 😉
 
@@ -180,7 +180,7 @@ const SCHEMA = {
 />
 ```
 
-#### Result 
+#### Result
 
 <SplitTab>
   <ExampleVModel slot="example"/>
@@ -238,11 +238,18 @@ They must emit the `update-batch` event with an object payload that has the valu
 
 ### Shared Config
 
-The `SchemaForm` includes a prop `sharedConfig` that applies a configuration object to all the elements in the form. 
+The `SchemaForm` includes a prop `sharedConfig` that applies a configuration object to all the elements in the form.
 
 In the following example, the prop `readOnly` is being globally applied to all the child components in the form, the `FormText` component disables and changes the color of the background when `readOnly` is set to true internally.
 
 <SplitTab>
   <SharedConfigExample slot="example" />
   <<< @/docs/.vuepress/components/SharedConfigExample.vue
+</SplitTab> -->
+
+### Plugins
+
+<SplitTab>
+  <PluginExample slot="example" />
+  <<< @/docs/.vuepress/components/PluginExample.vue
 </SplitTab>

@@ -11,6 +11,7 @@
         @input="update(field.model, $event)"
         @update-batch="updateBatch(field.model, $event)"
       />
+      {{ $v.$errors }}
       <slot/>
     </form>
     <slot name="afterForm"></slot>

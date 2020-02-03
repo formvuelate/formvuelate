@@ -1515,6 +1515,16 @@
   resolved "https://registry.yarnpkg.com/@vue/web-component-wrapper/-/web-component-wrapper-1.2.0.tgz#bb0e46f1585a7e289b4ee6067dcc5a6ae62f1dd1"
   integrity sha512-Xn/+vdm9CjuC9p3Ae+lTClNutrVhsXpzxvoTXXtoys6kVRX9FkueSUAqSWAyZntmVLlR4DosBV4pH8y5Z/HbUw==
 
+"@vuelidate/core@^2.0.0-alpha.0":
+  version "2.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@vuelidate/core/-/core-2.0.0-alpha.0.tgz#46d9c876b48ddeef99bbdc15f4b68299fd2127f2"
+  integrity sha512-UjNlsv+jmNkQG4xfAy7yEZk0bpx+XG2QHiR7krvh1H9+Lc4dr70wlHUDXD0Pi1mIjm+AjdHGHOdCKaFqTMn/mQ==
+
+"@vuelidate/validators@^2.0.0-alpha.0":
+  version "2.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@vuelidate/validators/-/validators-2.0.0-alpha.0.tgz#e136c4c5dae73c361124ee8d78729065f6193756"
+  integrity sha512-k7kuWuBeOPFUkyJCtaCsjOCqZ0fpC9SVDhOjvkG6zKBXBPIoORCvXK8BJq0ZaTkkIsF/26mytc9zxEjaTkjBdQ==
+
 "@vuepress/core@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@vuepress/core/-/core-1.2.0.tgz#8e0c636b7f8676202fdd1ecfbe31bfe245dab2a8"
