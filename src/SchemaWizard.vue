@@ -11,7 +11,9 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import SchemaForm from './SchemaForm'
+
 export default {
   components: { SchemaForm },
   props: {
@@ -29,18 +31,19 @@ export default {
       required: true
     }
   },
-  computed: {
-    currentSchema () {
-      return this.schema[this.step]
-    }
-  },
-  methods: {
-    update (data) {
-      const value = [...this.value]
-      value[this.step] = data
+  setup (props, context) {
+    const currentSchema = computed(() => {
+      return props.schema[props.step]
+    })
 
-      this.$emit('input', value)
+    const update = data => {
+      const value = [...props.value]
+      value[props.step] = data
+
+      context.emit('input', value)
     }
+
+    return { currentSchema, update }
   }
 }
 </script>

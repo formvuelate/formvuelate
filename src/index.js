@@ -1,11 +1,11 @@
 import SchemaForm from './SchemaForm'
 import SchemaWizard from './SchemaWizard'
-import FormMixin from './FormMixin'
+import SchemaFormFactory from './SchemaFormFactory'
 
 export default SchemaForm
 
 export {
   SchemaForm,
   SchemaWizard,
-  FormMixin
+  SchemaFormFactory
 }

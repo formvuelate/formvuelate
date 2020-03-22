@@ -1,9 +1,11 @@
 export default {
   props: {
-    value: { required: true },
+    modelValue: {
+      required: true
+    },
     required: {
       type: Boolean,
-      default: false
+      default: () => false
     },
     config: {
       type: Object,
@@ -12,7 +14,7 @@ export default {
   },
   methods: {
     update (value) {
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
     }
   }
 }

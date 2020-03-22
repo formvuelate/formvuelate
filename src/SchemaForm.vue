@@ -7,8 +7,8 @@
         :key="field.model"
         :is="field.component"
         v-bind="binds(field)"
-        :value="val(field)"
-        @input="update(field.model, $event)"
+        :modelValue="val(field)"
+        @update:modelValue="update(field.model, $event)"
         @update-batch="updateBatch(field.model, $event)"
       />
       <slot/>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+
 export default {
   props: {
     schema: {
@@ -29,54 +31,64 @@ export default {
         return schema.filter(field => !field.model && !field.schema).length === 0
       }
     },
-    value: {
+    modelValue: {
       type: Object,
       required: true
     },
     sharedConfig: {
       type: Object,
-      required: false
+      default: () => ({})
     }
   },
-  computed: {
-    parsedSchema () {
-      if (Array.isArray(this.schema)) return this.schema
+  setup (props, { emit }) {
+    const parsedSchema = computed(() => {
+      if (Array.isArray(props.schema)) return props.schema
 
       const arraySchema = []
-      for (let model in this.schema) {
+      for (const model in props.schema) {
         arraySchema.push({
-          ...this.schema[model],
+          ...props.schema[model],
           model
         })
       }
 
       return arraySchema
-    }
-  },
-  methods: {
-    update (property, value) {
-      this.$emit('input', {
-        ...this.value,
+    })
+
+    const update = (property, value) => {
+      emit('update:modelValue', {
+        ...props.modelValue,
         [property]: value
       })
-    },
-    updateBatch (property, values) {
-      this.$emit('input', {
-        ...this.value,
+    }
+
+    const updateBatch = (property, values) => {
+      emit('update:modelValue', {
+        ...props.modelValue,
         ...values
       })
-    },
-    binds (field) {
+    }
+
+    const binds = (field) => {
       return field.schema
         ? { schema: field.schema }
-        : { ...this.sharedConfig, ...field }
-    },
-    val (field) {
-      if (field.schema && !this.value[field.model]) {
+        : { ...props.sharedConfig, ...field }
+    }
+
+    const val = (field) => {
+      if (field.schema && !props.modelValue[field.model]) {
         return {}
       }
 
-      return this.value[field.model]
+      return props.modelValue[field.model]
+    }
+
+    return {
+      parsedSchema,
+      val,
+      binds,
+      update,
+      updateBatch
     }
   }
 }

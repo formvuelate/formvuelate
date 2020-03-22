@@ -35,6 +35,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.0-alpha.4",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-e2e-cypress": "^4.0.3",
     "@vue/cli-plugin-eslint": "^4.0.1",
@@ -49,9 +50,10 @@
     "eslint-plugin-vue": "^6.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
-    "vue": "^2.6.6",
+    "vue": "^3.0.0-alpha.4",
     "vue-json-pretty": "^1.6.2",
     "vue-template-compiler": "^2.5.21",
+    "vue-cli-plugin-vue-next": "^0.0.4",
     "vuepress": "^1.1.0"
   }
 }
