@@ -33,14 +33,6 @@
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
-  "files": [
-    "dist/*",
-    "docs/*",
-    "src/*",
-    "tests/*",
-    "*.json",
-    "*.js"
-  ],
   "dependencies": {},
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",
