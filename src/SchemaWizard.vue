@@ -2,7 +2,7 @@
   <div>
     <SchemaForm
       :schema="currentSchema"
-      :value="value[step] || {}"
+      :value="modelValue[step] || {}"
       @input="update"
     />
 
@@ -26,7 +26,7 @@ export default {
       required: true,
       default: 0
     },
-    value: {
+    modelValue: {
       type: Array,
       required: true
     }
@@ -37,10 +37,10 @@ export default {
     })
 
     const update = data => {
-      const value = [...props.value]
+      const value = [...props.modelValue]
       value[props.step] = data
 
-      context.emit('input', value)
+      context.emit('update:modelValue', value)
     }
 
     return { currentSchema, update }
