@@ -4,14 +4,6 @@ import { h, inject } from 'vue'
 
 export default {
   props: ['item', 'sidebarDepth'],
-
-  // parent: {
-  //   $page,
-  //   $site,
-  //   $route,
-  //   $themeConfig,
-  //   $themeLocaleConfig
-  // },
   setup () {
     const { route, go } = inject('router')
 
