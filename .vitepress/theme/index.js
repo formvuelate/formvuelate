@@ -1,31 +1,21 @@
 import Layout from './Layout.vue'
-import SplitTab from './components/SplitTab.vue'
-import FormText from './components/form-elements/FormText.vue'
+import SplitTab from '/.vitepress/docs/components/SplitTab.vue'
+import FormText from '/.vitepress/docs/components/form-elements/FormText.vue'
 import SchemaForm from './../../src/SchemaForm.vue'
-import ExampleVModel from './components/ExampleVModel.vue'
-
-/**
- * @typedef {{
- *   app: import('vue').App
- *   router: import('../app/router').Router
- *   siteData: import('vue').Ref<object>
- * }} EnhanceAppContext
- *
- * @type {{
- *   Layout: import('vue').ComponentOptions
- *   NotFound?: import('vue').ComponentOptions
- *   enhanceApp?: (ctx: EnhanceAppContext) => void
- * }}
- */
+import ExampleVModel from '/.vitepress/docs/components/ExampleVModel.vue'
+import SidebarLinks from './components/SidebarLinks.vue'
+import SidebarLink from './components/SidebarLink.vue'
 
 export default {
   Layout,
   NotFound: () => '404 ;<',
   enhanceApp ({ app, router, siteData }) {
-    console.log(app);
+    app.provide('router', router)
+    app.component('SidebarLinks', SidebarLinks)
     app.component('SchemaForm', SchemaForm)
     app.component('FormText', FormText)
     app.component('ExampleVModel', ExampleVModel)
     app.component('SplitTab', SplitTab)
+    app.component('SidebarLink', SidebarLink)
   }
 }
