@@ -1,12 +1,12 @@
 <template>
   <div style="display: flex">
     <div>
-      <textarea v-model="schema" class="editor" :class="{ 'editor-error': hasParseErrors }"/>
+      <textarea @keyup="toggleValidation" v-model="schema" class="editor" :class="{ 'editor-error': hasParseErrors }"/>
       <p v-if="hasParseErrors" style="color: red">The Schema is invalid. Must be valid JSON value</p>
     </div>
     <div>
-      <SchemaForm :schema="parsedSchema" v-model="value"/>
-      {{ value }}
+      <SchemaForm :schema="parsedSchema" v-model="value" />
+      <pre>{{ value }}</pre>
     </div>
   </div>
 </template>
@@ -42,13 +42,21 @@ export default {
     }, null, 2))
     const value = ref('')
     const hasParseErrors = ref(false)
+    const disabledParsing = ref(false)
     const parsedSchema = ref(JSON.parse(schema.value))
+
+    const toggleValidation = (event) => {
+      disabledParsing.value = [' ', 'Enter', 'Tab'].includes(event.key)
+    }
 
     watchEffect(() => {
       try {
         const parsingResult = JSON.parse(schema.value)
-        parsedSchema.value = parsingResult
-        schema.value = JSON.stringify(parsingResult, null, 2)
+
+        if (!disabledParsing) {
+          parsedSchema.value = parsingResult
+          schema.value = JSON.stringify(parsingResult, null, 2)
+        }
         hasParseErrors.value = false
       } catch (e) {
         hasParseErrors.value = true
@@ -59,21 +67,24 @@ export default {
       schema,
       parsedSchema,
       hasParseErrors,
-      value
+      value,
+      toggleValidation
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.editor
+.editor {
   min-width: 500px;
   min-height: 600px;
   white-space: pre;
   padding: 10px;
   margin-right: 20px;
   font-size: 1rem;
+}
 
-.editor-error
+.editor-error {
   border: 1px solid red;
+}
 </style>
