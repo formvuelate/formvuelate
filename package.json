@@ -28,8 +28,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
     "lint": "vue-cli-service lint",
-    "docs:build": "vuepress build docs",
-    "docs:dev": "vuepress dev docs",
+    "docs:build": "vitepress build",
+    "docs:dev": "vitepress",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
@@ -45,20 +45,19 @@
     "@vue/cli-plugin-eslint": "^4.2.0",
     "@vue/cli-plugin-unit-jest": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
-    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/compiler-sfc": "^3.0.0-beta.1",
+    "@vue/eslint-config-standard": "^5.1.0",
     "@vue/test-utils": "1.0.0-beta.30",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^23.6.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.0.0",
+    "eslint-plugin-vue": "next",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^3.0.0-alpha.4",
     "vitepress": "^0.1.1",
-    "vue-json-pretty": "^1.6.2",
-    "vue-template-compiler": "^2.5.21",
-    "vue-cli-plugin-vue-next": "^0.0.4",
-    "vuepress": "^1.1.0"
+    "vue": "v3.0.0-beta.7",
+    "vue-cli-plugin-vue-next": "^0.1.2"
   }
 }
