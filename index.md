@@ -18,7 +18,7 @@ npm install formvuelatte
 
 Now that you have the package in your project, `import` it to your component.
 
-```jsx
+```javascript
 import { SchemaForm } from 'formvuelatte'
 ```
 
@@ -35,7 +35,7 @@ The `SchemaForm` will `$emit` **update:modelValue** events when your components 
 
 Example with `v-model`:
 
-```jsx
+```javascript
 <template>
   <SchemaForm :schema="mySchema" v-model="formData" />
 </template>
@@ -60,7 +60,7 @@ export default {
 
 Example with manual bindings:
 
-```jsx
+```javascript
 <template>
   <SchemaForm 
 		:schema="mySchema" 
@@ -98,7 +98,7 @@ The `SchemaForm` component requires you to pass it a `schema` property. This `sc
 
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
-```jsx
+```javascript
 <template>    
 	<SchemaForm :schema="schema" v-model="formData" />
 </template>
@@ -140,7 +140,7 @@ Next, make sure that your component `$emit`s an `update:modelValue` event with t
 
 Example of a simple input component:
 
-```jsx
+```javascript
 <template>
   <input type="text" :value="modelValue" @input="update" />
 </template>
@@ -178,7 +178,7 @@ Example wizard schema:
 
 ( Note that the components used are only for purposes of the example and are not part of FormVueLatte )
 
-```jsx
+```javascript
 const wizardSchema = [
 	// Step 1 - user's name
   {
@@ -212,7 +212,7 @@ This is the property that the `SchemaWizard` component will use for `v-model` bi
 
 Example output from the example schema above:
 
-```jsx
+```javascript
 [
   { 
 	  fistName: 'Jane',
@@ -233,7 +233,7 @@ In order to use a plugin with `SchemaForm`, you have to use the provided `Schema
 
 First, import the `SchemaFormFactory` into your application.
 
-```jsx
+```javascript
 import SchemaFormFactory from 'formvuelatte/SchemaFormFactory'
 ```
 
@@ -241,7 +241,7 @@ import SchemaFormFactory from 'formvuelatte/SchemaFormFactory'
 
 The order in which you pass the plugins is *important*, as they will be applied in the order they are received.
 
-```jsx
+```javascript
 import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
@@ -252,7 +252,7 @@ const SchemaFormWithPlugins = SchemaFormFactory([
 
 Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
 
-```jsx
+```javascript
 <template>
   [...]
   <SchemaFormWithValidations />
@@ -271,7 +271,7 @@ In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a `V
 
 Your schema will need some changes in order to work with the `VuelidatePlugin`. Each element in your schema will need to contain a `validations` property which is an object, with each of the validations that you want to apply to it.
 
-```jsx
+```javascript
 import { required, email } from '@vuelidate/validators/withMessages'
 
 const SCHEMA = {
@@ -302,7 +302,7 @@ const SCHEMA = {
 
 Next, create your new `SchemaForm` by using the factory to inject the `VuelidatePlugin`.
 
-```jsx
+```javascript
 import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
@@ -313,7 +313,7 @@ const SchemaFormWithPlugins = SchemaFormFactory([
 
 Now that we have the component ready, we can jump into the `setup` function, where we need to get our `v-model` data ready, as well as a function to handle the `update:validations` event that our Vuelidate-powered form will `emit`.
 
-```jsx
+```javascript
 setup (props, context) {
   const userData = ref({
     firstName: 'John',
