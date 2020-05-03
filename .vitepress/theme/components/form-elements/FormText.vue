@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <input
-      :value="value"
+      :value="modelValue"
       :type="config.type"
       :required="required"
       :id="label"
@@ -15,11 +15,17 @@
 </template>
 
 <script>
-import FormMixin from '../../../../src/FormMixin'
-
 export default {
-  mixins: [ FormMixin ],
   props: {
+    modelValue: { required: true },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    config: {
+      type: Object,
+      default: () => {}
+    },
     label: {
       type: String,
       required: true
@@ -32,11 +38,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    update (value) {
+      this.$emit('update:modelValue', value)
+    }
   }
 }
 </script>
-
-<style lang="stylus">
-input:disabled
-  background-color: lightgrey
-</style>

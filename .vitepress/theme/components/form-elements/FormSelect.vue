@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <select
-      :value="value"
+      :value="modelValue"
       :required="required"
       :id="label"
       @input="update($event.target.value)"
@@ -13,7 +13,7 @@
         v-for="option in options"
         :key="option"
         :value="option"
-        :selected="option === value"
+        :selected="option === modelValue"
       >
         {{ option }}
       </option>
@@ -22,13 +22,24 @@
 </template>
 
 <script>
-import FormMixin from '../../../../src/FormMixin'
-
 export default {
-  mixins: [FormMixin],
   props: {
+    modelValue: { required: true },
+    required: {
+      type: Boolean,
+      default: false
+    },
+    config: {
+      type: Object,
+      default: () => {}
+    },
     label: { type: String, required: true },
     options: { type: Array, required: true }
+  },
+  methods: {
+    update (value) {
+      this.$emit('update:modelValue', value)
+    }
   }
 }
 </script>
