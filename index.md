@@ -6,12 +6,17 @@ FormVueLatte is a zero dependency library that allows you to generate schema-dri
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
+<SplitTab>
+  <ExampleVModel slot="example"/>
+  <<< .vitepress/components/ExampleVModel.vue
+</splitTab>
+
 ### Installation
 
 To add FormVueLatte to your project, start by installing the package through your favorite package manager.
 
 ```bash
-yarn add formvuelatte 
+yarn add formvuelatte
 // OR
 npm install formvuelatte
 ```
@@ -42,7 +47,7 @@ Example with `v-model`:
 
 <script>
 import { reactive } from 'vue'
-export default { 
+export default {
 	setup() {
 		const formData = reactive({})
 		const mySchema = reactive({
@@ -62,8 +67,8 @@ Example with manual bindings:
 
 ```javascript
 <template>
-  <SchemaForm 
-		:schema="mySchema" 
+  <SchemaForm
+		:schema="mySchema"
 		:data="formData"
 		@update:modelValue="updateForm"
 	/>
@@ -71,7 +76,7 @@ Example with manual bindings:
 
 <script>
 import { reactive } from 'vue'
-export default { 
+export default {
 	setup() {
 		const formData = reactive({})
 		const mySchema = reactive({
@@ -99,33 +104,33 @@ The `SchemaForm` component requires you to pass it a `schema` property. This `sc
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
 ```javascript
-<template>    
+<template>
 	<SchemaForm :schema="schema" v-model="formData" />
 </template>
 
-<script>    
-	import { SchemaForm } from 'formvuelatte'    
-	import FormText from 'path/to/FormText'   
+<script>
+	import { SchemaForm } from 'formvuelatte'
+	import FormText from 'path/to/FormText'
 	import { reactive } from 'vue'
 
-	export default {        
-		components: { SchemaForm },     
+	export default {
+		components: { SchemaForm },
 		setup() {
-			const schema = reactive({                    
-				name: {                        
-					component: FormText // Note that is NOT a string                    
-				},                    
-				lastName: {                        
-					component: FormText // We pass the component that we imported directly                    
-				}                
+			const schema = reactive({
+				name: {
+					component: FormText // Note that is NOT a string
+				},
+				lastName: {
+					component: FormText // We pass the component that we imported directly
+				}
 			})
 			const formData = reactive({})
-			
+
 			return {
 				schema,
 				formData
 			}
-		}   
+		}
 	}
 </script>
 ```
@@ -174,7 +179,7 @@ The schema that the `SchemaWizard` will use to render the form. This is a requir
 
 The schema that the `SchemaWizard` uses varies from the one used in `SchemaForm` in one major difference — it is strictly an array, in which each of the array elements is a `SchemaForm` ready schema.
 
-Example wizard schema: 
+Example wizard schema:
 
 ( Note that the components used are only for purposes of the example and are not part of FormVueLatte )
 
@@ -214,7 +219,7 @@ Example output from the example schema above:
 
 ```javascript
 [
-  { 
+  {
 	  fistName: 'Jane',
 		lastName: 'Doe'
 	},
@@ -227,7 +232,7 @@ Example output from the example schema above:
 
 ## Plugins
 
-FormVueLatte ships with the ability to import and use plugins to extend it's capabilities. 
+FormVueLatte ships with the ability to import and use plugins to extend it's capabilities.
 
 In order to use a plugin with `SchemaForm`, you have to use the provided `SchemaFormFactory` higher order function.
 
