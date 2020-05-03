@@ -7,8 +7,11 @@ FormVueLatte is a zero dependency library that allows you to generate schema-dri
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
 <SplitTab>
-  <ExampleVModel slot="example"/>
-  <<< .vitepress/components/ExampleVModel.vue
+  <template v-slot:example>
+    <ExampleVModel />
+  </template>
+
+  <<< .vitepress/theme/components/ExampleVModel.vue
 </splitTab>
 
 ### Installation
