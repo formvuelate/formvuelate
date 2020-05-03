@@ -11,7 +11,7 @@ The schema that you use for your form can be as flexible as you need it to be, i
     <ExampleVModel />
   </template>
 
-  <<< .vitepress/theme/components/ExampleVModel.vue
+  <<< .vitepress/docs/components/ExampleVModel.vue
 </splitTab>
 
 ### Installation
