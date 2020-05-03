@@ -2,7 +2,6 @@
   <div style="display: flex">
     <div>
       <textarea @keyup="toggleValidation" v-model="schema" class="editor" :class="{ 'editor-error': hasParseErrors }"/>
-      {{ disabledParsing }}
       <p v-if="hasParseErrors" style="color: red">The Schema is invalid. Must be valid JSON value. <br>{{ schemaError }}</p>
     </div>
     <div>
@@ -73,8 +72,7 @@ export default {
       parsedSchema,
       hasParseErrors,
       value,
-      toggleValidation,
-      disabledParsing
+      toggleValidation
     }
   }
 }
