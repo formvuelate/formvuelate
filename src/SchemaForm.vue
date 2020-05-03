@@ -13,7 +13,6 @@
       />
       <slot/>
     </form>
-    {{ parsedSchema }}
     <slot name="afterForm"></slot>
   </div>
 </template>
