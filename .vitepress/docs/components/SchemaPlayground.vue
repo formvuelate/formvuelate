@@ -2,7 +2,8 @@
   <div style="display: flex">
     <div>
       <textarea @keyup="toggleValidation" v-model="schema" class="editor" :class="{ 'editor-error': hasParseErrors }"/>
-      <p v-if="hasParseErrors" style="color: red">The Schema is invalid. Must be valid JSON value</p>
+      {{ disabledParsing }}
+      <p v-if="hasParseErrors" style="color: red">The Schema is invalid. Must be valid JSON value. <br>{{ schemaError }}</p>
     </div>
     <div>
       <SchemaForm :schema="parsedSchema" v-model="value" />
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue'
+import { ref, reactive, watchEffect } from 'vue'
 import FormText from './form-elements/FormText.vue'
 import FormSelect from './form-elements/FormSelect.vue'
 import FormCheckbox from './form-elements/FormCheckbox.vue'
@@ -40,9 +41,12 @@ export default {
         }
       },
     }, null, 2))
-    const value = ref('')
+
+    const value = reactive({})
+    const schemaError = ref('')
     const hasParseErrors = ref(false)
     const disabledParsing = ref(false)
+
     const parsedSchema = ref(JSON.parse(schema.value))
 
     const toggleValidation = (event) => {
@@ -53,22 +57,24 @@ export default {
       try {
         const parsingResult = JSON.parse(schema.value)
 
-        if (!disabledParsing) {
+        if (!disabledParsing.value) {
           parsedSchema.value = parsingResult
-          schema.value = JSON.stringify(parsingResult, null, 2)
         }
         hasParseErrors.value = false
       } catch (e) {
+        schemaError.value = e.message
         hasParseErrors.value = true
       }
     })
 
     return {
       schema,
+      schemaError,
       parsedSchema,
       hasParseErrors,
       value,
-      toggleValidation
+      toggleValidation,
+      disabledParsing
     }
   }
 }
