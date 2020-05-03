@@ -70,40 +70,47 @@ export default {
   }
 }
 </script>
-<!--
+
 <style lang="stylus" scoped>
-.split-container
-  margin: 20px 0
-  padding: 20px
-  background: #fafafa
-  border-radius: 10px
+.split-container {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 10px;
+}
 
-.split-tab-button
-  border: none
-  background: #fff
-  padding: 12px 24px
-  font-size: 14px
-  display: inline-flex
-  margin-bottom: 5px
+.split-tab-button {
+  border: none;
+  background: #fff;
+  padding: 12px 24px;
+  font-size: 14px;
+  display: inline-flex;
+  margin-bottom: 5px;
+}
 
-.split-tab-button-active
-  color: #fff
-  background: #3eaf7c
+.split-tab-button-active {
+  color: #fff;
+  background: #3eaf7c;
+}
 
-.split
-  width: auto
-  display: flex
-  margin: 0 -10px
+.split {
+  width: auto;
+  display: flex;
+  margin: 0 -10px;
 
-  & > div
-    padding: 0 10px
-    flex-grow: 1
+  & > div {
+    padding: 0 10px;
+    flex-grow: 1;
+  }
 
-  & > div:first-of-type
-    width: 350px
-    flex: 1
-    margin-right: 10px
+  & > div:first-of-type {
+    width: 350px;
+    flex: 1;
+    margin-right: 10px;
+  }
+}
 
-.split-example
-  margin: 0.85rem 0
-</style> -->
+.split-example {
+  margin: 0.85rem 0;
+}
+</style>
