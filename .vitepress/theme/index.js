@@ -5,6 +5,7 @@ import SchemaForm from './../../src/SchemaForm.vue'
 import ExampleVModel from '/.vitepress/docs/components/ExampleVModel.vue'
 import SidebarLinks from './components/SidebarLinks.vue'
 import SidebarLink from './components/SidebarLink.vue'
+import SchemaPlayground from '/.vitepress/docs/components/SchemaPlayground.vue'
 
 export default {
   Layout,
@@ -17,5 +18,6 @@ export default {
     app.component('ExampleVModel', ExampleVModel)
     app.component('SplitTab', SplitTab)
     app.component('SidebarLink', SidebarLink)
+    app.component('SchemaPlayground', SchemaPlayground)
   }
 }

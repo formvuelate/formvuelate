@@ -6,6 +6,13 @@ FormVueLatte is a zero dependency library that allows you to generate schema-dri
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
+## Playground
+
+<SchemaPlayground/>
+
+
+## Example
+
 <SplitTab>
   <template v-slot:example>
     <ExampleVModel />
