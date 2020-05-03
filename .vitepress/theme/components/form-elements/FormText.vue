@@ -4,7 +4,7 @@
       {{ label }}
     </label>
     <input
-      :value="value"
+      :value="modelValue"
       :type="config.type"
       :required="required"
       :id="label"
@@ -17,7 +17,7 @@
 <script>
 export default {
   props: {
-    value: { required: true },
+    modelValue: { required: true },
     required: {
       type: Boolean,
       default: false
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     update (value) {
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
     }
   }
 }

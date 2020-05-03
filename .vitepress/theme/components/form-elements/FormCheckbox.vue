@@ -3,7 +3,7 @@
     <label>
       <input
         type="checkbox"
-        :checked="value"
+        :checked="modelValue"
         @input="update($event.target.checked)"
       >
       {{ label }}
@@ -14,7 +14,7 @@
 <script>
 export default {
   props: {
-    value: { required: true },
+    modelValue: { required: true },
     required: {
       type: Boolean,
       default: false
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     update (value) {
-      this.$emit('input', value)
+      this.$emit('update:modelValue', value)
     }
   }
 }

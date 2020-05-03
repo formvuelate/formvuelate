@@ -4,6 +4,8 @@
       :schema="schema"
       v-model="userData"
     />
+
+    <pre>{{ userData }}</pre>
   </div>
 </template>
 
