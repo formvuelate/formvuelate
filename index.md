@@ -376,4 +376,20 @@ It provides the component with a `schema` in the form of a JavaScript object, an
   </template>
 
   <<< .vitepress/docs/components/ExampleVModel.vue
-</splitTab>
+</SplitTab>
+
+### Using an array based schema
+
+`SchemaForm` allows to construct the schema also as an array. The name of each field is declared as a `model` property in each element, instead of it being the `key` for each property of the object-type schema.
+
+Additionally, notice that in this example `v-model` is not being used. We bind `modelValue` directly to the `userData`, and listen to the `update:modelValue` event to merge the changes from `SchemaForm` into out `userData` object.
+
+Finally, notice that the schema includes a component that is actually a child `SchemaForm`. This allows us to build multi-level schemas with sub-entries to our form. 
+
+<SplitTab>
+  <template v-slot:example>
+    <ArrayExample />
+  </template>
+
+  <<< .vitepress/docs/components/ArrayExample.vue
+</SplitTab>

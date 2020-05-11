@@ -1,21 +1,24 @@
 <template>
-  <div>
+  <form @submit.prevent="formSubmit">
     <SchemaForm
       :schema="schema"
-      :value="userData"
-      @input="mergeChanges"
+      :modelValue="userData"
+      @update:modelValue="mergeChanges"
     />
 
-    <JSONDisplay :data="userData" />
-  </div>
+    <BaseButton type="submit">Submit</BaseButton>
+
+    <pre>{{ userData }}</pre>
+  </form>
 </template>
 
 <script>
-import JSONDisplay from './JSONDisplay'
-import FormText from './form-elements/FormText'
-import FormSelect from './form-elements/FormSelect'
-import FormCheckbox from './form-elements/FormCheckbox'
-import SchemaForm from '../../../src/SchemaForm'
+import { computed, reactive, ref } from 'vue'
+import FormText from './form-elements/FormText.vue'
+import FormSelect from './form-elements/FormSelect.vue'
+import FormCheckbox from './form-elements/FormCheckbox.vue'
+import SchemaForm from '../../../src/SchemaForm.vue'
+import BaseButton from './form-elements/BaseButton.vue'
 
 const SCHEMA = [
   {
@@ -46,30 +49,37 @@ const SCHEMA = [
 ]
 
 export default {
-  data () {
-    return {
-      userData: {}
-    }
-  },
-  computed: {
-    schema () {
-      return this.userData.isVueFan
-        ? {
-            ...SCHEMA,
-            feedback: {
-              component: FormText,
-              label: 'Gimme some feedback'
-            }
-          }
+  components: { BaseButton },
+  setup () {
+    let userData = ref({})
+    const schema = computed(() => {
+      return userData.isVueFan ? {
+        ...SCHEMA,
+        feedback: {
+          component: FormText,
+          label: 'Gimme some feedback'
+        }
+      }
         : SCHEMA
+    })
+
+    const formSubmit = () => {
+      alert('Form submitted!')
     }
-  },
-  methods: {
-    mergeChanges (changes) {
-      this.userData = {
-        ...this.userData,
+
+    const mergeChanges = (changes) => {
+      console.log(changes)
+      userData.value = {
+        ...userData,
         ...changes
       }
+    }
+
+    return {
+      userData,
+      schema,
+      formSubmit,
+      mergeChanges
     }
   }
 }
