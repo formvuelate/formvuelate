@@ -40,13 +40,10 @@
   "dependencies": {},
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-plugin-e2e-cypress": "^4.2.0",
     "@vue/cli-plugin-eslint": "^4.2.0",
-    "@vue/cli-plugin-unit-jest": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
-    "@vue/compiler-sfc": "^3.0.0-beta.1",
+    "@vue/compiler-sfc": "^3.0.0-beta.12",
     "@vue/eslint-config-standard": "^5.1.0",
-    "@vue/test-utils": "1.0.0-beta.30",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^23.6.0",
@@ -54,7 +51,7 @@
     "eslint-plugin-vue": "next",
     "stylus": "^0.54.7",
     "vitepress": "^0.1.1",
-    "vue": "v3.0.0-beta.7",
+    "vue": "v3.0.0-beta.12",
     "vue-cli-plugin-vue-next": "^0.1.2"
   }
 }
