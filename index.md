@@ -16,17 +16,6 @@ Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on th
 
 <SchemaPlayground/>
 
-
-## Example
-
-<SplitTab>
-  <template v-slot:example>
-    <ExampleVModel />
-  </template>
-
-  <<< .vitepress/docs/components/ExampleVModel.vue
-</splitTab>
-
 ### Installation
 
 To add FormVueLatte to your project, start by installing the package through your favorite package manager.
@@ -372,4 +361,47 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 
 Here you will find a few examples on how you can set up your `schema` and the output it would produce.
 
-Please note: We are using a few different custom components to showcase, but you should use your own! 😉
+Please note: We are using a few different custom components to showcase, but you should use your own! 
+
+These components are **only** for demonstration purposes, and are **not** included with the library. 😉
+
+### SchemaForm with v-model
+
+This example showcases the simplest way to use `SchemaForm`.
+It provides the component with a `schema` in the form of a JavaScript object, and binds the output of the form to the local data `userData` through `v-model`.
+
+<SplitTab>
+  <template v-slot:example>
+    <ExampleVModel />
+  </template>
+
+  <<< .vitepress/docs/components/ExampleVModel.vue
+</SplitTab>
+
+### Nested schemas
+
+`SchemaForm` is able to parse and display forms that are based on nested schemas. In the example below, you can see how the `work` property is an object that uses `SchemaForm` itself as a component, and provides a `schema` property of its own. 
+
+Further down the tree inside `details`, yet another level of nested data can be found.
+
+<SplitTab>
+  <template v-slot:example>
+    <Formception />
+  </template>
+
+  <<< .vitepress/docs/components/Formception.vue
+</SplitTab>
+
+### Using an array based schema
+
+`SchemaForm` allows to construct the schema also as an array. The name of each field is declared as a `model` property in each element, instead of it being the `key` for each property of the object-type schema.
+
+Additionally, notice that in this example `v-model` is not being used. We bind `modelValue` directly to the `userData`, and listen to the `update:modelValue` event to merge the changes from `SchemaForm` into out `userData` object.
+
+<SplitTab>
+  <template v-slot:example>
+    <ArrayExample />
+  </template>
+
+  <<< .vitepress/docs/components/ArrayExample.vue
+</SplitTab>

@@ -9,6 +9,7 @@
       :id="label"
       @input="update($event.target.value)"
     >
+      <option>-</option>
       <option
         v-for="option in options"
         :key="option"
@@ -31,7 +32,7 @@ export default {
     },
     config: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     label: { type: String, required: true },
     options: { type: Array, required: true }

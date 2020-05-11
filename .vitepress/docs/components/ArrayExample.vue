@@ -1,21 +1,24 @@
 <template>
-  <div>
+  <form @submit.prevent="formSubmit">
     <SchemaForm
       :schema="schema"
-      :value="userData"
-      @input="mergeChanges"
+      :modelValue="userData"
+      @update:modelValue="mergeChanges"
     />
 
-    <JSONDisplay :data="userData" />
-  </div>
+    <BaseButton type="submit">Submit</BaseButton>
+
+    <pre>{{ userData }}</pre>
+  </form>
 </template>
 
 <script>
-import JSONDisplay from './JSONDisplay'
-import FormText from './form-elements/FormText'
-import FormSelect from './form-elements/FormSelect'
-import FormCheckbox from './form-elements/FormCheckbox'
-import SchemaForm from '../../../src/SchemaForm'
+import { computed, reactive } from 'vue'
+import FormText from './form-elements/FormText.vue'
+import FormSelect from './form-elements/FormSelect.vue'
+import FormCheckbox from './form-elements/FormCheckbox.vue'
+import SchemaForm from '../../../src/SchemaForm.vue'
+import BaseButton from './form-elements/BaseButton.vue'
 
 const SCHEMA = [
   {
@@ -30,6 +33,7 @@ const SCHEMA = [
   },
   {
     component: SchemaForm,
+    model: 'subform',
     schema: [
       {
         component: FormText,
@@ -46,30 +50,35 @@ const SCHEMA = [
 ]
 
 export default {
-  data () {
-    return {
-      userData: {}
-    }
-  },
-  computed: {
-    schema () {
-      return this.userData.isVueFan
-        ? {
-            ...SCHEMA,
-            feedback: {
-              component: FormText,
-              label: 'Gimme some feedback'
-            }
-          }
-        : SCHEMA
-    }
-  },
-  methods: {
-    mergeChanges (changes) {
-      this.userData = {
-        ...this.userData,
-        ...changes
+  components: { BaseButton },
+  setup () {
+    let userData = reactive({})
+    const schema = computed(() => {
+      return userData.isVueFan ? {
+        ...SCHEMA,
+        feedback: {
+          component: FormText,
+          label: 'Gimme some feedback'
+        }
       }
+        : SCHEMA
+    })
+
+    const formSubmit = () => {
+      alert('Form submitted!')
+    }
+
+    const mergeChanges = (changes) => {
+      for (let key in changes) {
+        userData[key] = changes[key]
+      }
+    }
+
+    return {
+      userData,
+      schema,
+      formSubmit,
+      mergeChanges
     }
   }
 }
