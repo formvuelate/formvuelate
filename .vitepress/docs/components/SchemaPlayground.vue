@@ -6,21 +6,15 @@
     </div>
     <div>
       <SchemaForm :schema="parsedSchema" v-model="value"/>
-      {{ value }}
+      <pre>{{ value }}</pre>
     </div>
   </div>
 </template>
 
 <script>
 import { ref, watchEffect } from 'vue'
-import FormText from './form-elements/FormText.vue'
-import FormSelect from './form-elements/FormSelect.vue'
-import FormCheckbox from './form-elements/FormCheckbox.vue'
 
 export default {
-  components: {
-    FormText, FormSelect, FormCheckbox
-  },
   setup () {
     const schema = ref(JSON.stringify({
       firstName: {
@@ -39,6 +33,20 @@ export default {
           type: 'email'
         }
       },
+      favoriteThingAboutVue: {
+        component: 'FormSelect',
+        label: 'Favorite thing about Vue',
+        required: true,
+        options: [
+          'Ease of use',
+          'Documentation',
+          'Community'
+        ]
+      },
+      isVueFan: {
+        component: 'FormCheckbox',
+        label: 'Are you a Vue fan?'
+      }
     }, null, 2))
     const value = ref('')
     const hasParseErrors = ref(false)
@@ -66,14 +74,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.editor
+.editor {
   min-width: 500px;
   min-height: 600px;
   white-space: pre;
   padding: 10px;
   margin-right: 20px;
   font-size: 1rem;
+}
 
-.editor-error
+.editor-error {
   border: 1px solid red;
+}
 </style>
