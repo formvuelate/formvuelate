@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitForm" class="schema-form">
+    <div>
       <slot name="beforeForm"></slot>
       <component
         v-for="field in parsedSchema"
@@ -11,7 +11,7 @@
         @update-batch="updateBatch(field.model, $event)"
       />
       <slot name="afterForm"></slot>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -80,17 +80,12 @@ export default {
       return props.modelValue[field.model]
     }
 
-    const submitForm = () => {
-      emit('submit')
-    }
-
     return {
       parsedSchema,
       val,
       binds,
       update,
-      updateBatch,
-      submitForm
+      updateBatch
     }
   }
 }
