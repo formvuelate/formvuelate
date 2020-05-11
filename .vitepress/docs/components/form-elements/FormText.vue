@@ -5,7 +5,6 @@
     </label>
     <input
       :value="modelValue"
-      :type="config.type"
       :required="required"
       :id="label"
       :disabled="readOnly"
@@ -21,10 +20,6 @@ export default {
     required: {
       type: Boolean,
       default: false
-    },
-    config: {
-      type: Object,
-      default: () => {}
     },
     label: {
       type: String,
