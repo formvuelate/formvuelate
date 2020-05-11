@@ -8,6 +8,12 @@ The schema that you use for your form can be as flexible as you need it to be, i
 
 ## Playground
 
+Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on the right. You can use the following demo input components:
+
+- FormText
+- FormSelect
+- FormCheckbox
+
 <SchemaPlayground/>
 
 

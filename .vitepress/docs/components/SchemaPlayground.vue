@@ -12,15 +12,9 @@
 </template>
 
 <script>
-import { ref, reactive, watchEffect } from 'vue'
-import FormText from './form-elements/FormText.vue'
-import FormSelect from './form-elements/FormSelect.vue'
-import FormCheckbox from './form-elements/FormCheckbox.vue'
+import { ref, watchEffect } from 'vue'
 
 export default {
-  components: {
-    FormText, FormSelect, FormCheckbox
-  },
   setup () {
     const schema = ref(JSON.stringify({
       firstName: {
@@ -39,6 +33,20 @@ export default {
           type: 'email'
         }
       },
+      favoriteThingAboutVue: {
+        component: 'FormSelect',
+        label: 'Favorite thing about Vue',
+        required: true,
+        options: [
+          'Ease of use',
+          'Documentation',
+          'Community'
+        ]
+      },
+      isVueFan: {
+        component: 'FormCheckbox',
+        label: 'Are you a Vue fan?'
+      }
     }, null, 2))
 
     const value = reactive({})

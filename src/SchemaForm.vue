@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <slot name="beforeForm"></slot>
-    <form class="schema-form">
+    <div>
+      <slot name="beforeForm"></slot>
       <component
         v-for="field in parsedSchema"
         :key="field.model"
@@ -11,10 +10,8 @@
         @update:modelValue="update(field.model, $event)"
         @update-batch="updateBatch(field.model, $event)"
       />
-      <slot/>
-    </form>
-    <slot name="afterForm"></slot>
-  </div>
+      <slot name="afterForm"></slot>
+    </div>
 </template>
 
 <script>
