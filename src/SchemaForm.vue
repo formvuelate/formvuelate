@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="schema-form">
       <slot name="beforeForm"></slot>
       <component
         v-for="field in parsedSchema"

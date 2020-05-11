@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, reactive } from 'vue'
 
 export default {
   setup () {
