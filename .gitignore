@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /dist
-/docs/.vuepress/dist
+.vitepress/dist
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
