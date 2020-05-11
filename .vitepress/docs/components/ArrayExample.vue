@@ -33,6 +33,7 @@ const SCHEMA = [
   },
   {
     component: SchemaForm,
+    model: 'subform',
     schema: [
       {
         component: FormText,
@@ -51,7 +52,7 @@ const SCHEMA = [
 export default {
   components: { BaseButton },
   setup () {
-    let userData = ref({})
+    let userData = reactive({})
     const schema = computed(() => {
       return userData.isVueFan ? {
         ...SCHEMA,
@@ -68,10 +69,8 @@ export default {
     }
 
     const mergeChanges = (changes) => {
-      console.log(changes)
-      userData.value = {
-        ...userData,
-        ...changes
+      for (let key in changes) {
+        userData[key] = changes[key]
       }
     }
 
