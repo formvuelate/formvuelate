@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="split-container">
     <button
       class="split-tab-button"
