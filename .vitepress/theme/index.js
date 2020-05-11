@@ -11,6 +11,7 @@ import SchemaPlayground from '/.vitepress/docs/components/SchemaPlayground.vue'
 
 import ExampleVModel from '/.vitepress/docs/components/ExampleVModel.vue'
 import ArrayExample from '/.vitepress/docs/components/ArrayExample.vue'
+import Formception from '/.vitepress/docs/components/Formception.vue'
 
 export default {
   Layout,
@@ -31,5 +32,6 @@ export default {
     app.component('SplitTab', SplitTab)
     app.component('ExampleVModel', ExampleVModel)
     app.component('ArrayExample', ArrayExample)
+    app.component('Formception', Formception)
   }
 }

@@ -1,20 +1,23 @@
 <template>
-  <div>
+  <form @submit.prevent="formSubmit">
     <SchemaForm
       :schema="schema"
       v-model="userData"
     />
 
-    <JSONDisplay :data="userData" />
-  </div>
+    <BaseButton type="submit">Submit</BaseButton>
+
+    <pre>{{ userData }}</pre>
+  </form>
 </template>
 
 <script>
-import JSONDisplay from './JSONDisplay'
-import FormText from './form-elements/FormText'
-import FormSelect from './form-elements/FormSelect'
-import FormCheckbox from './form-elements/FormCheckbox'
-import SchemaForm from '../../../src/SchemaForm'
+import { computed, shallowRef, reactive } from 'vue'
+import FormText from './form-elements/FormText.vue'
+import FormSelect from './form-elements/FormSelect.vue'
+import FormCheckbox from './form-elements/FormCheckbox.vue'
+import SchemaForm from '../../../src/SchemaForm.vue'
+import BaseButton from './form-elements/BaseButton.vue'
 
 const SCHEMA = {
   firstName: {
@@ -65,28 +68,20 @@ const SCHEMA = {
 }
 
 export default {
-  components: { JSONDisplay },
-  data () {
-    return {
-      userData: {},
-      schema: SCHEMA
+  components: { BaseButton },
+  setup () {
+    const userData = reactive({})
+    const schema = shallowRef(SCHEMA)
+
+    const formSubmit = () => {
+      alert('Form submitted!')
     }
-  },
-  methods: {
-    mergeChanges (changes) {
-      this.userData = {
-        ...this.userData,
-        ...changes
-      }
+
+    return {
+      userData,
+      schema,
+      formSubmit
     }
   }
 }
 </script>
-
-<style lang="stylus">
-.steps
-  max-width: 35rem
-  text-align: left
-  margin: 0 auto 4rem
-  line-height: 1.6
-</style>
