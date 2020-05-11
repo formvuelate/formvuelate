@@ -1,18 +1,22 @@
 <template>
-  <div>
+  <form @submit.prevent="formSubmit">
     <SchemaForm
       :schema="schema"
       v-model="userData"
     />
 
+    <BaseButton type="submit">Submit</BaseButton>
+
     <pre>{{ userData }}</pre>
-  </div>
+  </form>
 </template>
 
 <script>
+import { computed, reactive } from 'vue'
 import FormText from './form-elements/FormText.vue'
 import FormSelect from './form-elements/FormSelect.vue'
 import FormCheckbox from './form-elements/FormCheckbox.vue'
+import BaseButton from './form-elements/BaseButton.vue'
 
 const SCHEMA = {
   firstName: {
@@ -48,31 +52,29 @@ const SCHEMA = {
 }
 
 export default {
-  data () {
-    return {
-      userData: {}
-    }
-  },
-  computed: {
-    schema () {
-      return this.userData.isVueFan
-        ? {
-            ...SCHEMA,
-            feedback: {
-              component: FormText,
-              label: 'Gimme some feedback'
-            }
-          }
+  components: { BaseButton },
+  setup () {
+    const userData = reactive({})
+    const schema = computed(() => {
+      return userData.isVueFan ? {
+        ...SCHEMA,
+        feedback: {
+          component: FormText,
+          label: 'Gimme some feedback'
+        }
+      }
         : SCHEMA
+    })
+
+    const formSubmit = () => {
+      alert('Form submitted!')
+    }
+
+    return {
+      userData,
+      schema,
+      formSubmit
     }
   }
 }
 </script>
-<!--
-<style lang="stylus">
-.steps
-  max-width: 35rem
-  text-align: left
-  margin: 0 auto 4rem
-  line-height: 1.6
-</style> -->
