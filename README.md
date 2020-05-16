@@ -348,3 +348,7 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 	/>
 </template>
 ```
+
+## Contributors
+[Marina Mosti](https://twitter.com/MarinaMosti)
+[Damian Dulisz](https://twitter.com/DamianDulisz)
