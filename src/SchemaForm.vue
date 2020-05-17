@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed, watch, isRef } from 'vue'
+import { computed, watch } from 'vue'
 
 export default {
   props: {
