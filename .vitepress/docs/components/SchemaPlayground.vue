@@ -46,6 +46,35 @@ export default {
       isVueFan: {
         component: 'FormCheckbox',
         label: 'Are you a Vue fan?'
+      },
+      work: {
+        component: 'SchemaForm',
+        schema: {
+          address: {
+            component: 'FormText',
+            label: 'Work address'
+          },
+          phone: {
+            component: 'FormText',
+            label: 'Work phone'
+          },
+          details: {
+            component: 'SchemaForm',
+            schema: {
+              position: {
+                component: 'FormText',
+                label: 'Work position'
+              },
+              employees: {
+                component: 'FormSelect',
+                label: 'Number of employees',
+                options: [
+                  '1', '2', '3', '4+'
+                ]
+              }
+            }
+          }
+        }
       }
     }, null, 2))
 

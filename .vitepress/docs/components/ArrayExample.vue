@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, ref } from 'vue'
 import FormText from './form-elements/FormText.vue'
 import FormSelect from './form-elements/FormSelect.vue'
 import FormCheckbox from './form-elements/FormCheckbox.vue'
@@ -52,9 +52,9 @@ const SCHEMA = [
 export default {
   components: { BaseButton },
   setup () {
-    let userData = reactive({})
+    let userData = ref({})
     const schema = computed(() => {
-      return userData.isVueFan ? {
+      return userData.value.isVueFan ? {
         ...SCHEMA,
         feedback: {
           component: FormText,
@@ -70,7 +70,7 @@ export default {
 
     const mergeChanges = (changes) => {
       for (let key in changes) {
-        userData[key] = changes[key]
+        userData.value[key] = changes[key]
       }
     }
 

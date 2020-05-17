@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { computed, shallowRef, reactive } from 'vue'
+import { computed, shallowRef, ref } from 'vue'
 import FormText from './form-elements/FormText.vue'
 import FormSelect from './form-elements/FormSelect.vue'
 import FormCheckbox from './form-elements/FormCheckbox.vue'
@@ -70,7 +70,7 @@ const SCHEMA = {
 export default {
   components: { BaseButton },
   setup () {
-    const userData = reactive({})
+    const userData = ref({})
     const schema = shallowRef(SCHEMA)
 
     const formSubmit = () => {

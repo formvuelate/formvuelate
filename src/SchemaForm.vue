@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watch, isRef } from 'vue'
 
 export default {
   props: {
@@ -51,6 +51,22 @@ export default {
 
       return arraySchema
     })
+
+    watch(parsedSchema,
+      (schema, oldSchema) => {
+        const newKeys = schema.map(i => i.model)
+
+        let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
+        if (!diff.length) return
+
+        const val = { ...props.modelValue }
+
+        for (let key of diff) {
+          delete val[key]
+        }
+
+        emit('update:modelValue', val)
+      })
 
     const update = (property, value) => {
       emit('update:modelValue', {
