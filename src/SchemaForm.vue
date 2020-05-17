@@ -35,6 +35,10 @@ export default {
     sharedConfig: {
       type: Object,
       default: () => ({})
+    },
+    preventModelCleanupOnSchemaChange: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props, { emit }) {
@@ -54,6 +58,8 @@ export default {
 
     watch(parsedSchema,
       (schema, oldSchema) => {
+        if (props.preventModelCleanupOnSchemaChange) return
+
         const newKeys = schema.map(i => i.model)
 
         let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
