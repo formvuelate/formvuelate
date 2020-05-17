@@ -148,7 +148,7 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 
 ### Prop: preventModelCleanupOnSchemaChange
 
-`SchemaForm` by default parses and clears the output whenever the `schema` property changes.
+By default `SchemaForm` cleans up the value output of properties that are no longer present inside `schema` every time `schema` changes.
 
 Pretend that you have a form that is built with the following schema.
 
