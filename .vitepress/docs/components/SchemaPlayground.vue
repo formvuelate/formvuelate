@@ -1,11 +1,18 @@
 <template>
+  <div style="margin-bottom: 2rem">
+    <h3>SchemaForm props</h3>
+    <FormCheckbox v-model="options.preventModelCleanupOnSchemaChange" label="preventModelCleanupOnSchemaChange" />
+  </div>
   <div style="display: flex">
     <div>
       <textarea @keyup="toggleValidation" v-model="schema" class="editor" :class="{ 'editor-error': hasParseErrors }"/>
       <p v-if="hasParseErrors" style="color: red">The Schema is invalid. Must be valid JSON value. <br>{{ schemaError }}</p>
     </div>
     <div>
-      <SchemaForm :schema="parsedSchema" v-model="value" />
+      <SchemaForm
+        :preventModelCleanupOnSchemaChange="options.preventModelCleanupOnSchemaChange"
+        :schema="parsedSchema" v-model="value"
+      />
       <pre>{{ value }}</pre>
     </div>
   </div>
@@ -82,6 +89,9 @@ export default {
     const schemaError = ref('')
     const hasParseErrors = ref(false)
     const disabledParsing = ref(false)
+    const options = reactive({
+      preventModelCleanupOnSchemaChange: false
+    })
 
     const parsedSchema = ref(JSON.parse(schema.value))
 
@@ -109,7 +119,8 @@ export default {
       parsedSchema,
       hasParseErrors,
       value,
-      toggleValidation
+      toggleValidation,
+      options
     }
   }
 }

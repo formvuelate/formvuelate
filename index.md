@@ -28,9 +28,13 @@ npm install formvuelatte
 
 Now that you have the package in your project, `import` it to your component.
 
+You can pick and choose which of the `FormVueLatte` components you will need. The following example imports all of them.
+
 ```javascript
-import { SchemaForm } from 'formvuelatte'
+import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelatte'
 ```
+
+## SchemaForm
 
 The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
 
@@ -102,7 +106,9 @@ export default {
 </script>
 ```
 
-## The schema prop
+Keep in mind when using v-model with `<SchemaForm>`, the value that we pass will be replaced with a new value. This also means we should always use `ref` to create that state object as it will track the changes as you would expect.
+
+### Prop: Schema
 
 The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`, although under the hood it will be transformed to an `array`.
 
@@ -140,7 +146,50 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 </script>
 ```
 
-## Component Requirements
+### Prop: preventModelCleanupOnSchemaChange
+
+By default `SchemaForm` cleans up the value output of properties that are no longer present inside `schema` every time `schema` changes.
+
+Pretend that you have a form that is built with the following schema.
+
+```js
+name: {
+  label: 'Name',
+  component: FormText
+},
+lastName: {
+  label: 'Last name',
+  component: FormText
+}
+```
+
+If the user fills out both of the inputs, you can expect an output like the following.
+
+```js
+{
+  name: 'Bobba',
+  lastName: 'Fett'
+}
+```
+
+If at this point your schema changes, and deletes the `lastName` property, `SchemaForm` is smart enough to remove that from the output and emit a new `update:modelValue` since that field is effectively _gone_.
+
+```js
+{
+  name: 'Bobba'
+}
+```
+
+If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChange` to your `SchemaForm` component.
+
+```html
+<SchemaForm 
+  preventModelCleanupOnSchemaChange
+  :schema="mySchema"
+/>
+```
+
+### Component Requirements
 
 Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
 
