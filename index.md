@@ -106,7 +106,7 @@ export default {
 </script>
 ```
 
-Keep in mind when using v-model with <SchemaForm>, the value that we pass will be replaced with a new value. This also means we should always use ref to create that state object as it will track the changes as you would expect.
+Keep in mind when using v-model with `<SchemaForm>`, the value that we pass will be replaced with a new value. This also means we should always use `ref` to create that state object as it will track the changes as you would expect.
 
 ### Prop: Schema
 
