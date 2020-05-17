@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed, watch } from 'vue'
+import { computed, watch, isRef } from 'vue'
 
 export default {
   props: {
@@ -59,11 +59,11 @@ export default {
         let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
         const val = { ...props.modelValue }
 
-        for (let key in diff) {
-          delete val[diff[key]]
+        for (let key of diff) {
+          delete val[key]
         }
 
-        console.log(val)
+        console.log('Emit new val', val)
 
         emit('update:modelValue', val)
       })
