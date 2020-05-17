@@ -46,6 +46,19 @@ export default {
       isVueFan: {
         component: 'FormCheckbox',
         label: 'Are you a Vue fan?'
+      },
+      nested: {
+        component: 'SchemaForm',
+        schema: {
+          cake: {
+            component: 'FormText',
+            label: 'Cake?'
+          },
+          pie: {
+            component: 'FormText',
+            label: 'Pie?'
+          }
+        }
       }
     }, null, 2))
 
