@@ -47,16 +47,32 @@ export default {
         component: 'FormCheckbox',
         label: 'Are you a Vue fan?'
       },
-      nested: {
+      work: {
         component: 'SchemaForm',
         schema: {
-          cake: {
+          address: {
             component: 'FormText',
-            label: 'Cake?'
+            label: 'Work address'
           },
-          pie: {
+          phone: {
             component: 'FormText',
-            label: 'Pie?'
+            label: 'Work phone'
+          },
+          details: {
+            component: 'SchemaForm',
+            schema: {
+              position: {
+                component: 'FormText',
+                label: 'Work position'
+              },
+              employees: {
+                component: 'FormSelect',
+                label: 'Number of employees',
+                options: [
+                  '1', '2', '3', '4+'
+                ]
+              }
+            }
           }
         }
       }

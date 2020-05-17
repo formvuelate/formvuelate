@@ -57,13 +57,13 @@ export default {
         const newKeys = schema.map(i => i.model)
 
         let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
+        if (!diff.length) return
+
         const val = { ...props.modelValue }
 
         for (let key of diff) {
           delete val[key]
         }
-
-        console.log('Emit new val', val)
 
         emit('update:modelValue', val)
       })
