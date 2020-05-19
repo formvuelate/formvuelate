@@ -64,6 +64,12 @@ export default {
     }
   },
 
+  mounted () {
+    document.querySelectorAll('.language-vue').forEach(item => {
+      item.classList.add('language-html')
+    })
+  },
+
   computed: {
     shouldShowNavbar () {
       const { themeConfig } = this.$site
@@ -142,7 +148,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@require './styles/index.styl'
+@require './styles/index.styl';
 
 .theme-container {
   font-family: Arial, Helvetica, sans-serif;
