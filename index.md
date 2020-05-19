@@ -49,7 +49,7 @@ The `SchemaForm` will `$emit` **update:modelValue** events when your components 
 
 Example with `v-model`:
 
-```javascript
+```html
 <template>
   <SchemaForm :schema="mySchema" v-model="formData" />
 </template>
@@ -57,52 +57,52 @@ Example with `v-model`:
 <script>
 import { reactive } from 'vue'
 export default {
-	setup() {
-		const formData = reactive({})
-		const mySchema = reactive({
-			// some schema here
-		})
+  setup() {
+    const formData = reactive({})
+    const mySchema = reactive({
+      // some schema here
+    })
 
-		return {
-			formData,
-			mySchema
-		}
-	}
-}}
+    return {
+      formData,
+      mySchema
+    }
+  }
+}
 </script>
 ```
 
 Example with manual bindings:
 
-```javascript
+```html
 <template>
   <SchemaForm
-		:schema="mySchema"
-		:data="formData"
-		@update:modelValue="updateForm"
-	/>
+    :schema="mySchema"
+    :data="formData"
+    @update:modelValue="updateForm"
+  />
 </template>
 
 <script>
 import { reactive } from 'vue'
 export default {
-	setup() {
-		const formData = reactive({})
-		const mySchema = reactive({
-			// some schema here
-		})
+  setup() {
+    const formData = reactive({})
+    const mySchema = reactive({
+      // some schema here
+    })
 
     const updateForm = form => {
-			formData = form
-		}
+      formData = form
+    }
 
-		return {
-			formData,
-			mySchema,
-			updateForm
-		}
-	}
-}}
+    return {
+      formData,
+      mySchema,
+      updateForm
+    }
+  }
+}
 </script>
 ```
 
@@ -114,35 +114,35 @@ The `SchemaForm` component requires you to pass it a `schema` property. This `sc
 
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
-```javascript
+```html
 <template>
-	<SchemaForm :schema="schema" v-model="formData" />
+  <SchemaForm :schema="schema" v-model="formData" />
 </template>
 
 <script>
-	import { SchemaForm } from 'formvuelatte'
-	import FormText from 'path/to/FormText'
-	import { reactive } from 'vue'
+  import { SchemaForm } from 'formvuelatte'
+  import FormText from 'path/to/FormText'
+  import { reactive } from 'vue'
 
-	export default {
-		components: { SchemaForm },
-		setup() {
-			const schema = reactive({
-				name: {
-					component: FormText // Note that is NOT a string
-				},
-				lastName: {
-					component: FormText // We pass the component that we imported directly
-				}
-			})
-			const formData = reactive({})
+  export default {
+    components: { SchemaForm },
+    setup() {
+      const schema = reactive({
+        name: {
+          component: FormText // Note that is NOT a string
+        },
+        lastName: {
+          component: FormText // We pass the component that we imported directly
+        }
+      })
+      const formData = reactive({})
 
-			return {
-				schema,
-				formData
-			}
-		}
-	}
+      return {
+        schema,
+        formData
+      }
+    }
+  }
 </script>
 ```
 
@@ -183,7 +183,7 @@ If at this point your schema changes, and deletes the `lastName` property, `Sche
 If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChange` to your `SchemaForm` component.
 
 ```html
-<SchemaForm 
+<SchemaForm
   preventModelCleanupOnSchemaChange
   :schema="mySchema"
 />
@@ -199,7 +199,7 @@ Next, make sure that your component `$emit`s an `update:modelValue` event with t
 
 Example of a simple input component:
 
-```javascript
+```html
 <template>
   <input type="text" :value="modelValue" @input="update" />
 </template>
@@ -207,15 +207,15 @@ Example of a simple input component:
 <script>
 export default {
   props: {
-		modelValue: {
-			required: true,
-			type: [String, Number]
-		}
+    modelValue: {
+      required: true,
+      type: [String, Number]
+    }
   },
   setup(props, context) {
     const update = event => {
-			context.emit('update:modelValue', event.target.value)
-		}
+      context.emit('update:modelValue', event.target.value)
+    }
   }
 }
 </script>
@@ -239,17 +239,17 @@ Example wizard schema:
 
 ```javascript
 const wizardSchema = [
-	// Step 1 - user's name
+  // Step 1 - user's name
   {
-	  firstName: { component: FormText },
-		lastName: { component: FormText }
+    firstName: { component: FormText },
+    lastName: { component: FormText }
   },
 
-	// Step 2 - user's email and agree to terms
-	{
-		email: { component: FormEmail },
-		terms: { component: FormCheckbox }
-	}
+  // Step 2 - user's email and agree to terms
+  {
+    email: { component: FormEmail },
+    terms: { component: FormCheckbox }
+  }
 ]
 ```
 
@@ -274,13 +274,13 @@ Example output from the example schema above:
 ```javascript
 [
   {
-	  fistName: 'Jane',
-		lastName: 'Doe'
-	},
-	{
-		email: 'jane@gmail.com',
-		terms: true
-	}
+    fistName: 'Jane',
+    lastName: 'Doe'
+  },
+  {
+    email: 'jane@gmail.com',
+    terms: true
+  }
 ]
 ```
 
@@ -305,13 +305,13 @@ import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
-	VuelidatePlugin(useVuelidate)
+  VuelidatePlugin(useVuelidate)
 ])
 ```
 
 Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
 
-```javascript
+```html
 <template>
   [...]
   <SchemaFormWithValidations />
@@ -366,7 +366,7 @@ import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
-	VuelidatePlugin(useVuelidate)
+  VuelidatePlugin(useVuelidate)
 ])
 ```
 
@@ -398,11 +398,11 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 
 ```html
 <template>
-	<SchemaFormWithValidations
-	  :schema="schema"
-	  v-model="userData"
-	  @update:validations="updateValidations"
-	/>
+  <SchemaFormWithValidations
+    :schema="schema"
+    v-model="userData"
+    @update:validations="updateValidations"
+  />
 </template>
 ```
 
@@ -410,7 +410,7 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 
 Here you will find a few examples on how you can set up your `schema` and the output it would produce.
 
-Please note: We are using a few different custom components to showcase, but you should use your own! 
+Please note: We are using a few different custom components to showcase, but you should use your own!
 
 These components are **only** for demonstration purposes, and are **not** included with the library. 😉
 
@@ -429,7 +429,7 @@ It provides the component with a `schema` in the form of a JavaScript object, an
 
 ### Nested schemas
 
-`SchemaForm` is able to parse and display forms that are based on nested schemas. In the example below, you can see how the `work` property is an object that uses `SchemaForm` itself as a component, and provides a `schema` property of its own. 
+`SchemaForm` is able to parse and display forms that are based on nested schemas. In the example below, you can see how the `work` property is an object that uses `SchemaForm` itself as a component, and provides a `schema` property of its own.
 
 Further down the tree inside `details`, yet another level of nested data can be found.
 
