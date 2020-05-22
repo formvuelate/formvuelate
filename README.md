@@ -403,7 +403,6 @@ Let's add this mapping into our configuration object.
 
 ```js
 LookupPlugin({
-  componentProp: 'type',
   mapComponents: {
     string: 'FormText',
     array: 'FormSelect'
