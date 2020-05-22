@@ -530,7 +530,7 @@ import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
-	VuelidatePlugin(useVuelidate)
+  VuelidatePlugin(useVuelidate)
 ])
 ```
 
@@ -562,11 +562,11 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 
 ```html
 <template>
-	<SchemaFormWithValidations
-	  :schema="schema"
-	  v-model="userData"
-	  @update:validations="updateValidations"
-	/>
+  <SchemaFormWithValidations
+    :schema="schema"
+    v-model="userData"
+    @update:validations="updateValidations"
+  />
 </template>
 ```
 
