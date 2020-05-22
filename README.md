@@ -269,11 +269,11 @@ export default {
 
 ### Lookup Plugin
 
+[Repository for Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup).
+
 Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
 
 In order to make this task easier, `FormVueLatte` provides a core plugin called `@formvuelatte/plugin-lookup`.
-
-The [repo for the plugin can be found here](https://github.com/vuelidate/formvuelatte-plugin-lookup).
 
 #### Installation
 
