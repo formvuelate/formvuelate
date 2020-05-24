@@ -1,7 +1,6 @@
 <template>
     <component
       :is="!hasParentSchema ? 'form' : 'div'"
-      class="schema-form"
       >
         <slot v-if="!hasParentSchema" name="beforeForm"></slot>
         <component
