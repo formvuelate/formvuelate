@@ -1,4 +1,4 @@
-# FVL Docs v3
+# FormVueLatte 2.x
 
 ## Getting Started
 
