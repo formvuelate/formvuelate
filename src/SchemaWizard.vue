@@ -1,6 +1,6 @@
 <template>
-  <form>
-    <slot name="beforeWizardForm" />
+  <form @submit.prevent="$emit('submit', $event)">
+    <slot name="beforeForm" />
 
     <SchemaForm
       :schema="currentSchema"
@@ -8,7 +8,7 @@
       @input="update"
     />
 
-    <slot name="afterWizardForm" />
+    <slot name="afterForm" />
   </form>
 </template>
 
