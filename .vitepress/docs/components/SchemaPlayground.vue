@@ -10,7 +10,8 @@
     </div>
     <div>
       <SchemaForm
-        @submit.prevent="onSubmit"
+        class="schema-form"
+        @submit="onSubmit"
         :preventModelCleanupOnSchemaChange="options.preventModelCleanupOnSchemaChange"
         :schema="parsedSchema" v-model="value"
       >

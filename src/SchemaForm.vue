@@ -1,6 +1,7 @@
 <template>
     <component
       :is="!hasParentSchema ? 'form' : 'div'"
+      v-bind="formBinds"
       >
         <slot v-if="!hasParentSchema" name="beforeForm"></slot>
         <component
@@ -20,6 +21,7 @@
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
+  emits: ['submit'],
   props: {
     schema: {
       type: [Object, Array],
@@ -109,13 +111,25 @@ export default {
       return props.modelValue[field.model]
     }
 
+    const formBinds = computed(() => {
+      if (hasParentSchema) return {}
+
+      return {
+        'onSubmit': event => {
+          event.preventDefault()
+          emit('submit', event)
+        }
+      }
+    })
+
     return {
       parsedSchema,
       val,
       binds,
       update,
       updateBatch,
-      hasParentSchema
+      hasParentSchema,
+      formBinds
     }
   }
 }
