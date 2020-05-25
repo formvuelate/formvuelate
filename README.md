@@ -569,7 +569,30 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 </template>
 ```
 
-## Contributors
-- [Marina Mosti](https://twitter.com/MarinaMosti)
-- [Damian Dulisz](https://twitter.com/DamianDulisz)
-- [Tonina Zhelyazkova](https://twitter.com/tonina_zh)
+## Core team
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/marina-mosti">
+        <img src="https://avatars2.githubusercontent.com/u/14843771?s=460&u=1d11d62c22d38c01d73e6c92587bd567f4e51d27&v=4" width="120px;" alt="Marina Mosti"/>
+        <br />
+        <sub><b>Marina Mosti</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/shentao">
+        <img src="https://avatars3.githubusercontent.com/u/3737591?s=460&u=6ef86c71bbbb74efae3c6224390ce9a8cba82272&v=4" width="120px;" alt="Damian Dulisz"/>
+        <br />
+        <sub><b>Damian Dulisz</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tzhelyazkova">
+        <img src="https://avatars0.githubusercontent.com/u/24877689?s=460&u=3800bb7ec37a732fa56d47f097f8d2eaf2518f57&v=4" width="120px;" alt="Tonina Zhelyazkova"/>
+        <br />
+        <sub><b>Tonina Zhelyazkova</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
