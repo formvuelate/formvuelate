@@ -45,17 +45,17 @@ Example with `v-model`:
 <script>
 import { reactive } from 'vue'
 export default {
-	setup() {
-		const formData = reactive({})
-		const mySchema = reactive({
-			// some schema here
-		})
+  setup() {
+    const formData = reactive({})
+    const mySchema = reactive({
+      // some schema here
+    })
 
-		return {
-			formData,
-			mySchema
-		}
-	}
+    return {
+      formData,
+      mySchema
+    }
+  }
 }}
 </script>
 ```
@@ -65,31 +65,31 @@ Example with manual bindings:
 ```javascript
 <template>
   <SchemaForm
-		:schema="mySchema"
-		:data="formData"
-		@update:modelValue="updateForm"
-	/>
+    :schema="mySchema"
+    :data="formData"
+    @update:modelValue="updateForm"
+  />
 </template>
 
 <script>
 import { reactive } from 'vue'
 export default {
-	setup() {
-		const formData = reactive({})
-		const mySchema = reactive({
-			// some schema here
-		})
+  setup() {
+    const formData = reactive({})
+    const mySchema = reactive({
+      // some schema here
+    })
 
     const updateForm = form => {
-			formData = form
-		}
+      formData = form
+    }
 
-		return {
-			formData,
-			mySchema,
-			updateForm
-		}
-	}
+    return {
+      formData,
+      mySchema,
+      updateForm
+    }
+  }
 }}
 </script>
 ```
@@ -102,33 +102,33 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 
 ```javascript
 <template>
-	<SchemaForm :schema="schema" v-model="formData" />
+  <SchemaForm :schema="schema" v-model="formData" />
 </template>
 
 <script>
-	import { SchemaForm } from 'formvuelatte'
-	import FormText from 'path/to/FormText'
-	import { reactive } from 'vue'
+  import { SchemaForm } from 'formvuelatte'
+  import FormText from 'path/to/FormText'
+  import { reactive } from 'vue'
 
-	export default {
-		components: { SchemaForm },
-		setup() {
-			const schema = reactive({
-				name: {
-					component: FormText // Note that is NOT a string
-				},
-				lastName: {
-					component: FormText // We pass the component that we imported directly
-				}
-			})
-			const formData = reactive({})
+  export default {
+    components: { SchemaForm },
+    setup() {
+      const schema = reactive({
+        name: {
+          component: FormText // Note that is NOT a string
+        },
+        lastName: {
+          component: FormText // We pass the component that we imported directly
+        }
+      })
+      const formData = reactive({})
 
-			return {
-				schema,
-				formData
-			}
-		}
-	}
+      return {
+        schema,
+        formData
+      }
+    }
+  }
 </script>
 ```
 
@@ -150,15 +150,15 @@ Example of a simple input component:
 <script>
 export default {
   props: {
-		modelValue: {
-			required: true,
-			type: [String, Number]
-		}
+    modelValue: {
+      required: true,
+      type: [String, Number]
+    }
   },
   setup(props, context) {
     const update = event => {
-			context.emit('update:modelValue', event.target.value)
-		}
+      context.emit('update:modelValue', event.target.value)
+    }
   }
 }
 </script>
@@ -182,17 +182,17 @@ Example wizard schema:
 
 ```javascript
 const wizardSchema = [
-	// Step 1 - user's name
+  // Step 1 - user's name
   {
-	  firstName: { component: FormText },
-		lastName: { component: FormText }
+    firstName: { component: FormText },
+    lastName: { component: FormText }
   },
 
-	// Step 2 - user's email and agree to terms
-	{
-		email: { component: FormEmail },
-		terms: { component: FormCheckbox }
-	}
+  // Step 2 - user's email and agree to terms
+  {
+    email: { component: FormEmail },
+    terms: { component: FormCheckbox }
+  }
 ]
 ```
 
@@ -217,13 +217,13 @@ Example output from the example schema above:
 ```javascript
 [
   {
-	  fistName: 'Jane',
-		lastName: 'Doe'
-	},
-	{
-		email: 'jane@gmail.com',
-		terms: true
-	}
+    fistName: 'Jane',
+    lastName: 'Doe'
+  },
+  {
+    email: 'jane@gmail.com',
+    terms: true
+  }
 ]
 ```
 
@@ -248,7 +248,7 @@ import useVuelidate from '@vuelidate'
 import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
-	VuelidatePlugin(useVuelidate)
+  VuelidatePlugin(useVuelidate)
 ])
 ```
 
