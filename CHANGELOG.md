@@ -1,3 +1,10 @@
+## 2.0.0-alpha.2
+
+[(#108)](https://github.com/vuelidate/formvuelatte/pull/108)
+- Allow for SchemaForm to be `div` or `form` depending on context
+- Add `form` to SchemaWizard
+- Add bindings for listeners to SchemaForm
+
 # 2.0.0-alpha.1
 
 This is the alpha release for FormVueLatte 2.0.0
