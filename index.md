@@ -1,4 +1,4 @@
-# FVL Docs v3
+# FormVueLatte 2.x
 
 ## Getting Started
 
@@ -16,7 +16,7 @@ Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on th
 
 <SchemaPlayground/>
 
-### Installation
+## Installation
 
 To add FormVueLatte to your project, start by installing the package through your favorite package manager.
 
@@ -189,6 +189,38 @@ If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChang
 />
 ```
 
+### Handling submit
+
+`SchemaForm` will automatically create a `<form>` wrapper for you on the top level `SchemaForm` in the case of single and multi dimensional schemas, and fire a `submit` event when the form is submitted.
+
+This `submit` will `preventDefault` so you can handle the submit on your end.
+
+In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaForm` component in your template.
+
+```html
+<template>
+  <SchemaForm
+    @submit="onSubmit"
+    v-model="myData"
+    :schema="mySchema"
+  />
+</template>
+```
+
+Note that any sub `SchemaForm`s in nested schemas will not have `form` tags themselves, and will be rendered inside wrapping `div` tags.
+
+### Slots
+
+`SchemaForm` provides two slots for you to add additional elements to your form.
+
+A `beforeForm` slot will be provided before the rendered `SchemaForm`.
+
+Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the `SchemaForm`.
+
+An `afterForm` slot will be provided after the rendered `SchemaForm`.
+
+Use this to add elements _after_ the `SchemaForm` and _before_ the wrapping `</form>` tag. A good example would be a submit button.
+
 ### Component Requirements
 
 Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
@@ -283,6 +315,39 @@ Example output from the example schema above:
   }
 ]
 ```
+
+### Handling submit
+
+`SchemaWizard` will automatically create a `<form>` wrapper for you on the top level regardless of how many sub-forms you provide, and fire a `submit` event when the form is submitted.
+
+This `submit` uses `preventDefault` so you can handle the submit on your end.
+
+In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaWizard` component in your template.
+
+```html
+<template>
+  <SchemaWizard
+    @submit="onSubmit"
+    v-model="myData"
+    :schema="mySchema"
+    :step="step"
+  />
+</template>
+```
+
+### Slots
+
+`SchemaWizard` provides two slots for you to add additional elements to your form.
+
+A `beforeForm` slot will be provided before the child `SchemaForm`s.
+
+Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the internal `SchemaForm`s.
+
+An `afterForm` slot will be provided after the rendered `SchemaForm`s.
+
+Use this to add elements _after_ the rendered `SchemaForm`s and _before_ the wrapping `</form>` tag. A good example would be a submit button.
+
+Note that any sub `SchemaForm`s rendered inside the `SchemaWizard` will **not** have `<form>` tags on themselves, and will be rendered inside `div` elements.
 
 ## Plugins
 

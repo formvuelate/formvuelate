@@ -1,17 +1,19 @@
 <template>
-  <div>
+  <form @submit.prevent="$emit('submit', $event)">
+    <slot name="beforeForm" />
+
     <SchemaForm
       :schema="currentSchema"
       :value="modelValue[step] || {}"
       @input="update"
     />
 
-    <slot></slot>
-  </div>
+    <slot name="afterForm" />
+  </form>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
 import SchemaForm from './SchemaForm'
 
 export default {
@@ -32,6 +34,8 @@ export default {
     }
   },
   setup (props, context) {
+    provide('parentSchemaExists', true)
+
     const currentSchema = computed(() => {
       return props.schema[props.step]
     })

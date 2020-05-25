@@ -1,23 +1,27 @@
 <template>
-    <div class="schema-form">
-      <slot name="beforeForm"></slot>
-      <component
-        v-for="field in parsedSchema"
-        :key="field.model"
-        :is="field.component"
-        v-bind="binds(field)"
-        :modelValue="val(field)"
-        @update:modelValue="update(field.model, $event)"
-        @update-batch="updateBatch(field.model, $event)"
-      />
-      <slot name="afterForm"></slot>
-    </div>
+    <component
+      :is="!hasParentSchema ? 'form' : 'div'"
+      v-bind="formBinds"
+    >
+        <slot v-if="!hasParentSchema" name="beforeForm"></slot>
+        <component
+          v-for="field in parsedSchema"
+          :key="field.model"
+          :is="field.component"
+          v-bind="binds(field)"
+          :modelValue="val(field)"
+          @update:modelValue="update(field.model, $event)"
+          @update-batch="updateBatch(field.model, $event)"
+        />
+        <slot v-if="!hasParentSchema" name="afterForm"></slot>
+    </component>
 </template>
 
 <script>
-import { computed, watch } from 'vue'
+import { computed, watch, provide, inject } from 'vue'
 
 export default {
+  emits: ['submit'],
   props: {
     schema: {
       type: [Object, Array],
@@ -41,7 +45,12 @@ export default {
       default: false
     }
   },
-  setup (props, { emit }) {
+  setup (props, { emit, attrs }) {
+    const hasParentSchema = inject('parentSchemaExists', false)
+    if (!hasParentSchema) {
+      provide('parentSchemaExists', true)
+    }
+
     const parsedSchema = computed(() => {
       if (Array.isArray(props.schema)) return props.schema
 
@@ -102,12 +111,25 @@ export default {
       return props.modelValue[field.model]
     }
 
+    const formBinds = computed(() => {
+      if (hasParentSchema) return {}
+
+      return {
+        'onSubmit': event => {
+          event.preventDefault()
+          emit('submit', event)
+        }
+      }
+    })
+
     return {
       parsedSchema,
       val,
       binds,
       update,
-      updateBatch
+      updateBatch,
+      hasParentSchema,
+      formBinds
     }
   }
 }

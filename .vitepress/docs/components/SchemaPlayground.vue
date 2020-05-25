@@ -10,9 +10,15 @@
     </div>
     <div>
       <SchemaForm
+        class="schema-form"
+        @submit="onSubmit"
         :preventModelCleanupOnSchemaChange="options.preventModelCleanupOnSchemaChange"
         :schema="parsedSchema" v-model="value"
-      />
+      >
+        <template v-slot:afterForm>
+          <BaseButton type="submit">Submit</BaseButton>
+        </template>
+      </SchemaForm>
       <pre>{{ value }}</pre>
     </div>
   </div>
@@ -85,7 +91,7 @@ export default {
       }
     }, null, 2))
 
-    const value = reactive({})
+    const value = ref({})
     const schemaError = ref('')
     const hasParseErrors = ref(false)
     const disabledParsing = ref(false)
@@ -113,6 +119,10 @@ export default {
       }
     })
 
+    const onSubmit = () => {
+      alert(`Form submitted`)
+    }
+
     return {
       schema,
       schemaError,
@@ -120,7 +130,8 @@ export default {
       hasParseErrors,
       value,
       toggleValidation,
-      options
+      options,
+      onSubmit
     }
   }
 }
