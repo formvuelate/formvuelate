@@ -2,7 +2,7 @@
     <component
       :is="!hasParentSchema ? 'form' : 'div'"
       v-bind="formBinds"
-      >
+    >
         <slot v-if="!hasParentSchema" name="beforeForm"></slot>
         <component
           v-for="field in parsedSchema"
