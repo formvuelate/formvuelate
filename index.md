@@ -12,7 +12,17 @@ The schema that you use for your form can be as flexible as you need it to be, i
 
 We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
-### Installation
+## Playground
+
+Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on the right. You can use the following demo input components:
+
+- FormText
+- FormSelect
+- FormCheckbox
+
+<SchemaPlayground/>
+
+## Installation
 
 To add FormVueLatte to your project, start by installing the package through your favorite package manager.
 
@@ -24,9 +34,13 @@ npm install formvuelatte
 
 Now that you have the package in your project, `import` it to your component.
 
+You can pick and choose which of the `FormVueLatte` components you will need. The following example imports all of them.
+
 ```javascript
-import { SchemaForm } from 'formvuelatte'
+import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelatte'
 ```
+
+## SchemaForm
 
 The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
 
@@ -41,7 +55,7 @@ The `SchemaForm` will `$emit` **update:modelValue** events when your components 
 
 Example with `v-model`:
 
-```javascript
+```html
 <template>
   <SchemaForm :schema="mySchema" v-model="formData" />
 </template>
@@ -60,13 +74,13 @@ export default {
       mySchema
     }
   }
-}}
+}
 </script>
 ```
 
 Example with manual bindings:
 
-```javascript
+```html
 <template>
   <SchemaForm
     :schema="mySchema"
@@ -98,13 +112,15 @@ export default {
 </script>
 ```
 
-## The schema prop
+Keep in mind when using v-model with `<SchemaForm>`, the value that we pass will be replaced with a new value. This also means we should always use `ref` to create that state object as it will track the changes as you would expect.
+
+### Prop: Schema
 
 The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`, although under the hood it will be transformed to an `array`.
 
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
-```javascript
+```html
 <template>
   <SchemaForm :schema="schema" v-model="formData" />
 </template>
@@ -136,7 +152,82 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 </script>
 ```
 
-## Component Requirements
+### Prop: preventModelCleanupOnSchemaChange
+
+By default `SchemaForm` cleans up the value output of properties that are no longer present inside `schema` every time `schema` changes.
+
+Pretend that you have a form that is built with the following schema.
+
+```js
+name: {
+  label: 'Name',
+  component: FormText
+},
+lastName: {
+  label: 'Last name',
+  component: FormText
+}
+```
+
+If the user fills out both of the inputs, you can expect an output like the following.
+
+```js
+{
+  name: 'Bobba',
+  lastName: 'Fett'
+}
+```
+
+If at this point your schema changes, and deletes the `lastName` property, `SchemaForm` is smart enough to remove that from the output and emit a new `update:modelValue` since that field is effectively _gone_.
+
+```js
+{
+  name: 'Bobba'
+}
+```
+
+If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChange` to your `SchemaForm` component.
+
+```html
+<SchemaForm
+  preventModelCleanupOnSchemaChange
+  :schema="mySchema"
+/>
+```
+
+### Handling submit
+
+`SchemaForm` will automatically create a `<form>` wrapper for you on the top level `SchemaForm` in the case of single and multi dimensional schemas, and fire a `submit` event when the form is submitted.
+
+This `submit` will `preventDefault` so you can handle the submit on your end.
+
+In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaForm` component in your template.
+
+```html
+<template>
+  <SchemaForm
+    @submit="onSubmit"
+    v-model="myData"
+    :schema="mySchema"
+  />
+</template>
+```
+
+Note that any sub `SchemaForm`s in nested schemas will not have `form` tags themselves, and will be rendered inside wrapping `div` tags.
+
+### Slots
+
+`SchemaForm` provides two slots for you to add additional elements to your form.
+
+A `beforeForm` slot will be provided before the rendered `SchemaForm`.
+
+Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the `SchemaForm`.
+
+An `afterForm` slot will be provided after the rendered `SchemaForm`.
+
+Use this to add elements _after_ the `SchemaForm` and _before_ the wrapping `</form>` tag. A good example would be a submit button.
+
+### Component Requirements
 
 Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
 
@@ -146,7 +237,7 @@ Next, make sure that your component `$emit`s an `update:modelValue` event with t
 
 Example of a simple input component:
 
-```javascript
+```html
 <template>
   <input type="text" :value="modelValue" @input="update" />
 </template>
@@ -231,6 +322,39 @@ Example output from the example schema above:
 ]
 ```
 
+### Handling submit
+
+`SchemaWizard` will automatically create a `<form>` wrapper for you on the top level regardless of how many sub-forms you provide, and fire a `submit` event when the form is submitted.
+
+This `submit` uses `preventDefault` so you can handle the submit on your end.
+
+In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaWizard` component in your template.
+
+```html
+<template>
+  <SchemaWizard
+    @submit="onSubmit"
+    v-model="myData"
+    :schema="mySchema"
+    :step="step"
+  />
+</template>
+```
+
+### Slots
+
+`SchemaWizard` provides two slots for you to add additional elements to your form.
+
+A `beforeForm` slot will be provided before the child `SchemaForm`s.
+
+Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the internal `SchemaForm`s.
+
+An `afterForm` slot will be provided after the rendered `SchemaForm`s.
+
+Use this to add elements _after_ the rendered `SchemaForm`s and _before_ the wrapping `</form>` tag. A good example would be a submit button.
+
+Note that any sub `SchemaForm`s rendered inside the `SchemaWizard` will **not** have `<form>` tags on themselves, and will be rendered inside `div` elements.
+
 ## Plugins
 
 FormVueLatte ships with the ability to import and use plugins to extend it's capabilities.
@@ -258,7 +382,7 @@ const SchemaFormWithPlugins = SchemaFormFactory([
 
 Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
 
-```javascript
+```html
 <template>
   [...]
   <SchemaFormWithValidations />
