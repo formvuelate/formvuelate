@@ -567,30 +567,94 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 </template>
 ```
 
-## Core team
+## Accessibility
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/marina-mosti">
-        <img src="https://avatars2.githubusercontent.com/u/14843771?s=460&u=1d11d62c22d38c01d73e6c92587bd567f4e51d27&v=4" width="120px;" alt="Marina Mosti"/>
-        <br />
-        <sub><b>Marina Mosti</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/shentao">
-        <img src="https://avatars3.githubusercontent.com/u/3737591?s=460&u=6ef86c71bbbb74efae3c6224390ce9a8cba82272&v=4" width="120px;" alt="Damian Dulisz"/>
-        <br />
-        <sub><b>Damian Dulisz</b></sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/tzhelyazkova">
-        <img src="https://avatars0.githubusercontent.com/u/24877689?s=460&u=3800bb7ec37a732fa56d47f097f8d2eaf2518f57&v=4" width="120px;" alt="Tonina Zhelyazkova"/>
-        <br />
-        <sub><b>Tonina Zhelyazkova</b></sub>
-      </a>
-    </td>
-  </tr>
-</table>
+Due to the bring-you-own-components nature of `FormVueLatte`, the library itself does not handle a11y related topics internally. However, we realize how important it is to provide accessible forms to our users.
+
+We provide some tools for you to build your components in an accessible way.
+
+### Unique ID
+
+`SchemaForm` will generate and inject a property called `uuid` to each one of your components. This property is a randomly generated consecutive number that you can use to construct a11y compatible components.
+
+Here is a simple example of a `FormInput` component that uses the `uuid` property to correctly bind the `label` to the `input`.
+
+```html
+<template>
+  <div>
+    <label :for="uuid">
+      {{ label }}
+    </label>
+    <input
+      :value="modelValue"
+      :id="uuid"
+      @input="$emit('update:modelValue', $event.target.value)"
+    >
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    modelValue: { required: true },
+    label: {
+      type: String,
+      required: true
+    },
+    uuid: {
+      type: Number,
+      default: 0
+    }
+  }
+}
+</script>
+```
+
+## Examples
+
+Here you will find a few examples on how you can set up your `schema` and the output it would produce.
+
+Please note: We are using a few different custom components to showcase, but you should use your own!
+
+These components are **only** for demonstration purposes, and are **not** included with the library. 😉
+
+### SchemaForm with v-model
+
+This example showcases the simplest way to use `SchemaForm`.
+It provides the component with a `schema` in the form of a JavaScript object, and binds the output of the form to the local data `userData` through `v-model`.
+
+<SplitTab>
+  <template v-slot:example>
+    <ExampleVModel />
+  </template>
+
+  <<< .vitepress/docs/components/ExampleVModel.vue
+</SplitTab>
+
+### Nested schemas
+
+`SchemaForm` is able to parse and display forms that are based on nested schemas. In the example below, you can see how the `work` property is an object that uses `SchemaForm` itself as a component, and provides a `schema` property of its own.
+
+Further down the tree inside `details`, yet another level of nested data can be found.
+
+<SplitTab>
+  <template v-slot:example>
+    <Formception />
+  </template>
+
+  <<< .vitepress/docs/components/Formception.vue
+</SplitTab>
+
+### Using an array based schema
+
+`SchemaForm` allows to construct the schema also as an array. The name of each field is declared as a `model` property in each element, instead of it being the `key` for each property of the object-type schema.
+
+Additionally, notice that in this example `v-model` is not being used. We bind `modelValue` directly to the `userData`, and listen to the `update:modelValue` event to merge the changes from `SchemaForm` into out `userData` object.
+
+<SplitTab>
+  <template v-slot:example>
+    <ArrayExample />
+  </template>
+
+  <<< .vitepress/docs/components/ArrayExample.vue
+</SplitTab>
