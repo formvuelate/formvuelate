@@ -6,17 +6,7 @@ FormVueLatte is a zero dependency library that allows you to generate schema-dri
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
-## Playground
-
-Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on the right. You can use the following demo input components:
-
-- FormText
-- FormSelect
-- FormCheckbox
-
-<SchemaPlayground/>
-
-## Installation
+### Installation
 
 To add FormVueLatte to your project, start by installing the package through your favorite package manager.
 
@@ -28,13 +18,9 @@ npm install formvuelatte
 
 Now that you have the package in your project, `import` it to your component.
 
-You can pick and choose which of the `FormVueLatte` components you will need. The following example imports all of them.
-
 ```javascript
-import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelatte'
+import { SchemaForm } from 'formvuelatte'
 ```
-
-## SchemaForm
 
 The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
 
@@ -49,7 +35,7 @@ The `SchemaForm` will `$emit` **update:modelValue** events when your components 
 
 Example with `v-model`:
 
-```html
+```javascript
 <template>
   <SchemaForm :schema="mySchema" v-model="formData" />
 </template>
@@ -68,13 +54,13 @@ export default {
       mySchema
     }
   }
-}
+}}
 </script>
 ```
 
 Example with manual bindings:
 
-```html
+```javascript
 <template>
   <SchemaForm
     :schema="mySchema"
@@ -102,19 +88,17 @@ export default {
       updateForm
     }
   }
-}
+}}
 </script>
 ```
 
-Keep in mind when using v-model with `<SchemaForm>`, the value that we pass will be replaced with a new value. This also means we should always use `ref` to create that state object as it will track the changes as you would expect.
-
-### Prop: Schema
+## The schema prop
 
 The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`, although under the hood it will be transformed to an `array`.
 
 In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
-```html
+```javascript
 <template>
   <SchemaForm :schema="schema" v-model="formData" />
 </template>
@@ -146,82 +130,7 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 </script>
 ```
 
-### Prop: preventModelCleanupOnSchemaChange
-
-By default `SchemaForm` cleans up the value output of properties that are no longer present inside `schema` every time `schema` changes.
-
-Pretend that you have a form that is built with the following schema.
-
-```js
-name: {
-  label: 'Name',
-  component: FormText
-},
-lastName: {
-  label: 'Last name',
-  component: FormText
-}
-```
-
-If the user fills out both of the inputs, you can expect an output like the following.
-
-```js
-{
-  name: 'Bobba',
-  lastName: 'Fett'
-}
-```
-
-If at this point your schema changes, and deletes the `lastName` property, `SchemaForm` is smart enough to remove that from the output and emit a new `update:modelValue` since that field is effectively _gone_.
-
-```js
-{
-  name: 'Bobba'
-}
-```
-
-If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChange` to your `SchemaForm` component.
-
-```html
-<SchemaForm
-  preventModelCleanupOnSchemaChange
-  :schema="mySchema"
-/>
-```
-
-### Handling submit
-
-`SchemaForm` will automatically create a `<form>` wrapper for you on the top level `SchemaForm` in the case of single and multi dimensional schemas, and fire a `submit` event when the form is submitted.
-
-This `submit` will `preventDefault` so you can handle the submit on your end.
-
-In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaForm` component in your template.
-
-```html
-<template>
-  <SchemaForm
-    @submit="onSubmit"
-    v-model="myData"
-    :schema="mySchema"
-  />
-</template>
-```
-
-Note that any sub `SchemaForm`s in nested schemas will not have `form` tags themselves, and will be rendered inside wrapping `div` tags.
-
-### Slots
-
-`SchemaForm` provides two slots for you to add additional elements to your form.
-
-A `beforeForm` slot will be provided before the rendered `SchemaForm`.
-
-Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the `SchemaForm`.
-
-An `afterForm` slot will be provided after the rendered `SchemaForm`.
-
-Use this to add elements _after_ the `SchemaForm` and _before_ the wrapping `</form>` tag. A good example would be a submit button.
-
-### Component Requirements
+## Component Requirements
 
 Now that you have your schema bound into the `schema` prop, you need to make sure that your components are understood by `SchemaForm`.
 
@@ -231,7 +140,7 @@ Next, make sure that your component `$emit`s an `update:modelValue` event with t
 
 Example of a simple input component:
 
-```html
+```javascript
 <template>
   <input type="text" :value="modelValue" @input="update" />
 </template>
@@ -316,39 +225,6 @@ Example output from the example schema above:
 ]
 ```
 
-### Handling submit
-
-`SchemaWizard` will automatically create a `<form>` wrapper for you on the top level regardless of how many sub-forms you provide, and fire a `submit` event when the form is submitted.
-
-This `submit` uses `preventDefault` so you can handle the submit on your end.
-
-In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaWizard` component in your template.
-
-```html
-<template>
-  <SchemaWizard
-    @submit="onSubmit"
-    v-model="myData"
-    :schema="mySchema"
-    :step="step"
-  />
-</template>
-```
-
-### Slots
-
-`SchemaWizard` provides two slots for you to add additional elements to your form.
-
-A `beforeForm` slot will be provided before the child `SchemaForm`s.
-
-Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the internal `SchemaForm`s.
-
-An `afterForm` slot will be provided after the rendered `SchemaForm`s.
-
-Use this to add elements _after_ the rendered `SchemaForm`s and _before_ the wrapping `</form>` tag. A good example would be a submit button.
-
-Note that any sub `SchemaForm`s rendered inside the `SchemaWizard` will **not** have `<form>` tags on themselves, and will be rendered inside `div` elements.
-
 ## Plugins
 
 FormVueLatte ships with the ability to import and use plugins to extend it's capabilities.
@@ -376,7 +252,7 @@ const SchemaFormWithPlugins = SchemaFormFactory([
 
 Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
 
-```html
+```javascript
 <template>
   [...]
   <SchemaFormWithValidations />
@@ -389,7 +265,227 @@ export default {
 }
 ```
 
-## VuelidatePlugin
+### Lookup Plugin
+
+[Repository for Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup).
+
+Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
+
+In order to make this task easier, `FormVueLatte` provides a core plugin called `@formvuelatte/plugin-lookup`.
+
+#### Installation
+
+To install the plugin, simply add it to your `package.json` via terminal.
+
+```bash
+yarn add @formvuelatte/plugin-lookup
+
+// OR
+
+npm i @formvuelatte/plugin-lookup
+```
+
+#### Usage
+
+To use the plugin, first import both the plugin itself, and the `SchemaFormFactory` to your application.
+
+```js
+import { SchemaFormFactory } from 'formvuelatte'
+import LookupPlugin from '@formvuelatte/plugin-lookup'
+```
+
+Now that we have both imported, we can create our plugin-enabled `SchemaForm` component by using the `SchemaFormFactory`
+
+```js
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    // plugin configuration here
+  })
+])
+```
+
+Now that we have created our new component, we can pass it to our instance's `components` object, and use it as we normally would in our template.
+
+```js
+export default {
+  name: 'App',
+  components: {
+    SchemaFormWithPlugin
+  },
+  setup () {
+    [...]
+  }
+}
+```
+
+```html
+<template>
+  <div id="app">
+    <SchemaFormWithPlugin
+      :schema="mySchema"
+      v-model="myData"
+    />
+  </div>
+</template>
+```
+
+**Important: ** Remember that `SchemaFormFactory` returns an extended version of `SchemaForm`, so all the props required by `SchemaForm` like `schema` and `modelValue`/`v-model` are still required.
+
+#### Configuration
+
+`LookupPlugin` takes one parameter, an object, as it's source of configuration.
+Let's look at the properties that we can use in this object.
+
+**componentProp**
+
+`SchemaForm` schemas expect each component inside of them to be defined with a `component` property, like in the following example.
+
+```json
+{
+  "firstName": {
+    "component": "FormText",
+    "label": "First name"
+  }
+}
+```
+
+In some cases the schema might define your `component` property with something else, like `type` like in the following example:
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name"
+  }
+}
+```
+
+If this is the case, you can pass into the configuration the `componentProp` property with the name of what YOUR schema uses to define the component for each node.
+
+```js
+LookupPlugin({
+  componentProp: 'type'
+})
+```
+
+The plugin will handle parsing the schema from `type` into `component` for you now.
+
+**mapComponents**
+
+If your schema does not provide component names as your Vue application needs them, `mapComponents` is another property of the configuration object that can allow you to rename or remap these values with ease.
+
+Consider the following example schema.
+
+```json
+{
+  "firstName": {
+    "component": "string",
+    "label": "First name"
+  },
+   "favoriteThingAboutVue": {
+    "component": "array",
+    "label": "Favorite thing about Vue",
+    "required": true,
+    "options": [
+      "Ease of use",
+      "Documentation",
+      "Community"
+    ]
+  },
+}
+```
+
+In this case, the `component` definition is not `FormText`, or `FormSelect`, or whichever other components we may be using in our application. So we need to map them.
+
+Let's add this mapping into our configuration object.
+
+```js
+LookupPlugin({
+  mapComponents: {
+    string: 'FormText',
+    array: 'FormSelect'
+  }
+})
+```
+
+`LookupPlugin` will now look inside your schema and parse all the `component` definitions into their respective components. So `string` will become `FormText` and `array` will become a `FormSelect` component.
+
+**mapProps**
+
+If your schema needs to parse additional props for your own component's needs, `mapProps` provides an easy way of parsing any property in your component's object definition to something else.
+
+Consider the following schema.
+
+```json
+{
+  "firstName": {
+    "component": "FormText",
+    "info": "First name"
+  }
+}
+```
+
+If we needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do it for us.
+
+```js
+
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    mapProps: {
+      info: 'label'
+    }
+  })
+])
+```
+
+Now our schema will correctly pass the `label` property into our `FormText` component.
+
+#### Nested Schema Caveats
+
+When dealing with schemas that have sub-schemas like the following:
+
+```json
+{
+  "firstName": {
+    "component": "string",
+    "info": "First Name"
+  },
+  "work": {
+    "component": "SchemaForm",
+    "schema": {
+      "address": {
+        "type": "FormText",
+        "label": "Work address"
+      },
+      "details": {
+        "component": "SchemaForm",
+        "schema": {
+          "position": {
+            "type": "FormText",
+            "label": "Work position"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Make sure that you `mapComponents` and change `SchemaForm` for whatever you named the output of your `SchemaFormFactory` function call.
+
+```js
+// Note "SchemaFormWithPlugin" getting remapped
+
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+      SchemaForm: 'SchemaFormWithPlugin',
+      [...]
+    }
+  })
+])
+```
+
+### Vuelidate Plugin
 
 In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
 
@@ -471,51 +567,30 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 </template>
 ```
 
-## Examples
+## Core team
 
-Here you will find a few examples on how you can set up your `schema` and the output it would produce.
-
-Please note: We are using a few different custom components to showcase, but you should use your own!
-
-These components are **only** for demonstration purposes, and are **not** included with the library. 😉
-
-### SchemaForm with v-model
-
-This example showcases the simplest way to use `SchemaForm`.
-It provides the component with a `schema` in the form of a JavaScript object, and binds the output of the form to the local data `userData` through `v-model`.
-
-<SplitTab>
-  <template v-slot:example>
-    <ExampleVModel />
-  </template>
-
-  <<< .vitepress/docs/components/ExampleVModel.vue
-</SplitTab>
-
-### Nested schemas
-
-`SchemaForm` is able to parse and display forms that are based on nested schemas. In the example below, you can see how the `work` property is an object that uses `SchemaForm` itself as a component, and provides a `schema` property of its own.
-
-Further down the tree inside `details`, yet another level of nested data can be found.
-
-<SplitTab>
-  <template v-slot:example>
-    <Formception />
-  </template>
-
-  <<< .vitepress/docs/components/Formception.vue
-</SplitTab>
-
-### Using an array based schema
-
-`SchemaForm` allows to construct the schema also as an array. The name of each field is declared as a `model` property in each element, instead of it being the `key` for each property of the object-type schema.
-
-Additionally, notice that in this example `v-model` is not being used. We bind `modelValue` directly to the `userData`, and listen to the `update:modelValue` event to merge the changes from `SchemaForm` into out `userData` object.
-
-<SplitTab>
-  <template v-slot:example>
-    <ArrayExample />
-  </template>
-
-  <<< .vitepress/docs/components/ArrayExample.vue
-</SplitTab>
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/marina-mosti">
+        <img src="https://avatars2.githubusercontent.com/u/14843771?s=460&u=1d11d62c22d38c01d73e6c92587bd567f4e51d27&v=4" width="120px;" alt="Marina Mosti"/>
+        <br />
+        <sub><b>Marina Mosti</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/shentao">
+        <img src="https://avatars3.githubusercontent.com/u/3737591?s=460&u=6ef86c71bbbb74efae3c6224390ce9a8cba82272&v=4" width="120px;" alt="Damian Dulisz"/>
+        <br />
+        <sub><b>Damian Dulisz</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tzhelyazkova">
+        <img src="https://avatars0.githubusercontent.com/u/24877689?s=460&u=3800bb7ec37a732fa56d47f097f8d2eaf2518f57&v=4" width="120px;" alt="Tonina Zhelyazkova"/>
+        <br />
+        <sub><b>Tonina Zhelyazkova</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
