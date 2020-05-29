@@ -14,11 +14,13 @@
           @update-batch="updateBatch(field.model, $event)"
         />
         <slot v-if="!hasParentSchema" name="afterForm"></slot>
+
+        <pre>{{ parsedSchema }}</pre>
     </component>
 </template>
 
 <script>
-import { computed, watch, provide, inject } from 'vue'
+import { computed, watch, provide, inject, ref } from 'vue'
 
 export default {
   emits: ['submit'],
@@ -51,14 +53,23 @@ export default {
       provide('parentSchemaExists', true)
     }
 
+    let UUID = Math.floor(Math.random() * 1000000000)
+    const UUIDBindings = new Set()
+
     const parsedSchema = computed(() => {
       if (Array.isArray(props.schema)) return props.schema
 
       const arraySchema = []
       for (const model in props.schema) {
+        if (!UUIDBindings[model]) {
+          UUIDBindings[model] = UUID
+          UUID++
+        }
+
         arraySchema.push({
           ...props.schema[model],
-          model
+          model,
+          uuid: UUIDBindings[model]
         })
       }
 
