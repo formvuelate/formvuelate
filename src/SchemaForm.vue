@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import UniqueID from './features/UniqueID'
 import { computed, watch, provide, inject, ref } from 'vue'
 
 export default {
@@ -51,8 +52,7 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    let UUID = Math.floor(Math.random() * 1000000000)
-    const UUIDBindings = new Set()
+    let { UUID, UUIDBindings } = UniqueID()
 
     const parsedSchema = computed(() => {
       if (Array.isArray(props.schema)) return props.schema
