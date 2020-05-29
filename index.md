@@ -2,9 +2,15 @@
 
 ## Getting Started
 
-FormVueLatte is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
+`FormVueLatte` is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
+
+**Important**
+
+`FormVueLatte` is a bring-your-own-components (BYOC) library!
+
+We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
 ### Installation
 
