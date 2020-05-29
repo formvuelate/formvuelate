@@ -14,8 +14,6 @@
           @update-batch="updateBatch(field.model, $event)"
         />
         <slot v-if="!hasParentSchema" name="afterForm"></slot>
-
-        <pre>{{ parsedSchema }}</pre>
     </component>
 </template>
 
