@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import UniqueID from './features/UniqueID'
+import useUniqueID from './features/UniqueID'
 import { computed, watch, provide, inject, ref } from 'vue'
 
 export default {
@@ -52,7 +52,7 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    let { UUID, UUIDBindings } = UniqueID()
+    let { UUID, UUIDBindings } = useUniqueID()
 
     const parsedSchema = computed(() => {
       if (Array.isArray(props.schema)) return props.schema
