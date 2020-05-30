@@ -582,6 +582,38 @@ LookupPlugin({
 
 The plugin will handle parsing the schema from `type` into `component` for you now.
 
+The `componentProp` property can also accept a `function` instead of a `string`. If a function is received, we will inject the `element` that is currently being parsed as a parameter.
+
+The function should return either a `string` which tells the plugin to replace the returned prop for `component`, or `false` to tell the plugin to _skip_ this element.
+
+Consider the following schema.
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name"
+  },
+  "firstName": {
+    "field": "FormText",
+    "label": "First name"
+  }
+}
+```
+
+Since have two different props to replace, we can now use a complex function to get the job done.
+
+```js
+LookupPlugin({
+  componentProp: (el) => {
+    if (el.type) return 'type'
+    if (el.field) return 'field'
+
+    return false
+  }
+})
+```
+
 **mapComponents**
 
 If your schema does not provide component names as your Vue application needs them, `mapComponents` is another property of the configuration object that can allow you to rename or remap these values with ease.
@@ -640,7 +672,6 @@ Consider the following schema.
 If we needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do it for us.
 
 ```js
-
 const SchemaFormWithPlugin = SchemaFormFactory([
   LookupPlugin({
     mapProps: {
@@ -651,6 +682,47 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 ```
 
 Now our schema will correctly pass the `label` property into our `FormText` component.
+
+Just like `componentProp`, `mapProps` can also receive a function to handle advanced property parsing logic.
+
+If a function is provided, the plugin will run the function before parsing each element to retrieve the mapping of properties. The function will inject the current element as the first parameter of the function.
+
+**Important:** The mapping of props is done **after** the replacement of the `component` base property. Make sure to take this into consideration if you are also replacing a property for `component` using `componentProp`.
+
+Consider the following schema and example.
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "firstName": {
+    "field": "FormText",
+    "label": "First name",
+    "important": true
+  }
+}
+```
+
+```js
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    mapProps: (el) => {
+      // Map important to required only for 'First name'
+      if (el.label === 'First name') {
+        return {
+          important: 'required'
+        }
+      }
+
+      // Don't map anything on other elements
+      return {}
+    }
+  })
+])
+```
 
 #### Nested Schema Caveats
 
