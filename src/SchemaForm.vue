@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { computed, watch, provide, inject } from 'vue'
+import useUniqueID from './features/UniqueID'
+import { computed, watch, provide, inject, ref } from 'vue'
 
 export default {
   emits: ['submit'],
@@ -51,14 +52,22 @@ export default {
       provide('parentSchemaExists', true)
     }
 
+    let { UUID, UUIDBindings } = useUniqueID()
+
     const parsedSchema = computed(() => {
       if (Array.isArray(props.schema)) return props.schema
 
       const arraySchema = []
       for (const model in props.schema) {
+        if (!UUIDBindings[model]) {
+          UUIDBindings[model] = UUID
+          UUID++
+        }
+
         arraySchema.push({
           ...props.schema[model],
-          model
+          model,
+          uuid: UUIDBindings[model]
         })
       }
 

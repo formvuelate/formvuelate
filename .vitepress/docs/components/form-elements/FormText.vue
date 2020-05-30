@@ -1,12 +1,12 @@
 <template>
   <div>
-    <label :for="label">
+    <label :for="uuid">
       {{ label }}
     </label>
     <input
       :value="modelValue"
       :required="required"
-      :id="label"
+      :id="uuid"
       :disabled="readOnly"
       @input="update($event.target.value)"
     >
@@ -32,6 +32,10 @@ export default {
     readOnly: {
       type: Boolean,
       default: false
+    },
+    uuid: {
+      type: Number,
+      default: 0
     }
   },
   methods: {

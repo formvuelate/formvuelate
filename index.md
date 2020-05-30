@@ -2,9 +2,15 @@
 
 ## Getting Started
 
-FormVueLatte is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
+`FormVueLatte` is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
+
+**Important**
+
+`FormVueLatte` is a bring-your-own-components (BYOC) library!
+
+We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
 ## Playground
 
@@ -102,7 +108,7 @@ export default {
       updateForm
     }
   }
-}
+}}
 </script>
 ```
 
@@ -389,7 +395,7 @@ export default {
 }
 ```
 
-## VuelidatePlugin
+### Vuelidate Plugin
 
 In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
 
@@ -469,6 +475,269 @@ Finally, we can go to our template and pass down both the `userData` and the lis
     @update:validations="updateValidations"
   />
 </template>
+```
+
+### Lookup Plugin
+
+[Repository for Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup).
+
+Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
+
+In order to make this task easier, `FormVueLatte` provides a core plugin called `@formvuelatte/plugin-lookup`.
+
+#### Installation
+
+To install the plugin, simply add it to your `package.json` via terminal.
+
+```bash
+yarn add @formvuelatte/plugin-lookup
+
+// OR
+
+npm i @formvuelatte/plugin-lookup
+```
+
+#### Usage
+
+To use the plugin, first import both the plugin itself, and the `SchemaFormFactory` to your application.
+
+```js
+import { SchemaFormFactory } from 'formvuelatte'
+import LookupPlugin from '@formvuelatte/plugin-lookup'
+```
+
+Now that we have both imported, we can create our plugin-enabled `SchemaForm` component by using the `SchemaFormFactory`
+
+```js
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    // plugin configuration here
+  })
+])
+```
+
+Now that we have created our new component, we can pass it to our instance's `components` object, and use it as we normally would in our template.
+
+```js
+export default {
+  name: 'App',
+  components: {
+    SchemaFormWithPlugin
+  },
+  setup () {
+    [...]
+  }
+}
+```
+
+```html
+<template>
+  <div id="app">
+    <SchemaFormWithPlugin
+      :schema="mySchema"
+      v-model="myData"
+    />
+  </div>
+</template>
+```
+
+**Important: ** Remember that `SchemaFormFactory` returns an extended version of `SchemaForm`, so all the props required by `SchemaForm` like `schema` and `modelValue`/`v-model` are still required.
+
+#### Configuration
+
+`LookupPlugin` takes one parameter, an object, as it's source of configuration.
+Let's look at the properties that we can use in this object.
+
+**componentProp**
+
+`SchemaForm` schemas expect each component inside of them to be defined with a `component` property, like in the following example.
+
+```json
+{
+  "firstName": {
+    "component": "FormText",
+    "label": "First name"
+  }
+}
+```
+
+In some cases the schema might define your `component` property with something else, like `type` like in the following example:
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name"
+  }
+}
+```
+
+If this is the case, you can pass into the configuration the `componentProp` property with the name of what YOUR schema uses to define the component for each node.
+
+```js
+LookupPlugin({
+  componentProp: 'type'
+})
+```
+
+The plugin will handle parsing the schema from `type` into `component` for you now.
+
+**mapComponents**
+
+If your schema does not provide component names as your Vue application needs them, `mapComponents` is another property of the configuration object that can allow you to rename or remap these values with ease.
+
+Consider the following example schema.
+
+```json
+{
+  "firstName": {
+    "component": "string",
+    "label": "First name"
+  },
+   "favoriteThingAboutVue": {
+    "component": "array",
+    "label": "Favorite thing about Vue",
+    "required": true,
+    "options": [
+      "Ease of use",
+      "Documentation",
+      "Community"
+    ]
+  },
+}
+```
+
+In this case, the `component` definition is not `FormText`, or `FormSelect`, or whichever other components we may be using in our application. So we need to map them.
+
+Let's add this mapping into our configuration object.
+
+```js
+LookupPlugin({
+  mapComponents: {
+    string: 'FormText',
+    array: 'FormSelect'
+  }
+})
+```
+
+`LookupPlugin` will now look inside your schema and parse all the `component` definitions into their respective components. So `string` will become `FormText` and `array` will become a `FormSelect` component.
+
+**mapProps**
+
+If your schema needs to parse additional props for your own component's needs, `mapProps` provides an easy way of parsing any property in your component's object definition to something else.
+
+Consider the following schema.
+
+```json
+{
+  "firstName": {
+    "component": "FormText",
+    "info": "First name"
+  }
+}
+```
+
+If we needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do it for us.
+
+```js
+
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    mapProps: {
+      info: 'label'
+    }
+  })
+])
+```
+
+Now our schema will correctly pass the `label` property into our `FormText` component.
+
+#### Nested Schema Caveats
+
+When dealing with schemas that have sub-schemas like the following:
+
+```json
+{
+  "firstName": {
+    "component": "string",
+    "info": "First Name"
+  },
+  "work": {
+    "component": "SchemaForm",
+    "schema": {
+      "address": {
+        "type": "FormText",
+        "label": "Work address"
+      },
+      "details": {
+        "component": "SchemaForm",
+        "schema": {
+          "position": {
+            "type": "FormText",
+            "label": "Work position"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Make sure that you `mapComponents` and change `SchemaForm` for whatever you named the output of your `SchemaFormFactory` function call.
+
+```js
+// Note "SchemaFormWithPlugin" getting remapped
+
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+      SchemaForm: 'SchemaFormWithPlugin',
+      [...]
+    }
+  })
+])
+```
+
+## Accessibility
+
+Due to the bring-you-own-components nature of `FormVueLatte`, the library itself does not handle a11y related topics internally. However, we realize how important it is to provide accessible forms to our users.
+
+We provide some tools for you to build your components in an accessible way.
+
+### Unique ID
+
+`SchemaForm` will generate and inject a property called `uuid` to each one of your components. This property is a randomly generated consecutive number that you can use to construct a11y compatible components.
+
+Here is a simple example of a `FormInput` component that uses the `uuid` property to correctly bind the `label` to the `input`.
+
+```html
+<template>
+  <div>
+    <label :for="uuid">
+      {{ label }}
+    </label>
+    <input
+      :value="modelValue"
+      :id="uuid"
+      @input="$emit('update:modelValue', $event.target.value)"
+    >
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    modelValue: { required: true },
+    label: {
+      type: String,
+      required: true
+    },
+    uuid: {
+      type: Number,
+      default: 0
+    }
+  }
+}
+</script>
 ```
 
 ## Examples
