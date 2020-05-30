@@ -1,3 +1,7 @@
+## 2.0.0-alpha.3
+
+- Add unique ID injection to form components [(#109)](https://github.com/vuelidate/formvuelatte/pull/109)
+
 ## 2.0.0-alpha.2
 
 [(#108)](https://github.com/vuelidate/formvuelatte/pull/108)

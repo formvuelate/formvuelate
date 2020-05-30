@@ -214,7 +214,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=458d5d8c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=c736429e
 
 function render(_ctx, _cache) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(!_ctx.hasParentSchema ? 'form' : 'div'), _ctx.formBinds, {
@@ -242,8 +242,17 @@ function render(_ctx, _cache) {
     _: 1
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=458d5d8c
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=c736429e
 
+// CONCATENATED MODULE: ./src/features/UniqueID.js
+/* harmony default export */ var UniqueID = (function () {
+  var UUID = Math.floor(Math.random() * 1000000000);
+  var UUIDBindings = new Set();
+  return {
+    UUID: UUID,
+    UUIDBindings: UUIDBindings
+  };
+});
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=script&lang=js
 function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -256,6 +265,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 /* harmony default export */ var SchemaFormvue_type_script_lang_js = ({
@@ -295,13 +305,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
     }
 
+    var _useUniqueID = UniqueID(),
+        UUID = _useUniqueID.UUID,
+        UUIDBindings = _useUniqueID.UUIDBindings;
+
     var parsedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       if (Array.isArray(props.schema)) return props.schema;
       var arraySchema = [];
 
       for (var model in props.schema) {
+        if (!UUIDBindings[model]) {
+          UUIDBindings[model] = UUID;
+          UUID++;
+        }
+
         arraySchema.push(_objectSpread(_objectSpread({}, props.schema[model]), {}, {
-          model: model
+          model: model,
+          uuid: UUIDBindings[model]
         }));
       }
 
