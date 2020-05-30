@@ -1,4 +1,6 @@
-# FormVueLatte
+# FormVueLatte 2.x
+
+**Important:**
 
 For the full 2.0.0 alpha guide, please check out for now the `index.md` file
 
