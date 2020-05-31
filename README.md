@@ -102,6 +102,15 @@ export default {
 </script>
 ```
 
+## Official plugins
+
+#### [Vuelidate Plugin](https://github.com/vuelidate/formvuelatte-plugin-vuelidate)
+Easily incorporate Vuelidate powered validations into your forms.
+
+#### [Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup)
+A mapping and replacement plugin to parse complex schemas into FormVueLatte ready structure.
+
+
 ## Core team
 
 <table>
