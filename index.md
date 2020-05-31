@@ -397,6 +397,8 @@ export default {
 
 ### Vuelidate Plugin
 
+[Vuelidate Plugin's Repo](https://github.com/vuelidate/formvuelatte-plugin-vuelidate)
+
 In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
 
 Your schema will need some changes in order to work with the `VuelidatePlugin`. Each element in your schema will need to contain a `validations` property which is an object, with each of the validations that you want to apply to it.
@@ -479,7 +481,7 @@ Finally, we can go to our template and pass down both the `userData` and the lis
 
 ### Lookup Plugin
 
-[Repository for Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup).
+[Lookup Plugin's Repo](https://github.com/vuelidate/formvuelatte-plugin-lookup).
 
 Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
 
