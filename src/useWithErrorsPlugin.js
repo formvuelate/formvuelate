@@ -1,7 +1,7 @@
-import { h, isRef } from 'vue'
+import { h } from 'vue'
 
 export default function WithErrorsPlugin (ErrorsListComp) {
-  return function (baseReturns, props) {
+  return function (baseReturns) {
     const { parsedSchema } = baseReturns
     const schemaWithErrorsList = parsedSchema.value.map(el => {
       return {

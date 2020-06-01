@@ -1,8 +1,7 @@
-import { toRefs, isRef, reactive, watch, h } from 'vue'
-import { required } from '@/libs/validators/withMessages'
+import { toRefs, h } from 'vue'
 import useVuelidate from '@/libs/vuelidate'
 
-export default function VuelidatePlugin (baseReturns, props) {
+export default function VuelidatePlugin (baseReturns) {
   // Take the parsed schema from SchemaForm setup returns
   const { parsedSchema } = baseReturns
 
