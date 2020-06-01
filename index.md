@@ -601,7 +601,7 @@ Consider the following schema.
 }
 ```
 
-Since have two different props to replace, we can now use a complex function to get the job done.
+Since we have two different props to replace, we can now use a complex function to get the job done.
 
 ```js
 LookupPlugin({
