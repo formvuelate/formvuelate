@@ -698,9 +698,9 @@ Consider the following schema and example.
     "label": "First name",
     "important": true
   },
-  "firstName": {
+  "lastName": {
     "field": "FormText",
-    "label": "First name",
+    "label": "Last name",
     "important": true
   }
 }
