@@ -594,9 +594,9 @@ Consider the following schema.
     "type": "FormText",
     "label": "First name"
   },
-  "firstName": {
+  "lastName": {
     "field": "FormText",
-    "label": "First name"
+    "label": "Last name"
   }
 }
 ```
