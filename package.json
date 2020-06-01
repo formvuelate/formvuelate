@@ -1,6 +1,6 @@
 {
   "name": "formvuelatte",
-  "version": "v2.0.0-alpha.3",
+  "version": "v2.0.0-alpha.4",
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
   "contributors": [
@@ -14,7 +14,7 @@
     }
   ],
   "engines": {
-    "node": ">=13.0.0"
+    "node": ">=12.17.0"
   },
   "main": "dist/formvuelatte.common.js",
   "unpkg": "dist/formvuelatte.umd.js",

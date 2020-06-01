@@ -1,3 +1,7 @@
+## 2.0.0-alpha.4
+
+- Correct minimum required node version to >= 12.17
+
 ## 2.0.0-alpha.3
 
 - Add unique ID injection to form components [(#109)](https://github.com/vuelidate/formvuelatte/pull/109)
