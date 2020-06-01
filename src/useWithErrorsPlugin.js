@@ -1,4 +1,4 @@
-import { h, isRef } from 'vue'
+import { h } from 'vue'
 
 export default function WithErrorsPlugin (ErrorsListComp) {
   return function (baseReturns, props) {
