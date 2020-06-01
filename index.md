@@ -594,14 +594,14 @@ Consider the following schema.
     "type": "FormText",
     "label": "First name"
   },
-  "firstName": {
+  "lastName": {
     "field": "FormText",
-    "label": "First name"
+    "label": "Last name"
   }
 }
 ```
 
-Since have two different props to replace, we can now use a function to get the job done.
+Since we have two different props to replace, we can now use a complex function to get the job done.
 
 ```js
 LookupPlugin({
@@ -698,9 +698,9 @@ Consider the following schema and example.
     "label": "First name",
     "important": true
   },
-  "firstName": {
+  "lastName": {
     "field": "FormText",
-    "label": "First name",
+    "label": "Last name",
     "important": true
   }
 }
