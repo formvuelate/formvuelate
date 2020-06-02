@@ -672,6 +672,53 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 ])
 ```
 
+If you ever find yourself needing to delete a certain property from your schema, the `LookupPlugin`'s `mapProps` allows you to do it as well.
+
+Consider the following schema:
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "lastName": {
+    "field": "FormText",
+    "label": "Last name",
+    "important": true
+  }
+}
+```
+
+If we needed to delete the `important` property from ALL components, we can use the object syntax by setting the property to the boolean `false`.
+
+```js
+LookupPlugin({
+  mapProps: {
+    important: false
+  }
+})
+```
+
+If we need more control, to only delete on certain conditions, the function syntax can also be used.
+
+```js
+LookupPlugin({
+  mapProps: (el) => {
+    if (el.label === 'First name') {
+      // Delete the important prop from the elements with label 'First name'
+      return {
+        important: false
+      }
+    }
+
+    // Ignore any other components
+    return {}
+  }
+})
+```
+
 #### Nested Schema Caveats
 
 When dealing with schemas that have sub-schemas like the following:
