@@ -30,6 +30,7 @@ export default {
 <style lang="stylus">
 .content {
   margin: 0;
+  max-width: 56rem;
 }
 
 .theme-container {
