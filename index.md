@@ -550,41 +550,7 @@ export default {
 `LookupPlugin` takes one parameter, an object, as it's source of configuration.
 Let's look at the properties that we can use in this object.
 
-**componentProp**
-
-`SchemaForm` schemas expect each component inside of them to be defined with a `component` property, like in the following example.
-
-```json
-{
-  "firstName": {
-    "component": "FormText",
-    "label": "First name"
-  }
-}
-```
-
-In some cases the schema might define your `component` property with something else, like `type` like in the following example:
-
-```json
-{
-  "firstName": {
-    "type": "FormText",
-    "label": "First name"
-  }
-}
-```
-
-If this is the case, you can pass into the configuration the `componentProp` property with the name of what YOUR schema uses to define the component for each node.
-
-```js
-LookupPlugin({
-  componentProp: 'type'
-})
-```
-
-The plugin will handle parsing the schema from `type` into `component` for you now.
-
-**mapComponents**
+##### mapComponents
 
 If your schema does not provide component names as your Vue application needs them, `mapComponents` is another property of the configuration object that can allow you to rename or remap these values with ease.
 
@@ -624,35 +590,136 @@ LookupPlugin({
 
 `LookupPlugin` will now look inside your schema and parse all the `component` definitions into their respective components. So `string` will become `FormText` and `array` will become a `FormSelect` component.
 
-**mapProps**
+##### mapProps
 
 If your schema needs to parse additional props for your own component's needs, `mapProps` provides an easy way of parsing any property in your component's object definition to something else.
 
-Consider the following schema.
+In some cases the schema might define your `component` property with something else, let's use `type` in the following example:
 
 ```json
 {
   "firstName": {
-    "component": "FormText",
+    "type": "FormText",
     "info": "First name"
   }
 }
 ```
 
-If we needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do it for us.
+We need to map `type` into `component`, since that is the property that `SchemaForm` expects to find for the component to render into the form.
 
 ```js
-
 const SchemaFormWithPlugin = SchemaFormFactory([
   LookupPlugin({
     mapProps: {
+      type: 'component'
+    }
+  })
+])
+```
+
+If we also needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do both at the same time.
+
+```js
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    mapProps: {
+      type: 'component',
       info: 'label'
     }
   })
 ])
 ```
 
-Now our schema will correctly pass the `label` property into our `FormText` component.
+Now our schema will correctly pass the `label` property into our `FormText` component. The schema will also correctly reflect a `component` property with the value of `FormText`.
+
+The `mapProps` property can also receive a function to handle advanced property parsing logic.
+
+If a function is provided, the plugin will run the function before parsing each element to retrieve the mapping of properties. The function will inject the current element as the first parameter of the function.
+
+Consider the following schema and example.
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "lastName": {
+    "field": "FormText",
+    "label": "Last name",
+    "important": true
+  }
+}
+```
+
+```js
+const SchemaFormWithPlugin = SchemaFormFactory([
+  LookupPlugin({
+    mapProps: (el) => {
+      // Map important to required only for 'First name'
+      if (el.label === 'First name') {
+        return {
+          type: 'component',
+          important: 'required'
+        }
+      }
+
+      // For all other elements
+      return {
+        field: 'component'
+      }
+    }
+  })
+])
+```
+
+If you ever find yourself needing to delete a certain property from your schema, the `LookupPlugin`'s `mapProps` allows you to do it as well.
+
+Consider the following schema:
+
+```json
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "lastName": {
+    "field": "FormText",
+    "label": "Last name",
+    "important": true
+  }
+}
+```
+
+If we needed to delete the `important` property from ALL components, we can use the object syntax by setting the property to the boolean `false`.
+
+```js
+LookupPlugin({
+  mapProps: {
+    important: false
+  }
+})
+```
+
+If we need more control, to only delete on certain conditions, the function syntax can also be used.
+
+```js
+LookupPlugin({
+  mapProps: (el) => {
+    if (el.label === 'First name') {
+      // Delete the important prop from the elements with label 'First name'
+      return {
+        important: false
+      }
+    }
+
+    // Ignore any other components
+    return {}
+  }
+})
+```
 
 #### Nested Schema Caveats
 

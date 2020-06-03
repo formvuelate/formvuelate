@@ -1,64 +1,43 @@
 <template>
-  <aside class="sidebar">
-    <!-- <NavLinks /> -->
-
-    <slot name="top" />
-
-    <SidebarLinks
-      :depth="0"
-      :items="items"
-    />
-    <slot name="bottom" />
-  </aside>
+  <div class="sidebar">
+    <ul>
+      <SideBarItem v-for="item of items" :item="item"></SideBarItem>
+    </ul>
+  </div>
 </template>
 
-<script>
-import SidebarLinks from './SidebarLinks.vue'
-// import NavLinks from '@theme/components/NavLinks.vue'
+<script src="./SideBar"></script>
 
-export default {
-  name: 'Sidebar',
-
-  components: { SidebarLinks },
-
-  props: ['items']
+<style>
+.sidebar ul {
+  list-style-type: none;
+  line-height: 2;
+  padding: 0;
+  margin: 0;
 }
-</script>
 
-<style lang="stylus">
-.sidebar
-  ul
-    padding 0
-    margin 0
-    list-style-type none
-  a
-    display inline-block
-  .nav-links
-    display none
-    border-bottom 1px solid $borderColor
-    padding 0.5rem 0 0.75rem 0
-    a
-      font-weight 600
-    .nav-item, .repo-link
-      display block
-      line-height 1.25rem
-      font-size 1.1em
-      padding 0.5rem 0 0.5rem 1.5rem
-  & > .sidebar-links
-    padding 1.5rem 0
-    & > li > a.sidebar-link
-      font-size 1.1em
-      line-height 1.7
-      font-weight bold
-    & > li:not(:first-child)
-      margin-top .75rem
-//
-// @media (max-width: $MQMobile)
-//   .sidebar
-//     .nav-links
-//       display block
-//       .dropdown-wrapper .nav-dropdown .dropdown-item a.router-link-active::after
-//         top calc(1rem - 2px)
-//     & > .sidebar-links
-//       padding 1rem 0
+.sidebar a {
+  display: inline-block;
+  color: var(--text-color);
+  padding-left: 1.5rem;
+}
+
+.sidebar a:hover {
+  color: var(--accent-color);
+}
+
+.sidebar a.active {
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.sidebar > ul > li > a.active {
+  padding-left: 1.25rem;
+  border-left: .25rem solid var(--accent-color);
+}
+
+.sidebar ul ul {
+  font-size: 0.9em;
+  padding-left: 1rem;
+}
 </style>
