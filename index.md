@@ -1,5 +1,7 @@
-# FormVueLatte 2.x
-
+---
+sidebar: auto
+title: FormVueLatte 2.0
+---
 ## Getting Started
 
 `FormVueLatte` is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
