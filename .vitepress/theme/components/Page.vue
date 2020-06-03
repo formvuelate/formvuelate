@@ -1,31 +1,29 @@
 <template>
-  <main class="page">
-    <slot name="top" />
-
-    <Content class="theme-default-content" />
-    <!-- <PageEdit />
-
-    <PageNav v-bind="{ sidebarItems }" /> -->
-
-    <slot name="bottom" />
-  </main>
+  <div class="content">
+    <Content />
+  </div>
 </template>
 
-<script>
-// import PageEdit from '@theme/components/PageEdit.vue'
-// import PageNav from '@theme/components/PageNav.vue'
-
-export default {
-  // components: { PageEdit, PageNav },
-  props: ['sidebarItems']
+<style>
+.content {
+  max-width: 46rem;
+  margin: 0px auto;
+  padding: 1rem 2rem;
 }
-</script>
 
-<style lang="stylus">
-@require '../styles/wrapper.styl'
+.content a {
+  color: var(--accent-color);
+}
 
-.page
-  padding-bottom 2rem
-  display block
+.content a:hover {
+  text-decoration: underline;
+}
 
+.content img {
+  max-width: 100%;
+}
+/*
+.content div > h1:first-child, .content div > h2:first-child {
+  margin-top: 0;
+} */
 </style>
