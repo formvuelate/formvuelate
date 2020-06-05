@@ -10229,10 +10229,10 @@ vite@^0.20.2:
     vue "^3.0.0-beta.14"
     ws "^7.2.3"
 
-vitepress@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.3.0.tgz#836f28237042e2a72e3695bdaa7f12959f4eaa71"
-  integrity sha512-mYACqcGZOHu+lPsIcLJ5/YbB24I81LiCw5bZLJM2oPifwu9jFHfGM8SmQlQK+DEAUuzF9IiWG8HrakCdQSP8ow==
+vitepress@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/vitepress/-/vitepress-0.3.1.tgz#af43a8c08a53a5dea1a564e785828f50c2b9db93"
+  integrity sha512-PZheGjUl9MQBK6w6EhKkUMlIJwEv7/eZNaHhDasqGRiBlBzIuLSq4nGOLEP82+eOutacQDmSJLRDC9/GLLPmhg==
   dependencies:
     "@vue/compiler-sfc" "^3.0.0-beta.14"
     "@vue/server-renderer" "^3.0.0-beta.14"
