@@ -3,6 +3,53 @@
   "version": "v2.0.0-alpha.4",
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
+    "test:unit": "vue-cli-service test:unit --coverage",
+    "test:unit:watch": "yarn test:unit --watch",
+    "test:e2e": "vue-cli-service test:e2e",
+    "lint": "vue-cli-service lint",
+    "docs:build": "vitepress build",
+    "docs:dev": "vitepress"
+  },
+  "main": "dist/formvuelatte.common.js",
+  "browser": "dist/formvuelatte.umd.js",
+  "unpkg": "dist/formvuelatte.umd.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.2.0",
+    "@vue/cli-plugin-eslint": "^4.2.0",
+    "@vue/cli-plugin-unit-jest": "^4.4.1",
+    "@vue/cli-service": "^4.2.0",
+    "@vue/compiler-sfc": "^3.0.0-beta.12",
+    "@vue/eslint-config-standard": "^5.1.0",
+    "@vue/test-utils": "^2.0.0-alpha.1",
+    "@babel/node": "^7.8.7",
+    "@types/jest": "^25.2.1",
+    "@babel/preset-env": "^7.9.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.2.6",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "next",
+    "jest": "^25.2.7",
+    "ts-jest": "^25.3.1",
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.8.3",
+    "stylus": "^0.54.7",
+    "vitepress": "^0.3.1",
+    "vue": "v3.0.0-beta.12",
+    "vue-cli-plugin-vue-next": "^0.1.2",
+    "vue-jest": "^5.0.0-alpha.0",
+    "vue-loader": "^16.0.0-alpha.3"
+  },
+  "bugs": {
+    "url": "https://github.com/vuelidate/formvuelatte"
+  },
   "contributors": [
     {
       "name": "Damian Dulisz",
@@ -16,44 +63,9 @@
   "engines": {
     "node": ">=12.17.0"
   },
-  "main": "dist/formvuelatte.common.js",
-  "unpkg": "dist/formvuelatte.umd.js",
-  "browser": "dist/formvuelatte.umd.js",
   "homepage": "https://formvuelatte.netlify.com/",
-  "bugs": {
-    "url": "https://github.com/vuelidate/formvuelatte"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vuelidate/formvuelatte.git"
-  },
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
-    "lint": "vue-cli-service lint",
-    "docs:build": "vitepress build",
-    "docs:dev": "vitepress",
-    "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-plugin-eslint": "^4.2.0",
-    "@vue/cli-service": "^4.2.0",
-    "@vue/compiler-sfc": "^3.0.0-beta.12",
-    "@vue/eslint-config-standard": "^5.1.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^23.6.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "next",
-    "stylus": "^0.54.7",
-    "vitepress": "^0.3.1",
-    "vue": "v3.0.0-beta.12",
-    "vue-cli-plugin-vue-next": "^0.1.2"
   }
 }
