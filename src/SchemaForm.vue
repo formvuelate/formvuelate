@@ -19,10 +19,10 @@
 
 <script>
 import useUniqueID from './features/UniqueID'
-import { computed, watch, provide, inject, ref } from 'vue'
+import { computed, watch, provide, inject } from 'vue'
 
 export default {
-  emits: ['submit'],
+  emits: ['submit', 'update:modelValue'],
   props: {
     schema: {
       type: [Object, Array],
@@ -90,7 +90,8 @@ export default {
         }
 
         emit('update:modelValue', val)
-      })
+      }
+    )
 
     const update = (property, value) => {
       emit('update:modelValue', {
