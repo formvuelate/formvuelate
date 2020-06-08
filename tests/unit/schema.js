@@ -70,3 +70,36 @@ export const nestedSchema = {
     }
   }
 }
+
+export const wizardSchema = [
+  {
+    firstName: {
+      component: markRaw(FormText),
+      label: 'First Name',
+    },
+    lastName: {
+      component: markRaw(FormText),
+      label: 'Last Name',
+    },
+  },
+  {
+    email: {
+      component: markRaw(FormText),
+      label: 'Your email',
+      required: true,
+      config: {
+        type: 'email'
+      }
+    },
+    favoriteThingAboutVue: {
+      component: markRaw(FormSelect),
+      label: 'Favorite thing about Vue',
+      required: true,
+      options: [
+        'Ease of use',
+        'Documentation',
+        'Community'
+      ]
+    },
+  }
+]

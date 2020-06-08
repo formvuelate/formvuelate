@@ -4,8 +4,8 @@
 
     <SchemaForm
       :schema="currentSchema"
-      :value="modelValue[step] || {}"
-      @input="update"
+      :modelValue="modelValue[step] || {}"
+      @update:modelValue="update"
     />
 
     <slot name="afterForm" />
