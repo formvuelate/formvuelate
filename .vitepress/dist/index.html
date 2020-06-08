@@ -1,0 +1,759 @@
+<html lang="en-US">
+  <head>
+    <title>FormVueLatte 2.0 | FormVueLatte 2.0</title>
+    <meta name="description" content="Documentation for FormVueLatte 2.0">
+    <link rel="stylesheet" href="/_assets/style.1fbae5f4.css">
+    <link rel="modulepreload" href="/_assets/common-4b331bb8.js">
+    <link rel="modulepreload" href="/_assets/index.md.89f49904.lean.js">
+    <link rel="modulepreload" href="/_assets/app.6ce636d1.js">
+    
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header><!--[--><a class="title" aria-label="FormVueLatte 2.0, back to home" href="/"><!----><span>FormVueLatte 2.0</span></a><!----><!--]--></header><aside><div class="sidebar"><ul><!--[--><li><a href="#getting-started">Getting Started</a><!----></li><li><a href="#playground">Playground</a><!----></li><li><a href="#installation">Installation</a><!----></li><li><a href="#schemaform">SchemaForm</a><ul><li><a href="#prop-schema">Prop: Schema</a><!----></li><li><a href="#prop-preventmodelcleanuponschemachange">Prop: preventModelCleanupOnSchemaChange</a><!----></li><li><a href="#handling-submit">Handling submit</a><!----></li><li><a href="#slots">Slots</a><!----></li><li><a href="#component-requirements">Component Requirements</a><!----></li></ul></li><li><a href="#schemawizard">SchemaWizard</a><ul><li><a href="#prop-schema-2">Prop: Schema</a><!----></li><li><a href="#prop-step">Prop: Step</a><!----></li><li><a href="#props-modelvalue">Props: modelValue</a><!----></li><li><a href="#handling-submit-2">Handling submit</a><!----></li><li><a href="#slots-2">Slots</a><!----></li></ul></li><li><a href="#plugins">Plugins</a><ul><li><a href="#vuelidate-plugin">Vuelidate Plugin</a><!----></li><li><a href="#lookup-plugin">Lookup Plugin</a><!----></li></ul></li><li><a href="#accessibility">Accessibility</a><ul><li><a href="#unique-id">Unique ID</a><!----></li></ul></li><li><a href="#examples">Examples</a><ul><li><a href="#schemaform-with-v-model">SchemaForm with v-model</a><!----></li><li><a href="#nested-schemas">Nested schemas</a><!----></li><li><a href="#using-an-array-based-schema">Using an array based schema</a><!----></li></ul></li><!--]--></ul></div></aside><main><div class="content"><div><h2 id="getting-started"><a class="header-anchor" href="#getting-started" aria-hidden="true">#</a> Getting Started</h2><p><code>FormVueLatte</code> is a zero dependency library that allows you to generate schema-driven forms with extreme ease.</p><p>The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.</p><p><strong>Important</strong></p><p><code>FormVueLatte</code> is a bring-your-own-components (BYOC) library!</p><p>We do <em>not</em> provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and <code>FormVueLatte</code> does a great job at allowing you to bring those external components to your forms, or even crafting your own.</p><h2 id="playground"><a class="header-anchor" href="#playground" aria-hidden="true">#</a> Playground</h2><p>Modify the Schema on the left to see FormVueLatte&#39;s <code>SchemaForm</code> in action on the right. You can use the following demo input components:</p><ul><li>FormText</li><li>FormSelect</li><li>FormCheckbox</li></ul><!--[--><div style="margin-bottom:2rem;" data-v-0d1863e7><h3 data-v-0d1863e7>SchemaForm props</h3><div><label><input type="checkbox"> preventModelCleanupOnSchemaChange</label></div></div><div style="display:flex;" data-v-0d1863e7><div data-v-0d1863e7><textarea class="editor" data-v-0d1863e7>{
+  &quot;firstName&quot;: {
+    &quot;component&quot;: &quot;FormText&quot;,
+    &quot;label&quot;: &quot;First Name&quot;
+  },
+  &quot;lastName&quot;: {
+    &quot;component&quot;: &quot;FormText&quot;,
+    &quot;label&quot;: &quot;Last Name&quot;
+  },
+  &quot;email&quot;: {
+    &quot;component&quot;: &quot;FormText&quot;,
+    &quot;label&quot;: &quot;Your email&quot;,
+    &quot;required&quot;: true,
+    &quot;config&quot;: {
+      &quot;type&quot;: &quot;email&quot;
+    }
+  },
+  &quot;favoriteThingAboutVue&quot;: {
+    &quot;component&quot;: &quot;FormSelect&quot;,
+    &quot;label&quot;: &quot;Favorite thing about Vue&quot;,
+    &quot;required&quot;: true,
+    &quot;options&quot;: [
+      &quot;Ease of use&quot;,
+      &quot;Documentation&quot;,
+      &quot;Community&quot;
+    ]
+  },
+  &quot;isVueFan&quot;: {
+    &quot;component&quot;: &quot;FormCheckbox&quot;,
+    &quot;label&quot;: &quot;Are you a Vue fan?&quot;
+  },
+  &quot;work&quot;: {
+    &quot;component&quot;: &quot;SchemaForm&quot;,
+    &quot;schema&quot;: {
+      &quot;address&quot;: {
+        &quot;component&quot;: &quot;FormText&quot;,
+        &quot;label&quot;: &quot;Work address&quot;
+      },
+      &quot;phone&quot;: {
+        &quot;component&quot;: &quot;FormText&quot;,
+        &quot;label&quot;: &quot;Work phone&quot;
+      },
+      &quot;details&quot;: {
+        &quot;component&quot;: &quot;SchemaForm&quot;,
+        &quot;schema&quot;: {
+          &quot;position&quot;: {
+            &quot;component&quot;: &quot;FormText&quot;,
+            &quot;label&quot;: &quot;Work position&quot;
+          },
+          &quot;employees&quot;: {
+            &quot;component&quot;: &quot;FormSelect&quot;,
+            &quot;label&quot;: &quot;Number of employees&quot;,
+            &quot;options&quot;: [
+              &quot;1&quot;,
+              &quot;2&quot;,
+              &quot;3&quot;,
+              &quot;4+&quot;
+            ]
+          }
+        }
+      }
+    }
+  }
+}</textarea><!----></div><div data-v-0d1863e7><!----><pre data-v-0d1863e7>{}</pre></div></div><!--]--><h2 id="installation"><a class="header-anchor" href="#installation" aria-hidden="true">#</a> Installation</h2><p>To add FormVueLatte to your project, start by installing the package through your favorite package manager.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> formvuelatte
+// OR
+<span class="token function">npm</span> <span class="token function">install</span> formvuelatte
+</code></pre></div><p>Now that you have the package in your project, <code>import</code> it to your component.</p><p>You can pick and choose which of the <code>FormVueLatte</code> components you will need. The following example imports all of them.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaForm<span class="token punctuation">,</span> SchemaWizard<span class="token punctuation">,</span> SchemaFormFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte&#39;</span>
+</code></pre></div><h2 id="schemaform"><a class="header-anchor" href="#schemaform" aria-hidden="true">#</a> SchemaForm</h2><p>The <code>SchemaForm</code> requires two <code>props</code>. The first is the <code>schema</code>, which is the meta-data of your form. The second one is <code>value</code>, which will hold the state of the form.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre></div><p>The <code>SchemaForm</code> will <code>$emit</code> <strong>update:modelValue</strong> events when your components update. This means that you are able to either:</p><ul><li>use <code>v-model</code> on it</li><li>or, manually capture the <code>@update:modelValue</code> event with a method of your own while injecting the <code>:value</code> property.</li></ul><p>Example with <code>v-model</code>:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> reactive <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> mySchema <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token comment">// some schema here</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      formData<span class="token punctuation">,</span>
+      mySchema
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Example with manual bindings:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name"><span class="token namespace">@update:</span>modelValue</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>updateForm<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> reactive <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> mySchema <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token comment">// some schema here</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> <span class="token function-variable function">updateForm</span> <span class="token operator">=</span> <span class="token parameter">form</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      formData <span class="token operator">=</span> form
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      formData<span class="token punctuation">,</span>
+      mySchema<span class="token punctuation">,</span>
+      updateForm
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Keep in mind when using v-model with <code>&lt;SchemaForm&gt;</code>, the value that we pass will be replaced with a new value. This also means we should always use <code>ref</code> to create that state object as it will track the changes as you would expect.</p><h3 id="prop-schema"><a class="header-anchor" href="#prop-schema" aria-hidden="true">#</a> Prop: Schema</h3><p>The <code>SchemaForm</code> component requires you to pass it a <code>schema</code> property. This <code>schema</code> can be both an <code>object</code> or an <code>array</code>, although under the hood it will be transformed to an <code>array</code>.</p><p>In its simplest form, the <code>schema</code> requires you to provide a <code>name: value</code> pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called <code>FormText</code> which exposes an <code>&lt;input&gt;</code> tag with some CSS.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaForm <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte&#39;</span>
+  <span class="token keyword">import</span> FormText <span class="token keyword">from</span> <span class="token string">&#39;path/to/FormText&#39;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> reactive <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    components<span class="token operator">:</span> <span class="token punctuation">{</span> SchemaForm <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> schema <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        name<span class="token operator">:</span> <span class="token punctuation">{</span>
+          component<span class="token operator">:</span> FormText <span class="token comment">// Note that is NOT a string</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        lastName<span class="token operator">:</span> <span class="token punctuation">{</span>
+          component<span class="token operator">:</span> FormText <span class="token comment">// We pass the component that we imported directly</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        schema<span class="token punctuation">,</span>
+        formData
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="prop-preventmodelcleanuponschemachange"><a class="header-anchor" href="#prop-preventmodelcleanuponschemachange" aria-hidden="true">#</a> Prop: preventModelCleanupOnSchemaChange</h3><p>By default <code>SchemaForm</code> cleans up the value output of properties that are no longer present inside <code>schema</code> every time <code>schema</code> changes.</p><p>Pretend that you have a form that is built with the following schema.</p><div class="language-js"><pre><code>name<span class="token operator">:</span> <span class="token punctuation">{</span>
+  label<span class="token operator">:</span> <span class="token string">&#39;Name&#39;</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span> FormText
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+lastName<span class="token operator">:</span> <span class="token punctuation">{</span>
+  label<span class="token operator">:</span> <span class="token string">&#39;Last name&#39;</span><span class="token punctuation">,</span>
+  component<span class="token operator">:</span> FormText
+<span class="token punctuation">}</span>
+</code></pre></div><p>If the user fills out both of the inputs, you can expect an output like the following.</p><div class="language-js"><pre><code><span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">&#39;Bobba&#39;</span><span class="token punctuation">,</span>
+  lastName<span class="token operator">:</span> <span class="token string">&#39;Fett&#39;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>If at this point your schema changes, and deletes the <code>lastName</code> property, <code>SchemaForm</code> is smart enough to remove that from the output and emit a new <code>update:modelValue</code> since that field is effectively <em>gone</em>.</p><div class="language-js"><pre><code><span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">&#39;Bobba&#39;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>If you want to disable this behavior, pass the <code>preventModelCleanupOnSchemaChange</code> to your <code>SchemaForm</code> component.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+  <span class="token attr-name">preventModelCleanupOnSchemaChange</span>
+  <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+<span class="token punctuation">/&gt;</span></span>
+</code></pre></div><h3 id="handling-submit"><a class="header-anchor" href="#handling-submit" aria-hidden="true">#</a> Handling submit</h3><p><code>SchemaForm</code> will automatically create a <code>&lt;form&gt;</code> wrapper for you on the top level <code>SchemaForm</code> in the case of single and multi dimensional schemas, and fire a <code>submit</code> event when the form is submitted.</p><p>This <code>submit</code> will <code>preventDefault</code> so you can handle the submit on your end.</p><p>In order to react and listen to the <code>submit</code> events, simply add a <code>@submit</code> listener to the <code>SchemaForm</code> component in your template.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+    <span class="token attr-name">@submit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>onSubmit<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>myData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Note that any sub <code>SchemaForm</code>s in nested schemas will not have <code>form</code> tags themselves, and will be rendered inside wrapping <code>div</code> tags.</p><h3 id="slots"><a class="header-anchor" href="#slots" aria-hidden="true">#</a> Slots</h3><p><code>SchemaForm</code> provides two slots for you to add additional elements to your form.</p><p>A <code>beforeForm</code> slot will be provided before the rendered <code>SchemaForm</code>.</p><p>Use this for scenarios where you want to provide some element to your form <em>after</em> the <code>&lt;form&gt;</code> tag, but <em>before</em> the <code>SchemaForm</code>.</p><p>An <code>afterForm</code> slot will be provided after the rendered <code>SchemaForm</code>.</p><p>Use this to add elements <em>after</em> the <code>SchemaForm</code> and <em>before</em> the wrapping <code>&lt;/form&gt;</code> tag. A good example would be a submit button.</p><h3 id="component-requirements"><a class="header-anchor" href="#component-requirements" aria-hidden="true">#</a> Component Requirements</h3><p>Now that you have your schema bound into the <code>schema</code> prop, you need to make sure that your components are understood by <code>SchemaForm</code>.</p><p>First, make sure that your component accepts a <code>modelValue</code> property. <code>SchemaForm</code> will bind into this property to pass down the current value of the input.</p><p>Next, make sure that your component <code>$emit</code>s an <code>update:modelValue</code> event with the payload of the new input&#39;s value whenever it changes. This will allow <code>SchemaForm</code> to update the data internally and emit the update event to the parent.</p><p>Example of a simple input component:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>modelValue<span class="token punctuation">&quot;</span></span> <span class="token attr-name">@input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>update<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    modelValue<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      type<span class="token operator">:</span> <span class="token punctuation">[</span>String<span class="token punctuation">,</span> Number<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">update</span> <span class="token operator">=</span> <span class="token parameter">event</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      context<span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">&#39;update:modelValue&#39;</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h2 id="schemawizard"><a class="header-anchor" href="#schemawizard" aria-hidden="true">#</a> SchemaWizard</h2><p>FormVueLatte also ships with a component called <code>SchemaWizard</code>, that allows you to easily build stepped, wizard-like, forms.</p><p>The <code>SchemaWizard</code> component exposes and requires three props.</p><h3 id="prop-schema-2"><a class="header-anchor" href="#prop-schema-2" aria-hidden="true">#</a> Prop: Schema</h3><p>The schema that the <code>SchemaWizard</code> will use to render the form. This is a required property.</p><p>The schema that the <code>SchemaWizard</code> uses varies from the one used in <code>SchemaForm</code> in one major difference — it is strictly an array, in which each of the array elements is a <code>SchemaForm</code> ready schema.</p><p>Example wizard schema:</p><p>( Note that the components used are only for purposes of the example and are not part of FormVueLatte )</p><div class="language-javascript"><pre><code><span class="token keyword">const</span> wizardSchema <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token comment">// Step 1 - user&#39;s name</span>
+  <span class="token punctuation">{</span>
+    firstName<span class="token operator">:</span> <span class="token punctuation">{</span> component<span class="token operator">:</span> FormText <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    lastName<span class="token operator">:</span> <span class="token punctuation">{</span> component<span class="token operator">:</span> FormText <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// Step 2 - user&#39;s email and agree to terms</span>
+  <span class="token punctuation">{</span>
+    email<span class="token operator">:</span> <span class="token punctuation">{</span> component<span class="token operator">:</span> FormEmail <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    terms<span class="token operator">:</span> <span class="token punctuation">{</span> component<span class="token operator">:</span> FormCheckbox <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre></div><p>In the previous example we have two different form steps, the first will display two inputs — one for the firstName, and one for the lastName. In the second step, the first two elements for the user&#39;s name will not be displayed, and the email and terms checkbox will.</p><h3 id="prop-step"><a class="header-anchor" href="#prop-step" aria-hidden="true">#</a> Prop: Step</h3><p>This property is required, and numeric.</p><p>The step is the index of the currently displayed part of the stepped schema. In the previous schema example, step <code>0</code> will indicate that the <code>SchemaWizard</code> should display the index <code>0</code> of the form — the user&#39;s name.</p><p>Step <code>1</code> will indicate that the <code>SchemaWizard</code> should display index <code>1</code> of the form — the email and terms checkbox.</p><h3 id="props-modelvalue"><a class="header-anchor" href="#props-modelvalue" aria-hidden="true">#</a> Props: modelValue</h3><p>This property is required, and an array.</p><p>This is the property that the <code>SchemaWizard</code> component will use for <code>v-model</code> binding and to inject form values into subcomponents.</p><p>Example output from the example schema above:</p><div class="language-javascript"><pre><code><span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    fistName<span class="token operator">:</span> <span class="token string">&#39;Jane&#39;</span><span class="token punctuation">,</span>
+    lastName<span class="token operator">:</span> <span class="token string">&#39;Doe&#39;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    email<span class="token operator">:</span> <span class="token string">&#39;jane@gmail.com&#39;</span><span class="token punctuation">,</span>
+    terms<span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+</code></pre></div><h3 id="handling-submit-2"><a class="header-anchor" href="#handling-submit-2" aria-hidden="true">#</a> Handling submit</h3><p><code>SchemaWizard</code> will automatically create a <code>&lt;form&gt;</code> wrapper for you on the top level regardless of how many sub-forms you provide, and fire a <code>submit</code> event when the form is submitted.</p><p>This <code>submit</code> uses <code>preventDefault</code> so you can handle the submit on your end.</p><p>In order to react and listen to the <code>submit</code> events, simply add a <code>@submit</code> listener to the <code>SchemaWizard</code> component in your template.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaWizard</span>
+    <span class="token attr-name">@submit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>onSubmit<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>myData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:step</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>step<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="slots-2"><a class="header-anchor" href="#slots-2" aria-hidden="true">#</a> Slots</h3><p><code>SchemaWizard</code> provides two slots for you to add additional elements to your form.</p><p>A <code>beforeForm</code> slot will be provided before the child <code>SchemaForm</code>s.</p><p>Use this for scenarios where you want to provide some element to your form <em>after</em> the <code>&lt;form&gt;</code> tag, but <em>before</em> the internal <code>SchemaForm</code>s.</p><p>An <code>afterForm</code> slot will be provided after the rendered <code>SchemaForm</code>s.</p><p>Use this to add elements <em>after</em> the rendered <code>SchemaForm</code>s and <em>before</em> the wrapping <code>&lt;/form&gt;</code> tag. A good example would be a submit button.</p><p>Note that any sub <code>SchemaForm</code>s rendered inside the <code>SchemaWizard</code> will <strong>not</strong> have <code>&lt;form&gt;</code> tags on themselves, and will be rendered inside <code>div</code> elements.</p><h2 id="plugins"><a class="header-anchor" href="#plugins" aria-hidden="true">#</a> Plugins</h2><p>FormVueLatte ships with the ability to import and use plugins to extend it&#39;s capabilities.</p><p>In order to use a plugin with <code>SchemaForm</code>, you have to use the provided <code>SchemaFormFactory</code> higher order function.</p><p>First, import the <code>SchemaFormFactory</code> into your application.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> SchemaFormFactory <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte/SchemaFormFactory&#39;</span>
+</code></pre></div><p><code>SchemaFormFactory</code> accepts an array of plugins that will be used to generate the <code>SchemaForm</code>.</p><p>The order in which you pass the plugins is <em>important</em>, as they will be applied in the order they are received.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> useVuelidate <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate&#39;</span>
+<span class="token keyword">import</span> VuelidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte/useVuelidatePlugin&#39;</span>
+
+<span class="token keyword">const</span> SchemaFormWithPlugins <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VuelidatePlugin</span><span class="token punctuation">(</span>useVuelidate<span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now that we have defined a new component called <code>SchemaFormWithPlugins</code>, you can use it as you normally use any other component in your application.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  [...]
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithValidations</span> <span class="token punctuation">/&gt;</span></span>
+  [...]
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+export default {
+  components: { SchemaFormWithValidations },
+  [...]
+}
+</code></pre></div><h3 id="vuelidate-plugin"><a class="header-anchor" href="#vuelidate-plugin" aria-hidden="true">#</a> Vuelidate Plugin</h3><p><a href="https://github.com/vuelidate/formvuelatte-plugin-vuelidate" target="_blank" rel="noopener noreferrer">Vuelidate Plugin&#39;s Repo</a></p><p>In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a <code>VuelidatePlugin</code> that will allow you to easily accomplish this.</p><p>Your schema will need some changes in order to work with the <code>VuelidatePlugin</code>. Each element in your schema will need to contain a <code>validations</code> property which is an object, with each of the validations that you want to apply to it.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> required<span class="token punctuation">,</span> email <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate/validators/withMessages&#39;</span>
+
+<span class="token keyword">const</span> <span class="token constant">SCHEMA</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  firstName<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;First Name&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  lastName<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Last Name&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  email<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Your email&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      email<span class="token punctuation">,</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Next, create your new <code>SchemaForm</code> by using the factory to inject the <code>VuelidatePlugin</code>.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> useVuelidate <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate&#39;</span>
+<span class="token keyword">import</span> VuelidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte/useVuelidatePlugin&#39;</span>
+
+<span class="token keyword">const</span> SchemaFormWithPlugins <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VuelidatePlugin</span><span class="token punctuation">(</span>useVuelidate<span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now that we have the component ready, we can jump into the <code>setup</code> function, where we need to get our <code>v-model</code> data ready, as well as a function to handle the <code>update:validations</code> event that our Vuelidate-powered form will <code>emit</code>.</p><div class="language-javascript"><pre><code><span class="token function">setup</span> <span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> userData <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    firstName<span class="token operator">:</span> <span class="token string">&#39;John&#39;</span><span class="token punctuation">,</span>
+    lastName<span class="token operator">:</span> <span class="token string">&#39;&#39;</span><span class="token punctuation">,</span>
+    email<span class="token operator">:</span> <span class="token string">&#39;&#39;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">const</span> validations <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> <span class="token function-variable function">updateValidations</span> <span class="token operator">=</span> <span class="token parameter">v</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    validations<span class="token punctuation">.</span>value <span class="token operator">=</span> v<span class="token punctuation">.</span>value
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    schema<span class="token operator">:</span> <span class="token constant">SCHEMA</span><span class="token punctuation">,</span>
+    userData<span class="token punctuation">,</span>
+    validations<span class="token punctuation">,</span>
+    updateValidations
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Finally, we can go to our template and pass down both the <code>userData</code> and the listener for our <code>update:validations</code> event.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithValidations</span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>userData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name"><span class="token namespace">@update:</span>validations</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>updateValidations<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="lookup-plugin"><a class="header-anchor" href="#lookup-plugin" aria-hidden="true">#</a> Lookup Plugin</h3><p><a href="https://github.com/vuelidate/formvuelatte-plugin-lookup" target="_blank" rel="noopener noreferrer">Lookup Plugin&#39;s Repo</a>.</p><p>Whenever you find yourself working with a <code>schema</code> that has already been generated or created with a specific structure that does not comply to the requirements of <code>SchemaForm</code>, it becomes a necessary step to parse it to modify the structure.</p><p>In order to make this task easier, <code>FormVueLatte</code> provides a core plugin called <code>@formvuelatte/plugin-lookup</code>.</p><h4 id="installation-2"><a class="header-anchor" href="#installation-2" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> @formvuelatte/plugin-lookup
+
+// OR
+
+<span class="token function">npm</span> i @formvuelatte/plugin-lookup
+</code></pre></div><h4 id="usage"><a class="header-anchor" href="#usage" aria-hidden="true">#</a> Usage</h4><p>To use the plugin, first import both the plugin itself, and the <code>SchemaFormFactory</code> to your application.</p><div class="language-js"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaFormFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte&#39;</span>
+<span class="token keyword">import</span> LookupPlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelatte/plugin-lookup&#39;</span>
+</code></pre></div><p>Now that we have both imported, we can create our plugin-enabled <code>SchemaForm</code> component by using the <code>SchemaFormFactory</code></p><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// plugin configuration here</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now that we have created our new component, we can pass it to our instance&#39;s <code>components</code> object, and use it as we normally would in our template.</p><div class="language-js"><pre><code><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">&#39;App&#39;</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span>
+    SchemaFormWithPlugin
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithPlugin</span>
+      <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>myData<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>**Important: ** Remember that <code>SchemaFormFactory</code> returns an extended version of <code>SchemaForm</code>, so all the props required by <code>SchemaForm</code> like <code>schema</code> and <code>modelValue</code>/<code>v-model</code> are still required.</p><h4 id="configuration"><a class="header-anchor" href="#configuration" aria-hidden="true">#</a> Configuration</h4><p><code>LookupPlugin</code> takes one parameter, an object, as it&#39;s source of configuration. Let&#39;s look at the properties that we can use in this object.</p><h5 id="mapcomponents"><a class="header-anchor" href="#mapcomponents" aria-hidden="true">#</a> mapComponents</h5><p>If your schema does not provide component names as your Vue application needs them, <code>mapComponents</code> is another property of the configuration object that can allow you to rename or remap these values with ease.</p><p>Consider the following example schema.</p><div class="language-json"><pre><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;firstName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;component&quot;</span><span class="token operator">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;First name&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token property">&quot;favoriteThingAboutVue&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;component&quot;</span><span class="token operator">:</span> <span class="token string">&quot;array&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Favorite thing about Vue&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;required&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;Ease of use&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;Documentation&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;Community&quot;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>In this case, the <code>component</code> definition is not <code>FormText</code>, or <code>FormSelect</code>, or whichever other components we may be using in our application. So we need to map them.</p><p>Let&#39;s add this mapping into our configuration object.</p><div class="language-js"><pre><code><span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  mapComponents<span class="token operator">:</span> <span class="token punctuation">{</span>
+    string<span class="token operator">:</span> <span class="token string">&#39;FormText&#39;</span><span class="token punctuation">,</span>
+    array<span class="token operator">:</span> <span class="token string">&#39;FormSelect&#39;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p><code>LookupPlugin</code> will now look inside your schema and parse all the <code>component</code> definitions into their respective components. So <code>string</code> will become <code>FormText</code> and <code>array</code> will become a <code>FormSelect</code> component.</p><h5 id="mapprops"><a class="header-anchor" href="#mapprops" aria-hidden="true">#</a> mapProps</h5><p>If your schema needs to parse additional props for your own component&#39;s needs, <code>mapProps</code> provides an easy way of parsing any property in your component&#39;s object definition to something else.</p><p>In some cases the schema might define your <code>component</code> property with something else, let&#39;s use <code>type</code> in the following example:</p><div class="language-json"><pre><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;firstName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;info&quot;</span><span class="token operator">:</span> <span class="token string">&quot;First name&quot;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>We need to map <code>type</code> into <code>component</code>, since that is the property that <code>SchemaForm</code> expects to find for the component to render into the form.</p><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    mapProps<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&#39;component&#39;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>If we also needed to map <code>info</code> to <code>label</code> because of what our component is expecting, by using <code>mapProps</code> in our configuration we can easily ask the plugin to do both at the same time.</p><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    mapProps<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&#39;component&#39;</span><span class="token punctuation">,</span>
+      info<span class="token operator">:</span> <span class="token string">&#39;label&#39;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now our schema will correctly pass the <code>label</code> property into our <code>FormText</code> component. The schema will also correctly reflect a <code>component</code> property with the value of <code>FormText</code>.</p><p>The <code>mapProps</code> property can also receive a function to handle advanced property parsing logic.</p><p>If a function is provided, the plugin will run the function before parsing each element to retrieve the mapping of properties. The function will inject the current element as the first parameter of the function.</p><p>Consider the following schema and example.</p><div class="language-json"><pre><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;firstName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;First name&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;important&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;lastName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;field&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Last name&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;important&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function-variable function">mapProps</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">// Map important to required only for &#39;First name&#39;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>label <span class="token operator">===</span> <span class="token string">&#39;First name&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          type<span class="token operator">:</span> <span class="token string">&#39;component&#39;</span><span class="token punctuation">,</span>
+          important<span class="token operator">:</span> <span class="token string">&#39;required&#39;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// For all other elements</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        field<span class="token operator">:</span> <span class="token string">&#39;component&#39;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>If you ever find yourself needing to delete a certain property from your schema, the <code>LookupPlugin</code>&#39;s <code>mapProps</code> allows you to do it as well.</p><p>Consider the following schema:</p><div class="language-json"><pre><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;firstName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;First name&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;important&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;lastName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;field&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Last name&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;important&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>If we needed to delete the <code>important</code> property from ALL components, we can use the object syntax by setting the property to the boolean <code>false</code>.</p><div class="language-js"><pre><code><span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  mapProps<span class="token operator">:</span> <span class="token punctuation">{</span>
+    important<span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>If we need more control, to only delete on certain conditions, the function syntax can also be used.</p><div class="language-js"><pre><code><span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token function-variable function">mapProps</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">el</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>label <span class="token operator">===</span> <span class="token string">&#39;First name&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// Delete the important prop from the elements with label &#39;First name&#39;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        important<span class="token operator">:</span> <span class="token boolean">false</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Ignore any other components</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h4 id="nested-schema-caveats"><a class="header-anchor" href="#nested-schema-caveats" aria-hidden="true">#</a> Nested Schema Caveats</h4><p>When dealing with schemas that have sub-schemas like the following:</p><div class="language-json"><pre><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;firstName&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;component&quot;</span><span class="token operator">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;info&quot;</span><span class="token operator">:</span> <span class="token string">&quot;First Name&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;work&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;component&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SchemaForm&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;schema&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;address&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Work address&quot;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;details&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;component&quot;</span><span class="token operator">:</span> <span class="token string">&quot;SchemaForm&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;schema&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">&quot;position&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;FormText&quot;</span><span class="token punctuation">,</span>
+            <span class="token property">&quot;label&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Work position&quot;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Make sure that you <code>mapComponents</code> and change <code>SchemaForm</code> for whatever you named the output of your <code>SchemaFormFactory</code> function call.</p><div class="language-js"><pre><code><span class="token comment">// Note &quot;SchemaFormWithPlugin&quot; getting remapped</span>
+
+<span class="token keyword">const</span> SchemaFormWithPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      SchemaForm<span class="token operator">:</span> <span class="token string">&#39;SchemaFormWithPlugin&#39;</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="accessibility"><a class="header-anchor" href="#accessibility" aria-hidden="true">#</a> Accessibility</h2><p>Due to the bring-you-own-components nature of <code>FormVueLatte</code>, the library itself does not handle a11y related topics internally. However, we realize how important it is to provide accessible forms to our users.</p><p>We provide some tools for you to build your components in an accessible way.</p><h3 id="unique-id"><a class="header-anchor" href="#unique-id" aria-hidden="true">#</a> Unique ID</h3><p><code>SchemaForm</code> will generate and inject a property called <code>uuid</code> to each one of your components. This property is a randomly generated consecutive number that you can use to construct a11y compatible components.</p><p>Here is a simple example of a <code>FormInput</code> component that uses the <code>uuid</code> property to correctly bind the <code>label</code> to the <code>input</code>.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">:for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>uuid<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      {{ label }}
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+      <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>modelValue<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">:id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>uuid<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">@input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>$emit(&#39;update:modelValue&#39;, $event.target.value)<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    modelValue<span class="token operator">:</span> <span class="token punctuation">{</span> required<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> String<span class="token punctuation">,</span>
+      required<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    uuid<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Number<span class="token punctuation">,</span>
+      <span class="token keyword">default</span><span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h2 id="examples"><a class="header-anchor" href="#examples" aria-hidden="true">#</a> Examples</h2><p>Here you will find a few examples on how you can set up your <code>schema</code> and the output it would produce.</p><p>Please note: We are using a few different custom components to showcase, but you should use your own!</p><p>These components are <strong>only</strong> for demonstration purposes, and are <strong>not</strong> included with the library. 😉</p><h3 id="schemaform-with-v-model"><a class="header-anchor" href="#schemaform-with-v-model" aria-hidden="true">#</a> SchemaForm with v-model</h3><p>This example showcases the simplest way to use <code>SchemaForm</code>. It provides the component with a <code>schema</code> in the form of a JavaScript object, and binds the output of the form to the local data <code>userData</code> through <code>v-model</code>.</p><div class="split-container" data-v-1a357a2c><button class="split-tab-button" type="button" data-v-1a357a2c> Example </button><button class="split-tab-button" type="button" data-v-1a357a2c> Code </button><button class="split-tab-button-active split-tab-button" type="button" data-v-1a357a2c> Example+Code </button><div class="split" data-v-1a357a2c><div class="split-example" data-v-1a357a2c><!--[--><form><!----><button data-v-2904e166><!--[-->Submit<!--]--></button><pre>{}</pre></form><!--]--></div><div class="split-code" data-v-1a357a2c><!--[--><div class="language-vue" data-v-1a357a2c-s><pre data-v-1a357a2c-s><code data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>form</span> <span class="token attr-name" data-v-1a357a2c-s>@submit.prevent</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>formSubmit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>SchemaForm</span>
+      <span class="token attr-name" data-v-1a357a2c-s>:schema</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>schema<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+      <span class="token attr-name" data-v-1a357a2c-s>v-model</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>userData<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+    <span class="token punctuation" data-v-1a357a2c-s>/&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>BaseButton</span> <span class="token attr-name" data-v-1a357a2c-s>type</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>submit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>Submit<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>BaseButton</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>{{ userData }}<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>form</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span><span class="token script" data-v-1a357a2c-s><span class="token language-javascript" data-v-1a357a2c-s>
+<span class="token keyword" data-v-1a357a2c-s>import</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> computed<span class="token punctuation" data-v-1a357a2c-s>,</span> ref <span class="token punctuation" data-v-1a357a2c-s>}</span> <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormText <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormText.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormSelect <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormSelect.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormCheckbox <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormCheckbox.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> BaseButton <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/BaseButton.vue&#39;</span>
+
+<span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token constant" data-v-1a357a2c-s>SCHEMA</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+  firstName<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;First Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  lastName<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Last Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  email<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Your email&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    required<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token boolean" data-v-1a357a2c-s>true</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    config<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      type<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;email&#39;</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  favoriteThingAboutVue<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormSelect<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Favorite thing about Vue&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    required<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token boolean" data-v-1a357a2c-s>true</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    options<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>[</span>
+      <span class="token string" data-v-1a357a2c-s>&#39;Ease of use&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+      <span class="token string" data-v-1a357a2c-s>&#39;Documentation&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+      <span class="token string" data-v-1a357a2c-s>&#39;Community&#39;</span>
+    <span class="token punctuation" data-v-1a357a2c-s>]</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  isVueFan<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormCheckbox<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Are you a Vue fan?&#39;</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+<span class="token keyword" data-v-1a357a2c-s>export</span> <span class="token keyword" data-v-1a357a2c-s>default</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+  components<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> BaseButton <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token function" data-v-1a357a2c-s>setup</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    <span class="token keyword" data-v-1a357a2c-s>const</span> userData <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>ref</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>{</span><span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token keyword" data-v-1a357a2c-s>const</span> schema <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>computed</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token keyword" data-v-1a357a2c-s>return</span> userData<span class="token punctuation" data-v-1a357a2c-s>.</span>value<span class="token punctuation" data-v-1a357a2c-s>.</span>isVueFan <span class="token operator" data-v-1a357a2c-s>?</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        <span class="token operator" data-v-1a357a2c-s>...</span><span class="token constant" data-v-1a357a2c-s>SCHEMA</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+        feedback<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+          component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+          label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Gimme some feedback&#39;</span>
+        <span class="token punctuation" data-v-1a357a2c-s>}</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span>
+        <span class="token operator" data-v-1a357a2c-s>:</span> <span class="token constant" data-v-1a357a2c-s>SCHEMA</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token function-variable function" data-v-1a357a2c-s>formSubmit</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token function" data-v-1a357a2c-s>alert</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token string" data-v-1a357a2c-s>&#39;Form submitted!&#39;</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>return</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      userData<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      schema<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      formSubmit
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>}</span>
+</span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+</code></pre></div><!--]--></div></div></div><h3 id="nested-schemas"><a class="header-anchor" href="#nested-schemas" aria-hidden="true">#</a> Nested schemas</h3><p><code>SchemaForm</code> is able to parse and display forms that are based on nested schemas. In the example below, you can see how the <code>work</code> property is an object that uses <code>SchemaForm</code> itself as a component, and provides a <code>schema</code> property of its own.</p><p>Further down the tree inside <code>details</code>, yet another level of nested data can be found.</p><div class="split-container" data-v-1a357a2c><button class="split-tab-button" type="button" data-v-1a357a2c> Example </button><button class="split-tab-button" type="button" data-v-1a357a2c> Code </button><button class="split-tab-button-active split-tab-button" type="button" data-v-1a357a2c> Example+Code </button><div class="split" data-v-1a357a2c><div class="split-example" data-v-1a357a2c><!--[--><form><!----><button data-v-2904e166><!--[-->Submit<!--]--></button><pre>{}</pre></form><!--]--></div><div class="split-code" data-v-1a357a2c><!--[--><div class="language-vue" data-v-1a357a2c-s><pre data-v-1a357a2c-s><code data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>form</span> <span class="token attr-name" data-v-1a357a2c-s>@submit.prevent</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>formSubmit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>SchemaForm</span>
+      <span class="token attr-name" data-v-1a357a2c-s>:schema</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>schema<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+      <span class="token attr-name" data-v-1a357a2c-s>v-model</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>userData<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+    <span class="token punctuation" data-v-1a357a2c-s>/&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>BaseButton</span> <span class="token attr-name" data-v-1a357a2c-s>type</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>submit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>Submit<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>BaseButton</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>{{ userData }}<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>form</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span><span class="token script" data-v-1a357a2c-s><span class="token language-javascript" data-v-1a357a2c-s>
+<span class="token keyword" data-v-1a357a2c-s>import</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> computed<span class="token punctuation" data-v-1a357a2c-s>,</span> shallowRef<span class="token punctuation" data-v-1a357a2c-s>,</span> ref <span class="token punctuation" data-v-1a357a2c-s>}</span> <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormText <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormText.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormSelect <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormSelect.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormCheckbox <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormCheckbox.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> SchemaForm <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;../../../src/SchemaForm.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> BaseButton <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/BaseButton.vue&#39;</span>
+
+<span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token constant" data-v-1a357a2c-s>SCHEMA</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+  firstName<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;First Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  lastName<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Last Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  email<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Your email&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    required<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token boolean" data-v-1a357a2c-s>true</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    config<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      type<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;email&#39;</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  work<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> SchemaForm<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    schema<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      address<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+        label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Work address&#39;</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+      phone<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+        label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Work phone&#39;</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+      details<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        component<span class="token operator" data-v-1a357a2c-s>:</span> SchemaForm<span class="token punctuation" data-v-1a357a2c-s>,</span>
+        schema<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+          position<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+            component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+            label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Work position&#39;</span>
+          <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+          employees<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+            component<span class="token operator" data-v-1a357a2c-s>:</span> FormSelect<span class="token punctuation" data-v-1a357a2c-s>,</span>
+            label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Number of employees&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+            options<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>[</span>
+              <span class="token string" data-v-1a357a2c-s>&#39;1&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span> <span class="token string" data-v-1a357a2c-s>&#39;2&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span> <span class="token string" data-v-1a357a2c-s>&#39;3&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span> <span class="token string" data-v-1a357a2c-s>&#39;4+&#39;</span>
+            <span class="token punctuation" data-v-1a357a2c-s>]</span>
+          <span class="token punctuation" data-v-1a357a2c-s>}</span>
+        <span class="token punctuation" data-v-1a357a2c-s>}</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+<span class="token keyword" data-v-1a357a2c-s>export</span> <span class="token keyword" data-v-1a357a2c-s>default</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+  components<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> BaseButton <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token function" data-v-1a357a2c-s>setup</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    <span class="token keyword" data-v-1a357a2c-s>const</span> userData <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>ref</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>{</span><span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token keyword" data-v-1a357a2c-s>const</span> schema <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>shallowRef</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token constant" data-v-1a357a2c-s>SCHEMA</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token function-variable function" data-v-1a357a2c-s>formSubmit</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token function" data-v-1a357a2c-s>alert</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token string" data-v-1a357a2c-s>&#39;Form submitted!&#39;</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>return</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      userData<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      schema<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      formSubmit
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>}</span>
+</span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+</code></pre></div><!--]--></div></div></div><h3 id="using-an-array-based-schema"><a class="header-anchor" href="#using-an-array-based-schema" aria-hidden="true">#</a> Using an array based schema</h3><p><code>SchemaForm</code> allows to construct the schema also as an array. The name of each field is declared as a <code>model</code> property in each element, instead of it being the <code>key</code> for each property of the object-type schema.</p><p>Additionally, notice that in this example <code>v-model</code> is not being used. We bind <code>modelValue</code> directly to the <code>userData</code>, and listen to the <code>update:modelValue</code> event to merge the changes from <code>SchemaForm</code> into out <code>userData</code> object.</p><div class="split-container" data-v-1a357a2c><button class="split-tab-button" type="button" data-v-1a357a2c> Example </button><button class="split-tab-button" type="button" data-v-1a357a2c> Code </button><button class="split-tab-button-active split-tab-button" type="button" data-v-1a357a2c> Example+Code </button><div class="split" data-v-1a357a2c><div class="split-example" data-v-1a357a2c><!--[--><form><!----><button data-v-2904e166><!--[-->Submit<!--]--></button><pre>{}</pre></form><!--]--></div><div class="split-code" data-v-1a357a2c><!--[--><div class="language-vue" data-v-1a357a2c-s><pre data-v-1a357a2c-s><code data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>form</span> <span class="token attr-name" data-v-1a357a2c-s>@submit.prevent</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>formSubmit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>SchemaForm</span>
+      <span class="token attr-name" data-v-1a357a2c-s>:schema</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>schema<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+      <span class="token attr-name" data-v-1a357a2c-s>:modelValue</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>userData<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+      <span class="token attr-name" data-v-1a357a2c-s><span class="token namespace" data-v-1a357a2c-s>@update:</span>modelValue</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>mergeChanges<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span>
+    <span class="token punctuation" data-v-1a357a2c-s>/&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>BaseButton</span> <span class="token attr-name" data-v-1a357a2c-s>type</span><span class="token attr-value" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>=</span><span class="token punctuation" data-v-1a357a2c-s>&quot;</span>submit<span class="token punctuation" data-v-1a357a2c-s>&quot;</span></span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>Submit<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>BaseButton</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+    <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>{{ userData }}<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>pre</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+  <span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>form</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>template</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+
+<span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span><span class="token script" data-v-1a357a2c-s><span class="token language-javascript" data-v-1a357a2c-s>
+<span class="token keyword" data-v-1a357a2c-s>import</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> computed<span class="token punctuation" data-v-1a357a2c-s>,</span> ref <span class="token punctuation" data-v-1a357a2c-s>}</span> <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormText <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormText.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormSelect <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormSelect.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> FormCheckbox <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/FormCheckbox.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> SchemaForm <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;../../../src/SchemaForm.vue&#39;</span>
+<span class="token keyword" data-v-1a357a2c-s>import</span> BaseButton <span class="token keyword" data-v-1a357a2c-s>from</span> <span class="token string" data-v-1a357a2c-s>&#39;./form-elements/BaseButton.vue&#39;</span>
+
+<span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token constant" data-v-1a357a2c-s>SCHEMA</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>[</span>
+  <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;First Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    model<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;firstName&#39;</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Last Name&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    model<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;lastName&#39;</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    component<span class="token operator" data-v-1a357a2c-s>:</span> SchemaForm<span class="token punctuation" data-v-1a357a2c-s>,</span>
+    model<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;subform&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+    schema<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>[</span>
+      <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+        label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Work address&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+        model<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;address&#39;</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+      <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+        label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Work phone&#39;</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+        model<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;phone&#39;</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span>
+    <span class="token punctuation" data-v-1a357a2c-s>]</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>]</span>
+
+<span class="token keyword" data-v-1a357a2c-s>export</span> <span class="token keyword" data-v-1a357a2c-s>default</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+  components<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span> BaseButton <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+  <span class="token function" data-v-1a357a2c-s>setup</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+    <span class="token keyword" data-v-1a357a2c-s>let</span> userData <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>ref</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>{</span><span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token keyword" data-v-1a357a2c-s>const</span> schema <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token function" data-v-1a357a2c-s>computed</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token keyword" data-v-1a357a2c-s>return</span> userData<span class="token punctuation" data-v-1a357a2c-s>.</span>value<span class="token punctuation" data-v-1a357a2c-s>.</span>isVueFan <span class="token operator" data-v-1a357a2c-s>?</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        <span class="token operator" data-v-1a357a2c-s>...</span><span class="token constant" data-v-1a357a2c-s>SCHEMA</span><span class="token punctuation" data-v-1a357a2c-s>,</span>
+        feedback<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+          component<span class="token operator" data-v-1a357a2c-s>:</span> FormText<span class="token punctuation" data-v-1a357a2c-s>,</span>
+          label<span class="token operator" data-v-1a357a2c-s>:</span> <span class="token string" data-v-1a357a2c-s>&#39;Gimme some feedback&#39;</span>
+        <span class="token punctuation" data-v-1a357a2c-s>}</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span>
+        <span class="token operator" data-v-1a357a2c-s>:</span> <span class="token constant" data-v-1a357a2c-s>SCHEMA</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token function-variable function" data-v-1a357a2c-s>formSubmit</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token function" data-v-1a357a2c-s>alert</span><span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token string" data-v-1a357a2c-s>&#39;Form submitted!&#39;</span><span class="token punctuation" data-v-1a357a2c-s>)</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>const</span> <span class="token function-variable function" data-v-1a357a2c-s>mergeChanges</span> <span class="token operator" data-v-1a357a2c-s>=</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token parameter" data-v-1a357a2c-s>changes</span><span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token operator" data-v-1a357a2c-s>=&gt;</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      <span class="token keyword" data-v-1a357a2c-s>for</span> <span class="token punctuation" data-v-1a357a2c-s>(</span><span class="token keyword" data-v-1a357a2c-s>let</span> key <span class="token keyword" data-v-1a357a2c-s>in</span> changes<span class="token punctuation" data-v-1a357a2c-s>)</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+        userData<span class="token punctuation" data-v-1a357a2c-s>.</span>value<span class="token punctuation" data-v-1a357a2c-s>[</span>key<span class="token punctuation" data-v-1a357a2c-s>]</span> <span class="token operator" data-v-1a357a2c-s>=</span> changes<span class="token punctuation" data-v-1a357a2c-s>[</span>key<span class="token punctuation" data-v-1a357a2c-s>]</span>
+      <span class="token punctuation" data-v-1a357a2c-s>}</span>
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+
+    <span class="token keyword" data-v-1a357a2c-s>return</span> <span class="token punctuation" data-v-1a357a2c-s>{</span>
+      userData<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      schema<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      formSubmit<span class="token punctuation" data-v-1a357a2c-s>,</span>
+      mergeChanges
+    <span class="token punctuation" data-v-1a357a2c-s>}</span>
+  <span class="token punctuation" data-v-1a357a2c-s>}</span>
+<span class="token punctuation" data-v-1a357a2c-s>}</span>
+</span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
+</code></pre></div><!--]--></div></div></div></div></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"CHANGELOG.md\":\"3443eadf\",\"README.md\":\"a6dac07b\",\"index.md\":\"89f49904\"}")</script>
+    <script type="module" async src="/_assets/app.6ce636d1.js"></script>
+  </body>
+</html>
