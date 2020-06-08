@@ -15,9 +15,9 @@
   <nav class="nav-links" v-if="navData">
     <a
       class="nav-link"
-      v-for="{ text, link, target, rel, ariaLabel } of navData"
+      v-for="{ text, link, target, rel, ariaLabel, external = false } of navData"
       :class="{ active: isActiveLink(link) }"
-      :href="withBase(link)"
+      :href="external ? link : withBase(link)"
       :target="target"
       :rel="rel"
       :aria-label="ariaLabel"

@@ -6,7 +6,8 @@ module.exports = {
       {
         text: 'GitHub',
         link: 'https://github.com/vuelidate/formvuelatte',
-        target: '_blank'
+        target: '_blank',
+        external: true
       }
     ]
   }
