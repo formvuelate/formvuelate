@@ -1,8 +1,6 @@
 # FormVueLatte 2.x
 
-**Important:**
-
-For the full 2.0.0 alpha guide, please check out for now the `index.md` file
+Visit [FormVueLatte 2.0's full documentation](https://formvuelatte-next.netlify.app/#getting-started) for more detailed information and examples.
 
 ## Getting Started
 
