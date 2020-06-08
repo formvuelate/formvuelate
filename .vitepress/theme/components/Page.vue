@@ -6,8 +6,8 @@
 
 <style>
 .content {
-  max-width: 46rem;
-  margin: 0px auto;
+  margin: 0;
+  max-width: 56rem;
   padding: 1rem 2rem;
 }
 
