@@ -28,11 +28,6 @@ export default {
 </script>
 
 <style lang="stylus">
-.content {
-  margin: 0;
-  max-width: 56rem;
-}
-
 .theme-container {
   font-family: Arial, Helvetica, sans-serif;
 }
