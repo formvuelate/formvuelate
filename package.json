@@ -5,12 +5,16 @@
   "author": "Marina Mosti <marina@mosti.com.mx>",
   "contributors": [
     {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    },
+    {
       "name": "Damian Dulisz",
       "email": "damian.dulisz@gmail.com"
     },
     {
-      "name": "Marina Mosti",
-      "email": "marina@mosti.com.mx"
+      "name": "Tonina Zhelyazkova",
+      "email": "zhelyazkova.tonina@gmail.com"
     }
   ],
   "engines": {
@@ -39,6 +43,13 @@
   "files": [
     "dist",
     "src"
+  ],
+  "keywords": [
+    "vue",
+    "form",
+    "schema",
+    "plugin",
+    "dynamic form"
   ],
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
