@@ -3,7 +3,7 @@ node_modules
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-coverage
+/coverage
 
 # local env files
 .env.local
