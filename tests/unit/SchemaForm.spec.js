@@ -1,23 +1,100 @@
 import SchemaForm from '../../src/SchemaForm'
-import FormText from '../../.vitepress/docs/components/form-elements/FormText'
-import FormSelect from '../../.vitepress/docs/components/form-elements/FormSelect'
-import FormCheckbox from '../../.vitepress/docs/components/form-elements/FormCheckbox'
 
-import { schema, nestedSchema } from './schema'
 import { shallowMount, mount } from '@vue/test-utils'
+import { markRaw } from 'vue'
+
+const FormText = {
+  template: '<input/>',
+  props: ['label']
+}
+
+const FormSelect = {
+  template: '<select />',
+  props: ['label', 'options']
+}
+
+markRaw(FormSelect)
+markRaw(FormText)
+markRaw(SchemaForm)
 
 describe('SchemaForm', () => {
   it('renders a form based on a schema', () => {
+    const schema = {
+      firstName: {
+        component: FormText,
+        label: 'First Name',
+      },
+      lastName: {
+        component: FormText,
+        label: 'Last Name',
+      }
+    }
+    const wrapper = mount(SchemaForm, {
+      props: { schema, modelValue: {} }
+    })
+
+    expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+  })
+
+  it('renders a form based on a nested schema', () => {
+    const nestedSchema = {
+      work: {
+        component: SchemaForm,
+        schema: {
+          address: {
+            component: FormText,
+            label: 'Work address'
+          },
+          phone: {
+            component: FormText,
+            label: 'Work phone'
+          },
+          details: {
+            component: SchemaForm,
+            schema: {
+              position: {
+                component: FormText,
+                label: 'Work position'
+              },
+              employees: {
+                component: FormSelect,
+                label: 'Number of employees',
+                options: [
+                  '1', '2', '3', '4+'
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+
     const wrapper = mount(SchemaForm, {
       props: { schema: nestedSchema, modelValue: {} }
     })
 
-    expect(wrapper.findAllComponents(FormText)).toHaveLength(6)
-    expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
-    expect(wrapper.findAllComponents(FormCheckbox)).toHaveLength(1)
+    expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
+    expect(wrapper.findAllComponents(FormSelect)).toHaveLength(1)
   })
 
-  it('can provide/inject to check for a parent SchemaForm', () => {
+  it('can self check if it is a parent schema', () => {
+    const nestedSchema = {
+      work: {
+        component: SchemaForm,
+        schema: {
+          details: {
+            component: SchemaForm,
+            schema: {
+              position: {
+                component: FormText,
+                label: 'Work position'
+              }
+            }
+          }
+        }
+      }
+    }
+
     const wrapper = mount(SchemaForm, {
       props: { schema: nestedSchema, modelValue: {} }
     })
@@ -27,6 +104,17 @@ describe('SchemaForm', () => {
   })
 
   it('injects a unique id to each component', () => {
+    const schema = {
+      firstName: {
+        component: FormText,
+        label: 'First Name',
+      },
+      lastName: {
+        component: FormText,
+        label: 'Last Name',
+      }
+    }
+
     const wrapper = shallowMount(SchemaForm, {
       props: { schema, modelValue: {} }
     })
@@ -34,13 +122,20 @@ describe('SchemaForm', () => {
     const ids = []
     for (const el of wrapper.vm.parsedSchema) {
       expect(el.uuid).toBeTruthy()
-      expect(ids).not.toContain()
+      expect(ids).not.toContain(el.uuid)
       ids.push(el.uuid)
     }
   })
 
   describe('emits', () => {
-    it('emits update:modelValue when an input updates', async () => {
+    it('update:modelValue when an input updates', async () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+        }
+      }
+
       const wrapper = mount(SchemaForm, {
         props: { schema, modelValue: {} }
       })
@@ -51,20 +146,49 @@ describe('SchemaForm', () => {
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
         { firstName: 'first name' }
       ])
+    })
 
-      await wrapper.setProps({ modelValue: { firstName: 'first name' } })
+    it('update:modelValue with the appended current value from the model ', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+        },
+        favoriteThingAboutVue: {
+          component: FormSelect,
+          label: 'Favorite thing about Vue',
+          required: true,
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
+        }
+      }
 
-      wrapper.findComponent(FormSelect).vm.$emit('update:modelValue', true)
-      expect(wrapper.emitted()['update:modelValue']).toHaveLength(2)
-      expect(wrapper.emitted()['update:modelValue'][1]).toEqual([
-        { firstName: 'first name', favoriteThingAboutVue: true }
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: { firstName: 'first name' } }
+      })
+
+      wrapper.findComponent(FormSelect).vm.$emit('update:modelValue', 'Documentation')
+      expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
+      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
+        { firstName: 'first name', favoriteThingAboutVue: 'Documentation' }
       ])
     })
 
-    it('emits update:modelValue when a component fires update-batch', () => {
+    it('update:modelValue when a component fires update-batch', () => {
+      const schema = {
+        name: {
+          component: FormText,
+          label: 'Full Name',
+        },
+      }
+
       const wrapper = mount(SchemaForm, {
         props: {
-          schema, modelValue: {
+          schema,
+          modelValue: {
             original: true
           }
         }
@@ -84,6 +208,7 @@ describe('SchemaForm', () => {
 
   describe('binds', () => {
     it('the properties in a field into the component', () => {
+
       const wrapper = mount(SchemaForm, {
         props: {
           schema: {
@@ -104,7 +229,7 @@ describe('SchemaForm', () => {
       expect(field.vm.$attrs.two).toEqual(2)
     })
 
-    it('the schema only if a schema prop is set', () => {
+    it('the schema only, when a schema prop is set', () => {
       const wrapper = mount(SchemaForm, {
         props: {
           schema: {
@@ -126,10 +251,22 @@ describe('SchemaForm', () => {
       expect(schemaForm.vm.$attrs.one).toBeUndefined()
     })
 
-    it('binds the sharedConfig into all the elements', () => {
+    it('the sharedConfig into all the elements', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name',
+        }
+      }
+
       const wrapper = mount(SchemaForm, {
         props: {
-          schema, modelValue: {},
+          schema,
+          modelValue: {},
           sharedConfig: {
             shared: 'test'
           }
@@ -145,11 +282,28 @@ describe('SchemaForm', () => {
 
   describe('when the schema changes', () => {
     it('cleans up the model', async () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+        },
+        favoriteThingAboutVue: {
+          component: FormSelect,
+          label: 'Favorite thing about Vue',
+          required: true,
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
+        }
+      }
+
       const wrapper = mount(SchemaForm, {
         props: {
           schema,
           modelValue: {
-            firstName: 'delete me', favoriteThingAboutVue: true
+            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
           }
         }
       })
@@ -163,16 +317,33 @@ describe('SchemaForm', () => {
 
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { favoriteThingAboutVue: true }
+        { favoriteThingAboutVue: 'Documentation' }
       ])
     })
 
-    it('prevents model clean up with the preventModelCleanupOnSchemaChange prop', async () => {
+    it('prevents model clean up if the preventModelCleanupOnSchemaChange prop is true', async () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+        },
+        favoriteThingAboutVue: {
+          component: FormSelect,
+          label: 'Favorite thing about Vue',
+          required: true,
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
+        }
+      }
+
       const wrapper = mount(SchemaForm, {
         props: {
           schema,
           modelValue: {
-            firstName: 'delete me', favoriteThingAboutVue: true
+            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
           },
           preventModelCleanupOnSchemaChange: true
         }
@@ -186,6 +357,9 @@ describe('SchemaForm', () => {
       await wrapper.vm.$nextTick()
 
       expect(wrapper.emitted()['update:modelValue']).toBeUndefined()
+      expect(wrapper.vm.modelValue).toEqual({
+        firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
+      })
     })
   })
 })

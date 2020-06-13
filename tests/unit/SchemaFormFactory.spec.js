@@ -1,7 +1,6 @@
 import SchemaFormFactory from '../../src/SchemaFormFactory'
 import SchemaForm from '../../src/SchemaForm'
 
-import { shallowMount } from '@vue/test-utils'
 
 const props = {
   schema: {},
@@ -13,6 +12,7 @@ const attrs = {}
 const context = { emit, attrs }
 
 let warn
+
 describe('SchemaFormFactory', () => {
   beforeAll(() => {
     // Disable inject and provide warnings

@@ -1,8 +1,55 @@
 import SchemaWizard from '../../src/SchemaWizard'
 import SchemaForm from '../../src/SchemaForm'
-import { shallowMount, mount } from '@vue/test-utils'
 
-import { wizardSchema } from './schema'
+import { shallowMount, mount } from '@vue/test-utils'
+import { markRaw } from 'vue';
+
+const FormText = {
+  template: '<input/>',
+  props: ['label']
+}
+
+const FormSelect = {
+  template: '<select />',
+  props: ['label', 'options']
+}
+
+markRaw(FormSelect)
+markRaw(FormText)
+markRaw(SchemaForm)
+
+const wizardSchema = [
+  {
+    firstName: {
+      component: FormText,
+      label: 'First Name',
+    },
+    lastName: {
+      component: FormText,
+      label: 'Last Name',
+    },
+  },
+  {
+    email: {
+      component: FormText,
+      label: 'Your email',
+      required: true,
+      config: {
+        type: 'email'
+      }
+    },
+    favoriteThingAboutVue: {
+      component: FormSelect,
+      label: 'Favorite thing about Vue',
+      required: true,
+      options: [
+        'Ease of use',
+        'Documentation',
+        'Community'
+      ]
+    },
+  }
+]
 
 describe('SchemaWizard', () => {
   it('renders a SchemaForm for each index of the schema array based on the current step', async () => {
@@ -22,7 +69,8 @@ describe('SchemaWizard', () => {
     expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[1])
   })
 
-  it('defines itself as a parent schema through provide', () => {
+  // TODO: Figure out a way to mock the provide function in Vue 3
+  it('defines itself as the parent schema on the child SchemaForms', () => {
     const wrapper = mount(SchemaWizard, {
       props: {
         schema: wizardSchema,
