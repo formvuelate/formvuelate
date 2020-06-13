@@ -3,6 +3,20 @@
   "version": "v2.0.0-alpha.4",
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
+  "contributors": [
+    {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    },
+    {
+      "name": "Damian Dulisz",
+      "email": "damian.dulisz@gmail.com"
+    },
+    {
+      "name": "Tonina Zhelyazkova",
+      "email": "zhelyazkova.tonina@gmail.com"
+    }
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
@@ -19,6 +33,13 @@
   "files": [
     "dist",
     "src"
+  ],
+  "keywords": [
+    "vue",
+    "form",
+    "schema",
+    "plugin",
+    "dynamic form"
   ],
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
@@ -50,16 +71,6 @@
   "bugs": {
     "url": "https://github.com/vuelidate/formvuelatte"
   },
-  "contributors": [
-    {
-      "name": "Damian Dulisz",
-      "email": "damian.dulisz@gmail.com"
-    },
-    {
-      "name": "Marina Mosti",
-      "email": "marina@mosti.com.mx"
-    }
-  ],
   "engines": {
     "node": ">=12.17.0"
   },
