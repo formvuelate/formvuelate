@@ -86,12 +86,12 @@ export default {
 
         const newKeys = schema.map(i => i.model)
 
-        let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
+        const diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
         if (!diff.length) return
 
         const val = { ...props.modelValue }
 
-        for (let key of diff) {
+        for (const key of diff) {
           delete val[key]
         }
 
@@ -131,7 +131,7 @@ export default {
       if (hasParentSchema) return {}
 
       return {
-        'onSubmit': event => {
+        onSubmit: event => {
           event.preventDefault()
           emit('submit', event)
         }

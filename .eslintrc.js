@@ -5,21 +5,19 @@ module.exports = {
     node: true
   },
 
-  'extends': [
-    'eslint:recommended',
-    'plugin:vue/vue3-recommended'    
+  extends: [
+    'standard',
+    'plugin:vue/vue3-recommended'
   ],
 
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'indent': ['error', 2],
-    'quotes': ['error', 'single'],
 
     'vue/attribute-hyphenation': 'off',
     'vue/attributes-order': 'off',
     'vue/component-tags-order': ['error', {
-      'order': [ [ 'template', 'script' ], 'style' ]
+      order: [['template', 'script'], 'style']
     }]
   },
 
