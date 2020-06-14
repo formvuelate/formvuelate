@@ -22,11 +22,11 @@ describe('SchemaForm', () => {
     const schema = {
       firstName: {
         component: FormText,
-        label: 'First Name',
+        label: 'First Name'
       },
       lastName: {
         component: FormText,
-        label: 'Last Name',
+        label: 'Last Name'
       }
     }
     const wrapper = mount(SchemaForm, {
@@ -107,11 +107,11 @@ describe('SchemaForm', () => {
     const schema = {
       firstName: {
         component: FormText,
-        label: 'First Name',
+        label: 'First Name'
       },
       lastName: {
         component: FormText,
-        label: 'Last Name',
+        label: 'Last Name'
       }
     }
 
@@ -132,7 +132,7 @@ describe('SchemaForm', () => {
       const schema = {
         firstName: {
           component: FormText,
-          label: 'First Name',
+          label: 'First Name'
         }
       }
 
@@ -152,7 +152,7 @@ describe('SchemaForm', () => {
       const schema = {
         firstName: {
           component: FormText,
-          label: 'First Name',
+          label: 'First Name'
         },
         favoriteThingAboutVue: {
           component: FormSelect,
@@ -181,8 +181,8 @@ describe('SchemaForm', () => {
       const schema = {
         name: {
           component: FormText,
-          label: 'Full Name',
-        },
+          label: 'Full Name'
+        }
       }
 
       const wrapper = mount(SchemaForm, {
@@ -201,14 +201,13 @@ describe('SchemaForm', () => {
 
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { original: true, firstName: "Marina", lastName: "Mosti" }
+        { original: true, firstName: 'Marina', lastName: 'Mosti' }
       ])
     })
   })
 
   describe('binds', () => {
     it('the properties in a field into the component', () => {
-
       const wrapper = mount(SchemaForm, {
         props: {
           schema: {
@@ -255,11 +254,11 @@ describe('SchemaForm', () => {
       const schema = {
         firstName: {
           component: FormText,
-          label: 'First Name',
+          label: 'First Name'
         },
         lastName: {
           component: FormText,
-          label: 'Last Name',
+          label: 'Last Name'
         }
       }
 
@@ -274,7 +273,7 @@ describe('SchemaForm', () => {
       })
 
       const inputs = wrapper.findAllComponents(FormText)
-      for (let input of inputs) {
+      for (const input of inputs) {
         expect(input.vm.$attrs.shared).toEqual('test')
       }
     })
@@ -285,7 +284,7 @@ describe('SchemaForm', () => {
       const schema = {
         firstName: {
           component: FormText,
-          label: 'First Name',
+          label: 'First Name'
         },
         favoriteThingAboutVue: {
           component: FormSelect,
@@ -325,7 +324,7 @@ describe('SchemaForm', () => {
       const schema = {
         firstName: {
           component: FormText,
-          label: 'First Name',
+          label: 'First Name'
         },
         favoriteThingAboutVue: {
           component: FormSelect,

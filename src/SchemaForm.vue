@@ -1,20 +1,26 @@
 <template>
+  <component
+    :is="!hasParentSchema ? 'form' : 'div'"
+    v-bind="formBinds"
+  >
+    <slot
+      v-if="!hasParentSchema"
+      name="beforeForm"
+    />
     <component
-      :is="!hasParentSchema ? 'form' : 'div'"
-      v-bind="formBinds"
-    >
-        <slot v-if="!hasParentSchema" name="beforeForm"></slot>
-        <component
-          v-for="field in parsedSchema"
-          :key="field.model"
-          :is="field.component"
-          v-bind="binds(field)"
-          :modelValue="val(field)"
-          @update:modelValue="update(field.model, $event)"
-          @update-batch="updateBatch(field.model, $event)"
-        />
-        <slot v-if="!hasParentSchema" name="afterForm"></slot>
-    </component>
+      v-for="field in parsedSchema"
+      :key="field.model"
+      :is="field.component"
+      v-bind="binds(field)"
+      :modelValue="val(field)"
+      @update:modelValue="update(field.model, $event)"
+      @update-batch="updateBatch(field.model, $event)"
+    />
+    <slot
+      v-if="!hasParentSchema"
+      name="afterForm"
+    />
+  </component>
 </template>
 
 <script>
@@ -22,7 +28,6 @@ import useUniqueID from './features/UniqueID'
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
-  emits: ['submit', 'update:modelValue'],
   props: {
     schema: {
       type: [Object, Array],
@@ -46,7 +51,8 @@ export default {
       default: false
     }
   },
-  setup (props, { emit, attrs }) {
+  emits: ['submit', 'update:modelValue'],
+  setup (props, { emit }) {
     const hasParentSchema = inject('parentSchemaExists', false)
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
@@ -80,12 +86,12 @@ export default {
 
         const newKeys = schema.map(i => i.model)
 
-        let diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
+        const diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
         if (!diff.length) return
 
         const val = { ...props.modelValue }
 
-        for (let key of diff) {
+        for (const key of diff) {
           delete val[key]
         }
 
@@ -125,7 +131,7 @@ export default {
       if (hasParentSchema) return {}
 
       return {
-        'onSubmit': event => {
+        onSubmit: event => {
           event.preventDefault()
           emit('submit', event)
         }

@@ -28,8 +28,8 @@ module.exports = {
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
 
-  "collectCoverageFrom": [
-    "src/**/*.{js,jsx,vue}"
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,vue}'
   ],
 
   testURL: 'http://localhost/',

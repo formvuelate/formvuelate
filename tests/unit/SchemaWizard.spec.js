@@ -2,7 +2,7 @@ import SchemaWizard from '../../src/SchemaWizard'
 import SchemaForm from '../../src/SchemaForm'
 
 import { shallowMount, mount } from '@vue/test-utils'
-import { markRaw } from 'vue';
+import { markRaw } from 'vue'
 
 const FormText = {
   template: '<input/>',
@@ -22,12 +22,12 @@ const wizardSchema = [
   {
     firstName: {
       component: FormText,
-      label: 'First Name',
+      label: 'First Name'
     },
     lastName: {
       component: FormText,
-      label: 'Last Name',
-    },
+      label: 'Last Name'
+    }
   },
   {
     email: {
@@ -47,7 +47,7 @@ const wizardSchema = [
         'Documentation',
         'Community'
       ]
-    },
+    }
   }
 ]
 

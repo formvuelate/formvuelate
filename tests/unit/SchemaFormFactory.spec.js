@@ -1,7 +1,6 @@
 import SchemaFormFactory from '../../src/SchemaFormFactory'
 import SchemaForm from '../../src/SchemaForm'
 
-
 const props = {
   schema: {},
   modelValue: {}
@@ -16,7 +15,7 @@ let warn
 describe('SchemaFormFactory', () => {
   beforeAll(() => {
     // Disable inject and provide warnings
-    warn = jest.spyOn(console, 'warn').mockImplementation();
+    warn = jest.spyOn(console, 'warn').mockImplementation()
 
     expect.extend({
       toEqualFunction (received, compare) {
@@ -42,7 +41,7 @@ describe('SchemaFormFactory', () => {
 
   it('applies the plugins to the data returned from schema form', () => {
     let paramFn
-    const plugin = jest.fn((fn, props, context) => {
+    const plugin = jest.fn((fn) => {
       paramFn = fn
       return fn
     })
