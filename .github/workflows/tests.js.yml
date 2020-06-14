@@ -23,5 +23,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 13
-    - name: Run tests
-      run: yarn && yarn test:unit
+    - name: Yarn
+      run: yarn
+    - name: Lint
+      run: yarn lint
+    - name: Test units
+      run: yarn test:unit
