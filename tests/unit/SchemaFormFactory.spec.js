@@ -42,7 +42,7 @@ describe('SchemaFormFactory', () => {
 
   it('applies the plugins to the data returned from schema form', () => {
     let paramFn
-    const plugin = jest.fn((fn, props, context) => {
+    const plugin = jest.fn((fn) => {
       paramFn = fn
       return fn
     })

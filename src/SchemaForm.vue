@@ -28,7 +28,6 @@ import useUniqueID from './features/UniqueID'
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
-  emits: ['submit', 'update:modelValue'],
   props: {
     schema: {
       type: [Object, Array],
@@ -52,7 +51,8 @@ export default {
       default: false
     }
   },
-  setup (props, { emit, attrs }) {
+  emits: ['submit', 'update:modelValue'],
+  setup (props, { emit }) {
     const hasParentSchema = inject('parentSchemaExists', false)
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)

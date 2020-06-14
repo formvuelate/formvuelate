@@ -201,7 +201,7 @@ describe('SchemaForm', () => {
 
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { original: true, firstName: "Marina", lastName: "Mosti" }
+        { original: true, firstName: 'Marina', lastName: 'Mosti' }
       ])
     })
   })
