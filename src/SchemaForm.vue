@@ -1,20 +1,26 @@
 <template>
+  <component
+    :is="!hasParentSchema ? 'form' : 'div'"
+    v-bind="formBinds"
+  >
+    <slot
+      v-if="!hasParentSchema"
+      name="beforeForm"
+    />
     <component
-      :is="!hasParentSchema ? 'form' : 'div'"
-      v-bind="formBinds"
-    >
-        <slot v-if="!hasParentSchema" name="beforeForm"></slot>
-        <component
-          v-for="field in parsedSchema"
-          :key="field.model"
-          :is="field.component"
-          v-bind="binds(field)"
-          :modelValue="val(field)"
-          @update:modelValue="update(field.model, $event)"
-          @update-batch="updateBatch(field.model, $event)"
-        />
-        <slot v-if="!hasParentSchema" name="afterForm"></slot>
-    </component>
+      v-for="field in parsedSchema"
+      :key="field.model"
+      :is="field.component"
+      v-bind="binds(field)"
+      :modelValue="val(field)"
+      @update:modelValue="update(field.model, $event)"
+      @update-batch="updateBatch(field.model, $event)"
+    />
+    <slot
+      v-if="!hasParentSchema"
+      name="afterForm"
+    />
+  </component>
 </template>
 
 <script>
