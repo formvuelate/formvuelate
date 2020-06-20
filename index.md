@@ -8,11 +8,11 @@ title: FormVueLatte 2.0
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
-**Important**
-
+::: warning Important
 `FormVueLatte` is a bring-your-own-components (BYOC) library!
 
-We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
+We do **not** provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
+:::
 
 ## Playground
 
@@ -34,7 +34,7 @@ yarn add formvuelatte
 npm install formvuelatte
 ```
 
-Now that you have the package in your project, `import` it to your component.
+Now that you have the package in your project, `import` it to the component that will hold your form.
 
 You can pick and choose which of the `FormVueLatte` components you will need. The following example imports all of them.
 
@@ -63,11 +63,11 @@ Example with `v-model`:
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 export default {
   setup() {
-    const formData = reactive({})
-    const mySchema = reactive({
+    const formData = ref({})
+    const mySchema = ref({
       // some schema here
     })
 
@@ -92,16 +92,16 @@ Example with manual bindings:
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref } from 'vue'
 export default {
   setup() {
-    const formData = reactive({})
-    const mySchema = reactive({
+    const formData = ref({})
+    const mySchema = ref({
       // some schema here
     })
 
     const updateForm = form => {
-      formData = form
+      formData.value = form
     }
 
     return {
@@ -110,17 +110,21 @@ export default {
       updateForm
     }
   }
-}}
+}
 </script>
 ```
 
+::: tip
 Keep in mind when using v-model with `<SchemaForm>`, the value that we pass will be replaced with a new value. This also means we should always use `ref` to create that state object as it will track the changes as you would expect.
+:::
 
 ### Prop: Schema
 
-The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`, although under the hood it will be transformed to an `array`.
+The `SchemaForm` component requires you to pass it a `schema` property. This `schema` can be both an `object` or an `array`.
 
-In its simplest form, the `schema` requires you to provide a `name: value` pair for each of the form components you want to add to your form. Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
+In its simplest form, the `schema` requires you to provide an object with a `modelName: value` pair for each of the form components you want to add to your form.
+
+Let’s assume for this example that you have a component in your project called `FormText` which exposes an `<input>` tag with some CSS.
 
 ```html
 <template>
@@ -130,20 +134,64 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 <script>
   import { SchemaForm } from 'formvuelatte'
   import FormText from 'path/to/FormText'
-  import { reactive } from 'vue'
+  import { ref } from 'vue'
 
   export default {
     components: { SchemaForm },
     setup() {
-      const schema = reactive({
+      const schema = ref({
         name: {
-          component: FormText // Note that is NOT a string
+          component: FormText
         },
         lastName: {
-          component: FormText // We pass the component that we imported directly
+          component: FormText
         }
       })
-      const formData = reactive({})
+      const formData = ref({})
+
+      return {
+        schema,
+        formData
+      }
+    }
+  }
+</script>
+```
+
+:::tip
+In the previous example, we use the component that we imported as the value of the `component` property of each element.
+
+You can use `String` instead, but be aware that the component needs to either be imported globally, or in your file first.
+:::
+
+For `array` based schemas, we need to provide an object for each element of the form, but instead of providing a `modelName: value` structure, we declare a `model` property inside of each object.
+
+Here's the above example again using `array` format.
+
+```html
+<template>
+  <SchemaForm :schema="schema" v-model="formData" />
+</template>
+
+<script>
+  import { SchemaForm } from 'formvuelatte'
+  import FormText from 'path/to/FormText'
+  import { ref } from 'vue'
+
+  export default {
+    components: { SchemaForm },
+    setup() {
+      const schema = ref([
+        {
+          component: FormText,
+          model: 'name'
+        },
+        {
+          component: FormText,
+          model: 'lastName'
+        }
+      ])
+      const formData = ref({})
 
       return {
         schema,
@@ -158,7 +206,9 @@ In its simplest form, the `schema` requires you to provide a `name: value` pair 
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside `schema` every time `schema` changes.
 
-Pretend that you have a form that is built with the following schema.
+That means that if at runtime the `schema` deletes one of the elements inside of it, the output of the `value` of your form will no longer contain the user's data if it was already present.
+
+Let's pretend that you have a form that is built with the following schema.
 
 ```js
 name: {
@@ -197,11 +247,13 @@ If you want to disable this behavior, pass the `preventModelCleanupOnSchemaChang
 />
 ```
 
+Now the `SchemaForm` will not automatically delete the `lastName` property, even if `schema` removes the property, and you will preserve the value of the input if it was already present.
+
 ### Handling submit
 
 `SchemaForm` will automatically create a `<form>` wrapper for you on the top level `SchemaForm` in the case of single and multi dimensional schemas, and fire a `submit` event when the form is submitted.
 
-This `submit` will `preventDefault` so you can handle the submit on your end.
+This `submit` event will `preventDefault` so you can handle the submit on your end.
 
 In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaForm` component in your template.
 
@@ -215,19 +267,39 @@ In order to react and listen to the `submit` events, simply add a `@submit` list
 </template>
 ```
 
-Note that any sub `SchemaForm`s in nested schemas will not have `form` tags themselves, and will be rendered inside wrapping `div` tags.
+Note that any `SchemaForm` components in nested schemas will not have `form` tags themselves, and will be rendered inside wrapping `div` tags.
 
 ### Slots
 
 `SchemaForm` provides two slots for you to add additional elements to your form.
 
-A `beforeForm` slot will be provided before the rendered `SchemaForm`.
+A `beforeForm` slot will be provided before the top-most rendered `SchemaForm`.
 
 Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the `SchemaForm`.
+
+```html
+<form>
+  <!-- beforeForm slot content goes here -->
+  <SchemaForm />
+</form>
+```
 
 An `afterForm` slot will be provided after the rendered `SchemaForm`.
 
 Use this to add elements _after_ the `SchemaForm` and _before_ the wrapping `</form>` tag. A good example would be a submit button.
+
+```html
+<form>
+  <SchemaForm />
+  <!-- afterForm slot content goes here -->
+</form>
+```
+
+:::tip
+Always use the `afterForm` slot to add your `type="submit"` button, that way it will be rendered inside the `form` tags.
+
+You don't have to listen to this `submit` button's click events, as `SchemaForm` will take care of emitting a `submit` event whenever it is clicked, or the form is submitted in any other way. [Read more about handling form submits](#handling-submit)
+:::
 
 ### Component Requirements
 
@@ -241,7 +313,11 @@ Example of a simple input component:
 
 ```html
 <template>
-  <input type="text" :value="modelValue" @input="update" />
+  <input
+    type="text"
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+  />
 </template>
 
 <script>
@@ -250,11 +326,6 @@ export default {
     modelValue: {
       required: true,
       type: [String, Number]
-    }
-  },
-  setup(props, context) {
-    const update = event => {
-      context.emit('update:modelValue', event.target.value)
     }
   }
 }
@@ -265,7 +336,33 @@ export default {
 
 FormVueLatte also ships with a component called `SchemaWizard`, that allows you to easily build stepped, wizard-like, forms.
 
-The `SchemaWizard` component exposes and requires three props.
+The `SchemaWizard` component exposes and **requires** three props: `schema`, `step`, and `modelValue`.
+
+### v-model
+
+The `SchemaWizard` component has a prop `modelValue` and emits `update:modelValue` events.
+
+This means that you can `v-model` the results of the form into your parent component's state, or manually bind the property and listen to the event for more control.
+
+```html
+<template>
+  <SchemaWizard :schema="wizardSchema" :step="step" v-model="userData">
+</template>
+
+<script>
+import { ref } from 'vue'
+export default {
+  setup () {
+    const step = ref(0)
+    const userData = ref({})
+    return {
+      step,
+      userData
+    }
+  }
+}
+</script>
+```
 
 ### Prop: Schema
 
@@ -273,9 +370,11 @@ The schema that the `SchemaWizard` will use to render the form. This is a requir
 
 The schema that the `SchemaWizard` uses varies from the one used in `SchemaForm` in one major difference — it is strictly an array, in which each of the array elements is a `SchemaForm` ready schema.
 
-Example wizard schema:
+::: warning
+Note that the components used are only for purposes of the example and are not part of FormVueLatte
+:::
 
-( Note that the components used are only for purposes of the example and are not part of FormVueLatte )
+Example schema for a form wizard/stepped form:
 
 ```javascript
 const wizardSchema = [
@@ -293,23 +392,49 @@ const wizardSchema = [
 ]
 ```
 
-In the previous example we have two different form steps, the first will display two inputs — one for the firstName, and one for the lastName. In the second step, the first two elements for the user's name will not be displayed, and the email and terms checkbox will.
+In the previous example we have two different form steps, the first will display two inputs — one for the `firstName`, and one for the `lastName`.
+
+In the second step, the first two elements for the user's name will not be displayed, and the `email` and terms `checkbox` will.
+
+```html
+<template>
+  <SchemaWizard :schema="wizardSchema">
+</template>
+```
 
 ### Prop: Step
 
-This property is required, and numeric.
+This property is required, 0 based, and of the `Number` type.
 
-The step is the index of the currently displayed part of the stepped schema. In the previous schema example, step `0` will indicate that the `SchemaWizard` should display the index `0` of the form — the user's name.
+The `step` is the index of the currently displayed part of the stepped schema. In the previous schema example, step `0` will indicate that the `SchemaWizard` should display the index `0` of the form — the user's first and last name.
 
 Step `1` will indicate that the `SchemaWizard` should display index `1` of the form — the email and terms checkbox.
 
+```html
+<template>
+  <SchemaWizard :schema="wizardSchema" :step="step">
+</template>
+
+<script>
+import { ref } from 'vue'
+export default {
+  setup () {
+    const step = ref(0)
+    return {
+      step
+    }
+  }
+}
+</script>
+```
+
 ### Props: modelValue
 
-This property is required, and an array.
+This property is required, and of type `Array`.
 
 This is the property that the `SchemaWizard` component will use for `v-model` binding and to inject form values into subcomponents.
 
-Example output from the example schema above:
+This is an example output from the example schema above after the user fills out the fields.
 
 ```javascript
 [
@@ -324,11 +449,33 @@ Example output from the example schema above:
 ]
 ```
 
+Example injecting `userData` as the `modelValue`:
+
+```html
+<template>
+  <SchemaWizard :schema="wizardSchema" :step="step" :modelValue="userData">
+</template>
+
+<script>
+import { ref } from 'vue'
+export default {
+  setup () {
+    const step = ref(0)
+    const userData = ref({})
+    return {
+      step,
+      userData
+    }
+  }
+}
+</script>
+```
+
 ### Handling submit
 
 `SchemaWizard` will automatically create a `<form>` wrapper for you on the top level regardless of how many sub-forms you provide, and fire a `submit` event when the form is submitted.
 
-This `submit` uses `preventDefault` so you can handle the submit on your end.
+This `submit` event uses `preventDefault` so you can handle the submit on your end.
 
 In order to react and listen to the `submit` events, simply add a `@submit` listener to the `SchemaWizard` component in your template.
 
@@ -351,11 +498,31 @@ A `beforeForm` slot will be provided before the child `SchemaForm`s.
 
 Use this for scenarios where you want to provide some element to your form _after_ the `<form>` tag, but _before_ the internal `SchemaForm`s.
 
+```html
+<form>
+  <!-- beforeForm slot content goes here -->
+  <SchemaForm />
+</form>
+```
+
 An `afterForm` slot will be provided after the rendered `SchemaForm`s.
 
 Use this to add elements _after_ the rendered `SchemaForm`s and _before_ the wrapping `</form>` tag. A good example would be a submit button.
 
+```html
+<form>
+  <SchemaForm />
+  <!-- afterForm slot content goes here -->
+</form>
+```
+
 Note that any sub `SchemaForm`s rendered inside the `SchemaWizard` will **not** have `<form>` tags on themselves, and will be rendered inside `div` elements.
+
+:::tip
+Always use the `afterForm` slot to add your `type="submit"` button, that way it will be rendered inside the `form` tags.
+
+You don't have to listen to this `submit` button's click events, as `SchemaWizard` will take care of emitting a `submit` event whenever it is clicked, or the form is submitted in any other way.
+:::
 
 ## Plugins
 
@@ -366,42 +533,61 @@ In order to use a plugin with `SchemaForm`, you have to use the provided `Schema
 First, import the `SchemaFormFactory` into your application.
 
 ```javascript
-import SchemaFormFactory from 'formvuelatte/SchemaFormFactory'
+import { SchemaFormFactory } from 'formvuelatte'
 ```
 
 `SchemaFormFactory` accepts an array of plugins that will be used to generate the `SchemaForm`.
 
+:::warning Important
+Remember that `SchemaFormFactory` returns an extended version of `SchemaForm`, so all the props required by `SchemaForm` like `schema` and `modelValue`/`v-model` are still required.
+:::
+
 The order in which you pass the plugins is *important*, as they will be applied in the order they are received.
 
-```javascript
-import useVuelidate from '@vuelidate'
-import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
-
-const SchemaFormWithPlugins = SchemaFormFactory([
-  VuelidatePlugin(useVuelidate)
-])
-```
-
-Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
+:::tip
+Each plugin will modify the `setup` function of `SchemaForm` and change the way the `schema` is parsed. The next plugin in line will receive the modified `setup` function that the previous one changed.
+:::
 
 ```html
 <template>
-  [...]
-  <SchemaFormWithValidations />
-  [...]
+  <SchemaFormWithPlugins />
 </template>
+<script>
+import useVuelidate from '@vuelidate'
+import VuelidatePlugin from '@formvuelatte/plugin-vuelidate'
+import LookupPlugin from '@formvuelatte/plugin-lookup'
+
+const SchemaFormWithPlugins = SchemaFormFactory([
+  LookupPlugin({
+      mapComponents: {
+      string: 'FormText',
+      array: 'FormSelect'
+    }
+  }),
+  VuelidatePlugin(useVuelidate)
+])
 
 export default {
-  components: { SchemaFormWithValidations },
-  [...]
+  components: {
+    SchemaFormWithPlugins
+  }
 }
+</script>
 ```
+
+::: tip
+Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
+:::
 
 ### Vuelidate Plugin
 
+:::warning
+The Vuelidate plugin is **WIP** and should not yet be used!
+:::
+
 [Vuelidate Plugin's Repo](https://github.com/vuelidate/formvuelatte-plugin-vuelidate)
 
-In order to seamlessly validate FormVueLatte by using Vuelidate, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
+In order to seamlessly validate `FormVueLatte` by using `Vuelidate`, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
 
 Your schema will need some changes in order to work with the `VuelidatePlugin`. Each element in your schema will need to contain a `validations` property which is an object, with each of the validations that you want to apply to it.
 
@@ -434,18 +620,19 @@ const SCHEMA = {
 }
 ```
 
-Next, create your new `SchemaForm` by using the factory to inject the `VuelidatePlugin`.
+Next, create your new `SchemaForm` by using the `SchemaFormFactory` to inject the `VuelidatePlugin`.
 
 ```javascript
+import { SchemaFormFactory } from 'formvuelatte'
 import useVuelidate from '@vuelidate'
-import VuelidatePlugin from 'formvuelatte/useVuelidatePlugin'
+import VuelidatePlugin from '@formvuelatte/plugin-vuelidate'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
   VuelidatePlugin(useVuelidate)
 ])
 ```
 
-Now that we have the component ready, we can jump into the `setup` function, where we need to get our `v-model` data ready, as well as a function to handle the `update:validations` event that our Vuelidate-powered form will `emit`.
+Now that we have the component ready, we can jump into the `setup` function, where we need to get our `v-model` data ready, as well as a function to handle the `update:validations` event that our Vuelidate-powered `SchemaFormWithPlugins` will `emit`.
 
 ```javascript
 setup (props, context) {
@@ -469,7 +656,7 @@ setup (props, context) {
 }
 ```
 
-Finally, we can go to our template and pass down both the `userData` and the listener for our `update:validations` event.
+Finally, we can go to our template and set up both the `userData` binding and the listener for our `update:validations` event.
 
 ```html
 <template>
@@ -522,18 +709,6 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 
 Now that we have created our new component, we can pass it to our instance's `components` object, and use it as we normally would in our template.
 
-```js
-export default {
-  name: 'App',
-  components: {
-    SchemaFormWithPlugin
-  },
-  setup () {
-    [...]
-  }
-}
-```
-
 ```html
 <template>
   <div id="app">
@@ -543,9 +718,18 @@ export default {
     />
   </div>
 </template>
-```
 
-**Important: ** Remember that `SchemaFormFactory` returns an extended version of `SchemaForm`, so all the props required by `SchemaForm` like `schema` and `modelValue`/`v-model` are still required.
+<script>
+export default {
+  components: {
+    SchemaFormWithPlugin
+  },
+  setup () {
+    [...]
+  }
+}
+</script>
+```
 
 #### Configuration
 
@@ -596,7 +780,7 @@ LookupPlugin({
 
 If your schema needs to parse additional props for your own component's needs, `mapProps` provides an easy way of parsing any property in your component's object definition to something else.
 
-In some cases the schema might define your `component` property with something else, let's use `type` in the following example:
+For example, in some cases the schema might define your `component` property with something else, let's use `type` in the following example:
 
 ```json
 {
@@ -607,7 +791,7 @@ In some cases the schema might define your `component` property with something e
 }
 ```
 
-We need to map `type` into `component`, since that is the property that `SchemaForm` expects to find for the component to render into the form.
+We need to map `type` into `component`, since that is the property that `SchemaForm` expects to find for the component to render into the form. [Read more about component requirements](#component-requirements)
 
 ```js
 const SchemaFormWithPlugin = SchemaFormFactory([
@@ -619,7 +803,7 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 ])
 ```
 
-If we also needed to map `info` to `label` because of what our component is expecting, by using `mapProps` in our configuration we can easily ask the plugin to do both at the same time.
+If we also needed to map `info` to `label` because our component is expecting a `label` property and our schema defines it as `info`, by using `mapProps` in our configuration we can easily ask the plugin to do both at the same time.
 
 ```js
 const SchemaFormWithPlugin = SchemaFormFactory([
@@ -632,7 +816,7 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 ])
 ```
 
-Now our schema will correctly pass the `label` property into our `FormText` component. The schema will also correctly reflect a `component` property with the value of `FormText`.
+Now our schema will correctly pass the `label` property into our `FormText` example component. The schema will also correctly reflect a `component` property with the value of `FormText`.
 
 The `mapProps` property can also receive a function to handle advanced property parsing logic.
 
@@ -655,11 +839,20 @@ Consider the following schema and example.
 }
 ```
 
+The first field declares a `type` property that holds the component that it should render.
+
+The second field declares a `field` property that holds the component that it should render.
+
+In this case, we need more per-field control in how the properties are passed.
+
 ```js
 const SchemaFormWithPlugin = SchemaFormFactory([
   LookupPlugin({
     mapProps: (el) => {
-      // Map important to required only for 'First name'
+      // This function will be called for each element in the schema
+      // "el" is the current element being parsed
+
+      // Map important to required only for the field with label 'First name'
       if (el.label === 'First name') {
         return {
           type: 'component',
@@ -667,7 +860,7 @@ const SchemaFormWithPlugin = SchemaFormFactory([
         }
       }
 
-      // For all other elements
+      // For any other element
       return {
         field: 'component'
       }
@@ -754,7 +947,7 @@ When dealing with schemas that have sub-schemas like the following:
 }
 ```
 
-Make sure that you `mapComponents` and change `SchemaForm` for whatever you named the output of your `SchemaFormFactory` function call.
+Make sure that you use `mapComponents` to change `SchemaForm` for whatever you named the output of your `SchemaFormFactory` function call.
 
 ```js
 // Note "SchemaFormWithPlugin" getting remapped
@@ -770,7 +963,7 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 
 ## Accessibility
 
-Due to the bring-you-own-components nature of `FormVueLatte`, the library itself does not handle a11y related topics internally. However, we realize how important it is to provide accessible forms to our users.
+Due to the bring-you-own-components nature of `FormVueLatte`, the library itself does not handle accessibility internally for input elements. However, we realize how important it is to provide accessible forms to our users.
 
 We provide some tools for you to build your components in an accessible way.
 
@@ -815,9 +1008,8 @@ export default {
 
 Here you will find a few examples on how you can set up your `schema` and the output it would produce.
 
-Please note: We are using a few different custom components to showcase, but you should use your own!
-
-These components are **only** for demonstration purposes, and are **not** included with the library. 😉
+Please note: We are using a few different example custom components to showcase, but you should use your own!
+These components are **only** for demonstration purposes, and are **not** included with the library.
 
 ### SchemaForm with v-model
 
