@@ -58,7 +58,7 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    let { getID } = useUniqueID()
+    const { getID } = useUniqueID()
 
     const parsedSchema = computed(() => {
       const arraySchema = Array.isArray(props.schema)
