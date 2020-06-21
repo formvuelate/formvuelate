@@ -1,7 +1,17 @@
 <template>
   <div style="margin-bottom: 2rem">
     <h3>SchemaForm props</h3>
-    <FormCheckbox v-model="options.preventModelCleanupOnSchemaChange" label="preventModelCleanupOnSchemaChange" />
+    <div class="options-menu">
+      <FormCheckbox v-model="options.preventModelCleanupOnSchemaChange" label="preventModelCleanupOnSchemaChange" />
+      <FormSelect
+        style="width: 300px"
+        :modelValue="currentSchemaType"
+        @change="switchSchema"
+        :options="['object', 'array']"
+        disableNoSelection
+        label="Schema type"
+      />
+    </div>
   </div>
   <div style="display: flex">
     <div>
@@ -27,69 +37,145 @@
 <script>
 import { ref, watchEffect, reactive } from 'vue'
 
-export default {
-  setup () {
-    const schema = ref(JSON.stringify({
-      firstName: {
+const arraySchema = [
+  {
+    component: 'FormText',
+    label: 'First Name',
+    model: 'firstName'
+  },
+  {
+    component: 'FormText',
+    label: 'Last Name',
+    model: 'lastName'
+  },
+  {
+    component: 'FormText',
+    label: 'Your email',
+    required: true,
+    model: 'email',
+    config: {
+      type: 'email'
+    }
+  },
+  {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    required: true,
+    model: 'favoriteThingAboutVue',
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
+  {
+    component: 'FormCheckbox',
+    label: 'Are you a Vue fan?',
+    model: 'isVueFan'
+  },
+  {
+    component: 'SchemaForm',
+    model: 'work',
+    schema: [
+      {
         component: 'FormText',
-        label: 'First Name',
+        label: 'Work address',
+        model: 'address'
       },
-      lastName: {
+      {
         component: 'FormText',
-        label: 'Last Name',
+        label: 'Work phone',
+        model: 'phone'
       },
-      email: {
-        component: 'FormText',
-        label: 'Your email',
-        required: true,
-        config: {
-          type: 'email'
-        }
-      },
-      favoriteThingAboutVue: {
-        component: 'FormSelect',
-        label: 'Favorite thing about Vue',
-        required: true,
-        options: [
-          'Ease of use',
-          'Documentation',
-          'Community'
+      {
+        component: 'SchemaForm',
+        model: 'details',
+        schema: [
+          {
+            component: 'FormText',
+            label: 'Work position',
+            model: 'position'
+          },
+          {
+            component: 'FormSelect',
+            label: 'Number of employees',
+            model: 'employees',
+            options: [
+              '1', '2', '3', '4+'
+            ]
+          }
         ]
+      }
+    ]
+  }
+]
+
+const objSchema = {
+  firstName: {
+    component: 'FormText',
+    label: 'First Name',
+  },
+  lastName: {
+    component: 'FormText',
+    label: 'Last Name',
+  },
+  email: {
+    component: 'FormText',
+    label: 'Your email',
+    required: true,
+    config: {
+      type: 'email'
+    }
+  },
+  favoriteThingAboutVue: {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    required: true,
+    options: [
+      'Ease of use',
+      'Documentation',
+      'Community'
+    ]
+  },
+  isVueFan: {
+    component: 'FormCheckbox',
+    label: 'Are you a Vue fan?'
+  },
+  work: {
+    component: 'SchemaForm',
+    schema: {
+      address: {
+        component: 'FormText',
+        label: 'Work address'
       },
-      isVueFan: {
-        component: 'FormCheckbox',
-        label: 'Are you a Vue fan?'
+      phone: {
+        component: 'FormText',
+        label: 'Work phone'
       },
-      work: {
+      details: {
         component: 'SchemaForm',
         schema: {
-          address: {
+          position: {
             component: 'FormText',
-            label: 'Work address'
+            label: 'Work position'
           },
-          phone: {
-            component: 'FormText',
-            label: 'Work phone'
-          },
-          details: {
-            component: 'SchemaForm',
-            schema: {
-              position: {
-                component: 'FormText',
-                label: 'Work position'
-              },
-              employees: {
-                component: 'FormSelect',
-                label: 'Number of employees',
-                options: [
-                  '1', '2', '3', '4+'
-                ]
-              }
-            }
+          employees: {
+            component: 'FormSelect',
+            label: 'Number of employees',
+            options: [
+              '1', '2', '3', '4+'
+            ]
           }
         }
       }
-    }, null, 2))
+    }
+  }
+}
+
+export default {
+  setup () {
+    const schema = ref(JSON.stringify(objSchema, null, 2))
+    const currentSchemaType = ref('object')
 
     const value = ref({})
     const schemaError = ref('')
@@ -123,6 +209,21 @@ export default {
       alert(`Form submitted`)
     }
 
+    const switchSchema = (event) => {
+      const val = event.target.value
+      currentSchemaType.value = val
+
+      if (val === 'array') {
+        schema.value = JSON.stringify(arraySchema, null, 2)
+        return
+      }
+
+      if (val === 'object') {
+        schema.value = JSON.stringify(objSchema, null, 2)
+        return
+      }
+    }
+
     return {
       schema,
       schemaError,
@@ -131,7 +232,9 @@ export default {
       value,
       toggleValidation,
       options,
-      onSubmit
+      onSubmit,
+      switchSchema,
+      currentSchemaType
     }
   }
 }
