@@ -3,7 +3,14 @@
     <h3>SchemaForm props</h3>
     <div class="options-menu">
       <FormCheckbox v-model="options.preventModelCleanupOnSchemaChange" label="preventModelCleanupOnSchemaChange" />
-      <BaseButton @click="switchSchema">Use {{ currentSchemaType === 'object' ? 'array' : 'object' }} format</BaseButton>
+      <FormSelect
+        style="width: 300px"
+        :modelValue="currentSchemaType"
+        @change="switchSchema"
+        :options="['object', 'array']"
+        disableNoSelection
+        label="Schema type"
+      />
     </div>
   </div>
   <div style="display: flex">
@@ -202,16 +209,17 @@ export default {
       alert(`Form submitted`)
     }
 
-    const switchSchema = () => {
-      if (currentSchemaType.value === 'object') {
+    const switchSchema = (event) => {
+      const val = event.target.value
+      currentSchemaType.value = val
+
+      if (val === 'array') {
         schema.value = JSON.stringify(arraySchema, null, 2)
-        currentSchemaType.value = 'array'
         return
       }
 
-      if (currentSchemaType.value === 'array') {
+      if (val === 'object') {
         schema.value = JSON.stringify(objSchema, null, 2)
-        currentSchemaType.value = 'object'
         return
       }
     }
@@ -244,11 +252,5 @@ export default {
 
 .editor-error {
   border: 1px solid red;
-}
-
-.options-menu {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 </style>
