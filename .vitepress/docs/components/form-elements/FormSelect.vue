@@ -9,7 +9,7 @@
       :id="label"
       @input="update($event.target.value)"
     >
-      <option>-</option>
+      <option v-if="!disableNoSelection">-</option>
       <option
         v-for="option in options"
         :key="option"
@@ -35,7 +35,8 @@ export default {
       default: () => { }
     },
     label: { type: String, required: true },
-    options: { type: Array, required: true }
+    options: { type: Array, required: true },
+    disableNoSelection: { type: Boolean, default: false }
   },
   methods: {
     update (value) {
