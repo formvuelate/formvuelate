@@ -65,7 +65,7 @@ export default {
         ? props.schema
         : Object.keys(props.schema).map(model => ({
           ...props.schema[model],
-          model,
+          model
         }))
 
       return arraySchema.map(field => ({
