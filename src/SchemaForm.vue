@@ -58,26 +58,20 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    let { UUID, UUIDBindings } = useUniqueID()
+    let { getID } = useUniqueID()
 
     const parsedSchema = computed(() => {
-      if (Array.isArray(props.schema)) return props.schema
-
-      const arraySchema = []
-      for (const model in props.schema) {
-        if (!UUIDBindings[model]) {
-          UUIDBindings[model] = UUID
-          UUID++
-        }
-
-        arraySchema.push({
+      const arraySchema = Array.isArray(props.schema)
+        ? props.schema
+        : Object.keys(props.schema).map(model => ({
           ...props.schema[model],
           model,
-          uuid: UUIDBindings[model]
-        })
-      }
+        }))
 
-      return arraySchema
+      return arraySchema.map(field => ({
+        ...field,
+        uuid: getID(field.model)
+      }))
     })
 
     watch(parsedSchema,
