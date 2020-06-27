@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import useUniqueID from './features/UniqueID'
+import useParsedSchema from './features/ParsedSchema'
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
@@ -58,21 +58,7 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    const { getID } = useUniqueID()
-
-    const parsedSchema = computed(() => {
-      const arraySchema = Array.isArray(props.schema)
-        ? props.schema
-        : Object.keys(props.schema).map(model => ({
-          ...props.schema[model],
-          model
-        }))
-
-      return arraySchema.map(field => ({
-        ...field,
-        uuid: getID(field.model)
-      }))
-    })
+    const { parsedSchema } = useParsedSchema(props)
 
     watch(parsedSchema,
       (schema, oldSchema) => {
