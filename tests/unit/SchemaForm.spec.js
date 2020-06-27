@@ -36,6 +36,27 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
   })
 
+  it('renders a form based on an array schema', () => {
+    const schema = [
+      {
+        component: FormText,
+        label: 'First Name',
+        model: 'firstName'
+      },
+      {
+        component: FormText,
+        label: 'Last Name',
+        model: 'lastName'
+      }
+    ]
+
+    const wrapper = mount(SchemaForm, {
+      props: { schema, modelValue: {} }
+    })
+
+    expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+  })
+
   it('renders a form based on a nested schema', () => {
     const nestedSchema = {
       work: {
