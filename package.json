@@ -18,7 +18,6 @@
     }
   ],
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
     "test:unit": "vue-cli-service test:unit --coverage",
     "test:unit:watch": "yarn test:unit --watch",
