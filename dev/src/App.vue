@@ -25,24 +25,31 @@ export default {
     const schema = [
       {
         component: FormText,
-        label: 'First Name',
-        model: 'firstName'
-      },
-      {
-        component: FormText,
-        label: 'Last Name',
-        model: 'lastName'
+        label: 'one',
+        model: 'one'
       },
       [
         {
           component: FormText,
-          label: 'three',
-          model: 'three'
+          label: 'two',
+          model: 'two'
         },
         {
           component: FormText,
-          label: 'four',
-          model: 'four'
+          label: 'three',
+          model: 'three'
+        }
+      ],
+      {
+        component: FormText,
+        label: 'four',
+        model: 'four'
+      },
+      [
+        {
+          component: FormText,
+          label: 'five',
+          model: 'five'
         }
       ]
     ]
