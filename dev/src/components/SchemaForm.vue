@@ -54,7 +54,8 @@ export default {
     }
   },
   emits: ['submit', 'update:modelValue'],
-  setup (props, { emit }) {
+  setup (props, { emit, attrs }) {
+    console.log(attrs)
     const hasParentSchema = inject('parentSchemaExists', false)
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
@@ -97,7 +98,7 @@ export default {
 
     const binds = (field) => {
       return field.schema
-        ? { schema: field.schema }
+        ? { schema: field.schema, ...field }
         : { ...props.sharedConfig, ...field }
     }
 

@@ -1,24 +1,6 @@
-import { computed, h, markRaw } from 'vue'
+import { computed, markRaw } from 'vue'
 import SchemaForm from '../SchemaForm'
 import useUniqueID from './UniqueID'
-
-const LineComponent = {
-  props: {
-    schema: { type: Array, required: true },
-    modelValue: { type: [Array, Object], required: true }
-  },
-  render () {
-    return h(SchemaForm, {
-      style: 'display: flex;',
-      class: 'schema-line',
-      schema: this.schema,
-      modelValue: this.modelValue,
-      'onUpdate:modelValue': (val) => val
-    })
-  }
-}
-
-markRaw(LineComponent)
 
 export default function useParsedSchema (props) {
   let { getID, UUID } = useUniqueID()
@@ -36,10 +18,12 @@ export default function useParsedSchema (props) {
       if (!Array.isArray(field)) continue
 
       UUID++
+
       const replacement = {
-        component: LineComponent,
+        component: markRaw(SchemaForm),
         model: UUID,
-        schema: field
+        schema: field,
+        style: 'display: flex'
       }
 
       arraySchema[index] = replacement
