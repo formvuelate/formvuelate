@@ -29,7 +29,8 @@ module.exports = {
   ],
 
   collectCoverageFrom: [
-    'src/**/*.{js,jsx,vue}'
+    'src/**/*.{js,jsx,vue}',
+    '!src/index.js'
   ],
 
   testURL: 'http://localhost/',
