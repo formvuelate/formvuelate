@@ -159,6 +159,8 @@ In the above example, we use the component `FormText` that we imported as the va
 You can use the name of the component as a `String` instead, for example `'FormText'`, but be aware that the component needs to either be imported globally, or in your file first.
 :::
 
+#### Array Schemas
+
 For `array` based schemas, we need to provide an object for each element of the form, but instead of providing a `modelName: value` structure, we declare a `model` property inside of each object.
 
 Here's the above example again using `array` format.
@@ -196,6 +198,34 @@ Here's the above example again using `array` format.
   }
 </script>
 ```
+
+An important feature about array schemas is that they allow us the flexibility to create not only vertical forms, but horizontally aligned inputs.
+
+Consider the following meta schema.
+
+```js
+const SCHEMA = [
+  [ {}, {}, {} ], // 3 inputs in a row
+  {}, // 1 input in a row
+  [ {}, {} ] // 2 inputs in a row
+]
+```
+
+The first and second elements of the schema array are sub-arrays. These sub arrays will be displayed by `SchemaForm` horizontally by applying a display of `flex` to their containing `div` element.
+
+:::tip
+The `div` will add a class of `flex-fields` to apply the layout. You can target this class to modify the behavior, or even add `style` or `css` classes to your inputs by passing them through the schema.
+
+The example below applies a `margin-right` style to the first input.
+:::
+
+<SplitTab>
+  <template v-slot:example>
+    <HorizontalForm />
+  </template>
+
+  <<< .vitepress/docs/components/HorizontalForm.vue
+</SplitTab>
 
 ### Prop: preventModelCleanupOnSchemaChange
 
