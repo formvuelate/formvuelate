@@ -36,25 +36,60 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
   })
 
-  it('renders a form based on an array schema', () => {
-    const schema = [
-      {
-        component: FormText,
-        label: 'First Name',
-        model: 'firstName'
-      },
-      {
-        component: FormText,
-        label: 'Last Name',
-        model: 'lastName'
-      }
-    ]
+  describe('array schema', () => {
+    it('renders a form based on an array schema', () => {
+      const schema = [
+        {
+          component: FormText,
+          label: 'First Name',
+          model: 'firstName'
+        },
+        {
+          component: FormText,
+          label: 'Last Name',
+          model: 'lastName'
+        }
+      ]
 
-    const wrapper = mount(SchemaForm, {
-      props: { schema, modelValue: {} }
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {} }
+      })
+
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     })
 
-    expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+    it('renders components in a flex wrapped schema for nested arrays', () => {
+      const schema = [
+        {
+          component: FormText,
+          label: 'First Name',
+          model: 'firstName'
+        },
+        [
+          {
+            component: FormText,
+            label: 'Middle Name',
+            model: 'middleName'
+          },
+          {
+            component: FormText,
+            label: 'Last Name',
+            model: 'lastName'
+          }
+        ]
+      ]
+
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {} }
+      })
+
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
+      expect(
+        window.getComputedStyle(
+          wrapper.findComponent(SchemaForm).element
+        ).display
+      ).toEqual('flex')
+    })
   })
 
   it('renders a form based on a nested schema', () => {
