@@ -95,7 +95,7 @@ export default {
 
     const binds = (field) => {
       return field.schema
-        ? { schema: field.schema }
+        ? { schema: field.schema, ...field }
         : { ...props.sharedConfig, ...field }
     }
 

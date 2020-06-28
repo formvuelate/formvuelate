@@ -1,8 +1,9 @@
-import { computed } from 'vue'
+import { computed, markRaw } from 'vue'
+import SchemaForm from '../SchemaForm'
 import useUniqueID from './UniqueID'
 
 export default function useParsedSchema (props) {
-  const { getID } = useUniqueID()
+  let { getID, UUID } = useUniqueID()
 
   const parsedSchema = computed(() => {
     const arraySchema = Array.isArray(props.schema)
@@ -11,6 +12,22 @@ export default function useParsedSchema (props) {
         ...props.schema[model],
         model
       }))
+
+    for (const index in arraySchema) {
+      const field = arraySchema[index]
+      if (!Array.isArray(field)) continue
+
+      UUID++
+
+      const replacement = {
+        component: markRaw(SchemaForm),
+        model: UUID,
+        schema: field,
+        style: 'display: flex'
+      }
+
+      arraySchema[index] = replacement
+    }
 
     return arraySchema.map(field => ({
       ...field,
