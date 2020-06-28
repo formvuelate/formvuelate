@@ -84,11 +84,7 @@ describe('SchemaForm', () => {
       })
 
       expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
-      expect(
-        window.getComputedStyle(
-          wrapper.findComponent(SchemaForm).element
-        ).display
-      ).toEqual('flex')
+      expect(wrapper.findComponent(SchemaForm).element.classList).toContain('flex-fields')
     })
   })
 

@@ -23,7 +23,7 @@ export default function useParsedSchema (props) {
         component: markRaw(SchemaForm),
         model: UUID,
         schema: field,
-        style: 'display: flex'
+        class: 'flex-fields'
       }
 
       arraySchema[index] = replacement

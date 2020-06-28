@@ -130,3 +130,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.flex-fields {
+  display: flex;
+}
+</style>
