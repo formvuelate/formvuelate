@@ -2,3 +2,4 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
+  require_base: no
