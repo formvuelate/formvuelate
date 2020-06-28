@@ -50,6 +50,16 @@ export default {
           component: FormText,
           label: 'five',
           model: 'five'
+        },
+        {
+          component: FormText,
+          label: 'six',
+          model: 'six'
+        },
+        {
+          component: FormText,
+          label: 'seven',
+          model: 'seven'
         }
       ]
     ]
