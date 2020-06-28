@@ -1,5 +1,5 @@
 import { computed, markRaw } from 'vue'
-import SchemaForm from '../SchemaForm'
+import SchemaForm from '../SchemaForm.vue'
 import useUniqueID from './UniqueID'
 
 export default function useParsedSchema (props) {

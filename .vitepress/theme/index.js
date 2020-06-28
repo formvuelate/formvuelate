@@ -8,6 +8,7 @@ import SchemaPlayground from '/.vitepress/docs/components/SchemaPlayground.vue'
 
 import ExampleVModel from '/.vitepress/docs/components/ExampleVModel.vue'
 import ArrayExample from '/.vitepress/docs/components/ArrayExample.vue'
+import HorizontalForm from '/.vitepress/docs/components/HorizontalForm.vue'
 import Formception from '/.vitepress/docs/components/Formception.vue'
 
 import './styles/vars.css';
@@ -34,6 +35,7 @@ const theme = {
     app.component('ExampleVModel', ExampleVModel)
     app.component('ArrayExample', ArrayExample)
     app.component('Formception', Formception)
+    app.component('HorizontalForm', HorizontalForm)
   }
 };
 export default theme;
