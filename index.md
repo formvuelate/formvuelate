@@ -214,7 +214,7 @@ const SCHEMA = [
 The first and second elements of the schema array are sub-arrays. These sub arrays will be displayed by `SchemaForm` horizontally by applying a display of `flex` to their containing `div` element.
 
 :::tip
-The `div` will add a class of `flex-fields` to apply the layout. You can target this class to modify the behavior, or even add `style` or `css` classes to your inputs by passing them through the schema.
+The `div` will have a class named `schema-row` to apply the layout. You can target this class to modify the behavior, or even add `style` or `css` classes to your inputs by passing them through the schema.
 
 The example below applies a `margin-right` style to the first input.
 :::

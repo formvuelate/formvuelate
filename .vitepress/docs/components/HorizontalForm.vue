@@ -26,7 +26,7 @@ const SCHEMA = [
       component: FormText,
       label: 'First Name',
       model: 'firstName',
-      style: 'marginRight: 10px'
+      style: 'margin-right: 10px'
     },
     {
       component: FormText,

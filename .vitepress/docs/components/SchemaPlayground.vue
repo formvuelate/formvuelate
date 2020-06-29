@@ -38,16 +38,19 @@
 import { ref, watchEffect, reactive } from 'vue'
 
 const arraySchema = [
-  {
-    component: 'FormText',
-    label: 'First Name',
-    model: 'firstName'
-  },
-  {
-    component: 'FormText',
-    label: 'Last Name',
-    model: 'lastName'
-  },
+  [
+    {
+      component: 'FormText',
+      label: 'First Name',
+      model: 'firstName',
+      style: 'margin-right: 10px;'
+    },
+    {
+      component: 'FormText',
+      label: 'Last Name',
+      model: 'lastName'
+    },
+  ],
   {
     component: 'FormText',
     label: 'Your email',
