@@ -58,7 +58,7 @@ describe('SchemaForm', () => {
       expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     })
 
-    it('renders components in a flex wrapped schema for nested arrays', () => {
+    it('renders a form with a horizontal schema', () => {
       const schema = [
         {
           component: FormText,
@@ -84,7 +84,6 @@ describe('SchemaForm', () => {
       })
 
       expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
-      expect(wrapper.findComponent(SchemaForm).element.classList).toContain('flex-fields')
     })
   })
 
@@ -172,10 +171,12 @@ describe('SchemaForm', () => {
     })
 
     const ids = []
-    for (const el of wrapper.vm.parsedSchema) {
-      expect(el.uuid).toBeTruthy()
-      expect(ids).not.toContain(el.uuid)
-      ids.push(el.uuid)
+    for (const row of wrapper.vm.parsedSchema) {
+      for (const el of row) {
+        expect(el.uuid).toBeTruthy()
+        expect(ids).not.toContain(el.uuid)
+        ids.push(el.uuid)
+      }
     }
   })
 
@@ -280,15 +281,14 @@ describe('SchemaForm', () => {
       expect(field.vm.$attrs.two).toEqual(2)
     })
 
-    it('the schema and the attrs, when a schema prop is set', () => {
+    it('the schema only, when a schema prop is set', () => {
       const wrapper = mount(SchemaForm, {
         props: {
           schema: {
             nested: {
               component: SchemaForm,
               schema: { firstName: { component: FormText, label: 'test' } },
-              one: 1,
-              style: 'color: red'
+              one: 1
             }
           },
           modelValue: {}
@@ -300,8 +300,7 @@ describe('SchemaForm', () => {
       expect(schemaForm.vm.schema).toEqual(
         expect.objectContaining({ firstName: expect.anything() })
       )
-      expect(schemaForm.vm.$attrs.one).toEqual(1)
-      expect(schemaForm.vm.$attrs.style).toEqual({ color: 'red' })
+      expect(schemaForm.vm.$attrs.one).not.toEqual(1)
     })
 
     it('the sharedConfig into all the elements', () => {

@@ -7,15 +7,24 @@
       v-if="!hasParentSchema"
       name="beforeForm"
     />
-    <component
-      v-for="field in parsedSchema"
-      :key="field.model"
-      :is="field.component"
-      v-bind="binds(field)"
-      :modelValue="val(field)"
-      @update:modelValue="update(field.model, $event)"
-      @update-batch="updateBatch(field.model, $event)"
-    />
+
+    <div
+      class="schema-row"
+      v-for="(fields, index) in parsedSchema"
+      :key="index"
+    >
+      <component
+        v-for="field in fields"
+        v-bind="binds(field)"
+        :key="field.model"
+        :is="field.component"
+        :modelValue="val(field)"
+        @update:modelValue="update(field.model, $event)"
+        @update-batch="updateBatch(field.model, $event)"
+        class="schema-col"
+      />
+    </div>
+
     <slot
       v-if="!hasParentSchema"
       name="afterForm"
@@ -64,9 +73,14 @@ export default {
       (schema, oldSchema) => {
         if (props.preventModelCleanupOnSchemaChange) return
 
-        const newKeys = schema.map(i => i.model)
+        const reducer = (acc, val) => {
+          return acc.concat(val.map(i => i.model))
+        }
 
-        const diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
+        const newKeys = schema.reduce(reducer, [])
+        const oldKeys = oldSchema.reduce(reducer, [])
+
+        const diff = oldKeys.filter(i => !newKeys.includes(i))
         if (!diff.length) return
 
         const val = { ...props.modelValue }
@@ -95,7 +109,7 @@ export default {
 
     const binds = (field) => {
       return field.schema
-        ? { schema: field.schema, ...field }
+        ? { schema: field.schema }
         : { ...props.sharedConfig, ...field }
     }
 
@@ -132,7 +146,7 @@ export default {
 </script>
 
 <style>
-.flex-fields {
+.schema-row {
   display: flex;
 }
 </style>
