@@ -1,5 +1,7 @@
 # FormVueLatte 2.x
 
+![https://www.npmjs.com/package/formvuelatte](https://img.shields.io/npm/v/formvuelatte?color=42b883)
+
 Visit [FormVueLatte 2.0's full documentation](https://formvuelatte-next.netlify.app/#getting-started) for more detailed information and examples.
 
 ## Getting Started
