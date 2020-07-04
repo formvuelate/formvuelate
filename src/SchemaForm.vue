@@ -7,15 +7,24 @@
       v-if="!hasParentSchema"
       name="beforeForm"
     />
-    <component
-      v-for="field in parsedSchema"
-      :key="field.model"
-      :is="field.component"
-      v-bind="binds(field)"
-      :modelValue="val(field)"
-      @update:modelValue="update(field.model, $event)"
-      @update-batch="updateBatch(field.model, $event)"
-    />
+
+    <div
+      class="schema-row"
+      v-for="(fields, index) in parsedSchema"
+      :key="index"
+    >
+      <component
+        v-for="field in fields"
+        v-bind="binds(field)"
+        :key="field.model"
+        :is="field.component"
+        :modelValue="val(field)"
+        @update:modelValue="update(field.model, $event)"
+        @update-batch="updateBatch(field.model, $event)"
+        class="schema-col"
+      />
+    </div>
+
     <slot
       v-if="!hasParentSchema"
       name="afterForm"
@@ -24,7 +33,7 @@
 </template>
 
 <script>
-import useUniqueID from './features/UniqueID'
+import useParsedSchema from './features/ParsedSchema'
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
@@ -35,7 +44,7 @@ export default {
       validator (schema) {
         if (!Array.isArray(schema)) return true
 
-        return schema.filter(field => !field.model && !field.schema).length === 0
+        return schema.filter(field => !Array.isArray(field) && (!field.model && !field.schema)).length === 0
       }
     },
     modelValue: {
@@ -58,40 +67,31 @@ export default {
       provide('parentSchemaExists', true)
     }
 
-    const { getID } = useUniqueID()
+    const { parsedSchema } = useParsedSchema(props)
 
-    const parsedSchema = computed(() => {
-      const arraySchema = Array.isArray(props.schema)
-        ? props.schema
-        : Object.keys(props.schema).map(model => ({
-          ...props.schema[model],
-          model
-        }))
+    const cleanupModelChanges = (schema, oldSchema) => {
+      if (props.preventModelCleanupOnSchemaChange) return
 
-      return arraySchema.map(field => ({
-        ...field,
-        uuid: getID(field.model)
-      }))
-    })
-
-    watch(parsedSchema,
-      (schema, oldSchema) => {
-        if (props.preventModelCleanupOnSchemaChange) return
-
-        const newKeys = schema.map(i => i.model)
-
-        const diff = oldSchema.map(i => i.model).filter(i => !newKeys.includes(i))
-        if (!diff.length) return
-
-        const val = { ...props.modelValue }
-
-        for (const key of diff) {
-          delete val[key]
-        }
-
-        emit('update:modelValue', val)
+      const reducer = (acc, val) => {
+        return acc.concat(val.map(i => i.model))
       }
-    )
+
+      const newKeys = schema.reduce(reducer, [])
+      const oldKeys = oldSchema.reduce(reducer, [])
+
+      const diff = oldKeys.filter(i => !newKeys.includes(i))
+      if (!diff.length) return
+
+      const val = { ...props.modelValue }
+
+      for (const key of diff) {
+        delete val[key]
+      }
+
+      emit('update:modelValue', val)
+    }
+
+    watch(parsedSchema, cleanupModelChanges)
 
     const update = (property, value) => {
       emit('update:modelValue', {
@@ -144,3 +144,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.schema-row {
+  display: flex;
+}
+</style>

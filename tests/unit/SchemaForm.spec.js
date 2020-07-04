@@ -36,6 +36,57 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
   })
 
+  describe('array schema', () => {
+    it('renders a form based on an array schema', () => {
+      const schema = [
+        {
+          component: FormText,
+          label: 'First Name',
+          model: 'firstName'
+        },
+        {
+          component: FormText,
+          label: 'Last Name',
+          model: 'lastName'
+        }
+      ]
+
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {} }
+      })
+
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+    })
+
+    it('renders a form with a schema containing a row of horizontal elements', () => {
+      const schema = [
+        {
+          component: FormText,
+          label: 'First Name',
+          model: 'firstName'
+        },
+        [
+          {
+            component: FormText,
+            label: 'Middle Name',
+            model: 'middleName'
+          },
+          {
+            component: FormText,
+            label: 'Last Name',
+            model: 'lastName'
+          }
+        ]
+      ]
+
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {} }
+      })
+
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
+    })
+  })
+
   it('renders a form based on a nested schema', () => {
     const nestedSchema = {
       work: {
@@ -120,10 +171,12 @@ describe('SchemaForm', () => {
     })
 
     const ids = []
-    for (const el of wrapper.vm.parsedSchema) {
-      expect(el.uuid).toBeTruthy()
-      expect(ids).not.toContain(el.uuid)
-      ids.push(el.uuid)
+    for (const row of wrapper.vm.parsedSchema) {
+      for (const el of row) {
+        expect(el.uuid).toBeTruthy()
+        expect(ids).not.toContain(el.uuid)
+        ids.push(el.uuid)
+      }
     }
   })
 
@@ -247,7 +300,7 @@ describe('SchemaForm', () => {
       expect(schemaForm.vm.schema).toEqual(
         expect.objectContaining({ firstName: expect.anything() })
       )
-      expect(schemaForm.vm.$attrs.one).toBeUndefined()
+      expect(schemaForm.vm.$attrs.one).not.toEqual(1)
     })
 
     it('the sharedConfig into all the elements', () => {
