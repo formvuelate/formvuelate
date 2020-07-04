@@ -69,29 +69,29 @@ export default {
 
     const { parsedSchema } = useParsedSchema(props)
 
-    watch(parsedSchema,
-      (schema, oldSchema) => {
-        if (props.preventModelCleanupOnSchemaChange) return
+    const cleanupModelChanges = (schema, oldSchema) => {
+      if (props.preventModelCleanupOnSchemaChange) return
 
-        const reducer = (acc, val) => {
-          return acc.concat(val.map(i => i.model))
-        }
-
-        const newKeys = schema.reduce(reducer, [])
-        const oldKeys = oldSchema.reduce(reducer, [])
-
-        const diff = oldKeys.filter(i => !newKeys.includes(i))
-        if (!diff.length) return
-
-        const val = { ...props.modelValue }
-
-        for (const key of diff) {
-          delete val[key]
-        }
-
-        emit('update:modelValue', val)
+      const reducer = (acc, val) => {
+        return acc.concat(val.map(i => i.model))
       }
-    )
+
+      const newKeys = schema.reduce(reducer, [])
+      const oldKeys = oldSchema.reduce(reducer, [])
+
+      const diff = oldKeys.filter(i => !newKeys.includes(i))
+      if (!diff.length) return
+
+      const val = { ...props.modelValue }
+
+      for (const key of diff) {
+        delete val[key]
+      }
+
+      emit('update:modelValue', val)
+    }
+
+    watch(parsedSchema, cleanupModelChanges)
 
     const update = (property, value) => {
       emit('update:modelValue', {
