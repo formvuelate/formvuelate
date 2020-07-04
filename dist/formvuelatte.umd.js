@@ -96,6 +96,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
+/***/ "2b09":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("dc65");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ 
+
+/***/ }),
+
 /***/ "8875":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -181,6 +192,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 
 /***/ }),
 
+/***/ "dc65":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -214,25 +232,32 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=a5ed3b42
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=744918aa
 
 function render(_ctx, _cache) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(!_ctx.hasParentSchema ? 'form' : 'div'), _ctx.formBinds, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
       return [!_ctx.hasParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm", {
         key: 0
-      }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.parsedSchema, function (field) {
-        return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
-          key: field.model
-        }, _ctx.binds(field), {
-          modelValue: _ctx.val(field),
-          "onUpdate:modelValue": function onUpdateModelValue($event) {
-            return _ctx.update(field.model, $event);
-          },
-          "onUpdate-batch": function onUpdateBatch($event) {
-            return _ctx.updateBatch(field.model, $event);
-          }
-        }), null, 16, ["modelValue", "onUpdate:modelValue", "onUpdate-batch"]);
+      }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.parsedSchema, function (fields, index) {
+        return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
+          class: "schema-row",
+          key: index
+        }, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(fields, function (field) {
+          return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])(_ctx.binds(field), {
+            key: field.model,
+            modelValue: _ctx.val(field),
+            "onUpdate:modelValue": function onUpdateModelValue($event) {
+              return _ctx.update(field.model, $event);
+            },
+            "onUpdate-batch": function onUpdateBatch($event) {
+              return _ctx.updateBatch(field.model, $event);
+            },
+            class: "schema-col"
+          }), null, 16, ["modelValue", "onUpdate:modelValue", "onUpdate-batch"]);
+        }), 128
+        /* KEYED_FRAGMENT */
+        ))]);
       }), 128
       /* KEYED_FRAGMENT */
       )), !_ctx.hasParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", {
@@ -242,7 +267,7 @@ function render(_ctx, _cache) {
     _: 1
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=a5ed3b42
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=744918aa
 
 // CONCATENATED MODULE: ./src/features/UniqueID.js
 function useUniqueID() {
@@ -265,6 +290,40 @@ function useUniqueID() {
     getID: getID
   };
 }
+// CONCATENATED MODULE: ./src/features/ParsedSchema.js
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+function useParsedSchema(props) {
+  var _useUniqueID = useUniqueID(),
+      getID = _useUniqueID.getID;
+
+  var parsedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+    var arraySchema = Array.isArray(props.schema) ? props.schema : Object.keys(props.schema).map(function (model) {
+      return _objectSpread(_objectSpread({}, props.schema[model]), {}, {
+        model: model
+      });
+    });
+    var normalizedSchema = arraySchema.map(function (field) {
+      return Array.isArray(field) ? field : [field];
+    });
+    return normalizedSchema.map(function (fieldGroup) {
+      return fieldGroup.map(function (field) {
+        return _objectSpread(_objectSpread({}, field), {}, {
+          uuid: getID(field.model)
+        });
+      });
+    });
+  });
+  return {
+    parsedSchema: parsedSchema
+  };
+}
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=script&lang=js
 function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -272,11 +331,11 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function SchemaFormvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function SchemaFormvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SchemaFormvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { SchemaFormvue_type_script_lang_js_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SchemaFormvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -288,7 +347,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       validator: function validator(schema) {
         if (!Array.isArray(schema)) return true;
         return schema.filter(function (field) {
-          return !field.model && !field.schema;
+          return !Array.isArray(field) && !field.model && !field.schema;
         }).length === 0;
       }
     },
@@ -316,34 +375,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
     }
 
-    var _useUniqueID = useUniqueID(),
-        getID = _useUniqueID.getID;
+    var _useParsedSchema = useParsedSchema(props),
+        parsedSchema = _useParsedSchema.parsedSchema;
 
-    var parsedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
-      var arraySchema = Array.isArray(props.schema) ? props.schema : Object.keys(props.schema).map(function (model) {
-        return _objectSpread(_objectSpread({}, props.schema[model]), {}, {
-          model: model
-        });
-      });
-      return arraySchema.map(function (field) {
-        return _objectSpread(_objectSpread({}, field), {}, {
-          uuid: getID(field.model)
-        });
-      });
-    });
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(parsedSchema, function (schema, oldSchema) {
+    var cleanupModelChanges = function cleanupModelChanges(schema, oldSchema) {
       if (props.preventModelCleanupOnSchemaChange) return;
-      var newKeys = schema.map(function (i) {
-        return i.model;
-      });
-      var diff = oldSchema.map(function (i) {
-        return i.model;
-      }).filter(function (i) {
+
+      var reducer = function reducer(acc, val) {
+        return acc.concat(val.map(function (i) {
+          return i.model;
+        }));
+      };
+
+      var newKeys = schema.reduce(reducer, []);
+      var oldKeys = oldSchema.reduce(reducer, []);
+      var diff = oldKeys.filter(function (i) {
         return !newKeys.includes(i);
       });
       if (!diff.length) return;
 
-      var val = _objectSpread({}, props.modelValue);
+      var val = SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue);
 
       var _iterator = _createForOfIteratorHelper(diff),
           _step;
@@ -360,20 +411,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       emit('update:modelValue', val);
-    });
+    };
+
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(parsedSchema, cleanupModelChanges);
 
     var update = function update(property, value) {
-      emit('update:modelValue', _objectSpread(_objectSpread({}, props.modelValue), {}, _defineProperty({}, property, value)));
+      emit('update:modelValue', SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue), {}, SchemaFormvue_type_script_lang_js_defineProperty({}, property, value)));
     };
 
     var updateBatch = function updateBatch(property, values) {
-      emit('update:modelValue', _objectSpread(_objectSpread({}, props.modelValue), values));
+      emit('update:modelValue', SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue), values));
     };
 
     var binds = function binds(field) {
       return field.schema ? {
         schema: field.schema
-      } : _objectSpread(_objectSpread({}, props.sharedConfig), field);
+      } : SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.sharedConfig), field);
     };
 
     var val = function val(field) {
@@ -406,7 +459,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 });
 // CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=script&lang=js
  
+// EXTERNAL MODULE: ./src/SchemaForm.vue?vue&type=style&index=0&lang=css
+var SchemaFormvue_type_style_index_0_lang_css = __webpack_require__("2b09");
+
 // CONCATENATED MODULE: ./src/SchemaForm.vue
+
+
 
 
 
