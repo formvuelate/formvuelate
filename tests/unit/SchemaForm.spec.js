@@ -58,7 +58,7 @@ describe('SchemaForm', () => {
       expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     })
 
-    it('renders a form with a horizontal schema', () => {
+    it('renders a form with a schema containing a row of horizontal elements', () => {
       const schema = [
         {
           component: FormText,
