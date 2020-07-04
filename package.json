@@ -21,7 +21,6 @@
     "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
     "test:unit": "vue-cli-service test:unit --coverage",
     "test:unit:watch": "yarn test:unit --watch",
-    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "docs:build": "vitepress build",
     "docs:dev": "vitepress"
