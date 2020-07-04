@@ -12,15 +12,11 @@ export default function useParsedSchema (props) {
         model
       }))
 
-    for (const index in arraySchema) {
-      if (!Array.isArray(arraySchema[index])) {
-        arraySchema[index] = [
-          arraySchema[index]
-        ]
-      }
-    }
+    const normalizedSchema = arraySchema.map(
+      field => Array.isArray(field) ? field : [field]
+    )
 
-    return arraySchema.map(fieldGroup => {
+    return normalizedSchema.map(fieldGroup => {
       return fieldGroup.map(field => ({
         ...field,
         uuid: getID(field.model)
