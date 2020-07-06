@@ -5,9 +5,9 @@ name: Tests.js
 
 on:
   push:
-    branches: [ master, next ]
+    branches: [ main, next, 1.x ]
   pull_request:
-    branches: [ master, next ]
+    branches: [ main, next, 1.x ]
 
 jobs:
   build:
