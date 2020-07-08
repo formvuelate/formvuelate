@@ -1,4 +1,4 @@
-# FormVueLatte 2.x
+# FormVueLatte 2.x (Vue 3.x)
 
 ![https://www.npmjs.com/package/formvuelatte](https://img.shields.io/npm/v/formvuelatte?color=42b883)
 
@@ -12,7 +12,7 @@ The schema that you use for your form can be as flexible as you need it to be, i
 
 **Important**
 
-`FormVueLatte` is a bring-your-own-components (BYOC) library!
+`FormVueLatte` is a bring-your-own-components library!
 
 We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
