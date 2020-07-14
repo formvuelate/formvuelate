@@ -1,35 +1,35 @@
-# FormVueLatte 2.x (Vue 3.x)
+# FormVueLate 2.x (Vue 3.x)
 
-![https://www.npmjs.com/package/formvuelatte](https://img.shields.io/npm/v/formvuelatte?color=42b883)
+![https://www.npmjs.com/package/formvuelate](https://img.shields.io/npm/v/formvuelate?color=42b883)
 
-Visit [FormVueLatte 2.0's full documentation](https://formvuelatte-next.netlify.app/#getting-started) for more detailed information and examples.
+Visit [FormVueLate 2.0's full documentation](https://formvuelate-next.netlify.app/#getting-started) for more detailed information and examples.
 
 ## Getting Started
 
-FormVueLatte is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
+FormVueLate is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
 **Important**
 
-`FormVueLatte` is a bring-your-own-components library!
+FormVueLate is a bring-your-own-components library!
 
-We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
+We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
 ### Installation
 
-To add FormVueLatte to your project, start by installing the package through your favorite package manager.
+To add FormVueLate to your project, start by installing the package through your favorite package manager.
 
 ```bash
-yarn add formvuelatte
+yarn add formvuelate
 // OR
-npm install formvuelatte
+npm install formvuelate
 ```
 
 Now that you have the package in your project, `import` it to your component.
 
 ```javascript
-import { SchemaForm } from 'formvuelatte'
+import { SchemaForm } from 'formvuelate'
 ```
 
 The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
@@ -104,11 +104,11 @@ export default {
 
 ## Official plugins
 
-#### [Vuelidate Plugin](https://github.com/vuelidate/formvuelatte-plugin-vuelidate)
+#### [Vuelidate Plugin](https://github.com/formvuelate/formvuelate-plugin-vuelidate)
 Easily incorporate Vuelidate powered validations into your forms.
 
-#### [Lookup Plugin](https://github.com/vuelidate/formvuelatte-plugin-lookup)
-A mapping and replacement plugin to parse complex schemas into FormVueLatte ready structure.
+#### [Lookup Plugin](https://github.com/formvuelate/formvuelate-plugin-lookup)
+A mapping and replacement plugin to parse complex schemas into FormVueLate ready structure.
 
 
 ## Core team
