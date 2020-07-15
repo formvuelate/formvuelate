@@ -593,4 +593,4 @@ function SchemaFormFactory() {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=formvuelatte.common.js.map
+//# sourceMappingURL=formvuelate.common.js.map

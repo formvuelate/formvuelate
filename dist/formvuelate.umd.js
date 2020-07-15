@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["formvuelatte"] = factory(require("vue"));
+		exports["formvuelate"] = factory(require("vue"));
 	else
-		root["formvuelatte"] = factory(root["Vue"]);
+		root["formvuelate"] = factory(root["Vue"]);
 })((typeof self !== 'undefined' ? self : this), function(__WEBPACK_EXTERNAL_MODULE__8bbf__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -603,4 +603,4 @@ function SchemaFormFactory() {
 
 /******/ });
 });
-//# sourceMappingURL=formvuelatte.umd.js.map
+//# sourceMappingURL=formvuelate.umd.js.map
