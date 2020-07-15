@@ -1,5 +1,5 @@
 {
-  "name": "formvuelatte",
+  "name": "formvuelate",
   "version": "v2.0.0-beta.2",
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
@@ -18,16 +18,16 @@
     }
   ],
   "scripts": {
-    "build": "vue-cli-service build --target lib --name formvuelatte src/index.js",
+    "build": "vue-cli-service build --target lib --name formvuelate src/index.js",
     "test:unit": "vue-cli-service test:unit --coverage",
     "test:unit:watch": "yarn test:unit --watch",
     "lint": "vue-cli-service lint",
     "docs:build": "vitepress build",
     "docs:dev": "vitepress"
   },
-  "main": "dist/formvuelatte.common.js",
-  "browser": "dist/formvuelatte.umd.js",
-  "unpkg": "dist/formvuelatte.umd.js",
+  "main": "dist/formvuelate.common.js",
+  "browser": "dist/formvuelate.umd.js",
+  "unpkg": "dist/formvuelate.umd.js",
   "files": [
     "dist",
     "src"
@@ -71,14 +71,14 @@
     "vue-loader": "^16.0.0-alpha.3"
   },
   "bugs": {
-    "url": "https://github.com/vuelidate/formvuelatte"
+    "url": "https://github.com/formvuelate/formvuelate"
   },
   "engines": {
     "node": ">=12.17.0"
   },
-  "homepage": "https://formvuelatte.netlify.com/",
+  "homepage": "https://formvuelate.netlify.com/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuelidate/formvuelatte.git"
+    "url": "git+https://github.com/formvuelate/formvuelate.git"
   }
 }

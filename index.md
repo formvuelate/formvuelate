@@ -1,22 +1,22 @@
 ---
 sidebar: auto
-title: FormVueLatte 2.0
+title: FormVueLate 2.x
 ---
 ## Getting Started
 
-`FormVueLatte` is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
+FormVueLate is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
 
 The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.
 
 ::: warning Important
-`FormVueLatte` is a bring-your-own-components library!
+FormVueLate is a bring-your-own-components library!
 
-We do **not** provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and `FormVueLatte` does a great job at allowing you to bring those external components to your forms, or even crafting your own.
+We do **not** provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 :::
 
 ## Playground
 
-Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on the right. You can use the following demo input components:
+Modify the Schema on the left to see FormVueLate's `SchemaForm` in action on the right. You can use the following demo input components:
 
 - FormText
 - FormSelect
@@ -26,20 +26,20 @@ Modify the Schema on the left to see FormVueLatte's `SchemaForm` in action on th
 
 ## Installation
 
-To add FormVueLatte to your project, start by installing the package through your favorite package manager.
+To add FormVueLate to your project, start by installing the package through your favorite package manager.
 
 ```bash
-yarn add formvuelatte
+yarn add formvuelate
 // OR
-npm install formvuelatte
+npm install formvuelate
 ```
 
 Now that you have the package in your project, `import` it to the component that will hold your form.
 
-You can pick and choose which of the `FormVueLatte` components you will need. The following example imports all of them.
+You can pick and choose which of the FormVueLate's components you will need. The following example imports all of them.
 
 ```javascript
-import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelatte'
+import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelate'
 ```
 
 ## SchemaForm
@@ -127,7 +127,7 @@ Let’s assume for this example that you have a component in your project called
 </template>
 
 <script>
-  import { SchemaForm } from 'formvuelatte'
+  import { SchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
   import { ref } from 'vue'
 
@@ -171,7 +171,7 @@ Here's the above example again using `array` format.
 </template>
 
 <script>
-  import { SchemaForm } from 'formvuelatte'
+  import { SchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
   import { ref } from 'vue'
 
@@ -357,7 +357,7 @@ export default {
 
 ## SchemaWizard
 
-FormVueLatte also ships with a component called `SchemaWizard`, that allows you to easily build stepped, wizard-like, forms.
+FormVueLate also ships with a component called `SchemaWizard`, that allows you to easily build stepped, wizard-like, forms.
 
 The `SchemaWizard` component exposes and **requires** three props: `schema`, `step`, and `modelValue`.
 
@@ -398,7 +398,7 @@ The schema that the `SchemaWizard` will use to render the form. This is a requir
 The schema that the `SchemaWizard` uses varies from the one used in `SchemaForm` in one major difference — it is strictly an array, in which each of the array elements is a `SchemaForm` ready schema.
 
 ::: warning
-Note that the components used are only for purposes of the example and are not part of FormVueLatte
+Note that the components used are only for purposes of the example and are not part of FormVueLate
 :::
 
 Example schema for a form wizard/stepped form:
@@ -562,14 +562,14 @@ You don't have to listen to this `submit` button's click events, as `SchemaWizar
 
 ## Plugins
 
-FormVueLatte ships with the ability to import and use plugins to extend it's capabilities.
+FormVueLate ships with the ability to import and use plugins to extend it's capabilities.
 
 In order to use a plugin with `SchemaForm`, you have to use the provided `SchemaFormFactory` function.
 
 First, import the `SchemaFormFactory` into your application.
 
 ```javascript
-import { SchemaFormFactory } from 'formvuelatte'
+import { SchemaFormFactory } from 'formvuelate'
 ```
 
 `SchemaFormFactory` accepts an array of plugins that will be used to generate the `SchemaForm`.
@@ -589,8 +589,8 @@ Each plugin will modify the `setup` function of `SchemaForm` and change the way 
 
 <script>
 import useVuelidate from '@vuelidate'
-import VuelidatePlugin from '@formvuelatte/plugin-vuelidate'
-import LookupPlugin from '@formvuelatte/plugin-lookup'
+import VuelidatePlugin from '@formvuelate/plugin-vuelidate'
+import LookupPlugin from '@formvuelate/plugin-lookup'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
   LookupPlugin({
@@ -621,22 +621,22 @@ The Vuelidate plugin is **WIP** and should not yet be used! We will update this 
 
 ### Lookup Plugin
 
-[Lookup Plugin's Repo](https://github.com/vuelidate/formvuelatte-plugin-lookup).
+[Lookup Plugin's Repo](https://github.com/vuelidate/formvuelate-plugin-lookup).
 
 Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
 
-In order to make this task easier, FormVueLatte provides a core plugin called `@formvuelatte/plugin-lookup`.
+In order to make this task easier, FormVueLate provides a core plugin called `@formvuelate/plugin-lookup`.
 
 #### Installation
 
 To install the plugin, simply add it to your `package.json` via terminal.
 
 ```bash
-yarn add @formvuelatte/plugin-lookup
+yarn add @formvuelate/plugin-lookup
 
 // OR
 
-npm i @formvuelatte/plugin-lookup
+npm i @formvuelate/plugin-lookup
 ```
 
 #### Usage
@@ -644,8 +644,8 @@ npm i @formvuelatte/plugin-lookup
 To use the plugin, first import both the plugin itself, and the `SchemaFormFactory` to your application.
 
 ```js
-import { SchemaFormFactory } from 'formvuelatte'
-import LookupPlugin from '@formvuelatte/plugin-lookup'
+import { SchemaFormFactory } from 'formvuelate'
+import LookupPlugin from '@formvuelate/plugin-lookup'
 ```
 
 Now that we have both imported, we can create our plugin-enabled `SchemaForm` component by using the `SchemaFormFactory`
@@ -914,7 +914,7 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 
 ## Accessibility
 
-Due to the bring-you-own-components nature of FormVueLatte, the library itself does not handle accessibility internally for input elements. However, we realize how important it is to provide accessible forms to our users.
+Due to the bring-you-own-components nature of FormVueLate, the library itself does not handle accessibility internally for input elements. However, we realize how important it is to provide accessible forms to our users.
 
 We provide some tools for you to build your components in an accessible way.
 

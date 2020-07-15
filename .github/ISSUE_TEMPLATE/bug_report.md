@@ -17,7 +17,7 @@ Steps to reproduce the behavior:
 A clear description of what you expected to happen.
 
 **System Info**
-- FormVueLatte version:
+- FormVueLate version:
 - plugins being used with versions:
 
 **Additional context**
