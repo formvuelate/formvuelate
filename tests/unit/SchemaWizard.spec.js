@@ -1,7 +1,7 @@
 import SchemaWizard from '../../src/SchemaWizard'
 import SchemaForm from '../../src/SchemaForm'
 
-import { shallowMount, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { markRaw } from 'vue'
 
 const FormText = {
