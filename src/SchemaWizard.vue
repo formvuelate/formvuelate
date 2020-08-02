@@ -33,6 +33,7 @@ export default {
       required: true
     }
   },
+  emits: ['submit', 'update:modelValue'],
   setup (props, context) {
     provide('parentSchemaExists', true)
 
