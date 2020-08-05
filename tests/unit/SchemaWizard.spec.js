@@ -1,7 +1,7 @@
 import SchemaWizard from '../../src/SchemaWizard'
 import SchemaForm from '../../src/SchemaForm'
 
-import { shallowMount, mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import { markRaw } from 'vue'
 
 const FormText = {
@@ -53,7 +53,7 @@ const wizardSchema = [
 
 describe('SchemaWizard', () => {
   it('renders a SchemaForm for each index of the schema array based on the current step', async () => {
-    const wrapper = shallowMount(SchemaWizard, {
+    const wrapper = mount(SchemaWizard, {
       props: {
         schema: wizardSchema,
         modelValue: [],
@@ -83,7 +83,7 @@ describe('SchemaWizard', () => {
   })
 
   it('emits update:modelValue when the child SchemaForm updates', () => {
-    const wrapper = shallowMount(SchemaWizard, {
+    const wrapper = mount(SchemaWizard, {
       props: {
         schema: wizardSchema,
         modelValue: [
