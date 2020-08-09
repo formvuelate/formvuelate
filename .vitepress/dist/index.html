@@ -2,9 +2,9 @@
   <head>
     <title>FormVueLate 2.x | FormVueLate 2.0</title>
     <meta name="description" content="Documentation for FormVueLate 2.x">
-    <link rel="stylesheet" href="/_assets/style.8ac6daec.css">
+    <link rel="stylesheet" href="/_assets/style.10aff858.css">
     <link rel="modulepreload" href="/_assets/common-4b331bb8.js">
-    <link rel="modulepreload" href="/_assets/index.md.6fad822d.lean.js">
+    <link rel="modulepreload" href="/_assets/index.md.7f682101.lean.js">
     <link rel="modulepreload" href="/_assets/app.4d925b2d.js">
     
     
@@ -77,7 +77,7 @@
 // OR
 <span class="token function">npm</span> <span class="token function">install</span> formvuelate
 </code></pre></div><p>Now that you have the package in your project, <code>import</code> it to the component that will hold your form.</p><p>You can pick and choose which of the FormVueLate&#39;s components you will need. The following example imports all of them.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaForm<span class="token punctuation">,</span> SchemaWizard<span class="token punctuation">,</span> SchemaFormFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelate&#39;</span>
-</code></pre></div><h2 id="schemaform"><a class="header-anchor" href="#schemaform" aria-hidden="true">#</a> SchemaForm</h2><p>The <code>SchemaForm</code> requires two <code>props</code>. The first is the <code>schema</code>, which is the meta-data of your form. The second one is <code>value</code>, which will hold the state of the form.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre></div><h2 id="schemaform"><a class="header-anchor" href="#schemaform" aria-hidden="true">#</a> SchemaForm</h2><p>The <code>SchemaForm</code> requires two <code>props</code>. The first is the <code>schema</code>, which is the meta-data of your form. The second one is <code>modelValue</code>, which will hold the state of the form.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:modelValue</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
 </code></pre></div><p>The <code>SchemaForm</code> will <code>$emit</code> <strong>update:modelValue</strong> events when your components update. This means that you are able to either:</p><ul><li>use <code>v-model</code> on it</li><li>or, manually capture the <code>@update:modelValue</code> event with a method of your own while injecting the <code>:modelValue</code> property.</li></ul><p>Example with <code>v-model</code>:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
@@ -918,7 +918,7 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
 <span class="token punctuation" data-v-1a357a2c-s>}</span>
 </span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
 </code></pre></div><!--]--></div></div></div></div></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"9660e6ff\",\"index.md\":\"6fad822d\"}")</script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"2fa009ed\",\"index.md\":\"7f682101\"}")</script>
     <script type="module" async src="/_assets/app.4d925b2d.js"></script>
   </body>
 </html>
