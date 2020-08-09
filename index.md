@@ -44,10 +44,10 @@ import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelate'
 
 ## SchemaForm
 
-The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
+The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `modelValue`, which will hold the state of the form.
 
 ```html
-<SchemaForm :schema="mySchema" :value="formData" />
+<SchemaForm :schema="mySchema" :modelValue="formData" />
 ```
 
 The `SchemaForm` will `$emit` **update:modelValue** events when your components update. This means that you are able to either:
