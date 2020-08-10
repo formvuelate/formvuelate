@@ -33,16 +33,16 @@ Now that you have the package in your project, `import` it to your component.
 import { SchemaForm } from 'formvuelate'
 ```
 
-The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `value`, which will hold the state of the form.
+The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `modelValue`, which will hold the state of the form.
 
 ```html
-<SchemaForm :schema="mySchema" :value="formData" />
+<SchemaForm :schema="mySchema" :modelValue="formData" />
 ```
 
 The `SchemaForm` will `$emit` **update:modelValue** events when your components update. This means that you are able to either:
 
 - use `v-model` on it
-- or, manually capture the `@update:modelValue` event with a method of your own while injecting the `:value` property.
+- or, manually capture the `@update:modelValue` event with a method of your own while injecting the `:modelValue` property.
 
 Example with `v-model`:
 
@@ -75,7 +75,7 @@ Example with manual bindings:
 <template>
   <SchemaForm
     :schema="mySchema"
-    :data="formData"
+    :modelValue="formData"
     @update:modelValue="updateForm"
   />
 </template>
@@ -140,6 +140,6 @@ A mapping and replacement plugin to parse complex schemas into FormVueLate ready
   </tr>
 </table>
 
-## Licence            
+## Licence
 
 This package is [Treeware](https://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/formvuelate/formvuelate) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
