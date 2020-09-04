@@ -32,7 +32,7 @@ export default {
     },
     config: {
       type: Object,
-      default: () => { }
+      default: () => ({})
     },
     label: { type: String, required: true },
     options: { type: Array, required: true },

@@ -21,7 +21,7 @@ export default {
     },
     config: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
     label: {
       type: String,
