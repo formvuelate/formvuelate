@@ -9,7 +9,7 @@
       :id="uuid"
       :disabled="readOnly"
       @input="update($event.target.value)"
-    >
+    />
   </div>
 </template>
 
