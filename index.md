@@ -464,7 +464,7 @@ This is an example output from the example schema above after the user fills out
 ```javascript
 [
   {
-    fistName: 'Jane',
+    firstName: 'Jane',
     lastName: 'Doe'
   },
   {
