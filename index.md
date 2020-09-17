@@ -2,7 +2,10 @@
 sidebar: auto
 title: FormVueLate 2.x
 ---
+
 ## Getting Started
+
+![FormVueLate logo](./assets/formvuelate-logo.jpg)
 
 FormVueLate is a zero dependency library that allows you to generate schema-driven forms with extreme ease.
 
