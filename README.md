@@ -1,4 +1,6 @@
-# FormVueLate 2.x (Vue 3.x)
+# FormVueLate 2.0 (Vue 3)
+
+![FormVueLate Logo](https://formvuelate-next.netlify.app/_assets/formvuelate-logo.0ce10a64.jpg)
 
 ![https://www.npmjs.com/package/formvuelate](https://img.shields.io/npm/v/formvuelate?color=42b883)
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/formvuelate/formvuelate)
