@@ -2,11 +2,11 @@
   <head>
     <title>FormVueLate 2.x (Vue 3.x) | FormVueLate 2.0</title>
     <meta name="description" content="Documentation for FormVueLate 2.x">
-    <link rel="stylesheet" href="/_assets/style.10aff858.css">
+    <link rel="stylesheet" href="/_assets/style.eb769908.css">
     <link rel="modulepreload" href="/_assets/common-4b331bb8.js">
-    <link rel="modulepreload" href="/_assets/README.md.2fa009ed.lean.js">
-    <link rel="modulepreload" href="/_assets/app.4d925b2d.js">
-    
+    <link rel="modulepreload" href="/_assets/README.md.e1866320.lean.js">
+    <link rel="modulepreload" href="/_assets/app.1700b172.js">
+    <link rel="shortcut icon" href="/assets/favicon.ico">
     
   </head>
   <body>
@@ -14,8 +14,8 @@
 // OR
 <span class="token function">npm</span> <span class="token function">install</span> formvuelate
 </code></pre></div><p>Now that you have the package in your project, <code>import</code> it to your component.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaForm <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelate&#39;</span>
-</code></pre></div><p>The <code>SchemaForm</code> requires two <code>props</code>. The first is the <code>schema</code>, which is the meta-data of your form. The second one is <code>value</code>, which will hold the state of the form.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
-</code></pre></div><p>The <code>SchemaForm</code> will <code>$emit</code> <strong>update:modelValue</strong> events when your components update. This means that you are able to either:</p><ul><li>use <code>v-model</code> on it</li><li>or, manually capture the <code>@update:modelValue</code> event with a method of your own while injecting the <code>:value</code> property.</li></ul><p>Example with <code>v-model</code>:</p><div class="language-javascript"><pre><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
+</code></pre></div><p>The <code>SchemaForm</code> requires two <code>props</code>. The first is the <code>schema</code>, which is the meta-data of your form. The second one is <code>modelValue</code>, which will hold the state of the form.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span> <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:modelValue</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span> <span class="token punctuation">/&gt;</span></span>
+</code></pre></div><p>The <code>SchemaForm</code> will <code>$emit</code> <strong>update:modelValue</strong> events when your components update. This means that you are able to either:</p><ul><li>use <code>v-model</code> on it</li><li>or, manually capture the <code>@update:modelValue</code> event with a method of your own while injecting the <code>:modelValue</code> property.</li></ul><p>Example with <code>v-model</code>:</p><div class="language-javascript"><pre><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
   <span class="token operator">&lt;</span>SchemaForm <span class="token operator">:</span>schema<span class="token operator">=</span><span class="token string">&quot;mySchema&quot;</span> v<span class="token operator">-</span>model<span class="token operator">=</span><span class="token string">&quot;formData&quot;</span> <span class="token operator">/</span><span class="token operator">&gt;</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
 
@@ -38,7 +38,7 @@
 </code></pre></div><p>Example with manual bindings:</p><div class="language-javascript"><pre><code><span class="token operator">&lt;</span>template<span class="token operator">&gt;</span>
   <span class="token operator">&lt;</span>SchemaForm
     <span class="token operator">:</span>schema<span class="token operator">=</span><span class="token string">&quot;mySchema&quot;</span>
-    <span class="token operator">:</span>data<span class="token operator">=</span><span class="token string">&quot;formData&quot;</span>
+    <span class="token operator">:</span>modelValue<span class="token operator">=</span><span class="token string">&quot;formData&quot;</span>
     @update<span class="token operator">:</span>modelValue<span class="token operator">=</span><span class="token string">&quot;updateForm&quot;</span>
   <span class="token operator">/</span><span class="token operator">&gt;</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>template<span class="token operator">&gt;</span>
@@ -65,7 +65,7 @@
 <span class="token punctuation">}</span><span class="token punctuation">}</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span>
 </code></pre></div><h2 id="official-plugins"><a class="header-anchor" href="#official-plugins" aria-hidden="true">#</a> Official plugins</h2><h4 id="vuelidate-plugin"><a class="header-anchor" href="#vuelidate-plugin" aria-hidden="true">#</a> <a href="https://github.com/formvuelate/formvuelate-plugin-vuelidate" target="_blank" rel="noopener noreferrer">Vuelidate Plugin</a></h4><p>Easily incorporate Vuelidate powered validations into your forms.</p><h4 id="lookup-plugin"><a class="header-anchor" href="#lookup-plugin" aria-hidden="true">#</a> <a href="https://github.com/formvuelate/formvuelate-plugin-lookup" target="_blank" rel="noopener noreferrer">Lookup Plugin</a></h4><p>A mapping and replacement plugin to parse complex schemas into FormVueLate ready structure.</p><h2 id="core-team"><a class="header-anchor" href="#core-team" aria-hidden="true">#</a> Core team</h2><table><tr><td align="center"><a href="https://github.com/marina-mosti"><img src="https://avatars2.githubusercontent.com/u/14843771?s=460&amp;u=1d11d62c22d38c01d73e6c92587bd567f4e51d27&amp;v=4" width="120px;" alt="Marina Mosti"><br><sub><b>Marina Mosti</b></sub></a></td><td align="center"><a href="https://github.com/shentao"><img src="https://avatars3.githubusercontent.com/u/3737591?s=460&amp;u=6ef86c71bbbb74efae3c6224390ce9a8cba82272&amp;v=4" width="120px;" alt="Damian Dulisz"><br><sub><b>Damian Dulisz</b></sub></a></td><td align="center"><a href="https://github.com/tzhelyazkova"><img src="https://avatars0.githubusercontent.com/u/24877689?s=460&amp;u=3800bb7ec37a732fa56d47f097f8d2eaf2518f57&amp;v=4" width="120px;" alt="Tonina Zhelyazkova"><br><sub><b>Tonina Zhelyazkova</b></sub></a></td></tr></table><h2 id="licence"><a class="header-anchor" href="#licence" aria-hidden="true">#</a> Licence</h2><p>This package is <a href="https://treeware.earth" target="_blank" rel="noopener noreferrer">Treeware</a>. If you use it in production, then we ask that you <a href="https://plant.treeware.earth/formvuelate/formvuelate" target="_blank" rel="noopener noreferrer"><strong>buy the world a tree</strong></a> to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.</p></div></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"2fa009ed\",\"index.md\":\"7f682101\"}")</script>
-    <script type="module" async src="/_assets/app.4d925b2d.js"></script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"e1866320\",\"index.md\":\"a3f2ad9c\"}")</script>
+    <script type="module" async src="/_assets/app.1700b172.js"></script>
   </body>
 </html>
