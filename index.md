@@ -594,6 +594,7 @@ Each plugin will modify the `setup` function of `SchemaForm` and change the way 
 import useVuelidate from '@vuelidate'
 import VuelidatePlugin from '@formvuelate/plugin-vuelidate'
 import LookupPlugin from '@formvuelate/plugin-lookup'
+import VeeValidatePlugin from '@formvuelate/plugin-vee-validate'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
   LookupPlugin({
@@ -602,7 +603,8 @@ const SchemaFormWithPlugins = SchemaFormFactory([
       array: 'FormSelect'
     }
   }),
-  VuelidatePlugin(useVuelidate)
+  VuelidatePlugin(useVuelidate),
+  VeeValidatePlugin(),
 ])
 
 export default {
