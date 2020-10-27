@@ -1055,7 +1055,7 @@ export default {
 
 #### Configuration
 
-The `VeeValidatePlugin` takes one parameter which is a configuration object, here are the properties that you can use.
+The `VeeValidatePlugin` accepts one parameter, a configuration object. Let's look at the properties that we can use.
 
 ##### mapProps
 
