@@ -1022,7 +1022,11 @@ export default {
 </script>
 ```
 
-Whenever the `modelValue` is updated the field will be validated immediately. If you don't want that and want your validations to be less aggressive, then you can show the error message when the field is `touched` which is set after the field is blurred and you can set it using `setTouched` on the validation object.
+Whenever the `modelValue` is updated the field will be validated immediately. 
+
+If we want the validations not to be immediate, or lazy, we can show the error message when the field is `touched`. A field is considered `touched` after the field loses focus. 
+
+In this case, we set it using the validation object's `setTouched` method as shown in the following example.
 
 ```html
 <template>
