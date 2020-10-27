@@ -988,7 +988,7 @@ Your components will receive the validation state via `validation` prop which co
 }
 ```
 
-You can opt-in to any of these properties or to the entire `validation` object, here is a simple `FormText` component that accepts the `validation` object as a prop:
+You can opt-in to any of these properties or to the entire `validation` object. Here is an example `FormText` component that accepts the `validation` object as a prop:
 
 ```html
 <template>
