@@ -1022,9 +1022,9 @@ export default {
 </script>
 ```
 
-Whenever the `modelValue` is updated the field will be validated immediately. 
+Whenever the `modelValue` is updated the field will be validated immediately.
 
-If we want the validations not to be immediate, or lazy, we can show the error message when the field is `touched`. A field is considered `touched` after the field loses focus. 
+If we want the validations not to be immediate, or lazy, we can show the error message when the field is `touched`. A field is considered `touched` after the field loses focus.
 
 In this case, we set it using the validation object's `setTouched` method as shown in the following example.
 
@@ -1063,9 +1063,8 @@ The `VeeValidatePlugin` accepts one parameter, a configuration object. Let's loo
 
 ##### mapProps
 
-
 ::: warning Important
-This refers to Vee-validate's `mapProps`, and not to the `mapProps` property exposed by `LookupPlugin`. 
+This refers to Vee-validate's `mapProps`, and not to the `mapProps` property exposed by `LookupPlugin`.
 :::
 
 If you are using 3rd party components and cannot modify their definition to accept the `validation` object, you can use the `mapProps` configuration to map the `validation` object to another property or multiple properties that are accepted by your component.
