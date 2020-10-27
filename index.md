@@ -1063,6 +1063,11 @@ The `VeeValidatePlugin` accepts one parameter, a configuration object. Let's loo
 
 ##### mapProps
 
+
+::: warning Important
+This refers to Vee-validate's `mapProps`, and not to the `mapProps` property exposed by `LookupPlugin`. 
+:::
+
 If you are using 3rd party components and cannot modify their definition to accept the `validation` object, you can use the `mapProps` configuration to map the `validation` object to another property or multiple properties that are accepted by your component.
 
 In the following example, the `errorMessage` is extracted to it's own prop.
