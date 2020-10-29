@@ -1222,9 +1222,98 @@ The `VeeValidatePlugin` automatically handles `SchemaForm` submits, and triggers
 
 Note that the `submit` handler will be only executed if the form is valid.
 
+#### Initial Form State
+
+You can provide initial validation state to the `SchemaForm`, to set initial errors you can use the `initial-errors` prop:
+
+##### Initial Errors
+
+```html
+<template>
+  <SchemaForm
+    v-model="formData"
+    :schema="schema"
+    :initial-errors="initialErrors"
+  >
+    <template #afterForm>
+      <button>Submit</button>
+    </template>
+  </SchemaForm>
+</template>
+
+<script>
+export default {
+  setup() {
+    const schema = ref([
+      // schema...
+    ])
+
+    const formData = ref({})
+    const initialErrors = {
+      email: 'This email is already taken',
+      password: 'Password must be at least 8 characters long'
+    }
+
+    return {
+      formData,
+      schema,
+      initialErrors
+    }
+  }
+};
+</script>
+```
+
+##### Initial Meta
+
+You can provide `initial-touched` and `initial-dirty` props to set the initial `touched` and `dirty` meta values for your schema fields:
+
+```html
+<template>
+  <SchemaForm
+    v-model="formData"
+    :schema="schema"
+    :initial-touched="initialTouched"
+    :initial-dirty="initialDirty"
+  >
+    <template #afterForm>
+      <button>Submit</button>
+    </template>
+  </SchemaForm>
+</template>
+
+<script>
+export default {
+  setup() {
+    const schema = ref([
+      // schema...
+    ])
+
+    const formData = ref({})
+    const initialTouched = {
+      email: true,
+      password: false
+    }
+    const initialDirty = {
+      email: true,
+      password: false
+    }
+
+    return {
+      formData,
+      schema,
+      initialErrors,
+      initialTouched,
+      initialDirty
+    }
+  }
+};
+</script>
+```
+
 #### Demo
 
-Here is a demo of Formvuelate generated form with vee-validate validation
+This is a demo of Formvuelate generated form with vee-validate validation
 
 <!-- TODO: Insert DEMO iframe -->
 
