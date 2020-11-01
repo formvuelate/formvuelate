@@ -1311,12 +1311,6 @@ export default {
 </script>
 ```
 
-#### Demo
-
-This is a demo of Formvuelate generated form with vee-validate validation
-
-<!-- TODO: Insert DEMO iframe -->
-
 ## Accessibility
 
 Due to the bring-you-own-components nature of FormVueLate, the library itself does not handle accessibility internally for input elements. However, we realize how important it is to provide accessible forms to our users.
