@@ -1309,6 +1309,7 @@ export default {
   }
 };
 </script>
+```
 
 ### Writing your own plugins
 
