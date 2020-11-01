@@ -2,15 +2,15 @@
   <head>
     <title>FormVueLate 2.x | FormVueLate 2.0</title>
     <meta name="description" content="Documentation for FormVueLate 2.x">
-    <link rel="stylesheet" href="/_assets/style.eb769908.css">
+    <link rel="stylesheet" href="/_assets/style.7e8448c2.css">
     <link rel="modulepreload" href="/_assets/common-4b331bb8.js">
-    <link rel="modulepreload" href="/_assets/index.md.a3f2ad9c.lean.js">
+    <link rel="modulepreload" href="/_assets/index.md.4d20f800.lean.js">
     <link rel="modulepreload" href="/_assets/app.1700b172.js">
     <link rel="shortcut icon" href="/assets/favicon.ico">
     
   </head>
   <body>
-    <div id="app"><!--[--><div class="theme"><header><!--[--><a class="title" aria-label="FormVueLate 2.0, back to home" href="/"><!----><span>FormVueLate 2.0</span></a><nav class="nav-links"><!--[--><a class="nav-link" href="https://github.com/formvuelate/formvuelate" target="_blank">GitHub <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><!--]--></nav><!--]--></header><aside><div class="sidebar"><ul><!--[--><li><a href="#getting-started">Getting Started</a><!----></li><li><a href="#playground">Playground</a><!----></li><li><a href="#installation">Installation</a><!----></li><li><a href="#schemaform">SchemaForm</a><ul><li><a href="#prop-schema">Prop: schema</a><!----></li><li><a href="#prop-preventmodelcleanuponschemachange">Prop: preventModelCleanupOnSchemaChange</a><!----></li><li><a href="#handling-submit">Handling submit</a><!----></li><li><a href="#slots">Slots</a><!----></li><li><a href="#component-requirements">Component Requirements</a><!----></li></ul></li><li><a href="#schemawizard">SchemaWizard</a><ul><li><a href="#v-model">v-model</a><!----></li><li><a href="#prop-schema-2">Prop: schema</a><!----></li><li><a href="#prop-step">Prop: step</a><!----></li><li><a href="#props-modelvalue">Props: modelValue</a><!----></li><li><a href="#handling-submit-2">Handling submit</a><!----></li><li><a href="#slots-2">Slots</a><!----></li></ul></li><li><a href="#plugins">Plugins</a><ul><li><a href="#vuelidate-plugin">Vuelidate Plugin</a><!----></li><li><a href="#lookup-plugin">Lookup Plugin</a><!----></li></ul></li><li><a href="#accessibility">Accessibility</a><ul><li><a href="#unique-id">Unique ID</a><!----></li></ul></li><li><a href="#examples">Examples</a><ul><li><a href="#schemaform-with-v-model">SchemaForm with v-model</a><!----></li><li><a href="#nested-schemas">Nested schemas</a><!----></li><li><a href="#using-an-array-based-schema">Using an array based schema</a><!----></li></ul></li><!--]--></ul></div></aside><main><div class="content"><div><h2 id="getting-started"><a class="header-anchor" href="#getting-started" aria-hidden="true">#</a> Getting Started</h2><p><img src="/_assets/formvuelate-logo.0ce10a64.jpg" alt="FormVueLate logo"></p><p>FormVueLate is a zero dependency library that allows you to generate schema-driven forms with extreme ease.</p><p>The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.</p><div class="warning custom-block"><p class="custom-block-title">Important</p><p>FormVueLate is a bring-your-own-components library!</p><p>We do <strong>not</strong> provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.</p></div><h2 id="playground"><a class="header-anchor" href="#playground" aria-hidden="true">#</a> Playground</h2><p>Modify the Schema on the left to see FormVueLate&#39;s <code>SchemaForm</code> in action on the right. You can use the following demo input components:</p><ul><li>FormText</li><li>FormSelect</li><li>FormCheckbox</li></ul><!--[--><div style="margin-bottom:2rem;" data-v-0af9ca26><h3 data-v-0af9ca26>SchemaForm props</h3><div class="options-menu" data-v-0af9ca26><div><label><input type="checkbox"> preventModelCleanupOnSchemaChange</label></div><div><label for="Schema type">Schema type</label><select value="object" id="Schema type"><!----><!--[--><option key="object" value="object" selected>object</option><option key="array" value="array">array</option><!--]--></select></div></div></div><div style="display:flex;" data-v-0af9ca26><div data-v-0af9ca26><textarea class="editor" data-v-0af9ca26>{
+    <div id="app"><!--[--><div class="theme"><header><!--[--><a class="title" aria-label="FormVueLate 2.0, back to home" href="/"><!----><span>FormVueLate 2.0</span></a><nav class="nav-links"><!--[--><a class="nav-link" href="https://github.com/formvuelate/formvuelate" target="_blank">GitHub <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a><!--]--></nav><!--]--></header><aside><div class="sidebar"><ul><!--[--><li><a href="#getting-started">Getting Started</a><!----></li><li><a href="#playground">Playground</a><!----></li><li><a href="#installation">Installation</a><!----></li><li><a href="#schemaform">SchemaForm</a><ul><li><a href="#prop-schema">Prop: schema</a><!----></li><li><a href="#prop-preventmodelcleanuponschemachange">Prop: preventModelCleanupOnSchemaChange</a><!----></li><li><a href="#handling-submit">Handling submit</a><!----></li><li><a href="#slots">Slots</a><!----></li><li><a href="#component-requirements">Component Requirements</a><!----></li></ul></li><li><a href="#schemawizard">SchemaWizard</a><ul><li><a href="#v-model">v-model</a><!----></li><li><a href="#prop-schema-2">Prop: schema</a><!----></li><li><a href="#prop-step">Prop: step</a><!----></li><li><a href="#props-modelvalue">Props: modelValue</a><!----></li><li><a href="#handling-submit-2">Handling submit</a><!----></li><li><a href="#slots-2">Slots</a><!----></li></ul></li><li><a href="#plugins">Plugins</a><ul><li><a href="#vuelidate-plugin">Vuelidate Plugin</a><!----></li><li><a href="#lookup-plugin">Lookup Plugin</a><!----></li><li><a href="#vee-validate-plugin">Vee-Validate Plugin</a><!----></li><li><a href="#writing-your-own-plugins">Writing your own plugins</a><!----></li></ul></li><li><a href="#accessibility">Accessibility</a><ul><li><a href="#unique-id">Unique ID</a><!----></li></ul></li><li><a href="#examples">Examples</a><ul><li><a href="#schemaform-with-v-model">SchemaForm with v-model</a><!----></li><li><a href="#nested-schemas">Nested schemas</a><!----></li><li><a href="#using-an-array-based-schema">Using an array based schema</a><!----></li></ul></li><!--]--></ul></div></aside><main><div class="content"><div><h2 id="getting-started"><a class="header-anchor" href="#getting-started" aria-hidden="true">#</a> Getting Started</h2><p><img src="/_assets/formvuelate-logo.0ce10a64.jpg" alt="FormVueLate logo"></p><p>FormVueLate is a zero dependency library that allows you to generate schema-driven forms with extreme ease.</p><p>The schema that you use for your form can be as flexible as you need it to be, it can be modified at run-time with an expected reactive result, and can even be fetched directly from you backend’s API.</p><div class="warning custom-block"><p class="custom-block-title">Important</p><p>FormVueLate is a bring-your-own-components library!</p><p>We do <strong>not</strong> provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.</p></div><h2 id="playground"><a class="header-anchor" href="#playground" aria-hidden="true">#</a> Playground</h2><p>Modify the Schema on the left to see FormVueLate&#39;s <code>SchemaForm</code> in action on the right. You can use the following demo input components:</p><ul><li>FormText</li><li>FormSelect</li><li>FormCheckbox</li></ul><!--[--><div style="margin-bottom:2rem;" data-v-0af9ca26><h3 data-v-0af9ca26>SchemaForm props</h3><div class="options-menu" data-v-0af9ca26><div><label><input type="checkbox"> preventModelCleanupOnSchemaChange</label></div><div><label for="Schema type">Schema type</label><select value="object" id="Schema type"><!----><!--[--><option key="object" value="object" selected>object</option><option key="array" value="array">array</option><!--]--></select></div></div></div><div style="display:flex;" data-v-0af9ca26><div data-v-0af9ca26><textarea class="editor" data-v-0af9ca26>{
   &quot;firstName&quot;: {
     &quot;component&quot;: &quot;FormText&quot;,
     &quot;label&quot;: &quot;First Name&quot;
@@ -450,6 +450,7 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
 <span class="token keyword">import</span> useVuelidate <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate&#39;</span>
 <span class="token keyword">import</span> VuelidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelate/plugin-vuelidate&#39;</span>
 <span class="token keyword">import</span> LookupPlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelate/plugin-lookup&#39;</span>
+<span class="token keyword">import</span> VeeValidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelate/plugin-vee-validate&#39;</span>
 
 <span class="token keyword">const</span> SchemaFormWithPlugins <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
   <span class="token function">LookupPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
@@ -458,7 +459,8 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
       array<span class="token operator">:</span> <span class="token string">&#39;FormSelect&#39;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-  <span class="token function">VuelidatePlugin</span><span class="token punctuation">(</span>useVuelidate<span class="token punctuation">)</span>
+  <span class="token function">VuelidatePlugin</span><span class="token punctuation">(</span>useVuelidate<span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token function">VeeValidatePlugin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token punctuation">]</span><span class="token punctuation">)</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
@@ -636,6 +638,308 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
       <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><h3 id="vee-validate-plugin"><a class="header-anchor" href="#vee-validate-plugin" aria-hidden="true">#</a> Vee-Validate Plugin</h3><p><a href="https://github.com/vuelidate/formvuelate-plugin-vee-validate" target="_blank" rel="noopener noreferrer">Vee-Validate Plugin&#39;s Repo</a>.</p><p>The vee-validate plugin lets you validate your generated fields using <a href="https://github.com/logaretm/vee-validate" target="_blank" rel="noopener noreferrer">vee-validate</a>.</p><h4 id="installation-3"><a class="header-anchor" href="#installation-3" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal, you also need to add <code>vee-validate</code>.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> vee-validate @formvuelate/plugin-vee-validate
+
+<span class="token comment"># OR</span>
+
+<span class="token function">npm</span> i vee-validate @formvuelate/plugin-vee-validate
+</code></pre></div><h4 id="usage-2"><a class="header-anchor" href="#usage-2" aria-hidden="true">#</a> Usage</h4><p>To use the plugin, import and pass it to the <code>SchemaFormFactory</code>. This creates a <code>SchemaForm</code> component with validation capabilities.</p><div class="language-js"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaFormFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelate&#39;</span>
+<span class="token keyword">import</span> VeeValidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelate/plugin-vee-validate&#39;</span>
+
+<span class="token keyword">const</span> SchemaFormWithValidation <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VeeValidatePlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token comment">// plugin configuration here</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now that the component is created, you can register it and use it in your template:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithValidation</span>
+      <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>mySchema<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>myData<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span>
+    SchemaFormWithValidation
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h4 id="component-requirements-2"><a class="header-anchor" href="#component-requirements-2" aria-hidden="true">#</a> Component Requirements</h4><p>Your components will receive the validation state via <code>validation</code> prop which contains the error messages and the <code>meta</code> information exposed by vee-validate, the validation prop contains the following properties/methods:</p><div class="language-js"><pre><code><span class="token punctuation">{</span>
+  errorMessage<span class="token punctuation">,</span> <span class="token comment">// The first error message for that field</span>
+  errors<span class="token punctuation">,</span> <span class="token comment">// All error messages for that field</span>
+  meta<span class="token punctuation">,</span> <span class="token comment">// A field meta object</span>
+  setDirty<span class="token punctuation">,</span> <span class="token comment">// Sets the meta `dirty` flag</span>
+  setTouched<span class="token punctuation">,</span> <span class="token comment">// Sets the meta `touched` flag</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>You can opt-in to any of these properties or to the entire <code>validation</code> object. Here is an example <code>FormText</code> component that accepts the <code>validation</code> object as a prop:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+      <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>modelValue<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">@input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>update($event.target.value)<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">&gt;</span></span>{{ validation.errorMessage }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// other props</span>
+    modelValue<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    validation<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Object<span class="token punctuation">,</span>
+      <span class="token function-variable function">default</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;update:modelValue&#39;</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Whenever the <code>modelValue</code> is updated the field will be validated immediately.</p><p>If we want the validations not to be immediate, or lazy, we can show the error message when the field is <code>touched</code>. A field is considered <code>touched</code> after the field loses focus.</p><p>In this case, we set it using the validation object&#39;s <code>setTouched</code> method as shown in the following example.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+      <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>modelValue<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">@input</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>update($event.target.value)<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">@blur</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>onBlur<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>validation.touched<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>{{ validation.errorMessage }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token function">update</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">&#39;update:modelValue&#39;</span><span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">onBlur</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>validation<span class="token punctuation">.</span><span class="token function">setTouched</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h4 id="configuration-2"><a class="header-anchor" href="#configuration-2" aria-hidden="true">#</a> Configuration</h4><p>The <code>VeeValidatePlugin</code> accepts one parameter, a configuration object. Let&#39;s look at the properties that we can use.</p><h5 id="mapprops-2"><a class="header-anchor" href="#mapprops-2" aria-hidden="true">#</a> mapProps</h5><div class="warning custom-block"><p class="custom-block-title">Important</p><p>This refers to Vee-validate&#39;s <code>mapProps</code>, and not to the <code>mapProps</code> property exposed by <code>LookupPlugin</code>.</p></div><p>If you are using 3rd party components and cannot modify their definition to accept the <code>validation</code> object, you can use the <code>mapProps</code> configuration to map the <code>validation</code> object to another property or multiple properties that are accepted by your component.</p><p>In the following example, the <code>errorMessage</code> is extracted to it&#39;s own prop.</p><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithValidation <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VeeValidatePlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">mapProps</span><span class="token punctuation">(</span><span class="token parameter">validation</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        errorMessage<span class="token operator">:</span> validation<span class="token punctuation">.</span>errorMessage<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now your component definition can accept the <code>errorMessage</code> prop instead of the entire <code>validation</code> object.</p><p>You can also map the <code>validation</code> prop based on your schema input type, so if you are using multiple 3rd party components you can provide each with the suitable validation props.</p><div class="language-js"><pre><code><span class="token keyword">const</span> SchemaFormWithValidation <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VeeValidatePlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    <span class="token function">mapProps</span><span class="token punctuation">(</span><span class="token parameter">validation<span class="token punctuation">,</span> el</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// If the field is the `FormText` component, send the entire validation object</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>component<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">&#39;FormText&#39;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+          validation
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// Otherwise send the error message only</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        errorMessage<span class="token operator">:</span> validation<span class="token punctuation">.</span>errorMessage
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><h4 id="defining-validation-rules"><a class="header-anchor" href="#defining-validation-rules" aria-hidden="true">#</a> Defining Validation Rules</h4><p>Now that your component is configured to recieve validation state, let&#39;s take a look on how to actually validate them.</p><p>There are two approaches to specify validation rules to your schema fields, which are &quot;field-level&quot; and &quot;form-level&quot;.</p><h5 id="field-level-validation"><a class="header-anchor" href="#field-level-validation" aria-hidden="true">#</a> Field Level Validation</h5><p>The &quot;field-level&quot; approach allows to you add a <code>validations</code> property to your fields schema, the <code>validation</code> property can be any type of validators that is <a href="https://vee-validate.logaretm.com/v4/guide/validation" target="_blank" rel="noopener noreferrer">accepted by vee-validate</a></p><p>Here is an example of a schema that uses all the possible <code>validations</code> value types:</p><div class="language-js"><pre><code><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> yup <span class="token keyword">from</span> <span class="token string">&#39;yup&#39;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> schema <span class="token operator">=</span> <span class="token punctuation">{</span>
+  email<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Email&#39;</span><span class="token punctuation">,</span>
+    <span class="token comment">// Globally defined rules</span>
+    validations<span class="token operator">:</span> <span class="token string">&#39;required|email&#39;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  password<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Password&#39;</span><span class="token punctuation">,</span>
+    <span class="token comment">// Validation functions</span>
+    <span class="token function-variable function">validations</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> value <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">6</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  fullName<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Full Name&#39;</span><span class="token punctuation">,</span>
+    <span class="token comment">// yup validations</span>
+    validations<span class="token operator">:</span> yup<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Then you can use the schema in your template</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithPlugin</span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>myData<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h5 id="form-level-validation"><a class="header-anchor" href="#form-level-validation" aria-hidden="true">#</a> Form Level Validation</h5><p>You can specify validations on the form level by passing a <code>validation-schema</code> prop to the component created by <code>SchemaFormFactory</code>, the <code>validation-schema</code> prop value should be one that accepted by <a href="https://vee-validate.logaretm.com/v4/guide/validation#form-level-validation" target="_blank" rel="noopener noreferrer">vee-validate&#39;s form level validation</a>.</p><p>This example uses <code>yup</code> to define validation schemas for your forms.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>app<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithValidation</span>
+      <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">:validation-schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>validationSchema<span class="token punctuation">&quot;</span></span>
+      <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span>
+    <span class="token punctuation">/&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> yup <span class="token keyword">from</span> <span class="token string">&#39;yup&#39;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span>
+    SchemaFormWithValidation
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> schema <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token comment">// Fields without the `validation` prop</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// The validation schema</span>
+    <span class="token keyword">const</span> validationSchema <span class="token operator">=</span> yup<span class="token punctuation">.</span><span class="token function">object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">shape</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      email<span class="token operator">:</span> yup<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">email</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      password<span class="token operator">:</span> yup<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      fullName<span class="token operator">:</span> yup<span class="token punctuation">.</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">required</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      schema<span class="token punctuation">,</span>
+      formData<span class="token punctuation">,</span>
+      validationSchema
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h4 id="handling-submit-3"><a class="header-anchor" href="#handling-submit-3" aria-hidden="true">#</a> Handling Submit</h4><p>The <code>VeeValidatePlugin</code> automatically handles <code>SchemaForm</code> submits, and triggers validation before the form is submitted. You don&#39;t have to do anything special to trigger validations before submitting.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+    <span class="token attr-name">@submit</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>onSubmit<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">#afterForm</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SchemaForm</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>Note that the <code>submit</code> handler will be only executed if the form is valid.</p><h4 id="initial-form-state"><a class="header-anchor" href="#initial-form-state" aria-hidden="true">#</a> Initial Form State</h4><p>You can provide initial validation state to the <code>SchemaForm</code>, to set initial errors you can use the <code>initial-errors</code> prop:</p><h5 id="initial-errors"><a class="header-anchor" href="#initial-errors" aria-hidden="true">#</a> Initial Errors</h5><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:initial-errors</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>initialErrors<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">#afterForm</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SchemaForm</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> schema <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token comment">// schema...</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> initialErrors <span class="token operator">=</span> <span class="token punctuation">{</span>
+      email<span class="token operator">:</span> <span class="token string">&#39;This email is already taken&#39;</span><span class="token punctuation">,</span>
+      password<span class="token operator">:</span> <span class="token string">&#39;Password must be at least 8 characters long&#39;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      formData<span class="token punctuation">,</span>
+      schema<span class="token punctuation">,</span>
+      initialErrors
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h5 id="initial-meta"><a class="header-anchor" href="#initial-meta" aria-hidden="true">#</a> Initial Meta</h5><p>You can provide <code>initial-touched</code> and <code>initial-dirty</code> props to set the initial <code>touched</code> and <code>dirty</code> meta values for your schema fields:</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaForm</span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>formData<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:initial-touched</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>initialTouched<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:initial-dirty</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>initialDirty<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">#afterForm</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>SchemaForm</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> schema <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token comment">// schema...</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> formData <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> initialTouched <span class="token operator">=</span> <span class="token punctuation">{</span>
+      email<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      password<span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> initialDirty <span class="token operator">=</span> <span class="token punctuation">{</span>
+      email<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      password<span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      formData<span class="token punctuation">,</span>
+      schema<span class="token punctuation">,</span>
+      initialErrors<span class="token punctuation">,</span>
+      initialTouched<span class="token punctuation">,</span>
+      initialDirty
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="writing-your-own-plugins"><a class="header-anchor" href="#writing-your-own-plugins" aria-hidden="true">#</a> Writing your own plugins</h3><p>Not all schemas are created equal, and every project has unique needs - FormVueLate provides an excellent way of addressing niche needs and any project&#39;s uniqueness through its plugin system.</p><p>Writing plugins is very straightforward, <code>SchemaFormFactory</code> expects an array of functions - so each plugin added to <code>SchemaFormFactory</code> is a function that will be executed in the order it was received by it.</p><div class="language-js"><pre><code><span class="token keyword">const</span> <span class="token function-variable function">myPlugin</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Plugin code goes here</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> SchemaFormWithCustomPlugin <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  myPlugin
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Every function, or plugin, that <code>SchemaFormFactory</code> received will get injected, as the first parameter, the <strong>returned object</strong> from the <code>setup()</code> function from <code>SchemaForm</code> plus any other previous plugins.</p><p>It&#39;s important to keep in mind this last bit, plugins are cumulative! So every plugin will receive the returned object from the last called plugin, or the base one from <code>SchemaForm</code> if its the first.</p><p>Having said that, every plugin must also return this same object, with whatever modifications it is making to the setup returns.</p><div class="language-js"><pre><code><span class="token keyword">const</span> <span class="token function-variable function">pluginThatAddsSomethingCool</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">baseReturns</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>baseReturns<span class="token punctuation">,</span>
+    somethingCool<span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> cumulativeExample <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  pluginThatAddsSomethingCool
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>A notable property that you may want to keep in mind that <code>SchemaForm</code> will provide to the factory is the <code>parsedSchema</code>. This <code>parsedSchema</code> is an already parsed (redundant, but necessary to clarify) schema in the format that FormVueLate understands it.</p><p>Plugins will <em>usually</em> want to modify these <code>baseReturns</code> in some way or another.</p><p>Make sure that you preserve reactivity on the parsed schema, usually by returning a newly created <code>computed</code> property with your modified schema wrapped in it.</p><div class="language-js"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> computed <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;Vue&#39;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">someOtherPlugin</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">baseReturns</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> parsedSchema <span class="token punctuation">}</span> <span class="token operator">=</span> baseReturns
+  <span class="token keyword">const</span> modifiedSchema <span class="token operator">=</span> <span class="token function">doSomethingToParsedSchema</span><span class="token punctuation">(</span>parsedSchema<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>baseReturns<span class="token punctuation">,</span>
+    parsedSchema<span class="token operator">:</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> modifiedSchema<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> cumulativeExample <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  pluginThatAddsSomethingCool
 <span class="token punctuation">]</span><span class="token punctuation">)</span>
 </code></pre></div><h2 id="accessibility"><a class="header-anchor" href="#accessibility" aria-hidden="true">#</a> Accessibility</h2><p>Due to the bring-you-own-components nature of FormVueLate, the library itself does not handle accessibility internally for input elements. However, we realize how important it is to provide accessible forms to our users.</p><p>We provide some tools for you to build your components in an accessible way.</p><h3 id="unique-id"><a class="header-anchor" href="#unique-id" aria-hidden="true">#</a> Unique ID</h3><p><code>SchemaForm</code> will generate and inject a property called <code>uuid</code> to each one of your components. This property is a randomly generated consecutive number that you can use to construct a11y compatible components.</p><p>Here is a simple example of a <code>FormInput</code> component that uses the <code>uuid</code> property to correctly bind the <code>label</code> to the <code>input</code>.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
@@ -918,7 +1222,7 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
 <span class="token punctuation" data-v-1a357a2c-s>}</span>
 </span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
 </code></pre></div><!--]--></div></div></div></div></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"e1866320\",\"index.md\":\"a3f2ad9c\"}")</script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"3bbc5268\",\"index.md\":\"4d20f800\"}")</script>
     <script type="module" async src="/_assets/app.1700b172.js"></script>
   </body>
 </html>
