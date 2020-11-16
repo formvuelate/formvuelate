@@ -1022,11 +1022,11 @@ The vee-validate plugin lets you validate your generated fields using [vee-valid
 To install the plugin, simply add it to your `package.json` via terminal, you also need to add `vee-validate`.
 
 ```bash
-yarn add vee-validate @formvuelate/plugin-vee-validate
+yarn add vee-validate@next @formvuelate/plugin-vee-validate
 
 # OR
 
-npm i vee-validate @formvuelate/plugin-vee-validate
+npm i vee-validate@next @formvuelate/plugin-vee-validate
 ```
 
 #### Usage
