@@ -2,9 +2,9 @@
   <head>
     <title>FormVueLate 2.x | FormVueLate 2.0</title>
     <meta name="description" content="Documentation for FormVueLate 2.x">
-    <link rel="stylesheet" href="/_assets/style.7e8448c2.css">
+    <link rel="stylesheet" href="/_assets/style.a38c8f30.css">
     <link rel="modulepreload" href="/_assets/common-4b331bb8.js">
-    <link rel="modulepreload" href="/_assets/index.md.4d20f800.lean.js">
+    <link rel="modulepreload" href="/_assets/index.md.7b292124.lean.js">
     <link rel="modulepreload" href="/_assets/app.1700b172.js">
     <link rel="shortcut icon" href="/assets/favicon.ico">
     
@@ -469,7 +469,68 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-</code></pre></div><p>Now that we have defined a new component called <code>SchemaFormWithPlugins</code>, you can use it as you normally use any other component in your application.</p><h3 id="vuelidate-plugin"><a class="header-anchor" href="#vuelidate-plugin" aria-hidden="true">#</a> Vuelidate Plugin</h3><div class="warning custom-block"><p class="custom-block-title">WARNING</p><p>The Vuelidate plugin is <strong>WIP</strong> and should not yet be used! We will update this section as soon as it&#39;s ready.</p></div><h3 id="lookup-plugin"><a class="header-anchor" href="#lookup-plugin" aria-hidden="true">#</a> Lookup Plugin</h3><p><a href="https://github.com/vuelidate/formvuelate-plugin-lookup" target="_blank" rel="noopener noreferrer">Lookup Plugin&#39;s Repo</a>.</p><p>Whenever you find yourself working with a <code>schema</code> that has already been generated or created with a specific structure that does not comply to the requirements of <code>SchemaForm</code>, it becomes a necessary step to parse it to modify the structure.</p><p>In order to make this task easier, FormVueLate provides a core plugin called <code>@formvuelate/plugin-lookup</code>.</p><h4 id="installation-2"><a class="header-anchor" href="#installation-2" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> @formvuelate/plugin-lookup
+</code></pre></div><p>Now that we have defined a new component called <code>SchemaFormWithPlugins</code>, you can use it as you normally use any other component in your application.</p><h3 id="vuelidate-plugin"><a class="header-anchor" href="#vuelidate-plugin" aria-hidden="true">#</a> Vuelidate Plugin</h3><div class="warning custom-block"><p class="custom-block-title">WARNING</p><p>Vuelidate is still in testing in pre-release state.</p></div><p><a href="https://github.com/formvuelate/formvuelate-plugin-vuelidate" target="_blank" rel="noopener noreferrer">Vuelidate Plugin&#39;s Repo</a></p><p>In order to seamlessly validate <code>FormVueLatte</code> by using <code>Vuelidate</code>, we provide a <code>VuelidatePlugin</code> that will allow you to easily accomplish this.</p><h4 id="installation-2"><a class="header-anchor" href="#installation-2" aria-hidden="true">#</a> Installation</h4><p>Add the plugin and Vuelidate to your project&#39;s package.</p><div class="language-bash"><pre><code><span class="token function">npm</span> i @vuelidate/core @vuelidate/validators @formvuelate/plugin-vuelidate
+
+OR
+
+<span class="token function">yarn</span> <span class="token function">add</span> @vuelidate/core @vuelidate/validators @formvuelate/plugin-vuelidate
+</code></pre></div><h4 id="setting-up-the-validations-in-the-schema"><a class="header-anchor" href="#setting-up-the-validations-in-the-schema" aria-hidden="true">#</a> Setting up the validations in the schema</h4><p>Your schema will need some changes in order to work with the <code>VuelidatePlugin</code>. Each element in your schema will need to contain a <code>validations</code> property which is an object, with each of the validations that you want to apply to it.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> required<span class="token punctuation">,</span> email <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate/validators&#39;</span>
+<span class="token keyword">import</span> useVuelidate <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate/core&#39;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ref <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span>
+
+<span class="token keyword">const</span> <span class="token constant">SCHEMA</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  firstName<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;First Name&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  lastName<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Last Name&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  email<span class="token operator">:</span> <span class="token punctuation">{</span>
+    component<span class="token operator">:</span> FormText<span class="token punctuation">,</span>
+    label<span class="token operator">:</span> <span class="token string">&#39;Your email&#39;</span><span class="token punctuation">,</span>
+    validations<span class="token operator">:</span> <span class="token punctuation">{</span>
+      email<span class="token punctuation">,</span>
+      required
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Next, create your new <code>SchemaForm</code> by using the <code>SchemaFormFactory</code> to inject the <code>VuelidatePlugin</code>.</p><div class="language-javascript"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> SchemaFormFactory <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;formvuelatte&#39;</span>
+<span class="token keyword">import</span> useVuelidate <span class="token keyword">from</span> <span class="token string">&#39;@vuelidate&#39;</span>
+<span class="token keyword">import</span> VuelidatePlugin <span class="token keyword">from</span> <span class="token string">&#39;@formvuelatte/plugin-vuelidate&#39;</span>
+
+<span class="token keyword">const</span> SchemaFormWithPlugins <span class="token operator">=</span> <span class="token function">SchemaFormFactory</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token function">VuelidatePlugin</span><span class="token punctuation">(</span>useVuelidate<span class="token punctuation">)</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><p>Now that we have the component ready, we can jump into the <code>setup</code> function, where we need to get our <code>v-model</code> data ready, as well as setting up Vuelidate on our component.</p><div class="language-javascript"><pre><code><span class="token function">setup</span> <span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> context</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> userData <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    firstName<span class="token operator">:</span> <span class="token string">&#39;John&#39;</span><span class="token punctuation">,</span>
+    lastName<span class="token operator">:</span> <span class="token string">&#39;&#39;</span><span class="token punctuation">,</span>
+    email<span class="token operator">:</span> <span class="token string">&#39;&#39;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">const</span> $v <span class="token operator">=</span> <span class="token function">useVuelidate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    schema<span class="token operator">:</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token constant">SCHEMA</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    userData<span class="token punctuation">,</span>
+    updateValidations
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Finally, we can go to our template and set up both the <code>userData</code> and the <code>schema</code> bindings.</p><div class="language-html"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SchemaFormWithValidations</span>
+    <span class="token attr-name">:schema</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>schema<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>userData<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h3 id="lookup-plugin"><a class="header-anchor" href="#lookup-plugin" aria-hidden="true">#</a> Lookup Plugin</h3><p><a href="https://github.com/vuelidate/formvuelate-plugin-lookup" target="_blank" rel="noopener noreferrer">Lookup Plugin&#39;s Repo</a>.</p><p>Whenever you find yourself working with a <code>schema</code> that has already been generated or created with a specific structure that does not comply to the requirements of <code>SchemaForm</code>, it becomes a necessary step to parse it to modify the structure.</p><p>In order to make this task easier, FormVueLate provides a core plugin called <code>@formvuelate/plugin-lookup</code>.</p><h4 id="installation-3"><a class="header-anchor" href="#installation-3" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> @formvuelate/plugin-lookup
 
 // OR
 
@@ -639,7 +700,7 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token punctuation">]</span><span class="token punctuation">)</span>
-</code></pre></div><h3 id="vee-validate-plugin"><a class="header-anchor" href="#vee-validate-plugin" aria-hidden="true">#</a> Vee-Validate Plugin</h3><p><a href="https://github.com/vuelidate/formvuelate-plugin-vee-validate" target="_blank" rel="noopener noreferrer">Vee-Validate Plugin&#39;s Repo</a>.</p><p>The vee-validate plugin lets you validate your generated fields using <a href="https://github.com/logaretm/vee-validate" target="_blank" rel="noopener noreferrer">vee-validate</a>.</p><h4 id="installation-3"><a class="header-anchor" href="#installation-3" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal, you also need to add <code>vee-validate</code>.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> vee-validate @formvuelate/plugin-vee-validate
+</code></pre></div><h3 id="vee-validate-plugin"><a class="header-anchor" href="#vee-validate-plugin" aria-hidden="true">#</a> Vee-Validate Plugin</h3><p><a href="https://github.com/vuelidate/formvuelate-plugin-vee-validate" target="_blank" rel="noopener noreferrer">Vee-Validate Plugin&#39;s Repo</a>.</p><p>The vee-validate plugin lets you validate your generated fields using <a href="https://github.com/logaretm/vee-validate" target="_blank" rel="noopener noreferrer">vee-validate</a>.</p><h4 id="installation-4"><a class="header-anchor" href="#installation-4" aria-hidden="true">#</a> Installation</h4><p>To install the plugin, simply add it to your <code>package.json</code> via terminal, you also need to add <code>vee-validate</code>.</p><div class="language-bash"><pre><code><span class="token function">yarn</span> <span class="token function">add</span> vee-validate @formvuelate/plugin-vee-validate
 
 <span class="token comment"># OR</span>
 
@@ -1222,7 +1283,7 @@ lastName<span class="token operator">:</span> <span class="token punctuation">{<
 <span class="token punctuation" data-v-1a357a2c-s>}</span>
 </span></span><span class="token tag" data-v-1a357a2c-s><span class="token tag" data-v-1a357a2c-s><span class="token punctuation" data-v-1a357a2c-s>&lt;/</span>script</span><span class="token punctuation" data-v-1a357a2c-s>&gt;</span></span>
 </code></pre></div><!--]--></div></div></div></div></div></main></div><!----><!--]--></div>
-    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"3bbc5268\",\"index.md\":\"4d20f800\"}")</script>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"README.md\":\"d8517e0a\",\"index.md\":\"7b292124\"}")</script>
     <script type="module" async src="/_assets/app.1700b172.js"></script>
   </body>
 </html>
