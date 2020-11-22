@@ -1202,7 +1202,7 @@ const SchemaFormWithValidation = SchemaFormFactory([
 
 #### Defining Validation Rules
 
-Now that your component is configured to recieve validation state, let's take a look on how to actually validate them.
+Now that your component is configured to receive validation state, let's take a look on how to actually validate them.
 
 There are two approaches to specify validation rules to your schema fields, which are "field-level" and "form-level".
 
