@@ -26,7 +26,7 @@ jobs:
     - name: Yarn
       run: yarn
     - name: Lint
-      run: yarn lint
+      run: yarn ci:lint
     - name: Test units
       run: yarn test:unit
     - name: Codecov
