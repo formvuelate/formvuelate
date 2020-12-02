@@ -230,6 +230,75 @@ The example below applies a `margin-right` style to the first input.
   <<< .vitepress/docs/components/HorizontalForm.vue
 </SplitTab>
 
+### Prop: schemaRowClasses
+
+The philosophy is `Bring Your Own Component` and there will be moments when you already have your own css or a Framework UI you are using dictates that you need to use specific classes.
+
+For those opinated situations `schemaRowClasses` allows you to complement the `schema-row` class that Formvuelate provides.
+
+The prop accepts `[String, Object, Array]`, since any of those are valid ways to set CSS in Vue.
+
+```html
+<SchemaForm
+  :schemaRowClasses="my-custom-class-a my-custom-class-b"
+  :schema="mySchema"
+/>
+```
+When the `Form` html element is rendered, there will be a `div` element with those classes:
+
+```html
+<form>
+  <div class="schema-row custom-class-a custom-class-b">
+    Fields
+  </div>
+</form>
+```
+:::tip
+You might find scenarios where the Field must have a class that depends on the class applied to `schemaRowClasses`. Fortunately, Formvuelate has you covered.
+
+For instance if you need this:
+```html
+<form>
+  <div class="schema-row custom-class-a custom-class-b">
+    <input class="dependant-custom-class-a">
+  </div>
+</form>
+```
+Your schema and component need to use the Prop class
+
+```html
+<template>
+  <SchemaForm :schema="schema" v-model="formData"
+  :schemaRowClasses="my-custom-class-a my-custom-class-b" />
+</template>
+
+<script>
+  import { SchemaForm } from 'formvuelate'
+  import FormText from 'path/to/FormText'
+  import { ref } from 'vue'
+
+  export default {
+    components: { SchemaForm },
+    setup() {
+      const schema = ref({
+        name: {
+          component: FormText,
+          class:'dependant-custom-class-a'
+      })
+      const formData = ref({})
+
+      return {
+        schema,
+        formData
+      }
+    }
+  }
+</script>
+```
+:::
+
+Your component (in this example `FormText`) must have the prop class and use it.
+
 ### Prop: preventModelCleanupOnSchemaChange
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.
