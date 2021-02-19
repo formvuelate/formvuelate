@@ -244,7 +244,7 @@ The prop accepts `[String, Object, Array]` as valid types.
   :schema="mySchema"
 />
 ```
-When the `Form` html element is rendered, there will be a `div` element with those classes:
+Example output:
 
 ```html
 <form>
