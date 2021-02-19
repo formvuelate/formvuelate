@@ -159,7 +159,7 @@ Let’s assume for this example that you have a component in your project called
 :::tip
 In the above example, we use the component `FormText` that we imported as the value of the `component` property of each element.
 
-You can use the name of the component as a `String` instead, for example `'FormText'`, but be aware that the component needs to either be imported globally, or in your file first.
+You can use the name of the component as a `String` instead, for example `'FormText'`, but be aware that the component needs to either be imported globally.
 :::
 
 #### Array Schemas
