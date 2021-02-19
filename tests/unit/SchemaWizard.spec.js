@@ -94,8 +94,7 @@ describe('SchemaWizard', () => {
       }
     })
 
-    wrapper.findComponent(SchemaForm).vm.$emit('update:modelValue', {
-      firstName: 'Marina' })
+    wrapper.findComponent(SchemaForm).vm.$emit('update:modelValue', { firstName: 'Marina' })
 
     expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
     expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
