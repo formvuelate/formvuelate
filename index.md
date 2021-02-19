@@ -232,11 +232,11 @@ The example below applies a `margin-right` style to the first input.
 
 ### Prop: schemaRowClasses
 
-The philosophy is `Bring Your Own Component` and there will be moments when you already have your own css or a Framework UI you are using dictates that you need to use specific classes.
+If you ever require to add additional classes to each structural row in the generated form, you can use the `schemaRowClasses` property to inject them.
 
-For those opinated situations `schemaRowClasses` allows you to complement the `schema-row` class that Formvuelate provides.
+These classes will be appended, and will _not_ substitute the `schema-row` class that FormVueLate already provides.
 
-The prop accepts `[String, Object, Array]`, since any of those are valid ways to set CSS in Vue.
+The prop accepts `[String, Object, Array]` as valid types.
 
 ```html
 <SchemaForm
