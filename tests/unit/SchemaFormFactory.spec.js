@@ -36,7 +36,7 @@ describe('SchemaFormFactory', () => {
     const factory = SchemaFormFactory()
 
     expect(factory.setup(props, context))
-     .toEqualFunction(SchemaForm.setup(props, context))
+      .toEqualFunction(SchemaForm.setup(props, context))
   })
 
   it('applies the plugins to the data returned from schema form', () => {
