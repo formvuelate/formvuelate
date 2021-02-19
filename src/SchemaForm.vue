@@ -44,9 +44,7 @@ export default {
       validator (schema) {
         if (!Array.isArray(schema)) return true
 
-        return (
-          schema.filter((field) => !Array.isArray(field) && !field.model &&
-          !field.schema).length === 0)
+        return schema.filter(field => !Array.isArray(field) && (!field.model && !field.schema)).length === 0
       }
     },
     modelValue: {
