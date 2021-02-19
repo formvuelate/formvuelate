@@ -30,31 +30,36 @@ describe('SchemaFormFactory', () => {
     })
   })
 
-  afterAll(() => {
-    warn.mockRestore()
-  })
+  afterAll(() => { warn.mockRestore() })
 
   it('returns the original setup if no plugins are set', () => {
     const factory = SchemaFormFactory()
 
-    expect(factory.setup(props, context)).toEqualFunction(
-      SchemaForm.setup(props, context)
-    )
+    expect(factory.setup(props, context))
+    .toEqualFunction(SchemaForm.setup(props, context))
   })
 
   it('applies the plugins to the data returned from schema form', () => {
     let paramFn
-    const plugin = jest.fn(fn => {
+    const plugin = jest.fn((fn) => {
       paramFn = fn
       return fn
     })
 
-    const factory = SchemaFormFactory([plugin, plugin, plugin])
+    const factory = SchemaFormFactory([
+      plugin,
+      plugin,
+      plugin
+    ])
 
     factory.setup(props, context)
 
     expect(plugin).toHaveBeenCalledTimes(3)
-    expect(plugin).toHaveBeenCalledWith(expect.anything(), props, context)
+    expect(plugin).toHaveBeenCalledWith(
+      expect.anything(),
+      props,
+      context
+    )
     expect(paramFn).toEqualFunction(SchemaForm.setup(props, context))
   })
 })

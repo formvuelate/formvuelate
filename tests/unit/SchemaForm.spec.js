@@ -144,7 +144,9 @@ describe('SchemaForm', () => {
               employees: {
                 component: FormSelect,
                 label: 'Number of employees',
-                options: ['1', '2', '3', '4+']
+                options: [
+                  '1', '2', '3', '4+'
+                ]
               }
             }
           }
@@ -226,8 +228,7 @@ describe('SchemaForm', () => {
       })
 
       wrapper
-        .findComponent(FormText)
-        .vm.$emit('update:modelValue', 'first name')
+        .findComponent(FormText).vm.$emit('update:modelValue', 'first name')
 
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
@@ -245,7 +246,11 @@ describe('SchemaForm', () => {
           component: FormSelect,
           label: 'Favorite thing about Vue',
           required: true,
-          options: ['Ease of use', 'Documentation', 'Community']
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
         }
       }
 
@@ -375,7 +380,11 @@ describe('SchemaForm', () => {
           component: FormSelect,
           label: 'Favorite thing about Vue',
           required: true,
-          options: ['Ease of use', 'Documentation', 'Community']
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
         }
       }
 
@@ -412,7 +421,11 @@ describe('SchemaForm', () => {
           component: FormSelect,
           label: 'Favorite thing about Vue',
           required: true,
-          options: ['Ease of use', 'Documentation', 'Community']
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
         }
       }
 
@@ -420,8 +433,7 @@ describe('SchemaForm', () => {
         props: {
           schema,
           modelValue: {
-            firstName: 'delete me',
-            favoriteThingAboutVue: 'Documentation'
+            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
           },
           preventModelCleanupOnSchemaChange: true
         }
@@ -436,8 +448,7 @@ describe('SchemaForm', () => {
 
       expect(wrapper.emitted()['update:modelValue']).toBeUndefined()
       expect(wrapper.vm.modelValue).toEqual({
-        firstName: 'delete me',
-        favoriteThingAboutVue: 'Documentation'
+        firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
       })
     })
   })

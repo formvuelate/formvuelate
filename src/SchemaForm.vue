@@ -45,10 +45,8 @@ export default {
         if (!Array.isArray(schema)) return true
 
         return (
-          schema.filter(
-            (field) => !Array.isArray(field) && !field.model && !field.schema
-          ).length === 0
-        )
+          schema.filter((field) => !Array.isArray(field) && !field.model &&
+          !field.schema).length === 0)
       }
     },
     modelValue: {
@@ -81,13 +79,13 @@ export default {
       if (props.preventModelCleanupOnSchemaChange) return
 
       const reducer = (acc, val) => {
-        return acc.concat(val.map((i) => i.model))
+        return acc.concat(val.map(i => i.model))
       }
 
       const newKeys = schema.reduce(reducer, [])
       const oldKeys = oldSchema.reduce(reducer, [])
 
-      const diff = oldKeys.filter((i) => !newKeys.includes(i))
+      const diff = oldKeys.filter(i => !newKeys.includes(i))
       if (!diff.length) return
 
       const val = { ...props.modelValue }
@@ -133,7 +131,7 @@ export default {
       if (hasParentSchema) return {}
 
       return {
-        onSubmit: (event) => {
+        onSubmit: event => {
           event.preventDefault()
           emit('submit', event)
         }

@@ -42,7 +42,11 @@ const wizardSchema = [
       component: FormSelect,
       label: 'Favorite thing about Vue',
       required: true,
-      options: ['Ease of use', 'Documentation', 'Community']
+      options: [
+        'Ease of use',
+        'Documentation',
+        'Community'
+      ]
     }
   }
 ]
@@ -57,16 +61,12 @@ describe('SchemaWizard', () => {
       }
     })
 
-    expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(
-      wizardSchema[0]
-    )
+    expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[0])
     await wrapper.setProps({
       step: 1
     })
 
-    expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(
-      wizardSchema[1]
-    )
+    expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[1])
   })
 
   // TODO: Figure out a way to mock the provide function in Vue 3
@@ -86,18 +86,23 @@ describe('SchemaWizard', () => {
     const wrapper = mount(SchemaWizard, {
       props: {
         schema: wizardSchema,
-        modelValue: [{}, { something: 'else' }],
+        modelValue: [
+          {},
+          { something: 'else' }
+        ],
         step: 0
       }
     })
 
-    wrapper
-      .findComponent(SchemaForm)
-      .vm.$emit('update:modelValue', { firstName: 'Marina' })
+    wrapper.findComponent(SchemaForm).vm.$emit('update:modelValue', {
+      firstName: 'Marina' })
 
     expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
     expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-      [{ firstName: 'Marina' }, { something: 'else' }]
+      [
+        { firstName: 'Marina' },
+        { something: 'else' }
+      ]
     ])
   })
 })
