@@ -227,8 +227,7 @@ describe('SchemaForm', () => {
         props: { schema, modelValue: {} }
       })
 
-      wrapper
-        .findComponent(FormText).vm.$emit('update:modelValue', 'first name')
+      wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'first name')
 
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
@@ -258,9 +257,7 @@ describe('SchemaForm', () => {
         props: { schema, modelValue: { firstName: 'first name' } }
       })
 
-      wrapper
-        .findComponent(FormSelect)
-        .vm.$emit('update:modelValue', 'Documentation')
+      wrapper.findComponent(FormSelect).vm.$emit('update:modelValue', 'Documentation')
       expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
       expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
         { firstName: 'first name', favoriteThingAboutVue: 'Documentation' }
@@ -392,8 +389,7 @@ describe('SchemaForm', () => {
         props: {
           schema,
           modelValue: {
-            firstName: 'delete me',
-            favoriteThingAboutVue: 'Documentation'
+            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
           }
         }
       })
