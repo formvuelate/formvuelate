@@ -10,6 +10,16 @@ const emit = jest.fn()
 const attrs = {}
 const context = { emit, attrs }
 
+const FormText = {
+  template: '<input/>',
+  props: ['label']
+}
+
+const FormSelect = {
+  template: '<select />',
+  props: ['label', 'options']
+}
+
 let warn
 
 describe('SchemaFormFactory', () => {
@@ -61,5 +71,16 @@ describe('SchemaFormFactory', () => {
       context
     )
     expect(paramFn).toEqualFunction(SchemaForm.setup(props, context))
+  })
+
+  it('passes components to be registered to the output SchemaForm', () => {
+    const factory = SchemaFormFactory([], {
+      FormText, FormSelect
+    })
+
+    expect(factory.components).toEqual({
+      FormText,
+      FormSelect
+    })
   })
 })

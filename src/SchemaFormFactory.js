@@ -1,6 +1,6 @@
 import SchemaForm from './SchemaForm'
 
-export default function SchemaFormFactory (plugins = []) {
+export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup
   const originalSetup = SchemaForm.setup
 
@@ -23,6 +23,10 @@ export default function SchemaFormFactory (plugins = []) {
 
   return {
     ...SchemaForm,
+    components: {
+      ...SchemaForm.components,
+      ...components
+    },
     // Return a customized setup function with plugins
     // as the new SchemaForm setup
     setup
