@@ -249,7 +249,7 @@ Example output:
 ```html
 <form>
   <div class="schema-row custom-class-a custom-class-b">
-    Fields
+    [...]
   </div>
 </form>
 ```
