@@ -236,7 +236,7 @@ If you ever require to add additional classes to each structural row in the gene
 
 These classes will be appended, and will _not_ substitute the `schema-row` class that FormVueLate already provides.
 
-The prop accepts `[String, Object, Array]` as valid types.
+The `schemaRowClasses` prop accepts `[String, Object, Array]` as valid types, conforming to Vue's [class and style binding syntax](https://v3.vuejs.org/guide/class-and-style.html#binding-html-classes) 
 
 ```html
 <SchemaForm
