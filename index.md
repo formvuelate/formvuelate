@@ -232,7 +232,7 @@ The example below applies a `margin-right` style to the first input.
 
 ### Prop: schemaRowClasses
 
-If you ever require to add additional classes to each structural row in the generated form, you can use the `schemaRowClasses` property to inject them.
+If you ever require to add additional classes to each structural row in the generated form, you can use the `schemaRowClasses` property of the `SchemaForm` component to inject them.
 
 These classes will be appended, and will _not_ substitute the `schema-row` class that FormVueLate already provides.
 
