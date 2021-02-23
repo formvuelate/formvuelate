@@ -17,40 +17,6 @@ markRaw(FormSelect)
 markRaw(FormText)
 markRaw(SchemaForm)
 
-describe('schemaRowClasses', () => {
-  it('renders form with additional classes', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name'
-      }
-    }
-    const wrapper = mount(SchemaForm, {
-      props: { schema, modelValue: {}, schemaRowClasses: 'custom-class-a' }
-    })
-    expect(wrapper.find('.schema-row + .custom-class-a').exists()).toBe(true)
-  })
-  it('renders form with default class', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name'
-      }
-    }
-    const wrapper = mount(SchemaForm, {
-      props: { schema, modelValue: {}, schemaRowClasses: '' }
-    })
-    expect(wrapper.find('.schema-row').exists()).toBe(true)
-  })
-})
 describe('SchemaForm', () => {
   it('renders a form based on a schema', () => {
     const schema = {
@@ -68,6 +34,27 @@ describe('SchemaForm', () => {
     })
 
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+  })
+
+  describe('schemaRowClasses prop', () => {
+    it('renders form rows with user defined classes', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
+      }
+
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {}, schemaRowClasses: 'custom-class-a' }
+      })
+
+      expect(wrapper.findAll('.custom-class-a')).toHaveLength(2)
+    })
   })
 
   describe('array schema', () => {
