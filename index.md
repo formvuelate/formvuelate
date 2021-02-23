@@ -240,7 +240,7 @@ The `schemaRowClasses` prop accepts `[String, Object, Array]` as valid types, co
 
 ```html
 <SchemaForm
-  :schemaRowClasses="my-custom-class-a my-custom-class-b"
+  schemaRowClasses="my-custom-class-a my-custom-class-b"
   :schema="mySchema"
 />
 ```
