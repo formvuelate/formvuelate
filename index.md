@@ -248,11 +248,13 @@ The `schemaRowClasses` prop accepts `[String, Object, Array]` as valid types, co
 Example output:
 
 ```html
+
 <form>
   <div class="schema-row custom-class-a custom-class-b">
     [...]
   </div>
 </form>
+
 ```
 ### Prop: preventModelCleanupOnSchemaChange
 

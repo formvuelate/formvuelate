@@ -53,7 +53,7 @@ describe('SchemaForm', () => {
         props: { schema, modelValue: {}, schemaRowClasses: 'custom-class-a' }
       })
 
-      expect(wrapper.findAll('.custom-class-a')).toHaveLength(2)
+      expect(wrapper.findAll('.schema-row.custom-class-a')).toHaveLength(2)
     })
   })
 
