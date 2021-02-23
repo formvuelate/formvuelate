@@ -9,7 +9,7 @@
     />
 
     <div
-      class="schema-row"
+      :class="['schema-row', schemaRowClasses]"
       v-for="(fields, index) in parsedSchema"
       :key="index"
     >
@@ -58,6 +58,10 @@ export default {
     preventModelCleanupOnSchemaChange: {
       type: Boolean,
       default: false
+    },
+    schemaRowClasses: {
+      type: [String, Object, Array],
+      default: null
     }
   },
   emits: ['submit', 'update:modelValue'],

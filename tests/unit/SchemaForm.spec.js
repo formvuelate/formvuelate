@@ -36,6 +36,27 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
   })
 
+  describe('schemaRowClasses prop', () => {
+    it('renders form rows with user defined classes', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
+      }
+
+      const wrapper = mount(SchemaForm, {
+        props: { schema, modelValue: {}, schemaRowClasses: 'custom-class-a' }
+      })
+
+      expect(wrapper.findAll('.schema-row.custom-class-a')).toHaveLength(2)
+    })
+  })
+
   describe('array schema', () => {
     it('renders a form based on an array schema', () => {
       const schema = [
