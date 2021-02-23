@@ -116,7 +116,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   } else {}
 }(typeof self !== 'undefined' ? self : this, function () {
   function getCurrentScript () {
-    if (document.currentScript) {
+    var descriptor = Object.getOwnPropertyDescriptor(document, 'currentScript')
+    // for chrome
+    if (!descriptor && 'currentScript' in document && document.currentScript) {
+      return document.currentScript
+    }
+
+    // for other browsers with native support for currentScript
+    if (descriptor && descriptor.get !== getCurrentScript && document.currentScript) {
       return document.currentScript
     }
   
@@ -194,7 +201,13 @@ module.exports = require("vue");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "SchemaForm", function() { return /* reexport */ SchemaForm; });
+__webpack_require__.d(__webpack_exports__, "SchemaWizard", function() { return /* reexport */ SchemaWizard; });
+__webpack_require__.d(__webpack_exports__, "SchemaFormFactory", function() { return /* reexport */ SchemaFormFactory; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -252,7 +265,7 @@ function render(_ctx, _cache) {
       }), 128
       /* KEYED_FRAGMENT */
       )), !_ctx.hasParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", {
-        key: 0
+        key: 1
       }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
     }),
     _: 1
@@ -316,7 +329,7 @@ function useParsedSchema(props) {
   };
 }
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=script&lang=js
-function _createForOfIteratorHelper(o) { if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) { var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var it, normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -462,24 +475,22 @@ var SchemaFormvue_type_style_index_0_lang_css = __webpack_require__("2b09");
 SchemaFormvue_type_script_lang_js.render = render
 
 /* harmony default export */ var SchemaForm = (SchemaFormvue_type_script_lang_js);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=7dae742e
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=8ec1805c
 
-function SchemaWizardvue_type_template_id_7dae742e_render(_ctx, _cache) {
+function SchemaWizardvue_type_template_id_8ec1805c_render(_ctx, _cache) {
   var _component_SchemaForm = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaForm");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("form", {
-    onSubmit: _cache[2] || (_cache[2] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(function ($event) {
+    onSubmit: _cache[1] || (_cache[1] = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withModifiers"])(function ($event) {
       return _ctx.$emit('submit', $event);
     }, ["prevent"]))
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm"), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SchemaForm, {
     schema: _ctx.currentSchema,
     modelValue: _ctx.modelValue[_ctx.step] || {},
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return _ctx.update($event);
-    })
-  }, null, 8, ["schema", "modelValue"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm")], 32);
+    "onUpdate:modelValue": _ctx.update
+  }, null, 8, ["schema", "modelValue", "onUpdate:modelValue"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm")], 32);
 }
-// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=7dae742e
+// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=8ec1805c
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=script&lang=js
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || SchemaWizardvue_type_script_lang_js_unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -515,6 +526,7 @@ function SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (le
       required: true
     }
   },
+  emits: ['submit', 'update:modelValue'],
   setup: function setup(props, context) {
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
     var currentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
@@ -540,7 +552,7 @@ function SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (le
 
 
 
-SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_7dae742e_render
+SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_8ec1805c_render
 
 /* harmony default export */ var SchemaWizard = (SchemaWizardvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/SchemaFormFactory.js
@@ -553,6 +565,7 @@ function SchemaFormFactory_defineProperty(obj, key, value) { if (key in obj) { O
 
 function SchemaFormFactory() {
   var plugins = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var components = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   // Copy the original SchemaForm setup
   var originalSetup = SchemaForm.setup;
 
@@ -569,6 +582,7 @@ function SchemaFormFactory() {
   }
 
   return SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, SchemaForm), {}, {
+    components: SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, SchemaForm.components), components),
     // Return a customized setup function with plugins
     // as the new SchemaForm setup
     setup: setup
@@ -581,9 +595,6 @@ function SchemaFormFactory() {
 /* harmony default export */ var src_0 = (SchemaForm);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
-/* concated harmony reexport SchemaForm */__webpack_require__.d(__webpack_exports__, "SchemaForm", function() { return SchemaForm; });
-/* concated harmony reexport SchemaWizard */__webpack_require__.d(__webpack_exports__, "SchemaWizard", function() { return SchemaWizard; });
-/* concated harmony reexport SchemaFormFactory */__webpack_require__.d(__webpack_exports__, "SchemaFormFactory", function() { return SchemaFormFactory; });
 
 
 /* harmony default export */ var entry_lib = __webpack_exports__["default"] = (src_0);
