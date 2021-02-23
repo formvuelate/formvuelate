@@ -253,52 +253,6 @@ Example output:
   </div>
 </form>
 ```
-:::tip
-You might find scenarios where the Field must have a class that depends on the class applied to `schemaRowClasses`. Fortunately, Formvuelate has you covered.
-
-For instance if you need this:
-```html
-<form>
-  <div class="schema-row custom-class-a custom-class-b">
-    <input class="dependant-custom-class-a">
-  </div>
-</form>
-```
-Your schema and component need to use the Prop class
-
-```html
-<template>
-  <SchemaForm :schema="schema" v-model="formData"
-  :schemaRowClasses="my-custom-class-a my-custom-class-b" />
-</template>
-
-<script>
-  import { SchemaForm } from 'formvuelate'
-  import FormText from 'path/to/FormText'
-  import { ref } from 'vue'
-
-  export default {
-    components: { SchemaForm },
-    setup() {
-      const schema = ref({
-        name: {
-          component: FormText,
-          class:'dependant-custom-class-a'
-      })
-      const formData = ref({})
-
-      return {
-        schema,
-        formData
-      }
-    }
-  }
-</script>
-```
-:::
-
-Your component (in this example `FormText`) must have the prop class and use it.
-
 ### Prop: preventModelCleanupOnSchemaChange
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.
