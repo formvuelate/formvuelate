@@ -680,7 +680,7 @@ export default {
 </script>
 ```
 
-Notice that the `schema` declares the `component` property now as a `String`. This is because the generated `SchemaForm` can now register both the injected components locally.
+Notice that the `schema` declares the `component` property as a `String`. This is because the generated `SchemaForm` can now register both the injected components locally.
 
 The reasoning behind this is that locally registered components are _not_ available in sub-components, as [explained by the Vue 3 documentation](https://v3.vuejs.org/guide/component-registration.html#local-registration).
 
