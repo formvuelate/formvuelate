@@ -91,7 +91,9 @@ Let’s assume for this example that you have a component in your project called
 <script>
   import { SchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
-  import { ref } from 'vue'
+  import { ref, markRaw } from 'vue'
+
+  markRaw(FormText)
 
   export default {
     components: { SchemaForm },
@@ -137,7 +139,9 @@ Here's the above example again using `array` format.
 <script>
   import { SchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
-  import { ref } from 'vue'
+  import { ref, markRaw } from 'vue'
+
+  markRaw(FormText)
 
   export default {
     components: { SchemaForm },
@@ -262,6 +266,50 @@ If you want to disable this behavior, set the `preventModelCleanupOnSchemaChange
 ```
 
 Now `SchemaForm` will not automatically delete the `lastName` property, even if `schema` removes the property, and you will preserve the value of the input if it was already present.
+
+### markRaw
+
+You will notice that on our examples we use `markRaw(MyImportedComponent)
+` whenever we import a component that is going to be used directly in a reactive schema.
+
+When making a `schema` reactive by either using `ref` or `computed` and setting the components inside directly as the import as in the following example, we are technically also making the component itself reactive.
+
+```js
+import MyComponent from 'components/MyComponent.vue'
+
+[...]
+const schema = ref({
+  name: {
+    component: MyComponent
+  }
+})
+[...]
+```
+
+Vue will throw a warning in these cases letting you know that making a component reactive is not something you want to do. It will also hint that you can use either `shallowRef` or `markRaw` to address the problem.
+
+We will not go into detail of what these do, because the [Vue 3 documentation](https://v3.vuejs.org/api/basic-reactivity.html#markraw) already covers it in more detail - but we have opted to show the `markRaw` solution because when creating a `computed` schema, which can not also be a `shallowRef`, marking your components with `markRaw` gets the job done without much further thought.
+
+The previous example then, should be enhanced like so.
+
+```js
+import { ref, markRaw } from 'vue'
+import MyComponent from 'components/MyComponent.vue'
+
+markRaw(MyComponent)
+
+[...]
+const schema = ref({
+  name: {
+    component: MyComponent
+  }
+})
+[...]
+```
+
+:::tip
+`markRaw` is not needed when working with `String` format for component names in the schema, since FormVueLate leverages `:is` from Vue's component behind the scenes. Read more about [using locally imported components](/guide/plugins.html#using-locally-imported-components)
+:::
 
 ## Handling submit
 
