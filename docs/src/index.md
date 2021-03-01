@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: ./assets/formvuelate-icon.jpg
+heroImage: /formvuelate-icon.jpg
 tagline: Vue Schema-Driven Form Generation
 actionText: Get Started →
 actionLink: /guide/
