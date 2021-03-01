@@ -33,7 +33,7 @@ You can pick and choose which of the FormVueLate's components you will need. The
 import { SchemaForm, SchemaWizard, SchemaFormFactory } from 'formvuelate'
 ```
 
-# Playground
+## Playground
 
 Modify the Schema on the left to see FormVueLate's `SchemaForm` in action on the right. You can use the following demo input components:
 
