@@ -1,0 +1,19 @@
+{
+  "name": "fvl-docs",
+  "version": "0.0.1",
+  "description": "FormVueLate documentation",
+  "main": "index.js",
+  "authors": {
+    "name": "Marina Mosti",
+    "email": "marina@mosti.com.mx"
+  },
+  "repository": "https://github.com/formvuelate/formvuelate/fvl-docs",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
