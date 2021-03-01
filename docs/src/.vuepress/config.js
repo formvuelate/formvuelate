@@ -40,10 +40,6 @@ module.exports = {
         link: '/guide/',
       },
       {
-        text: 'Plugins',
-        link: '/plugins/'
-      },
-      {
         text: 'Examples',
         link: '/examples/'
       },
@@ -55,7 +51,7 @@ module.exports = {
     sidebar: {
       '/guide/': [
         {
-          title: 'Guide',
+          title: 'Essentials',
           collapsable: false,
           children: [
             '',
@@ -63,14 +59,12 @@ module.exports = {
             'schema-wizard',
             'accessibility'
           ]
-        }
-      ],
-      '/plugins/': [
+        },
         {
           title: 'Plugins',
           collapsable: false,
           children: [
-            '',
+            'plugins',
             'lookup',
             'veevalidate',
             'vuelidate',

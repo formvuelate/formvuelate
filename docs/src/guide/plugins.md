@@ -1,11 +1,9 @@
 ---
 sidebarDepth: 3
 ---
-# Plugins
+# SchemaFormFactory
 
 FormVueLate ships with the ability to import and use plugins to extend it's capabilities.
-
-## SchemaFormFactory
 
 In order to use a plugin with `SchemaForm`, you have to use the provided `SchemaFormFactory` function.
 
