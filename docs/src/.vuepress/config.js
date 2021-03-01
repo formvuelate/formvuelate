@@ -18,7 +18,8 @@ module.exports = {
   head: [
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
     ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
 
   /**
@@ -38,6 +39,14 @@ module.exports = {
         link: '/guide/',
       },
       {
+        text: 'Plugins',
+        link: '/plugins/'
+      },
+      {
+        text: 'Examples',
+        link: '/examples/'
+      },
+      {
         text: 'GitHub',
         link: 'https://github.com/formvuelate'
       }
@@ -49,10 +58,34 @@ module.exports = {
           collapsable: false,
           children: [
             '',
-            'using-vue',
+            'schema-form',
+            'schema-wizard',
+            'accessibility'
           ]
         }
       ],
+      '/plugins/': [
+        {
+          title: 'Plugins',
+          collapsable: false,
+          children: [
+            '',
+            'lookup',
+            'veevalidate',
+            'vuelidate',
+            'customplugins'
+          ]
+        }
+      ],
+      '/examples/': [
+        {
+          title: 'Examples',
+          collapsable: false,
+          children: [
+            ''
+          ]
+        }
+      ]
     }
   },
 
