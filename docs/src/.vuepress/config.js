@@ -33,6 +33,7 @@ module.exports = {
     docsDir: '',
     editLinkText: '',
     lastUpdated: false,
+    displayAllHeaders: true,
     nav: [
       {
         text: 'Guide',
