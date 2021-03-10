@@ -1,7 +1,8 @@
+import useSchemaForm from '../../src/features/useSchemaForm'
 import SchemaForm from '../../src/SchemaForm'
 
-import { shallowMount, mount } from '@vue/test-utils'
-import { markRaw } from 'vue'
+import { mount } from '@vue/test-utils'
+import { markRaw, ref } from 'vue'
 
 const FormText = {
   template: '<input/>',
@@ -11,6 +12,27 @@ const FormText = {
 const FormSelect = {
   template: '<select />',
   props: ['label', 'options']
+}
+
+const SchemaWrapperFactory = (schema, binds, formModel) => {
+  return {
+    template: `
+      <SchemaForm
+        :schema="schemaRef"
+        v-bind="binds"
+      />
+    `,
+    components: { SchemaForm },
+    setup () {
+      const schemaRef = ref(schema)
+      useSchemaForm(formModel || schemaRef)
+
+      return {
+        schemaRef,
+        binds
+      }
+    }
+  }
 }
 
 markRaw(FormSelect)
@@ -29,9 +51,8 @@ describe('SchemaForm', () => {
         label: 'Last Name'
       }
     }
-    const wrapper = mount(SchemaForm, {
-      props: { schema, modelValue: {} }
-    })
+
+    const wrapper = mount(SchemaWrapperFactory(schema))
 
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
   })
@@ -49,9 +70,10 @@ describe('SchemaForm', () => {
         }
       }
 
-      const wrapper = mount(SchemaForm, {
-        props: { schema, modelValue: {}, schemaRowClasses: 'custom-class-a' }
-      })
+      const wrapper = mount(SchemaWrapperFactory(
+        schema,
+        { schemaRowClasses: 'custom-class-a' }
+      ))
 
       expect(wrapper.findAll('.schema-row.custom-class-a')).toHaveLength(2)
     })
@@ -72,9 +94,7 @@ describe('SchemaForm', () => {
         }
       ]
 
-      const wrapper = mount(SchemaForm, {
-        props: { schema, modelValue: {} }
-      })
+      const wrapper = mount(SchemaWrapperFactory(schema))
 
       expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     })
@@ -100,9 +120,7 @@ describe('SchemaForm', () => {
         ]
       ]
 
-      const wrapper = mount(SchemaForm, {
-        props: { schema, modelValue: {} }
-      })
+      const wrapper = mount(SchemaWrapperFactory(schema))
 
       expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
     })
@@ -141,9 +159,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    const wrapper = mount(SchemaForm, {
-      props: { schema: nestedSchema, modelValue: {} }
-    })
+    const wrapper = mount(SchemaWrapperFactory(nestedSchema))
 
     expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
     expect(wrapper.findAllComponents(FormSelect)).toHaveLength(1)
@@ -167,12 +183,13 @@ describe('SchemaForm', () => {
       }
     }
 
-    const wrapper = mount(SchemaForm, {
-      props: { schema: nestedSchema, modelValue: {} }
-    })
+    const wrapper = mount(SchemaWrapperFactory(nestedSchema))
 
-    expect(wrapper.vm.hasParentSchema).toBe(false)
-    expect(wrapper.findComponent(SchemaForm).vm.hasParentSchema).toBe(true)
+    const schemaForms = wrapper.findAllComponents(SchemaForm)
+
+    expect(schemaForms[0].vm.hasParentSchema).toBe(false)
+    expect(schemaForms[1].vm.hasParentSchema).toBe(true)
+    expect(schemaForms[2].vm.hasParentSchema).toBe(true)
   })
 
   it('injects a unique id to each component', () => {
@@ -187,12 +204,10 @@ describe('SchemaForm', () => {
       }
     }
 
-    const wrapper = shallowMount(SchemaForm, {
-      props: { schema, modelValue: {} }
-    })
+    const wrapper = mount(SchemaWrapperFactory(schema))
 
     const ids = []
-    for (const row of wrapper.vm.parsedSchema) {
+    for (const row of wrapper.findComponent(SchemaForm).vm.parsedSchema) {
       for (const el of row) {
         expect(el.uuid).toBeTruthy()
         expect(ids).not.toContain(el.uuid)
@@ -201,100 +216,102 @@ describe('SchemaForm', () => {
     }
   })
 
-  describe('emits', () => {
-    it('update:modelValue when an input updates', async () => {
-      const schema = {
-        firstName: {
-          component: FormText,
-          label: 'First Name'
-        }
-      }
-
-      const wrapper = mount(SchemaForm, {
-        props: { schema, modelValue: {} }
+  describe('syncing model data', () => {
+    it('updates the schemaRef injected with useSchemaForm when an input emits update:modelValue', () => {
+      const formModel = ref({
+        firstName: 'First',
+        lastName: 'Last'
       })
 
-      wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'first name')
-
-      expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { firstName: 'first name' }
-      ])
-    })
-
-    it('update:modelValue with the appended current value from the model ', () => {
       const schema = {
         firstName: {
           component: FormText,
           label: 'First Name'
         },
-        favoriteThingAboutVue: {
-          component: FormSelect,
-          label: 'Favorite thing about Vue',
-          required: true,
-          options: [
-            'Ease of use',
-            'Documentation',
-            'Community'
-          ]
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
         }
       }
 
-      const wrapper = mount(SchemaForm, {
-        props: { schema, modelValue: { firstName: 'first name' } }
-      })
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
 
-      wrapper.findComponent(FormSelect).vm.$emit('update:modelValue', 'Documentation')
-      expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { firstName: 'first name', favoriteThingAboutVue: 'Documentation' }
-      ])
+      wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'Marina')
+
+      expect(formModel.value.firstName).toEqual('Marina')
     })
 
-    it('update:modelValue when a component fires update-batch', () => {
-      const schema = {
-        name: {
-          component: FormText,
-          label: 'Full Name'
-        }
-      }
-
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema,
-          modelValue: {
-            original: true
+    it('correctly updates the schemaRef on deeply nested schemas', () => {
+      const formModel = ref({
+        levelOne: {
+          levelTwo: {
+            lastName: 'Last'
           }
         }
       })
 
-      wrapper.findComponent(FormText).vm.$emit('update-batch', {
-        firstName: 'Marina',
-        lastName: 'Mosti'
-      })
+      const schema = {
+        levelOne: {
+          component: SchemaForm,
+          schema: {
+            levelTwo: {
+              component: SchemaForm,
+              schema: {
+                lastName: {
+                  component: FormText,
+                  label: 'Last Name'
+                }
+              }
+            }
+          }
+        }
+      }
 
-      expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { original: true, firstName: 'Marina', lastName: 'Mosti' }
-      ])
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
+
+      wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'Mosti')
+
+      expect(formModel.value.levelOne.levelTwo.lastName).toEqual('Mosti')
+    })
+
+    it('correctly updates the schemaRef on deeply nested schemas when the ref is not specifically populated', () => {
+      const formModel = ref({})
+
+      const schema = {
+        levelOne: {
+          component: SchemaForm,
+          schema: {
+            levelTwo: {
+              component: SchemaForm,
+              schema: {
+                lastName: {
+                  component: FormText,
+                  label: 'Last Name'
+                }
+              }
+            }
+          }
+        }
+      }
+
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
+
+      wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'Mosti')
+
+      expect(formModel.value.levelOne.levelTwo.lastName).toEqual('Mosti')
     })
   })
 
   describe('binds', () => {
     it('the properties in a field into the component', () => {
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema: {
-            firstName: {
-              component: FormText,
-              label: 'label',
-              one: 1,
-              two: 2
-            }
-          },
-          modelValue: {}
+      const wrapper = mount(SchemaWrapperFactory({
+        firstName: {
+          component: FormText,
+          label: 'label',
+          one: 1,
+          two: 2
         }
-      })
+      }))
 
       const field = wrapper.findComponent(FormText)
       expect(field.vm.label).toEqual('label')
@@ -303,25 +320,20 @@ describe('SchemaForm', () => {
     })
 
     it('the schema only, when a schema prop is set', () => {
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema: {
-            nested: {
-              component: SchemaForm,
-              schema: { firstName: { component: FormText, label: 'test' } },
-              one: 1
-            }
-          },
-          modelValue: {}
+      const wrapper = mount(SchemaWrapperFactory({
+        nested: {
+          component: SchemaForm,
+          schema: { firstName: { component: FormText, label: 'test' } },
+          one: 1
         }
-      })
+      }))
 
-      const schemaForm = wrapper.findComponent(SchemaForm)
+      const schemaForms = wrapper.findAllComponents(SchemaForm)
 
-      expect(schemaForm.vm.schema).toEqual(
+      expect(schemaForms[1].vm.schema).toEqual(
         expect.objectContaining({ firstName: expect.anything() })
       )
-      expect(schemaForm.vm.$attrs.one).not.toEqual(1)
+      expect(schemaForms[1].vm.$attrs.one).not.toEqual(1)
     })
 
     it('the sharedConfig into all the elements', () => {
@@ -336,15 +348,7 @@ describe('SchemaForm', () => {
         }
       }
 
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema,
-          modelValue: {},
-          sharedConfig: {
-            shared: 'test'
-          }
-        }
-      })
+      const wrapper = mount(SchemaWrapperFactory(schema, { sharedConfig: { shared: 'test' } }))
 
       const inputs = wrapper.findAllComponents(FormText)
       for (const input of inputs) {
@@ -372,14 +376,12 @@ describe('SchemaForm', () => {
         }
       }
 
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema,
-          modelValue: {
-            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
-          }
-        }
+      const formModel = ref({
+        firstName: 'Mr Piddles International Cat of Mistery',
+        favoriteThingAboutVue: 'Documentation'
       })
+
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
 
       const copySchema = { ...schema }
       delete copySchema.firstName
@@ -388,10 +390,7 @@ describe('SchemaForm', () => {
       })
       await wrapper.vm.$nextTick()
 
-      expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
-      expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-        { favoriteThingAboutVue: 'Documentation' }
-      ])
+      expect(formModel.value).toEqual({ favoriteThingAboutVue: 'Documentation' })
     })
 
     it('prevents model clean up if the preventModelCleanupOnSchemaChange prop is true', async () => {
@@ -412,15 +411,12 @@ describe('SchemaForm', () => {
         }
       }
 
-      const wrapper = mount(SchemaForm, {
-        props: {
-          schema,
-          modelValue: {
-            firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
-          },
-          preventModelCleanupOnSchemaChange: true
-        }
+      const formModel = ref({
+        firstName: 'Mr Piddles International Cat of Mistery',
+        favoriteThingAboutVue: 'Documentation'
       })
+
+      const wrapper = mount(SchemaWrapperFactory(schema, { preventModelCleanupOnSchemaChange: true }, formModel))
 
       const copySchema = { ...schema }
       delete copySchema.firstName
@@ -429,9 +425,9 @@ describe('SchemaForm', () => {
       })
       await wrapper.vm.$nextTick()
 
-      expect(wrapper.emitted()['update:modelValue']).toBeUndefined()
-      expect(wrapper.vm.modelValue).toEqual({
-        firstName: 'delete me', favoriteThingAboutVue: 'Documentation'
+      expect(formModel.value).toEqual({
+        firstName: 'Mr Piddles International Cat of Mistery',
+        favoriteThingAboutVue: 'Documentation'
       })
     })
   })

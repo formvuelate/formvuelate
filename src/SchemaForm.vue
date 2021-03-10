@@ -13,14 +13,11 @@
       v-for="(fields, index) in parsedSchema"
       :key="index"
     >
-      <component
+      <SchemaField
         v-for="field in fields"
-        v-bind="binds(field)"
         :key="field.model"
-        :is="field.component"
-        :modelValue="val(field)"
-        @update:modelValue="update(field.model, $event)"
-        @update-batch="updateBatch(field.model, $event)"
+        :field="field"
+        :sharedConfig="sharedConfig"
         class="schema-col"
       />
     </div>
@@ -34,9 +31,12 @@
 
 <script>
 import useParsedSchema from './features/ParsedSchema'
+import SchemaField from './SchemaField.vue'
+
 import { computed, watch, provide, inject } from 'vue'
 
 export default {
+  components: { SchemaField },
   props: {
     schema: {
       type: [Object, Array],
@@ -47,10 +47,6 @@ export default {
         return schema.filter(field => !Array.isArray(field) && (!field.model && !field.schema)).length === 0
       }
     },
-    modelValue: {
-      type: Object,
-      required: true
-    },
     sharedConfig: {
       type: Object,
       default: () => ({})
@@ -58,6 +54,10 @@ export default {
     preventModelCleanupOnSchemaChange: {
       type: Boolean,
       default: false
+    },
+    nestedSchemaModel: {
+      type: String,
+      default: ''
     },
     schemaRowClasses: {
       type: [String, Object, Array],
@@ -67,11 +67,20 @@ export default {
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit }) {
     const hasParentSchema = inject('parentSchemaExists', false)
+
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
     }
 
+    if (props.nestedSchemaModel) {
+      const path = inject('schemaModelPath', '')
+
+      provide('schemaModelPath', path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel)
+    }
+
     const { parsedSchema } = useParsedSchema(props)
+
+    const formModel = inject('formModel', {})
 
     const cleanupModelChanges = (schema, oldSchema) => {
       if (props.preventModelCleanupOnSchemaChange) return
@@ -86,44 +95,12 @@ export default {
       const diff = oldKeys.filter(i => !newKeys.includes(i))
       if (!diff.length) return
 
-      const val = { ...props.modelValue }
-
       for (const key of diff) {
-        delete val[key]
+        delete formModel.value[key]
       }
-
-      emit('update:modelValue', val)
     }
 
     watch(parsedSchema, cleanupModelChanges)
-
-    const update = (property, value) => {
-      emit('update:modelValue', {
-        ...props.modelValue,
-        [property]: value
-      })
-    }
-
-    const updateBatch = (property, values) => {
-      emit('update:modelValue', {
-        ...props.modelValue,
-        ...values
-      })
-    }
-
-    const binds = (field) => {
-      return field.schema
-        ? { schema: field.schema }
-        : { ...props.sharedConfig, ...field }
-    }
-
-    const val = (field) => {
-      if (field.schema && !props.modelValue[field.model]) {
-        return {}
-      }
-
-      return props.modelValue[field.model]
-    }
 
     const formBinds = computed(() => {
       if (hasParentSchema) return {}
@@ -138,10 +115,6 @@ export default {
 
     return {
       parsedSchema,
-      val,
-      binds,
-      update,
-      updateBatch,
       hasParentSchema,
       formBinds
     }
