@@ -4,6 +4,7 @@
 
     <SchemaForm
       :schema="currentSchema"
+      preventModelCleanupOnSchemaChange
     />
 
     <slot name="afterForm" />
