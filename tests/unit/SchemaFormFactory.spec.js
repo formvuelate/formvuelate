@@ -2,8 +2,7 @@ import SchemaFormFactory from '../../src/SchemaFormFactory'
 import SchemaForm from '../../src/SchemaForm'
 
 const props = {
-  schema: {},
-  modelValue: {}
+  schema: {}
 }
 
 const emit = jest.fn()
@@ -78,9 +77,8 @@ describe('SchemaFormFactory', () => {
       FormText, FormSelect
     })
 
-    expect(factory.components).toEqual({
-      FormText,
-      FormSelect
-    })
+    expect(factory.components).toEqual(
+      expect.objectContaining({ FormText, FormSelect })
+    )
   })
 })
