@@ -41,7 +41,6 @@ Now that the component is created, you can register it and use it in your templa
   <div id="app">
     <SchemaFormWithValidation
       :schema="mySchema"
-      v-model="myData"
     />
   </div>
 </template>
@@ -233,7 +232,6 @@ Then you can use the schema in your template
 <div id="app">
   <SchemaFormWithPlugin
     :schema="schema"
-    v-model="myData"
   />
 </div>
 ```
@@ -250,7 +248,6 @@ This example uses `yup` to define validation schemas for your forms.
     <SchemaFormWithValidation
       :schema="schema"
       :validation-schema="validationSchema"
-      v-model="formData"
     />
   </div>
 </template>
@@ -268,6 +265,7 @@ export default {
     ])
 
     const formData = ref({})
+    useSchemaForm(formData)
 
     // The validation schema
     const validationSchema = yup.object().shape({
@@ -278,7 +276,6 @@ export default {
 
     return {
       schema,
-      formData,
       validationSchema
     }
   }
@@ -294,7 +291,6 @@ The `VeeValidatePlugin` automatically handles `SchemaForm` submits, and triggers
 <template>
   <SchemaForm
     @submit="onSubmit"
-    v-model="formData"
     :schema="schema"
   >
     <template #afterForm>
@@ -315,7 +311,6 @@ You can provide initial validation state to the `SchemaForm`, to set initial err
 ```html
 <template>
   <SchemaForm
-    v-model="formData"
     :schema="schema"
     :initial-errors="initialErrors"
   >
@@ -333,13 +328,14 @@ export default {
     ])
 
     const formData = ref({})
+    useSchemaForm(formData)
+
     const initialErrors = {
       email: 'This email is already taken',
       password: 'Password must be at least 8 characters long'
     }
 
     return {
-      formData,
       schema,
       initialErrors
     }
@@ -355,7 +351,6 @@ You can provide `initial-touched` and `initial-dirty` props to set the initial `
 ```html
 <template>
   <SchemaForm
-    v-model="formData"
     :schema="schema"
     :initial-touched="initialTouched"
     :initial-dirty="initialDirty"
@@ -374,6 +369,8 @@ export default {
     ])
 
     const formData = ref({})
+    useSchemaForm(formData)
+
     const initialTouched = {
       email: true,
       password: false

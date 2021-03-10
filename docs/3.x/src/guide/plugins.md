@@ -16,7 +16,7 @@ import { SchemaFormFactory } from 'formvuelate'
 `SchemaFormFactory` accepts an array of plugins that will be used to generate the `SchemaForm`.
 
 :::warning Important
-`SchemaFormFactory` returns an extended version of `SchemaForm`, so all the props required by `SchemaForm` like `schema` and `modelValue`/`v-model` are still required.
+`SchemaFormFactory` returns an extended version of `SchemaForm`, so the props required by `SchemaForm` like `schema` are still required - as well as the use of `useSchemaForm` to define the form model.
 :::
 
 The order in which you pass the plugins is *important*, as they will be applied in the order they are received.
@@ -25,7 +25,7 @@ Each plugin will modify the `setup` function of `SchemaForm` and change the way 
 
 ```html
 <template>
-  <SchemaFormWithPlugins :schema="mySchema" v-model="myData"/>
+  <SchemaFormWithPlugins :schema="mySchema" />
 </template>
 
 <script>
@@ -33,6 +33,9 @@ import useVuelidate from '@vuelidate'
 import VuelidatePlugin from '@formvuelate/plugin-vuelidate'
 import LookupPlugin from '@formvuelate/plugin-lookup'
 import VeeValidatePlugin from '@formvuelate/plugin-vee-validate'
+
+import { SchemaFormFactory, useSchemaForm } from 'formvuelate'
+import { ref } from 'vue'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
   LookupPlugin({
@@ -48,6 +51,18 @@ const SchemaFormWithPlugins = SchemaFormFactory([
 export default {
   components: {
     SchemaFormWithPlugins
+  },
+  setup () {
+    const formData = ref({})
+    useSchemaForm(formData)
+
+    const mySchema = ref({
+      // Schema
+    })
+
+    return {
+      mySchema
+    }
   }
 }
 </script>
@@ -66,13 +81,13 @@ In the following example, two components `FormSelect` and `FormText` are importe
 ```html
 <template>
   <div id="app">
-    <SchemaForm :schema="schema" v-model="form" />
+    <SchemaForm :schema="schema" />
   </div>
 </template>
 
 <script>
 import { ref, markRaw } from "vue"
-import { SchemaFormFactory } from "formvuelate"
+import { SchemaFormFactory, useSchemaForm } from "formvuelate"
 import FormText from "@/components/FormText"
 import FormSelect from "@/components/FormSelect"
 
@@ -90,6 +105,7 @@ export default {
       name: '',
       pet: 'cat'
     })
+    useSchemaForm(form)
 
     // We can now declare our `component` property as a string, since
     // the component will be registered locally within the SchemaForm component
@@ -106,7 +122,6 @@ export default {
     })
 
     return {
-      form,
       schema,
     }
   },

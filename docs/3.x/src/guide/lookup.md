@@ -47,7 +47,6 @@ Now that we have created our new component, we can pass it to our instance's `co
   <div id="app">
     <SchemaFormWithPlugin
       :schema="mySchema"
-      v-model="myData"
     />
   </div>
 </template>
