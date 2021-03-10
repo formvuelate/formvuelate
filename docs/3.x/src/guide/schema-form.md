@@ -3,35 +3,29 @@ sidebarDepth: 3
 ---
 # SchemaForm
 
-The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `modelValue`, which will hold the state of the form.
+The `SchemaForm` requires one `prop`, `schema`, which is the meta-data of your form. You must also import the `useSchemaForm` composable which we will use in our setup function to initialize the form's `model` where the user's data is kept.
 
-```html
-<SchemaForm :schema="mySchema" :modelValue="formData" />
-```
-
-The `SchemaForm` will `$emit` **update:modelValue** events when your components update. This means that you are able to either:
-
-- use `v-model` on it
-- or, manually capture the `@update:modelValue` event with a method of your own while injecting the `:modelValue` property.
-
-Example with `v-model`:
 
 ```html
 <template>
-  <SchemaForm :schema="mySchema" v-model="formData" />
+  <SchemaForm :schema="mySchema" />
 </template>
 
 <script>
 import { ref } from 'vue'
+import { SchemaForm, useSchemaForm } from 'formvuelate'
+
 export default {
-  setup() {
-    const formData = ref({})
+  components: { SchemaForm },
+  setup () {
+    const formModel = ref({})
+    useSchemaForm(formModel)
+
     const mySchema = ref({
-      // some schema here
+      // Schema here
     })
 
     return {
-      formData,
       mySchema
     }
   }
@@ -39,39 +33,12 @@ export default {
 </script>
 ```
 
-Example with manual bindings:
+`SchemaForm` will automatically update the state within your `formModel` when your components update.
 
-```html
-<template>
-  <SchemaForm
-    :schema="mySchema"
-    :modelValue="formData"
-    @update:modelValue="updateForm"
-  />
-</template>
+### v-model <Badge text="2.x" type="warning"/>
+Earlier versions of FormVueLate used `v-model` as the default way of keeping the two way binding with the form's state. This forced the whole form to re-render whenever any of the child inputs emitted a new value.
 
-<script>
-import { ref } from 'vue'
-export default {
-  setup() {
-    const formData = ref({})
-    const mySchema = ref({
-      // some schema here
-    })
-
-    const updateForm = form => {
-      formData.value = form
-    }
-
-    return {
-      formData,
-      mySchema,
-      updateForm
-    }
-  }
-}
-</script>
-```
+`v-model` is no longer supported, and will not update your form's model. Please use `useSchemaForm` instead.
 
 ## Props
 
@@ -85,11 +52,11 @@ Let’s assume for this example that you have a component in your project called
 
 ```html
 <template>
-  <SchemaForm :schema="schema" v-model="formData" />
+  <SchemaForm :schema="schema" />
 </template>
 
 <script>
-  import { SchemaForm } from 'formvuelate'
+  import { SchemaForm, useSchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
   import { ref, markRaw } from 'vue'
 
@@ -106,11 +73,12 @@ Let’s assume for this example that you have a component in your project called
           component: FormText
         }
       })
+
       const formData = ref({})
+      useSchemaForm(formData)
 
       return {
-        schema,
-        formData
+        schema
       }
     }
   }
@@ -133,11 +101,11 @@ Here's the above example again using `array` format.
 
 ```html
 <template>
-  <SchemaForm :schema="schema" v-model="formData" />
+  <SchemaForm :schema="schema" />
 </template>
 
 <script>
-  import { SchemaForm } from 'formvuelate'
+  import { SchemaForm, useSchemaForm } from 'formvuelate'
   import FormText from 'path/to/FormText'
   import { ref, markRaw } from 'vue'
 
@@ -157,10 +125,10 @@ Here's the above example again using `array` format.
         }
       ])
       const formData = ref({})
+      useSchemaForm(formData)
 
       return {
-        schema,
-        formData
+        schema
       }
     }
   }
@@ -187,7 +155,7 @@ The `div` will have a class named `schema-row` to apply the layout. You can targ
 The example below applies a `margin-right` style to the first input.
 :::
 
-<iframe src="https://codesandbox.io/embed/fvl-horizontal-form-nfefc?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
+<iframe src="https://codesandbox.io/embed/fvl-horizontal-form-3x-ldt0i?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
      title="FVL Horizontal Form"
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
@@ -224,7 +192,7 @@ Example output:
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.
 
-That means that if at runtime the schema deletes one of the elements inside of it, the output of the `modelValue` of `SchemaForm` will no longer contain the user's data if it was already present.
+That means that if at runtime the schema deletes one of the elements inside of it, the output of the form's model bound by `useSchemaForm` will no longer contain the user's data if it was already present.
 
 Let's pretend that you have a form that is built with the following schema.
 
@@ -248,7 +216,7 @@ If the user fills out both of the inputs, you can expect an output like the foll
 }
 ```
 
-If at this point your schema changes, and deletes the `lastName` property, `SchemaForm` is smart enough to remove that from the output and emit a new `update:modelValue` event since that field is effectively _gone_.
+If at this point your schema changes, and deletes the `lastName` property, `SchemaForm` is smart enough to remove that from the output and update the form's model since that field is effectively _gone_.
 
 ```js
 {
@@ -323,7 +291,6 @@ In order to react and listen to the `submit` events, simply add a `@submit` list
 <template>
   <SchemaForm
     @submit="onSubmit"
-    v-model="myData"
     :schema="mySchema"
   />
 </template>

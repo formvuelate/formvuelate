@@ -5,31 +5,34 @@ sidebarDepth: 3
 
 FormVueLate also ships with a component called `SchemaWizard`, that allows you to easily build stepped, wizard-like, forms.
 
-The `SchemaWizard` component exposes and **requires** three props: `schema`, `step`, and `modelValue`.
+The `SchemaWizard` component exposes and **requires** two props: `schema` and `step`.
 
-## v-model
+## Form model
 
-The `SchemaWizard` component has a prop `modelValue` and emits `update:modelValue` events.
-
-This means that you can `v-model` the results of the form into your parent component's state, or manually bind the property and listen to the event for more control.
+The `SchemaWizard` component implements `SchemaForm` components under the hood. This means that when using `SchemaWizard` you should also make use of the `useSchemaForm` composable that ships with FormVueLate.
 
 ```html
 <template>
-  <SchemaWizard :schema="wizardSchema" :step="step" v-model="userData">
+  <SchemaWizard :schema="wizardSchema" :step="step" />
 </template>
 
 <script>
 import { ref } from 'vue'
+import { SchemaWizard, useSchemaForm } from 'formvuelate'
+
 export default {
+  components: { SchemaWizard },
   setup () {
     const step = ref(0)
     const userData = ref({})
+    useSchemaForm(userData)
+
     const wizardSchema = ref({
       // schema
     })
+
     return {
       step,
-      userData,
       wizardSchema
     }
   }
@@ -79,84 +82,6 @@ The `step` is the index of the currently displayed part of the stepped schema. I
 
 Step `1` will indicate that the `SchemaWizard` should display index `1` of the form — the email and terms checkbox.
 
-```html
-<template>
-  <SchemaWizard :schema="wizardSchema" :step="step">
-</template>
-
-<script>
-import { ref } from 'vue'
-export default {
-  setup () {
-    const step = ref(0)
-    const wizardSchema = ref({
-      // schema
-    })
-    return {
-      step,
-      wizardSchema
-    }
-  }
-}
-</script>
-```
-
-### modelValue
-
-This property is required, and of type `Array`.
-
-This is the property that the `SchemaWizard` component will use for `v-model` binding and to inject form values into subcomponents.
-
-This is an example output from the example schema above after the user fills out the fields.
-
-```javascript
-[
-  {
-    firstName: 'Jane',
-    lastName: 'Doe'
-  },
-  {
-    email: 'jane@gmail.com',
-    terms: true
-  }
-]
-```
-
-Example injecting `userData` as the `modelValue`:
-
-```html
-<template>
-  <SchemaWizard
-    :schema="wizardSchema"
-    :step="step"
-    :modelValue="userData"
-    @update:modelValue="updateData"
-/>
-</template>
-
-<script>
-import { ref } from 'vue'
-export default {
-  setup () {
-    const step = ref(0)
-    const userData = ref({})
-    const wizardSchema = ref({
-      // schema
-    })
-    const updateData = data => {
-      userData.value = data
-    }
-    return {
-      step,
-      userData,
-      updateData,
-      wizardSchema
-    }
-  }
-}
-</script>
-```
-
 ## Handling submit
 
 `SchemaWizard` will automatically create a `<form>` wrapper for you on the top level regardless of how many sub-forms you provide, and fire a `submit` event when the form is submitted.
@@ -169,7 +94,6 @@ In order to react and listen to the `submit` events, simply add a `@submit` list
 <template>
   <SchemaWizard
     @submit="onSubmit"
-    v-model="myData"
     :schema="mySchema"
     :step="step"
   />
@@ -207,3 +131,12 @@ Always use the `afterForm` slot to add your `type="submit"` button, that way it 
 
 You don't have to listen to this `submit` button's click events, as `SchemaWizard` will take care of emitting a `submit` event whenever it is clicked, or the form is submitted in any other way.
 :::
+
+The following example uses the `afterForm` slot to toggle Next and Back button s to navigate through the form.
+
+<iframe src="https://codesandbox.io/embed/fvl-wizard-3x-uye2z?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="FVL Horizontal Form"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
