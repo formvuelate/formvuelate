@@ -46,6 +46,14 @@ module.exports = {
       {
         text: 'GitHub',
         link: 'https://github.com/formvuelate'
+      },
+      {
+        text: '3.x',
+        items: [
+          {
+            text: '2.x', link: 'https://formvuelate-2x.netlify.app/'
+          }
+        ]
       }
     ],
     sidebar: {

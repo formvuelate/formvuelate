@@ -46,6 +46,14 @@ module.exports = {
       {
         text: 'GitHub',
         link: 'https://github.com/formvuelate'
+      },
+      {
+        text: '2.x',
+        items: [
+          {
+            text: '3.x', link: 'https://formvuelate.js.org/'
+          }
+        ]
       }
     ],
     sidebar: {

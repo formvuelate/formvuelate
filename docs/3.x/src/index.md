@@ -10,6 +10,10 @@ actionLink: /guide/
 
 ## Installation
 
+:::tip FormVueLate 2.x
+The docs for FormVueLate 2.x can be found [here](https://formvuelate-2x.netlify.app/)
+:::
+
 To add FormVueLate to your project, start by installing the package through your favorite package manager.
 
 ```bash
