@@ -40,3 +40,7 @@ export default {
 }
 </script>
 ```
+
+In the following video from a course on [vuemastery.com](VueMastery.com) Marina talks about the usage of UUID and its role in accessibility, and some extra tips on building accessible forms.
+
+<iframe src="https://player.vimeo.com/video/517344724" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
