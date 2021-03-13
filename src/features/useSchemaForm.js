@@ -1,7 +1,7 @@
-import { ref, unref, provide } from 'vue'
+import { ref, isRef, provide } from 'vue'
 
 export default function useSchemaForm (initialFormValue = {}) {
-  const formModel = ref(unref(initialFormValue))
+  const formModel = isRef(initialFormValue) ? initialFormValue : ref(initialFormValue)
 
   const findNestedFormModelProp = (path) => {
     if (!path) return null
