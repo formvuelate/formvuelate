@@ -319,23 +319,6 @@ describe('SchemaForm', () => {
       expect(field.vm.$attrs.two).toEqual(2)
     })
 
-    it('the schema only, when a schema prop is set', () => {
-      const wrapper = mount(SchemaWrapperFactory({
-        nested: {
-          component: SchemaForm,
-          schema: { firstName: { component: FormText, label: 'test' } },
-          one: 1
-        }
-      }))
-
-      const schemaForms = wrapper.findAllComponents(SchemaForm)
-
-      expect(schemaForms[1].vm.schema).toEqual(
-        expect.objectContaining({ firstName: expect.anything() })
-      )
-      expect(schemaForms[1].vm.$attrs.one).not.toEqual(1)
-    })
-
     it('the sharedConfig into all the elements', () => {
       const schema = {
         firstName: {

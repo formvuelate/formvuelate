@@ -1,9 +1,11 @@
-import { ref, unref, provide } from 'vue'
+import { ref, isRef, provide } from 'vue'
 
 export default function useSchemaForm (initialFormValue = {}) {
-  const formModel = ref(unref(initialFormValue))
+  const formModel = isRef(initialFormValue) ? initialFormValue : ref(initialFormValue)
 
   const findNestedFormModelProp = (path) => {
+    if (!path) return null
+
     const keys = path.split('.')
 
     if (!formModel.value[keys[0]]) {
@@ -32,6 +34,7 @@ export default function useSchemaForm (initialFormValue = {}) {
   }
 
   provide('updateFormModel', updateFormModel)
+  provide('findNestedFormModelProp', findNestedFormModelProp)
   provide('formModel', formModel)
 
   return {
