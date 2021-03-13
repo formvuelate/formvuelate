@@ -12,9 +12,10 @@
 </template>
 
 <script>
-import { inject } from 'vue'
+import { inject, computed } from 'vue'
 
 export default {
+  name: 'SchemaField',
   props: {
     field: {
       type: Object,
@@ -28,17 +29,25 @@ export default {
   setup (props) {
     const binds = props.field.schema
       ? {
-        schema: props.field.schema,
+        // For sub SchemaForm elements
+        ...props.field,
         nestedSchemaModel: props.field.model
       }
       : { ...props.sharedConfig, ...props.field }
 
     const formModel = inject('formModel', {})
-    const fieldValue = formModel.value[props.field.model]
-
-    const updateFormModel = inject('updateFormModel', () => { })
-
     const path = inject('schemaModelPath', null)
+    const findNestedFormModelProp = inject('findNestedFormModelProp')
+
+    const fieldValue = computed(() => {
+      if (path) {
+        return findNestedFormModelProp(path)[props.field.model]
+      }
+
+      return formModel.value[props.field.model]
+    })
+
+    const updateFormModel = inject('updateFormModel')
 
     const update = (value) => {
       updateFormModel(props.field.model, value, path)

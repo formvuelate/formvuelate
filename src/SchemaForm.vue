@@ -33,9 +33,10 @@
 import useParsedSchema from './features/ParsedSchema'
 import SchemaField from './SchemaField.vue'
 
-import { computed, watch, provide, inject } from 'vue'
+import { computed, watch, provide, inject, toRefs } from 'vue'
 
 export default {
+  name: 'SchemaForm',
   components: { SchemaField },
   props: {
     schema: {
@@ -65,21 +66,28 @@ export default {
     }
   },
   emits: ['submit', 'update:modelValue'],
-  setup (props, { emit }) {
+  setup (props, { emit, attrs }) {
     const hasParentSchema = inject('parentSchemaExists', false)
-
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
     }
 
-    if (props.nestedSchemaModel) {
-      const path = inject('schemaModelPath', '')
+    const { schema } = toRefs(props)
+    let injectedSchema = inject('injectedSchema', false)
 
-      provide('schemaModelPath', path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel)
+    if (!injectedSchema) {
+      provide('injectedSchema', schema)
+      injectedSchema = schema
     }
 
-    const { parsedSchema } = useParsedSchema(props)
+    if (props.nestedSchemaModel) {
+      const path = inject('schemaModelPath', '')
+      const currentPath = path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel
 
+      provide('schemaModelPath', currentPath)
+    }
+
+    const { parsedSchema } = useParsedSchema(injectedSchema, attrs.model)
     const formModel = inject('formModel', {})
 
     const cleanupModelChanges = (schema, oldSchema) => {
