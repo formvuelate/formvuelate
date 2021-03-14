@@ -6,12 +6,14 @@ import { markRaw, ref } from 'vue'
 
 const FormText = {
   template: '<input/>',
-  props: ['label']
+  props: ['label'],
+  emits: ['update:modelValue']
 }
 
 const FormSelect = {
   template: '<select />',
-  props: ['label', 'options']
+  props: ['label', 'options'],
+  emits: ['update:modelValue']
 }
 
 const SchemaWrapperFactory = (schema, binds, formModel) => {
