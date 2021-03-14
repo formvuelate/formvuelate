@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <component
-      v-bind="binds"
-      :key="field.model"
-      :is="field.component"
-      :modelValue="fieldValue"
-      @update:modelValue="update"
-      class="schema-col"
-    />
-  </div>
+  <component
+    v-bind="binds"
+    :key="field.model"
+    :is="field.component"
+    :modelValue="fieldValue"
+    @update:modelValue="update"
+    class="schema-col"
+  />
 </template>
 
 <script>
