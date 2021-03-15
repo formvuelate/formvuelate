@@ -4,6 +4,7 @@
 
     <SchemaForm
       :schema="currentSchema"
+      preventModelCleanupOnSchemaChange
     />
 
     <slot name="afterForm" />
@@ -15,6 +16,7 @@ import { computed, provide } from 'vue'
 import SchemaForm from './SchemaForm'
 
 export default {
+  name: 'SchemaWizard',
   components: { SchemaForm },
   props: {
     schema: {
