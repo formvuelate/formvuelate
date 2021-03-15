@@ -44,6 +44,10 @@ module.exports = {
         link: '/examples/'
       },
       {
+        text: 'Migrating from 2.x',
+        link: '/migration/'
+      },
+      {
         text: 'GitHub',
         link: 'https://github.com/formvuelate'
       },
@@ -83,6 +87,15 @@ module.exports = {
       '/examples/': [
         {
           title: 'Examples',
+          collapsable: false,
+          children: [
+            ''
+          ]
+        }
+      ],
+      '/migration/': [
+        {
+          title: 'Migrating from 2.x',
           collapsable: false,
           children: [
             ''
