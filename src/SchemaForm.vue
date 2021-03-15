@@ -1,10 +1,10 @@
 <template>
   <component
-    :is="!hasParentSchema ? 'form' : 'div'"
+    :is="behaveLikeParentSchema ? 'form' : 'div'"
     v-bind="formBinds"
   >
     <slot
-      v-if="!hasParentSchema"
+      v-if="behaveLikeParentSchema"
       name="beforeForm"
     />
 
@@ -23,7 +23,7 @@
     </div>
 
     <slot
-      v-if="!hasParentSchema"
+      v-if="behaveLikeParentSchema"
       name="afterForm"
     />
   </component>
@@ -67,10 +67,14 @@ export default {
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {
+    const isChildOfWizard = inject('isSchemaWizard', false)
+
     const hasParentSchema = inject('parentSchemaExists', false)
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
     }
+
+    const behaveLikeParentSchema = computed(() => (!isChildOfWizard && !hasParentSchema))
 
     const { schema } = toRefs(props)
     let injectedSchema = inject('injectedSchema', false)
@@ -122,6 +126,7 @@ export default {
     })
 
     return {
+      behaveLikeParentSchema,
       parsedSchema,
       hasParentSchema,
       formBinds

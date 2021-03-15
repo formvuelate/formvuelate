@@ -29,7 +29,7 @@ export default {
   },
   emits: ['submit'],
   setup (props) {
-    provide('parentSchemaExists', true)
+    provide('isSchemaWizard', true)
 
     const currentSchema = computed(() => {
       return props.schema[props.step]

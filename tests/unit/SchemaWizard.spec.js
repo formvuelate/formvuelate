@@ -87,11 +87,11 @@ describe('SchemaWizard', () => {
     expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[1])
   })
 
-  it('defines itself as the parent schema on the child SchemaForms', () => {
+  it('notifies child SchemaForms that they are under a wizard', () => {
     const wrapper = mount(SchemaWrapperFactory(wizardSchema, {
       step: 0
     }))
 
-    expect(wrapper.findComponent(SchemaForm).vm.hasParentSchema).toBe(true)
+    expect(wrapper.findComponent(SchemaForm).vm.behaveLikeParentSchema).toBe(false)
   })
 })
