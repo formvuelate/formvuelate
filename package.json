@@ -72,6 +72,9 @@
     "vue-jest": "^5.0.0-alpha.0",
     "vue-loader": "^16.0.0-alpha.3"
   },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
   "bugs": {
     "url": "https://github.com/formvuelate/formvuelate"
   },
