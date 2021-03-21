@@ -218,6 +218,18 @@ __webpack_require__.d(__webpack_exports__, "SchemaForm", function() { return /* 
 __webpack_require__.d(__webpack_exports__, "SchemaWizard", function() { return /* reexport */ SchemaWizard; });
 __webpack_require__.d(__webpack_exports__, "SchemaFormFactory", function() { return /* reexport */ SchemaFormFactory; });
 __webpack_require__.d(__webpack_exports__, "useSchemaForm", function() { return /* reexport */ useSchemaForm; });
+__webpack_require__.d(__webpack_exports__, "constants", function() { return /* reexport */ constants_namespaceObject; });
+
+// NAMESPACE OBJECT: ./src/utils/constants.js
+var constants_namespaceObject = {};
+__webpack_require__.r(constants_namespaceObject);
+__webpack_require__.d(constants_namespaceObject, "IS_SCHEMA_WIZARD", function() { return IS_SCHEMA_WIZARD; });
+__webpack_require__.d(constants_namespaceObject, "PARENT_SCHEMA_EXISTS", function() { return PARENT_SCHEMA_EXISTS; });
+__webpack_require__.d(constants_namespaceObject, "INJECTED_SCHEMA", function() { return INJECTED_SCHEMA; });
+__webpack_require__.d(constants_namespaceObject, "SCHEMA_MODEL_PATH", function() { return SCHEMA_MODEL_PATH; });
+__webpack_require__.d(constants_namespaceObject, "FORM_MODEL", function() { return FORM_MODEL; });
+__webpack_require__.d(constants_namespaceObject, "FIND_NESTED_FORM_MODEL_PROP", function() { return FIND_NESTED_FORM_MODEL_PROP; });
+__webpack_require__.d(constants_namespaceObject, "UPDATE_FORM_MODEL", function() { return UPDATE_FORM_MODEL; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -246,7 +258,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=27576e39
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=53c3994d
 
 function render(_ctx, _cache) {
   var _component_SchemaField = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaField");
@@ -278,7 +290,7 @@ function render(_ctx, _cache) {
     _: 1
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=27576e39
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=53c3994d
 
 // CONCATENATED MODULE: ./src/features/UniqueID.js
 function useUniqueID() {
@@ -316,12 +328,24 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+/**
+ * Find the elements in the row that have a schema property
+ * @param {Array} row
+ * @returns
+ */
 
 var findSchemaElementsInRow = function findSchemaElementsInRow(row) {
   return row.filter(function (el) {
     return el.schema;
   });
 };
+/**
+ * Find the elements in the top level row of a schema
+ * that are considered "schema" elements, aka. they have a schema prop
+ * @param {Array} normalizedSchema
+ * @returns
+ */
+
 
 var findSchemaElements = function findSchemaElements(normalizedSchema) {
   var _iterator = _createForOfIteratorHelper(normalizedSchema),
@@ -341,6 +365,14 @@ var findSchemaElements = function findSchemaElements(normalizedSchema) {
 
   return [];
 };
+/**
+ * Traverse a schema recursively and find the schema element
+ * that matches the given model
+ * @param {String} model
+ * @param {Array} normalizedSchema
+ * @returns
+ */
+
 
 var findElementInSchema = function findElementInSchema(model, normalizedSchema) {
   var schemaElements = findSchemaElements(normalizedSchema);
@@ -372,6 +404,12 @@ var findElementInSchema = function findElementInSchema(model, normalizedSchema) 
 
   return null;
 };
+/**
+ * Parse a user given schema into FVL internal format
+ * @param {Array|Object} schema
+ * @returns
+ */
+
 
 var normalizeSchema = function normalizeSchema(schema) {
   var arraySchema = Array.isArray(schema) ? schema : Object.keys(schema).map(function (model) {
@@ -393,6 +431,12 @@ function useParsedSchema(refSchema, model) {
     var normalizedSchema = normalizeSchema(schema);
 
     if (model) {
+      /**
+       * If the model is provided, it means a SchemaForm is trying to find
+       * a subschema in the main schema that corresponds to its "model" in the
+       * use provided schema. We dig into the sub schemas to find it and normalize it
+       * before setting it as the returned parsed schema
+       */
       var element = findElementInSchema(model, normalizedSchema);
 
       if (element) {
@@ -412,9 +456,9 @@ function useParsedSchema(refSchema, model) {
     parsedSchema: parsedSchema
   };
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=088ce412
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=b80f4138
 
-function SchemaFieldvue_type_template_id_088ce412_render(_ctx, _cache) {
+function SchemaFieldvue_type_template_id_b80f4138_render(_ctx, _cache) {
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(_ctx.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])(_ctx.binds, {
     key: _ctx.field.model,
     modelValue: _ctx.fieldValue,
@@ -422,14 +466,24 @@ function SchemaFieldvue_type_template_id_088ce412_render(_ctx, _cache) {
     class: "schema-col"
   }), null, 16, ["modelValue", "onUpdate:modelValue"]);
 }
-// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=088ce412
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=b80f4138
 
+// CONCATENATED MODULE: ./src/utils/constants.js
+var KEY = 'fvl_';
+var IS_SCHEMA_WIZARD = "".concat(KEY, "isSchemaWizard");
+var PARENT_SCHEMA_EXISTS = "".concat(KEY, "parentSchemaExists");
+var INJECTED_SCHEMA = "".concat(KEY, "injectedSchema");
+var SCHEMA_MODEL_PATH = "".concat(KEY, "schemaModelPath");
+var FORM_MODEL = "".concat(KEY, "formModel");
+var FIND_NESTED_FORM_MODEL_PROP = "".concat(KEY, "findNestedFormModelProp");
+var UPDATE_FORM_MODEL = "".concat(KEY, "updateFormModel");
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=script&lang=js
 function SchemaFieldvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function SchemaFieldvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SchemaFieldvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { SchemaFieldvue_type_script_lang_js_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SchemaFieldvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 /* harmony default export */ var SchemaFieldvue_type_script_lang_js = ({
@@ -450,9 +504,9 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
     var binds = props.field.schema ? SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.field), {}, {
       nestedSchemaModel: props.field.model
     }) : SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.sharedConfig), props.field);
-    var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('formModel', {});
-    var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('schemaModelPath', null);
-    var findNestedFormModelProp = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('findNestedFormModelProp');
+    var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(FORM_MODEL, {});
+    var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(SCHEMA_MODEL_PATH, null);
+    var findNestedFormModelProp = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(FIND_NESTED_FORM_MODEL_PROP);
     var fieldValue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       if (path) {
         return findNestedFormModelProp(path)[props.field.model];
@@ -460,7 +514,7 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
 
       return formModel.value[props.field.model];
     });
-    var updateFormModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('updateFormModel');
+    var updateFormModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(UPDATE_FORM_MODEL);
 
     var update = function update(value) {
       updateFormModel(props.field.model, value, path);
@@ -479,15 +533,107 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
 
 
 
-SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_088ce412_render
+SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_b80f4138_render
 
 /* harmony default export */ var SchemaField = (SchemaFieldvue_type_script_lang_js);
+// CONCATENATED MODULE: ./src/features/ParentSchema.js
+
+
+function useParentSchema() {
+  var isChildOfWizard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(IS_SCHEMA_WIZARD, false);
+  var hasParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(PARENT_SCHEMA_EXISTS, false);
+
+  if (!hasParentSchema) {
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(PARENT_SCHEMA_EXISTS, true);
+  }
+
+  var behaveLikeParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+    return !isChildOfWizard && !hasParentSchema;
+  });
+  return {
+    behaveLikeParentSchema: behaveLikeParentSchema,
+    hasParentSchema: hasParentSchema,
+    isChildOfWizard: isChildOfWizard
+  };
+}
+// CONCATENATED MODULE: ./src/features/InjectedSchema.js
+
+
+function useInjectedSchema(props) {
+  var _toRefs = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(props),
+      schema = _toRefs.schema;
+
+  var injectedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(INJECTED_SCHEMA, false);
+
+  if (!injectedSchema) {
+    // Only the top level schema form should inject the schema
+    // That way we dont have to worry about injecting the prop down into
+    // sub schemas
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(INJECTED_SCHEMA, schema);
+    injectedSchema = schema;
+  }
+
+  if (props.nestedSchemaModel) {
+    // If the nestedSchemaModel prop is set it means this
+    // component is a subschema, and we need to inform descendants
+    // of the "path" for the model. ex. "info.family.parents"
+    var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(SCHEMA_MODEL_PATH, '');
+    var currentPath = path ? "".concat(path, ".").concat(props.nestedSchemaModel) : props.nestedSchemaModel;
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(SCHEMA_MODEL_PATH, currentPath);
+  }
+
+  return {
+    schema: injectedSchema
+  };
+}
+// CONCATENATED MODULE: ./src/features/FormModel.js
+function FormModel_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = FormModel_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function FormModel_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return FormModel_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return FormModel_arrayLikeToArray(o, minLen); }
+
+function FormModel_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+
+function useFormModel(props, parsedSchema) {
+  var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(FORM_MODEL, {});
+
+  var cleanupModelChanges = function cleanupModelChanges(schema, oldSchema) {
+    if (props.preventModelCleanupOnSchemaChange) return;
+
+    var reducer = function reducer(acc, val) {
+      return acc.concat(val.map(function (i) {
+        return i.model;
+      }));
+    };
+
+    var newKeys = schema.reduce(reducer, []);
+    var oldKeys = oldSchema.reduce(reducer, []);
+    var diff = oldKeys.filter(function (i) {
+      return !newKeys.includes(i);
+    });
+    if (!diff.length) return;
+
+    var _iterator = FormModel_createForOfIteratorHelper(diff),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var key = _step.value;
+        delete formModel.value[key];
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  };
+
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(parsedSchema, cleanupModelChanges);
+}
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=script&lang=js
-function SchemaFormvue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = SchemaFormvue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function SchemaFormvue_type_script_lang_js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return SchemaFormvue_type_script_lang_js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return SchemaFormvue_type_script_lang_js_arrayLikeToArray(o, minLen); }
 
-function SchemaFormvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
 
@@ -531,70 +677,18 @@ function SchemaFormvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len 
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
         attrs = _ref.attrs;
-    var isChildOfWizard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('isSchemaWizard', false);
-    var hasParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('parentSchemaExists', false);
 
-    if (!hasParentSchema) {
-      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
-    }
+    var _useParentSchema = useParentSchema(),
+        behaveLikeParentSchema = _useParentSchema.behaveLikeParentSchema,
+        hasParentSchema = _useParentSchema.hasParentSchema;
 
-    var behaveLikeParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
-      return !isChildOfWizard && !hasParentSchema;
-    });
+    var _useInjectedSchema = useInjectedSchema(props),
+        schema = _useInjectedSchema.schema;
 
-    var _toRefs = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(props),
-        schema = _toRefs.schema;
-
-    var injectedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('injectedSchema', false);
-
-    if (!injectedSchema) {
-      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('injectedSchema', schema);
-      injectedSchema = schema;
-    }
-
-    if (props.nestedSchemaModel) {
-      var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('schemaModelPath', '');
-      var currentPath = path ? "".concat(path, ".").concat(props.nestedSchemaModel) : props.nestedSchemaModel;
-      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('schemaModelPath', currentPath);
-    }
-
-    var _useParsedSchema = useParsedSchema(injectedSchema, attrs.model),
+    var _useParsedSchema = useParsedSchema(schema, attrs.model),
         parsedSchema = _useParsedSchema.parsedSchema;
 
-    var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('formModel', {});
-
-    var cleanupModelChanges = function cleanupModelChanges(schema, oldSchema) {
-      if (props.preventModelCleanupOnSchemaChange) return;
-
-      var reducer = function reducer(acc, val) {
-        return acc.concat(val.map(function (i) {
-          return i.model;
-        }));
-      };
-
-      var newKeys = schema.reduce(reducer, []);
-      var oldKeys = oldSchema.reduce(reducer, []);
-      var diff = oldKeys.filter(function (i) {
-        return !newKeys.includes(i);
-      });
-      if (!diff.length) return;
-
-      var _iterator = SchemaFormvue_type_script_lang_js_createForOfIteratorHelper(diff),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var key = _step.value;
-          delete formModel.value[key];
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-    };
-
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(parsedSchema, cleanupModelChanges);
+    useFormModel(props, parsedSchema);
     var formBinds = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       if (hasParentSchema) return {};
       return {
@@ -626,9 +720,9 @@ var SchemaFormvue_type_style_index_0_lang_css = __webpack_require__("2b09");
 SchemaFormvue_type_script_lang_js.render = render
 
 /* harmony default export */ var SchemaForm = (SchemaFormvue_type_script_lang_js);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=cf00710c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=bcdc2c22
 
-function SchemaWizardvue_type_template_id_cf00710c_render(_ctx, _cache) {
+function SchemaWizardvue_type_template_id_bcdc2c22_render(_ctx, _cache) {
   var _component_SchemaForm = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaForm");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("form", {
@@ -640,9 +734,10 @@ function SchemaWizardvue_type_template_id_cf00710c_render(_ctx, _cache) {
     preventModelCleanupOnSchemaChange: ""
   }, null, 8, ["schema"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm")], 32);
 }
-// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=cf00710c
+// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=bcdc2c22
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=script&lang=js
+
 
 
 /* harmony default export */ var SchemaWizardvue_type_script_lang_js = ({
@@ -663,7 +758,7 @@ function SchemaWizardvue_type_template_id_cf00710c_render(_ctx, _cache) {
   },
   emits: ['submit'],
   setup: function setup(props) {
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('isSchemaWizard', true);
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(IS_SCHEMA_WIZARD, true);
     var currentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       return props.schema[props.step];
     });
@@ -678,7 +773,7 @@ function SchemaWizardvue_type_template_id_cf00710c_render(_ctx, _cache) {
 
 
 
-SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_cf00710c_render
+SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_bcdc2c22_render
 
 /* harmony default export */ var SchemaWizard = (SchemaWizardvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/SchemaFormFactory.js
@@ -723,6 +818,22 @@ function SchemaFormFactory() {
 }
 // CONCATENATED MODULE: ./src/features/useSchemaForm.js
 
+
+/**
+ * Find a key inside an object, or create it if it doesn't exist
+ * @param {Object} model
+ * @param {String} key
+ * @returns
+ */
+
+var findOrCreateProp = function findOrCreateProp(model, key) {
+  if (!model[key]) {
+    model[key] = {};
+  }
+
+  return model[key];
+};
+
 function useSchemaForm() {
   var initialFormValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["isRef"])(initialFormValue) ? initialFormValue : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(initialFormValue);
@@ -730,19 +841,10 @@ function useSchemaForm() {
   var findNestedFormModelProp = function findNestedFormModelProp(path) {
     if (!path) return null;
     var keys = path.split('.');
-
-    if (!formModel.value[keys[0]]) {
-      formModel.value[keys[0]] = {};
-    }
-
-    var nestedProp = formModel.value[keys[0]];
+    var nestedProp = findOrCreateProp(formModel.value, keys[0]);
 
     for (var i = 1; i < keys.length; i++) {
-      if (!nestedProp[keys[i]]) {
-        nestedProp[keys[i]] = {};
-      }
-
-      nestedProp = nestedProp[keys[i]];
+      nestedProp = findOrCreateProp(nestedProp, keys[i]);
     }
 
     return nestedProp;
@@ -757,14 +859,15 @@ function useSchemaForm() {
     findNestedFormModelProp(path)[prop] = value;
   };
 
-  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('updateFormModel', updateFormModel);
-  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('findNestedFormModelProp', findNestedFormModelProp);
-  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('formModel', formModel);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(UPDATE_FORM_MODEL, updateFormModel);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(FIND_NESTED_FORM_MODEL_PROP, findNestedFormModelProp);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(FORM_MODEL, formModel);
   return {
     formModel: formModel
   };
 }
 // CONCATENATED MODULE: ./src/index.js
+
 
 
 
