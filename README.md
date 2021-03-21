@@ -22,7 +22,7 @@ We do _not_ provide any base components for your to build your forms. There are 
 ### FormVueLate 2.x
 
 The docs for FormVueLate 2.x can be found [here](https://formvuelate-2x.netlify.app/)
-:::
+
 ## Installation
 
 To add FormVueLate to your project, start by installing the package through your favorite package manager.
