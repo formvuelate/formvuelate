@@ -33,10 +33,7 @@
 import useParsedSchema from './features/ParsedSchema'
 import SchemaField from './SchemaField.vue'
 
-import { computed, watch, inject } from 'vue'
-import {
-  FORM_MODEL
-} from './utils/constants'
+import { computed } from 'vue'
 
 import useParentSchema from './features/ParentSchema'
 import useInjectedSchema from './features/InjectedSchema'
