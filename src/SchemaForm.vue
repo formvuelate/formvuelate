@@ -39,7 +39,9 @@ import {
   SCHEMA_MODEL_PATH,
   FORM_MODEL
 } from './utils/constants'
+
 import useParentSchema from './features/ParentSchema'
+import useInjectedSchema from './features/InjectedSchema'
 
 export default {
   name: 'SchemaForm',
@@ -75,22 +77,9 @@ export default {
   setup (props, { emit, attrs }) {
     const { behaveLikeParentSchema, hasParentSchema } = useParentSchema()
 
-    const { schema } = toRefs(props)
-    let injectedSchema = inject(INJECTED_SCHEMA, false)
+    const { schema } = useInjectedSchema(props)
+    const { parsedSchema } = useParsedSchema(schema, attrs.model)
 
-    if (!injectedSchema) {
-      provide(INJECTED_SCHEMA, schema)
-      injectedSchema = schema
-    }
-
-    if (props.nestedSchemaModel) {
-      const path = inject(SCHEMA_MODEL_PATH, '')
-      const currentPath = path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel
-
-      provide(SCHEMA_MODEL_PATH, currentPath)
-    }
-
-    const { parsedSchema } = useParsedSchema(injectedSchema, attrs.model)
     const formModel = inject(FORM_MODEL, {})
 
     const cleanupModelChanges = (schema, oldSchema) => {
