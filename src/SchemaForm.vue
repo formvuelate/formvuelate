@@ -35,12 +35,11 @@ import SchemaField from './SchemaField.vue'
 
 import { computed, watch, provide, inject, toRefs } from 'vue'
 import {
-  IS_SCHEMA_WIZARD,
-  PARENT_SCHEMA_EXISTS,
   INJECTED_SCHEMA,
   SCHEMA_MODEL_PATH,
   FORM_MODEL
 } from './utils/constants'
+import useParentSchema from './features/ParentSchema'
 
 export default {
   name: 'SchemaForm',
@@ -74,14 +73,7 @@ export default {
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {
-    const isChildOfWizard = inject(IS_SCHEMA_WIZARD, false)
-
-    const hasParentSchema = inject(PARENT_SCHEMA_EXISTS, false)
-    if (!hasParentSchema) {
-      provide(PARENT_SCHEMA_EXISTS, true)
-    }
-
-    const behaveLikeParentSchema = computed(() => (!isChildOfWizard && !hasParentSchema))
+    const { behaveLikeParentSchema, hasParentSchema } = useParentSchema()
 
     const { schema } = toRefs(props)
     let injectedSchema = inject(INJECTED_SCHEMA, false)
