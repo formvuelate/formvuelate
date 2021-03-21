@@ -1,8 +1,9 @@
 import SchemaWizard from '../../src/SchemaWizard'
 import SchemaForm from '../../src/SchemaForm'
+import useSchemaForm from '../../src/features/useSchemaForm'
 
 import { mount } from '@vue/test-utils'
-import { markRaw } from 'vue'
+import { markRaw, ref } from 'vue'
 
 const FormText = {
   template: '<input/>',
@@ -12,6 +13,27 @@ const FormText = {
 const FormSelect = {
   template: '<select />',
   props: ['label', 'options']
+}
+
+const SchemaWrapperFactory = (schema, binds, formModel) => {
+  return {
+    template: `
+      <SchemaWizard
+        :schema="schemaRef"
+        v-bind="binds"
+      />
+    `,
+    components: { SchemaWizard },
+    setup () {
+      const schemaRef = ref(schema)
+      useSchemaForm(formModel || schemaRef)
+
+      return {
+        schemaRef,
+        binds
+      }
+    }
+  }
 }
 
 markRaw(FormSelect)
@@ -53,13 +75,9 @@ const wizardSchema = [
 
 describe('SchemaWizard', () => {
   it('renders a SchemaForm for each index of the schema array based on the current step', async () => {
-    const wrapper = mount(SchemaWizard, {
-      props: {
-        schema: wizardSchema,
-        modelValue: [],
-        step: 0
-      }
-    })
+    const wrapper = mount(SchemaWrapperFactory(wizardSchema, {
+      step: 0
+    }))
 
     expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[0])
     await wrapper.setProps({
@@ -69,39 +87,11 @@ describe('SchemaWizard', () => {
     expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[1])
   })
 
-  // TODO: Figure out a way to mock the provide function in Vue 3
-  it('defines itself as the parent schema on the child SchemaForms', () => {
-    const wrapper = mount(SchemaWizard, {
-      props: {
-        schema: wizardSchema,
-        modelValue: [],
-        step: 0
-      }
-    })
+  it('notifies child SchemaForms that they are under a wizard', () => {
+    const wrapper = mount(SchemaWrapperFactory(wizardSchema, {
+      step: 0
+    }))
 
-    expect(wrapper.findComponent(SchemaForm).vm.hasParentSchema).toBe(true)
-  })
-
-  it('emits update:modelValue when the child SchemaForm updates', () => {
-    const wrapper = mount(SchemaWizard, {
-      props: {
-        schema: wizardSchema,
-        modelValue: [
-          {},
-          { something: 'else' }
-        ],
-        step: 0
-      }
-    })
-
-    wrapper.findComponent(SchemaForm).vm.$emit('update:modelValue', { firstName: 'Marina' })
-
-    expect(wrapper.emitted()['update:modelValue']).toHaveLength(1)
-    expect(wrapper.emitted()['update:modelValue'][0]).toEqual([
-      [
-        { firstName: 'Marina' },
-        { something: 'else' }
-      ]
-    ])
+    expect(wrapper.findComponent(SchemaForm).vm.behaveLikeParentSchema).toBe(false)
   })
 })

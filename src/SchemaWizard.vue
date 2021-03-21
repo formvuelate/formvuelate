@@ -4,8 +4,7 @@
 
     <SchemaForm
       :schema="currentSchema"
-      :modelValue="modelValue[step] || {}"
-      @update:modelValue="update"
+      preventModelCleanupOnSchemaChange
     />
 
     <slot name="afterForm" />
@@ -17,6 +16,7 @@ import { computed, provide } from 'vue'
 import SchemaForm from './SchemaForm'
 
 export default {
+  name: 'SchemaWizard',
   components: { SchemaForm },
   props: {
     schema: {
@@ -27,28 +27,17 @@ export default {
       type: Number,
       required: true,
       default: 0
-    },
-    modelValue: {
-      type: Array,
-      required: true
     }
   },
-  emits: ['submit', 'update:modelValue'],
-  setup (props, context) {
-    provide('parentSchemaExists', true)
+  emits: ['submit'],
+  setup (props) {
+    provide('isSchemaWizard', true)
 
     const currentSchema = computed(() => {
       return props.schema[props.step]
     })
 
-    const update = data => {
-      const value = [...props.modelValue]
-      value[props.step] = data
-
-      context.emit('update:modelValue', value)
-    }
-
-    return { currentSchema, update }
+    return { currentSchema }
   }
 }
 </script>

@@ -1,4 +1,5 @@
 import SchemaForm from './SchemaForm'
+import SchemaField from './SchemaField'
 
 export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup
@@ -21,11 +22,20 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     }
   }
 
+  const SchemaFieldWithComponents = {
+    ...SchemaField,
+    components: {
+      ...components,
+      ...SchemaField.components
+    }
+  }
+
   return {
     ...SchemaForm,
     components: {
+      ...components,
       ...SchemaForm.components,
-      ...components
+      SchemaField: SchemaFieldWithComponents
     },
     // Return a customized setup function with plugins
     // as the new SchemaForm setup

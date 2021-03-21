@@ -1,10 +1,10 @@
 <template>
   <component
-    :is="!hasParentSchema ? 'form' : 'div'"
+    :is="behaveLikeParentSchema ? 'form' : 'div'"
     v-bind="formBinds"
   >
     <slot
-      v-if="!hasParentSchema"
+      v-if="behaveLikeParentSchema"
       name="beforeForm"
     />
 
@@ -13,20 +13,17 @@
       v-for="(fields, index) in parsedSchema"
       :key="index"
     >
-      <component
+      <SchemaField
         v-for="field in fields"
-        v-bind="binds(field)"
         :key="field.model"
-        :is="field.component"
-        :modelValue="val(field)"
-        @update:modelValue="update(field.model, $event)"
-        @update-batch="updateBatch(field.model, $event)"
+        :field="field"
+        :sharedConfig="sharedConfig"
         class="schema-col"
       />
     </div>
 
     <slot
-      v-if="!hasParentSchema"
+      v-if="behaveLikeParentSchema"
       name="afterForm"
     />
   </component>
@@ -34,9 +31,13 @@
 
 <script>
 import useParsedSchema from './features/ParsedSchema'
-import { computed, watch, provide, inject } from 'vue'
+import SchemaField from './SchemaField.vue'
+
+import { computed, watch, provide, inject, toRefs } from 'vue'
 
 export default {
+  name: 'SchemaForm',
+  components: { SchemaField },
   props: {
     schema: {
       type: [Object, Array],
@@ -47,10 +48,6 @@ export default {
         return schema.filter(field => !Array.isArray(field) && (!field.model && !field.schema)).length === 0
       }
     },
-    modelValue: {
-      type: Object,
-      required: true
-    },
     sharedConfig: {
       type: Object,
       default: () => ({})
@@ -59,19 +56,43 @@ export default {
       type: Boolean,
       default: false
     },
+    nestedSchemaModel: {
+      type: String,
+      default: ''
+    },
     schemaRowClasses: {
       type: [String, Object, Array],
       default: null
     }
   },
   emits: ['submit', 'update:modelValue'],
-  setup (props, { emit }) {
+  setup (props, { emit, attrs }) {
+    const isChildOfWizard = inject('isSchemaWizard', false)
+
     const hasParentSchema = inject('parentSchemaExists', false)
     if (!hasParentSchema) {
       provide('parentSchemaExists', true)
     }
 
-    const { parsedSchema } = useParsedSchema(props)
+    const behaveLikeParentSchema = computed(() => (!isChildOfWizard && !hasParentSchema))
+
+    const { schema } = toRefs(props)
+    let injectedSchema = inject('injectedSchema', false)
+
+    if (!injectedSchema) {
+      provide('injectedSchema', schema)
+      injectedSchema = schema
+    }
+
+    if (props.nestedSchemaModel) {
+      const path = inject('schemaModelPath', '')
+      const currentPath = path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel
+
+      provide('schemaModelPath', currentPath)
+    }
+
+    const { parsedSchema } = useParsedSchema(injectedSchema, attrs.model)
+    const formModel = inject('formModel', {})
 
     const cleanupModelChanges = (schema, oldSchema) => {
       if (props.preventModelCleanupOnSchemaChange) return
@@ -86,44 +107,12 @@ export default {
       const diff = oldKeys.filter(i => !newKeys.includes(i))
       if (!diff.length) return
 
-      const val = { ...props.modelValue }
-
       for (const key of diff) {
-        delete val[key]
+        delete formModel.value[key]
       }
-
-      emit('update:modelValue', val)
     }
 
     watch(parsedSchema, cleanupModelChanges)
-
-    const update = (property, value) => {
-      emit('update:modelValue', {
-        ...props.modelValue,
-        [property]: value
-      })
-    }
-
-    const updateBatch = (property, values) => {
-      emit('update:modelValue', {
-        ...props.modelValue,
-        ...values
-      })
-    }
-
-    const binds = (field) => {
-      return field.schema
-        ? { schema: field.schema }
-        : { ...props.sharedConfig, ...field }
-    }
-
-    const val = (field) => {
-      if (field.schema && !props.modelValue[field.model]) {
-        return {}
-      }
-
-      return props.modelValue[field.model]
-    }
 
     const formBinds = computed(() => {
       if (hasParentSchema) return {}
@@ -137,11 +126,8 @@ export default {
     })
 
     return {
+      behaveLikeParentSchema,
       parsedSchema,
-      val,
-      binds,
-      update,
-      updateBatch,
       hasParentSchema,
       formBinds
     }
