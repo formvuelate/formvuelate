@@ -1,5 +1,6 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
 import SchemaField from '../../src/SchemaField'
+import { UPDATE_FORM_MODEL, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'
 import { ref, provide } from 'vue'
@@ -29,12 +30,12 @@ const SchemaFieldWrapper = (
       useSchemaForm(formModel || form)
 
       if (mockUpdate) {
-        provide('updateFormModel', updateFormModel)
+        provide(UPDATE_FORM_MODEL, updateFormModel)
       }
 
       if (path) {
         // Usually provided by SchemaForm
-        provide('schemaModelPath', path)
+        provide(SCHEMA_MODEL_PATH, path)
       }
 
       return {

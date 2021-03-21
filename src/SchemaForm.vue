@@ -33,7 +33,11 @@
 import useParsedSchema from './features/ParsedSchema'
 import SchemaField from './SchemaField.vue'
 
-import { computed, watch, provide, inject, toRefs } from 'vue'
+import { computed } from 'vue'
+
+import useParentSchema from './features/ParentSchema'
+import useInjectedSchema from './features/InjectedSchema'
+import useFormModel from './features/FormModel'
 
 export default {
   name: 'SchemaForm',
@@ -67,52 +71,12 @@ export default {
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {
-    const isChildOfWizard = inject('isSchemaWizard', false)
+    const { behaveLikeParentSchema, hasParentSchema } = useParentSchema()
 
-    const hasParentSchema = inject('parentSchemaExists', false)
-    if (!hasParentSchema) {
-      provide('parentSchemaExists', true)
-    }
+    const { schema } = useInjectedSchema(props)
+    const { parsedSchema } = useParsedSchema(schema, attrs.model)
 
-    const behaveLikeParentSchema = computed(() => (!isChildOfWizard && !hasParentSchema))
-
-    const { schema } = toRefs(props)
-    let injectedSchema = inject('injectedSchema', false)
-
-    if (!injectedSchema) {
-      provide('injectedSchema', schema)
-      injectedSchema = schema
-    }
-
-    if (props.nestedSchemaModel) {
-      const path = inject('schemaModelPath', '')
-      const currentPath = path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel
-
-      provide('schemaModelPath', currentPath)
-    }
-
-    const { parsedSchema } = useParsedSchema(injectedSchema, attrs.model)
-    const formModel = inject('formModel', {})
-
-    const cleanupModelChanges = (schema, oldSchema) => {
-      if (props.preventModelCleanupOnSchemaChange) return
-
-      const reducer = (acc, val) => {
-        return acc.concat(val.map(i => i.model))
-      }
-
-      const newKeys = schema.reduce(reducer, [])
-      const oldKeys = oldSchema.reduce(reducer, [])
-
-      const diff = oldKeys.filter(i => !newKeys.includes(i))
-      if (!diff.length) return
-
-      for (const key of diff) {
-        delete formModel.value[key]
-      }
-    }
-
-    watch(parsedSchema, cleanupModelChanges)
+    useFormModel(props, parsedSchema)
 
     const formBinds = computed(() => {
       if (hasParentSchema) return {}

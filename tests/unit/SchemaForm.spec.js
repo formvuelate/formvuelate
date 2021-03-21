@@ -1,5 +1,6 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
 import SchemaForm from '../../src/SchemaForm'
+import { IS_SCHEMA_WIZARD, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'
 import { markRaw, ref, provide } from 'vue'
@@ -40,7 +41,7 @@ const SchemaWrapperFactory = (
 
       if (insideWizard) {
         // Mock it being inside a SchemaWizard with provide
-        provide('isSchemaWizard', true)
+        provide(IS_SCHEMA_WIZARD, true)
       }
 
       return {
@@ -155,7 +156,7 @@ describe('SchemaForm', () => {
       { nestedSchemaModel: 'myNestedPath' }
     ))
 
-    expect(provideSpy).toHaveBeenCalledWith('schemaModelPath', 'myNestedPath')
+    expect(provideSpy).toHaveBeenCalledWith(SCHEMA_MODEL_PATH, 'myNestedPath')
   })
 
   describe('schemaRowClasses prop', () => {
