@@ -1,4 +1,5 @@
 import { ref, isRef, provide } from 'vue'
+import { UPDATE_FORM_MODEL, FIND_NESTED_FORM_MODEL_PROP, FORM_MODEL } from '../utils/constants'
 
 export default function useSchemaForm (initialFormValue = {}) {
   const formModel = isRef(initialFormValue) ? initialFormValue : ref(initialFormValue)
@@ -33,9 +34,9 @@ export default function useSchemaForm (initialFormValue = {}) {
     findNestedFormModelProp(path)[prop] = value
   }
 
-  provide('updateFormModel', updateFormModel)
-  provide('findNestedFormModelProp', findNestedFormModelProp)
-  provide('formModel', formModel)
+  provide(UPDATE_FORM_MODEL, updateFormModel)
+  provide(FIND_NESTED_FORM_MODEL_PROP, findNestedFormModelProp)
+  provide(FORM_MODEL, formModel)
 
   return {
     formModel

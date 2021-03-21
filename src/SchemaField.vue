@@ -11,6 +11,7 @@
 
 <script>
 import { inject, computed } from 'vue'
+import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL } from './utils/constants'
 
 export default {
   name: 'SchemaField',
@@ -33,9 +34,9 @@ export default {
       }
       : { ...props.sharedConfig, ...props.field }
 
-    const formModel = inject('formModel', {})
-    const path = inject('schemaModelPath', null)
-    const findNestedFormModelProp = inject('findNestedFormModelProp')
+    const formModel = inject(FORM_MODEL, {})
+    const path = inject(SCHEMA_MODEL_PATH, null)
+    const findNestedFormModelProp = inject(FIND_NESTED_FORM_MODEL_PROP)
 
     const fieldValue = computed(() => {
       if (path) {
@@ -45,7 +46,7 @@ export default {
       return formModel.value[props.field.model]
     })
 
-    const updateFormModel = inject('updateFormModel')
+    const updateFormModel = inject(UPDATE_FORM_MODEL)
 
     const update = (value) => {
       updateFormModel(props.field.model, value, path)

@@ -12,8 +12,10 @@
 </template>
 
 <script>
-import { computed, provide } from 'vue'
 import SchemaForm from './SchemaForm'
+
+import { computed, provide } from 'vue'
+import { IS_SCHEMA_WIZARD } from './utils/constants'
 
 export default {
   name: 'SchemaWizard',
@@ -31,7 +33,7 @@ export default {
   },
   emits: ['submit'],
   setup (props) {
-    provide('isSchemaWizard', true)
+    provide(IS_SCHEMA_WIZARD, true)
 
     const currentSchema = computed(() => {
       return props.schema[props.step]

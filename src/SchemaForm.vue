@@ -34,6 +34,13 @@ import useParsedSchema from './features/ParsedSchema'
 import SchemaField from './SchemaField.vue'
 
 import { computed, watch, provide, inject, toRefs } from 'vue'
+import {
+  IS_SCHEMA_WIZARD,
+  PARENT_SCHEMA_EXISTS,
+  INJECTED_SCHEMA,
+  SCHEMA_MODEL_PATH,
+  FORM_MODEL
+} from './utils/constants'
 
 export default {
   name: 'SchemaForm',
@@ -67,32 +74,32 @@ export default {
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {
-    const isChildOfWizard = inject('isSchemaWizard', false)
+    const isChildOfWizard = inject(IS_SCHEMA_WIZARD, false)
 
-    const hasParentSchema = inject('parentSchemaExists', false)
+    const hasParentSchema = inject(PARENT_SCHEMA_EXISTS, false)
     if (!hasParentSchema) {
-      provide('parentSchemaExists', true)
+      provide(PARENT_SCHEMA_EXISTS, true)
     }
 
     const behaveLikeParentSchema = computed(() => (!isChildOfWizard && !hasParentSchema))
 
     const { schema } = toRefs(props)
-    let injectedSchema = inject('injectedSchema', false)
+    let injectedSchema = inject(INJECTED_SCHEMA, false)
 
     if (!injectedSchema) {
-      provide('injectedSchema', schema)
+      provide(INJECTED_SCHEMA, schema)
       injectedSchema = schema
     }
 
     if (props.nestedSchemaModel) {
-      const path = inject('schemaModelPath', '')
+      const path = inject(SCHEMA_MODEL_PATH, '')
       const currentPath = path ? `${path}.${props.nestedSchemaModel}` : props.nestedSchemaModel
 
-      provide('schemaModelPath', currentPath)
+      provide(SCHEMA_MODEL_PATH, currentPath)
     }
 
     const { parsedSchema } = useParsedSchema(injectedSchema, attrs.model)
-    const formModel = inject('formModel', {})
+    const formModel = inject(FORM_MODEL, {})
 
     const cleanupModelChanges = (schema, oldSchema) => {
       if (props.preventModelCleanupOnSchemaChange) return
