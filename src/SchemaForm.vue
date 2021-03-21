@@ -33,15 +33,14 @@
 import useParsedSchema from './features/ParsedSchema'
 import SchemaField from './SchemaField.vue'
 
-import { computed, watch, provide, inject, toRefs } from 'vue'
+import { computed, watch, inject } from 'vue'
 import {
-  INJECTED_SCHEMA,
-  SCHEMA_MODEL_PATH,
   FORM_MODEL
 } from './utils/constants'
 
 import useParentSchema from './features/ParentSchema'
 import useInjectedSchema from './features/InjectedSchema'
+import useFormModel from './features/FormModel'
 
 export default {
   name: 'SchemaForm',
@@ -80,27 +79,7 @@ export default {
     const { schema } = useInjectedSchema(props)
     const { parsedSchema } = useParsedSchema(schema, attrs.model)
 
-    const formModel = inject(FORM_MODEL, {})
-
-    const cleanupModelChanges = (schema, oldSchema) => {
-      if (props.preventModelCleanupOnSchemaChange) return
-
-      const reducer = (acc, val) => {
-        return acc.concat(val.map(i => i.model))
-      }
-
-      const newKeys = schema.reduce(reducer, [])
-      const oldKeys = oldSchema.reduce(reducer, [])
-
-      const diff = oldKeys.filter(i => !newKeys.includes(i))
-      if (!diff.length) return
-
-      for (const key of diff) {
-        delete formModel.value[key]
-      }
-    }
-
-    watch(parsedSchema, cleanupModelChanges)
+    useFormModel(props, parsedSchema)
 
     const formBinds = computed(() => {
       if (hasParentSchema) return {}
