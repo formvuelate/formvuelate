@@ -217,6 +217,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, "SchemaForm", function() { return /* reexport */ SchemaForm; });
 __webpack_require__.d(__webpack_exports__, "SchemaWizard", function() { return /* reexport */ SchemaWizard; });
 __webpack_require__.d(__webpack_exports__, "SchemaFormFactory", function() { return /* reexport */ SchemaFormFactory; });
+__webpack_require__.d(__webpack_exports__, "useSchemaForm", function() { return /* reexport */ useSchemaForm; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -245,42 +246,39 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=e36df94c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=27576e39
 
 function render(_ctx, _cache) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(!_ctx.hasParentSchema ? 'form' : 'div'), _ctx.formBinds, {
+  var _component_SchemaField = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaField");
+
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(_ctx.behaveLikeParentSchema ? 'form' : 'div'), _ctx.formBinds, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
-      return [!_ctx.hasParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm", {
+      return [_ctx.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm", {
         key: 0
       }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(_ctx.parsedSchema, function (fields, index) {
         return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
           class: ['schema-row', _ctx.schemaRowClasses],
           key: index
         }, [(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])(fields, function (field) {
-          return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])(_ctx.binds(field), {
+          return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(_component_SchemaField, {
             key: field.model,
-            modelValue: _ctx.val(field),
-            "onUpdate:modelValue": function onUpdateModelValue($event) {
-              return _ctx.update(field.model, $event);
-            },
-            "onUpdate-batch": function onUpdateBatch($event) {
-              return _ctx.updateBatch(field.model, $event);
-            },
+            field: field,
+            sharedConfig: _ctx.sharedConfig,
             class: "schema-col"
-          }), null, 16, ["modelValue", "onUpdate:modelValue", "onUpdate-batch"]);
+          }, null, 8, ["field", "sharedConfig"]);
         }), 128
         /* KEYED_FRAGMENT */
         ))], 2);
       }), 128
       /* KEYED_FRAGMENT */
-      )), !_ctx.hasParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", {
+      )), _ctx.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", {
         key: 1
       }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
     }),
     _: 1
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=e36df94c
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=27576e39
 
 // CONCATENATED MODULE: ./src/features/UniqueID.js
 function useUniqueID() {
@@ -310,21 +308,98 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 
-function useParsedSchema(props) {
+
+
+var findSchemaElementsInRow = function findSchemaElementsInRow(row) {
+  return row.filter(function (el) {
+    return el.schema;
+  });
+};
+
+var findSchemaElements = function findSchemaElements(normalizedSchema) {
+  var _iterator = _createForOfIteratorHelper(normalizedSchema),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var row = _step.value;
+      var elements = findSchemaElementsInRow(row);
+      if (elements.length) return elements;
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  return [];
+};
+
+var findElementInSchema = function findElementInSchema(model, normalizedSchema) {
+  var schemaElements = findSchemaElements(normalizedSchema);
+
+  var isCorrectElement = function isCorrectElement(el) {
+    return (el === null || el === void 0 ? void 0 : el.model) === model;
+  };
+
+  if (!schemaElements.length) {
+    return null;
+  }
+
+  var _iterator2 = _createForOfIteratorHelper(schemaElements),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var el = _step2.value;
+      if (isCorrectElement(el)) return el; // Check the subschemas recursively
+
+      var subElement = findElementInSchema(model, normalizeSchema(el.schema));
+      if (isCorrectElement(subElement)) return subElement;
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  return null;
+};
+
+var normalizeSchema = function normalizeSchema(schema) {
+  var arraySchema = Array.isArray(schema) ? schema : Object.keys(schema).map(function (model) {
+    return _objectSpread(_objectSpread({}, schema[model]), {}, {
+      model: model
+    });
+  });
+  return arraySchema.map(function (field) {
+    return Array.isArray(field) ? field : [field];
+  });
+};
+
+function useParsedSchema(refSchema, model) {
   var _useUniqueID = useUniqueID(),
       getID = _useUniqueID.getID;
 
   var parsedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
-    var arraySchema = Array.isArray(props.schema) ? props.schema : Object.keys(props.schema).map(function (model) {
-      return _objectSpread(_objectSpread({}, props.schema[model]), {}, {
-        model: model
-      });
-    });
-    var normalizedSchema = arraySchema.map(function (field) {
-      return Array.isArray(field) ? field : [field];
-    });
+    var schema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["unref"])(refSchema);
+    var normalizedSchema = normalizeSchema(schema);
+
+    if (model) {
+      var element = findElementInSchema(model, normalizedSchema);
+
+      if (element) {
+        normalizedSchema = normalizeSchema(element.schema);
+      }
+    }
+
     return normalizedSchema.map(function (fieldGroup) {
       return fieldGroup.map(function (field) {
         return _objectSpread(_objectSpread({}, field), {}, {
@@ -337,22 +412,91 @@ function useParsedSchema(props) {
     parsedSchema: parsedSchema
   };
 }
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=088ce412
+
+function SchemaFieldvue_type_template_id_088ce412_render(_ctx, _cache) {
+  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(_ctx.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])(_ctx.binds, {
+    key: _ctx.field.model,
+    modelValue: _ctx.fieldValue,
+    "onUpdate:modelValue": _ctx.update,
+    class: "schema-col"
+  }), null, 16, ["modelValue", "onUpdate:modelValue"]);
+}
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=088ce412
+
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=script&lang=js
+function SchemaFieldvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function SchemaFieldvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SchemaFieldvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { SchemaFieldvue_type_script_lang_js_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SchemaFieldvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ var SchemaFieldvue_type_script_lang_js = ({
+  name: 'SchemaField',
+  props: {
+    field: {
+      type: Object,
+      required: true
+    },
+    sharedConfig: {
+      type: Object,
+      default: function _default() {
+        return {};
+      }
+    }
+  },
+  setup: function setup(props) {
+    var binds = props.field.schema ? SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.field), {}, {
+      nestedSchemaModel: props.field.model
+    }) : SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.sharedConfig), props.field);
+    var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('formModel', {});
+    var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('schemaModelPath', null);
+    var findNestedFormModelProp = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('findNestedFormModelProp');
+    var fieldValue = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      if (path) {
+        return findNestedFormModelProp(path)[props.field.model];
+      }
+
+      return formModel.value[props.field.model];
+    });
+    var updateFormModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('updateFormModel');
+
+    var update = function update(value) {
+      updateFormModel(props.field.model, value, path);
+    };
+
+    return {
+      binds: binds,
+      fieldValue: fieldValue,
+      update: update
+    };
+  }
+});
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=script&lang=js
+ 
+// CONCATENATED MODULE: ./src/SchemaField.vue
+
+
+
+SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_088ce412_render
+
+/* harmony default export */ var SchemaField = (SchemaFieldvue_type_script_lang_js);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaForm.vue?vue&type=script&lang=js
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function SchemaFormvue_type_script_lang_js_createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = SchemaFormvue_type_script_lang_js_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function SchemaFormvue_type_script_lang_js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return SchemaFormvue_type_script_lang_js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return SchemaFormvue_type_script_lang_js_arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function SchemaFormvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function SchemaFormvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function SchemaFormvue_type_script_lang_js_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SchemaFormvue_type_script_lang_js_ownKeys(Object(source), true).forEach(function (key) { SchemaFormvue_type_script_lang_js_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SchemaFormvue_type_script_lang_js_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 /* harmony default export */ var SchemaFormvue_type_script_lang_js = ({
+  name: 'SchemaForm',
+  components: {
+    SchemaField: SchemaField
+  },
   props: {
     schema: {
       type: [Object, Array],
@@ -364,10 +508,6 @@ function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if 
         }).length === 0;
       }
     },
-    modelValue: {
-      type: Object,
-      required: true
-    },
     sharedConfig: {
       type: Object,
       default: function _default() {
@@ -378,6 +518,10 @@ function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if 
       type: Boolean,
       default: false
     },
+    nestedSchemaModel: {
+      type: String,
+      default: ''
+    },
     schemaRowClasses: {
       type: [String, Object, Array],
       default: null
@@ -385,15 +529,39 @@ function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if 
   },
   emits: ['submit', 'update:modelValue'],
   setup: function setup(props, _ref) {
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        attrs = _ref.attrs;
+    var isChildOfWizard = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('isSchemaWizard', false);
     var hasParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('parentSchemaExists', false);
 
     if (!hasParentSchema) {
       Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
     }
 
-    var _useParsedSchema = useParsedSchema(props),
+    var behaveLikeParentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      return !isChildOfWizard && !hasParentSchema;
+    });
+
+    var _toRefs = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["toRefs"])(props),
+        schema = _toRefs.schema;
+
+    var injectedSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('injectedSchema', false);
+
+    if (!injectedSchema) {
+      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('injectedSchema', schema);
+      injectedSchema = schema;
+    }
+
+    if (props.nestedSchemaModel) {
+      var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('schemaModelPath', '');
+      var currentPath = path ? "".concat(path, ".").concat(props.nestedSchemaModel) : props.nestedSchemaModel;
+      Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('schemaModelPath', currentPath);
+    }
+
+    var _useParsedSchema = useParsedSchema(injectedSchema, attrs.model),
         parsedSchema = _useParsedSchema.parsedSchema;
+
+    var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])('formModel', {});
 
     var cleanupModelChanges = function cleanupModelChanges(schema, oldSchema) {
       if (props.preventModelCleanupOnSchemaChange) return;
@@ -411,49 +579,22 @@ function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if 
       });
       if (!diff.length) return;
 
-      var val = SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue);
-
-      var _iterator = _createForOfIteratorHelper(diff),
+      var _iterator = SchemaFormvue_type_script_lang_js_createForOfIteratorHelper(diff),
           _step;
 
       try {
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var key = _step.value;
-          delete val[key];
+          delete formModel.value[key];
         }
       } catch (err) {
         _iterator.e(err);
       } finally {
         _iterator.f();
       }
-
-      emit('update:modelValue', val);
     };
 
     Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(parsedSchema, cleanupModelChanges);
-
-    var update = function update(property, value) {
-      emit('update:modelValue', SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue), {}, SchemaFormvue_type_script_lang_js_defineProperty({}, property, value)));
-    };
-
-    var updateBatch = function updateBatch(property, values) {
-      emit('update:modelValue', SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.modelValue), values));
-    };
-
-    var binds = function binds(field) {
-      return field.schema ? {
-        schema: field.schema
-      } : SchemaFormvue_type_script_lang_js_objectSpread(SchemaFormvue_type_script_lang_js_objectSpread({}, props.sharedConfig), field);
-    };
-
-    var val = function val(field) {
-      if (field.schema && !props.modelValue[field.model]) {
-        return {};
-      }
-
-      return props.modelValue[field.model];
-    };
-
     var formBinds = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       if (hasParentSchema) return {};
       return {
@@ -464,11 +605,8 @@ function SchemaFormvue_type_script_lang_js_defineProperty(obj, key, value) { if 
       };
     });
     return {
+      behaveLikeParentSchema: behaveLikeParentSchema,
       parsedSchema: parsedSchema,
-      val: val,
-      binds: binds,
-      update: update,
-      updateBatch: updateBatch,
       hasParentSchema: hasParentSchema,
       formBinds: formBinds
     };
@@ -488,9 +626,9 @@ var SchemaFormvue_type_style_index_0_lang_css = __webpack_require__("2b09");
 SchemaFormvue_type_script_lang_js.render = render
 
 /* harmony default export */ var SchemaForm = (SchemaFormvue_type_script_lang_js);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=8ec1805c
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=template&id=cf00710c
 
-function SchemaWizardvue_type_template_id_8ec1805c_render(_ctx, _cache) {
+function SchemaWizardvue_type_template_id_cf00710c_render(_ctx, _cache) {
   var _component_SchemaForm = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaForm");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("form", {
@@ -499,28 +637,16 @@ function SchemaWizardvue_type_template_id_8ec1805c_render(_ctx, _cache) {
     }, ["prevent"]))
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm"), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_SchemaForm, {
     schema: _ctx.currentSchema,
-    modelValue: _ctx.modelValue[_ctx.step] || {},
-    "onUpdate:modelValue": _ctx.update
-  }, null, 8, ["schema", "modelValue", "onUpdate:modelValue"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm")], 32);
+    preventModelCleanupOnSchemaChange: ""
+  }, null, 8, ["schema"]), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm")], 32);
 }
-// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=8ec1805c
+// CONCATENATED MODULE: ./src/SchemaWizard.vue?vue&type=template&id=cf00710c
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaWizard.vue?vue&type=script&lang=js
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || SchemaWizardvue_type_script_lang_js_unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function SchemaWizardvue_type_script_lang_js_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return SchemaWizardvue_type_script_lang_js_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return SchemaWizardvue_type_script_lang_js_arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr); }
-
-function SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 
 
 /* harmony default export */ var SchemaWizardvue_type_script_lang_js = ({
+  name: 'SchemaWizard',
   components: {
     SchemaForm: SchemaForm
   },
@@ -533,29 +659,16 @@ function SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (le
       type: Number,
       required: true,
       default: 0
-    },
-    modelValue: {
-      type: Array,
-      required: true
     }
   },
-  emits: ['submit', 'update:modelValue'],
-  setup: function setup(props, context) {
-    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('parentSchemaExists', true);
+  emits: ['submit'],
+  setup: function setup(props) {
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('isSchemaWizard', true);
     var currentSchema = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
       return props.schema[props.step];
     });
-
-    var update = function update(data) {
-      var value = _toConsumableArray(props.modelValue);
-
-      value[props.step] = data;
-      context.emit('update:modelValue', value);
-    };
-
     return {
-      currentSchema: currentSchema,
-      update: update
+      currentSchema: currentSchema
     };
   }
 });
@@ -565,7 +678,7 @@ function SchemaWizardvue_type_script_lang_js_arrayLikeToArray(arr, len) { if (le
 
 
 
-SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_8ec1805c_render
+SchemaWizardvue_type_script_lang_js.render = SchemaWizardvue_type_template_id_cf00710c_render
 
 /* harmony default export */ var SchemaWizard = (SchemaWizardvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/SchemaFormFactory.js
@@ -574,6 +687,7 @@ function SchemaFormFactory_ownKeys(object, enumerableOnly) { var keys = Object.k
 function SchemaFormFactory_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { SchemaFormFactory_ownKeys(Object(source), true).forEach(function (key) { SchemaFormFactory_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { SchemaFormFactory_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function SchemaFormFactory_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function SchemaFormFactory() {
@@ -594,14 +708,64 @@ function SchemaFormFactory() {
     }
   }
 
+  var SchemaFieldWithComponents = SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, SchemaField), {}, {
+    components: SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, components), SchemaField.components)
+  });
+
   return SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, SchemaForm), {}, {
-    components: SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, SchemaForm.components), components),
+    components: SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread(SchemaFormFactory_objectSpread({}, components), SchemaForm.components), {}, {
+      SchemaField: SchemaFieldWithComponents
+    }),
     // Return a customized setup function with plugins
     // as the new SchemaForm setup
     setup: setup
   });
 }
+// CONCATENATED MODULE: ./src/features/useSchemaForm.js
+
+function useSchemaForm() {
+  var initialFormValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["isRef"])(initialFormValue) ? initialFormValue : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["ref"])(initialFormValue);
+
+  var findNestedFormModelProp = function findNestedFormModelProp(path) {
+    if (!path) return null;
+    var keys = path.split('.');
+
+    if (!formModel.value[keys[0]]) {
+      formModel.value[keys[0]] = {};
+    }
+
+    var nestedProp = formModel.value[keys[0]];
+
+    for (var i = 1; i < keys.length; i++) {
+      if (!nestedProp[keys[i]]) {
+        nestedProp[keys[i]] = {};
+      }
+
+      nestedProp = nestedProp[keys[i]];
+    }
+
+    return nestedProp;
+  };
+
+  var updateFormModel = function updateFormModel(prop, value, path) {
+    if (!path) {
+      formModel.value[prop] = value;
+      return;
+    }
+
+    findNestedFormModelProp(path)[prop] = value;
+  };
+
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('updateFormModel', updateFormModel);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('findNestedFormModelProp', findNestedFormModelProp);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])('formModel', formModel);
+  return {
+    formModel: formModel
+  };
+}
 // CONCATENATED MODULE: ./src/index.js
+
 
 
 
