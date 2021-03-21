@@ -5,7 +5,7 @@
 ![https://www.npmjs.com/package/formvuelate](https://img.shields.io/npm/v/formvuelate?color=42b883)
 [![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/formvuelate/formvuelate)
 
-Visit [FormVueLate 2.0's full documentation](https://formvuelate.js.org/#getting-started) for more detailed information and examples.
+Visit [FormVueLate 3.0's full documentation](https://formvuelate.js.org/#getting-started) for more detailed information and examples.
 
 ## Getting Started
 
@@ -19,7 +19,11 @@ FormVueLate is a bring-your-own-components library!
 
 We do _not_ provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 
-### Installation
+### FormVueLate 2.x
+
+The docs for FormVueLate 2.x can be found [here](https://formvuelate-2x.netlify.app/)
+:::
+## Installation
 
 To add FormVueLate to your project, start by installing the package through your favorite package manager.
 
@@ -29,90 +33,53 @@ yarn add formvuelate
 npm install formvuelate
 ```
 
+## Using the SchemaForm component
+
 Now that you have the package in your project, `import` it to your component.
 
 ```javascript
-import { SchemaForm } from 'formvuelate'
+import { SchemaForm, useSchemaForm } from 'formvuelate'
 ```
 
-The `SchemaForm` requires two `props`. The first is the `schema`, which is the meta-data of your form. The second one is `modelValue`, which will hold the state of the form.
+The `SchemaForm` requires one `prop`, `schema`, which is the meta-data of your form. You must also import the `useSchemaForm` composable which we will use in our setup function to initialize the form's `model` where the user's data is kept.
 
 ```html
-<SchemaForm :schema="mySchema" :modelValue="formData" />
-```
-
-The `SchemaForm` will `$emit` **update:modelValue** events when your components update. This means that you are able to either:
-
-- use `v-model` on it
-- or, manually capture the `@update:modelValue` event with a method of your own while injecting the `:modelValue` property.
-
-Example with `v-model`:
-
-```javascript
 <template>
-  <SchemaForm :schema="mySchema" v-model="formData" />
+  <SchemaForm :schema="mySchema" />
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { ref } from 'vue'
+import { SchemaForm, useSchemaForm } from 'formvuelate'
+
 export default {
-  setup() {
-    const formData = reactive({})
-    const mySchema = reactive({
-      // some schema here
+  components: { SchemaForm },
+  setup () {
+    const formModel = ref({})
+    useSchemaForm(formModel)
+
+    const mySchema = ref({
+      // Schema here
     })
 
     return {
-      formData,
       mySchema
     }
   }
-}}
+}
 </script>
 ```
 
-Example with manual bindings:
-
-```javascript
-<template>
-  <SchemaForm
-    :schema="mySchema"
-    :modelValue="formData"
-    @update:modelValue="updateForm"
-  />
-</template>
-
-<script>
-import { reactive } from 'vue'
-export default {
-  setup() {
-    const formData = reactive({})
-    const mySchema = reactive({
-      // some schema here
-    })
-
-    const updateForm = form => {
-      formData = form
-    }
-
-    return {
-      formData,
-      mySchema,
-      updateForm
-    }
-  }
-}}
-</script>
-```
+`SchemaForm` will automatically update the state within your `formModel` when your components update.
 
 ## Official plugins
-
-#### [Vuelidate Plugin](https://github.com/formvuelate/formvuelate-plugin-vuelidate)
-Easily incorporate Vuelidate powered validations into your forms.
-
 #### [Lookup Plugin](https://github.com/formvuelate/formvuelate-plugin-lookup)
 A mapping and replacement plugin to parse complex schemas into FormVueLate ready structure.
 
+#### [Vee-Validate Plugin](https://github.com/formvuelate/formvuelate-plugin-vee-validate)
+Easily incporate Vee-Validate powered validations into your forms.
+#### [Vuelidate Plugin WIP](https://github.com/formvuelate/formvuelate-plugin-vuelidate)
+Easily incorporate Vuelidate powered validations into your forms.
 
 ## Core team
 
