@@ -67,7 +67,6 @@ Your components will receive the validation state via `validation` prop which co
   errorMessage, // The first error message for that field
   errors, // All error messages for that field
   meta, // A field meta object
-  setDirty, // Sets the meta `dirty` flag
   setTouched, // Sets the meta `touched` flag
 }
 ```
@@ -350,7 +349,7 @@ export default {
 
 ### Initial Meta
 
-You can provide `initial-touched` and `initial-dirty` props to set the initial `touched` and `dirty` meta values for your schema fields:
+You can provide `initial-touched` prop to set the initial `touched` meta flags for your schema fields:
 
 ```html
 <template>
@@ -358,7 +357,6 @@ You can provide `initial-touched` and `initial-dirty` props to set the initial `
     v-model="formData"
     :schema="schema"
     :initial-touched="initialTouched"
-    :initial-dirty="initialDirty"
   >
     <template #afterForm>
       <button>Submit</button>
@@ -378,17 +376,12 @@ export default {
       email: true,
       password: false
     }
-    const initialDirty = {
-      email: true,
-      password: false
-    }
 
     return {
       formData,
       schema,
       initialErrors,
       initialTouched,
-      initialDirty
     }
   }
 };
