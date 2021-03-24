@@ -1,7 +1,7 @@
 <template>
   <component
+    v-if="schemaCondition"
     v-bind="binds"
-    :key="field.model"
     :is="field.component"
     :modelValue="fieldValue"
     @update:modelValue="update"
@@ -52,10 +52,18 @@ export default {
       updateFormModel(props.field.model, value, path)
     }
 
+    const schemaCondition = computed(() => {
+      const condition = props.field.condition
+      if (!condition || typeof condition !== 'function') return true
+
+      return condition(formModel.value)
+    })
+
     return {
       binds,
       fieldValue,
-      update
+      update,
+      schemaCondition
     }
   }
 }
