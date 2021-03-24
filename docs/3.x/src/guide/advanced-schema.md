@@ -1,6 +1,6 @@
 # Advanced Schema Concepts
 
-## Conditionally displaying an element within the schema <Badge type="tip" text="3.1.0" />
+## Conditionally displaying an element within the schema <Badge type="tip" text="3.1.0" vertical="middle" />
 
 If you have a complex schema that requires displaying or hiding a particular element based on a condition dictated by your model, you can always create a `computed` schema which handles the logic for you.
 
