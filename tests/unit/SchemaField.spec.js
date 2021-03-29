@@ -144,4 +144,22 @@ describe('SchemaField', () => {
       expect(formText.props().modelValue).toEqual('Marina')
     })
   })
+
+  describe('conditional schema', () => {
+    it('does not display if the field condition evaluates to false', () => {
+      const model = ref({
+        type: 'A'
+      })
+
+      const wrapper = mount(SchemaFieldWrapper({
+        field: {
+          model: 'myModel',
+          component: FormText,
+          condition: model => model.type === 'B'
+        }
+      }, model))
+
+      expect(wrapper.findComponent(FormText).exists()).toBe(false)
+    })
+  })
 })

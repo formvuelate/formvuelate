@@ -60,7 +60,7 @@ export default {
 ```
 
 `SchemaForm` will automatically update the state within your `formModel` when your components update.
-### v-model <Badge text="2.x" type="warning"/>
+### v-model <Badge text="2.x" type="warning" vertical="middle" />
 Earlier versions of FormVueLate used `v-model` as the default way of keeping the two way binding with the form's state. This forced the whole form to re-render whenever any of the child inputs emitted a new value.
 
 `v-model` is no longer supported, and will not update your form's model. Please use `useSchemaForm` instead.
