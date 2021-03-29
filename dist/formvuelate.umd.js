@@ -456,17 +456,18 @@ function useParsedSchema(refSchema, model) {
     parsedSchema: parsedSchema
   };
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=b80f4138
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=9a2caea6
 
-function SchemaFieldvue_type_template_id_b80f4138_render(_ctx, _cache) {
-  return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(_ctx.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])(_ctx.binds, {
-    key: _ctx.field.model,
+function SchemaFieldvue_type_template_id_9a2caea6_render(_ctx, _cache) {
+  return _ctx.schemaCondition ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])(_ctx.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
+    key: 0
+  }, _ctx.binds, {
     modelValue: _ctx.fieldValue,
     "onUpdate:modelValue": _ctx.update,
     class: "schema-col"
-  }), null, 16, ["modelValue", "onUpdate:modelValue"]);
+  }), null, 16, ["modelValue", "onUpdate:modelValue"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=b80f4138
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=9a2caea6
 
 // CONCATENATED MODULE: ./src/utils/constants.js
 var KEY = 'fvl_';
@@ -520,10 +521,16 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
       updateFormModel(props.field.model, value, path);
     };
 
+    var schemaCondition = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      var condition = props.field.condition;
+      if (!condition || typeof condition !== 'function') return true;
+      return condition(formModel.value);
+    });
     return {
       binds: binds,
       fieldValue: fieldValue,
-      update: update
+      update: update,
+      schemaCondition: schemaCondition
     };
   }
 });
@@ -533,7 +540,7 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
 
 
 
-SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_b80f4138_render
+SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_9a2caea6_render
 
 /* harmony default export */ var SchemaField = (SchemaFieldvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/features/ParentSchema.js
