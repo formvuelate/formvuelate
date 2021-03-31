@@ -31,4 +31,6 @@ jobs:
       run: yarn test:unit
     - name: Codecov
       uses: codecov/codecov-action@v1.0.7
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
 
