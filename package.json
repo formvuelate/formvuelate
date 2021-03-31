@@ -23,8 +23,6 @@
     "test:unit:watch": "yarn test:unit --watch",
     "lint": "vue-cli-service lint",
     "ci:lint": "yarn lint --no-fix",
-    "docs:build": "vitepress build",
-    "docs:dev": "vitepress",
     "prePackage": "yarn lint && yarn test:unit"
   },
   "main": "dist/formvuelate.common.js",
@@ -66,7 +64,6 @@
     "ts-jest": "^25.3.1",
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
-    "vitepress": "^0.3.1",
     "vue": "^3.0.6",
     "vue-cli-plugin-vue-next": "^0.1.2",
     "vue-jest": "^5.0.0-alpha.0",
