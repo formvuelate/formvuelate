@@ -3,7 +3,7 @@ import SchemaForm from '../../src/SchemaForm'
 import { IS_SCHEMA_WIZARD, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'
-import { markRaw, ref, provide } from 'vue'
+import { markRaw, ref, isRef, provide, computed } from 'vue'
 import * as Vue from 'vue'
 
 const FormText = {
@@ -36,7 +36,7 @@ const SchemaWrapperFactory = (
     `,
     components: { SchemaForm },
     setup () {
-      const schemaRef = ref(schema)
+      const schemaRef = isRef(schema) ? schema : ref(schema)
       useSchemaForm(formModel || schemaRef)
 
       if (insideWizard) {
@@ -57,106 +57,128 @@ markRaw(FormText)
 markRaw(SchemaForm)
 
 describe('SchemaForm', () => {
-  it('renders a form based on a schema', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name'
+  describe('schema types and options', () => {
+    it('renders a form based on a schema', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
       }
-    }
 
-    const wrapper = mount(SchemaWrapperFactory(schema))
+      const wrapper = mount(SchemaWrapperFactory(schema))
 
-    expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
-  })
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+    })
 
-  it('renders a form based on a nested schema', () => {
-    const nestedSchema = {
-      work: {
-        component: SchemaForm,
-        schema: {
-          address: {
-            component: FormText,
-            label: 'Work address'
+    it('renders a form based on a computed schema', async () => {
+      const model = ref({
+        check: 'A',
+        a: '',
+        b: ''
+      })
+
+      const schema = computed(() => {
+        return model.value.check === 'A' ? {
+          check: {
+            component: FormSelect,
+            options: ['A', 'B'],
+            label: 'A or B'
           },
-          phone: {
+          a: {
             component: FormText,
-            label: 'Work phone'
+            label: 'A'
+          }
+        } : {
+          check: {
+            component: FormSelect,
+            options: ['A', 'B'],
+            label: 'A or B'
           },
-          details: {
-            component: SchemaForm,
-            schema: {
-              position: {
-                component: FormText,
-                label: 'Work position'
-              },
-              employees: {
-                component: FormSelect,
-                label: 'Number of employees',
-                options: [
-                  '1', '2', '3', '4+'
-                ]
+          b: {
+            component: FormText,
+            label: 'B'
+          }
+        }
+      })
+
+      const wrapper = mount(SchemaWrapperFactory(schema, null, model))
+      expect(wrapper.findComponent(FormText).props().label).toEqual('A')
+
+      wrapper.findComponent(FormSelect).vm.$emit('update:modelValue', 'B')
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.findComponent(FormText).props().label).toEqual('B')
+    })
+
+    it('renders a form based on a nested schema', () => {
+      const nestedSchema = {
+        work: {
+          component: SchemaForm,
+          schema: {
+            address: {
+              component: FormText,
+              label: 'Work address'
+            },
+            phone: {
+              component: FormText,
+              label: 'Work phone'
+            },
+            details: {
+              component: SchemaForm,
+              schema: {
+                position: {
+                  component: FormText,
+                  label: 'Work position'
+                },
+                employees: {
+                  component: FormSelect,
+                  label: 'Number of employees',
+                  options: [
+                    '1', '2', '3', '4+'
+                  ]
+                }
               }
             }
           }
         }
       }
-    }
 
-    const wrapper = mount(SchemaWrapperFactory(nestedSchema))
+      const wrapper = mount(SchemaWrapperFactory(nestedSchema))
 
-    expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
-    expect(wrapper.findAllComponents(FormSelect)).toHaveLength(1)
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
+      expect(wrapper.findAllComponents(FormSelect)).toHaveLength(1)
+    })
   })
 
-  it('injects a unique id to each component', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name'
+  describe('a11y', () => {
+    it('injects a unique id to each component', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
       }
-    }
 
-    const wrapper = mount(SchemaWrapperFactory(schema))
+      const wrapper = mount(SchemaWrapperFactory(schema))
 
-    const ids = []
-    for (const row of wrapper.findComponent(SchemaForm).vm.parsedSchema) {
-      for (const el of row) {
-        expect(el.uuid).toBeTruthy()
-        expect(ids).not.toContain(el.uuid)
-        ids.push(el.uuid)
+      const ids = []
+      for (const row of wrapper.findComponent(SchemaForm).vm.parsedSchema) {
+        for (const el of row) {
+          expect(el.uuid).toBeTruthy()
+          expect(ids).not.toContain(el.uuid)
+          ids.push(el.uuid)
+        }
       }
-    }
-  })
-
-  it('injects the nestedSchemaModel prop as part of the path', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name'
-      }
-    }
-
-    const provideSpy = jest.spyOn(Vue, 'provide')
-
-    mount(SchemaWrapperFactory(
-      schema,
-      { nestedSchemaModel: 'myNestedPath' }
-    ))
-
-    expect(provideSpy).toHaveBeenCalledWith(SCHEMA_MODEL_PATH, 'myNestedPath')
+    })
   })
 
   describe('schemaRowClasses prop', () => {
@@ -503,6 +525,30 @@ describe('SchemaForm', () => {
 
       expect(wrapper.text()).toContain('Before form')
       expect(wrapper.text()).toContain('After form')
+    })
+  })
+
+  describe('handling nested schemas', () => {
+    it('injects the nestedSchemaModel prop as part of the path', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
+      }
+
+      const provideSpy = jest.spyOn(Vue, 'provide')
+
+      mount(SchemaWrapperFactory(
+        schema,
+        { nestedSchemaModel: 'myNestedPath' }
+      ))
+
+      expect(provideSpy).toHaveBeenCalledWith(SCHEMA_MODEL_PATH, 'myNestedPath')
     })
   })
 })
