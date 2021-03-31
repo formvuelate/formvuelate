@@ -17,6 +17,13 @@ describe('useSchemaForm', () => {
     expect(isRef(formModel)).toEqual(true)
   })
 
+  it('defaults to an empty object for the initial value and returns the empty ref', () => {
+    const { formModel } = useSchemaForm()
+
+    expect(isRef(formModel)).toEqual(true)
+    expect(formModel.value).toEqual({})
+  })
+
   it('provides the form model to its children', () => {
     const model = ref({ model: true })
     useSchemaForm(model)

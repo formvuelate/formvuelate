@@ -19,8 +19,6 @@ export default function useSchemaForm (initialFormValue = {}) {
   const formModel = isRef(initialFormValue) ? initialFormValue : ref(initialFormValue)
 
   const findNestedFormModelProp = (path) => {
-    if (!path) return null
-
     const keys = path.split('.')
 
     let nestedProp = findOrCreateProp(formModel.value, keys[0])
