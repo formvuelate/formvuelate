@@ -1,5 +1,7 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
 import SchemaForm from '../../src/SchemaForm'
+import SchemaField from '../../src/SchemaField'
+
 import { IS_SCHEMA_WIZARD, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'
@@ -181,8 +183,8 @@ describe('SchemaForm', () => {
     })
   })
 
-  describe('schemaRowClasses prop', () => {
-    it('renders form rows with user defined classes', () => {
+  describe('props', () => {
+    it('renders form rows with user defined classes with schemaRowClasses', () => {
       const schema = {
         firstName: {
           component: FormText,
@@ -200,6 +202,29 @@ describe('SchemaForm', () => {
       ))
 
       expect(wrapper.findAll('.schema-row.custom-class-a')).toHaveLength(2)
+    })
+
+    it('passes sharedConfig to child SchemaFields', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        }
+      }
+
+      const wrapper = mount(SchemaWrapperFactory(
+        schema,
+        { sharedConfig: { custom: 1 } }
+      ))
+
+      const fields = wrapper.findAllComponents(SchemaField)
+      fields.forEach(field => {
+        expect(field.props().sharedConfig).toEqual({ custom: 1 })
+      })
     })
   })
 
