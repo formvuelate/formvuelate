@@ -201,6 +201,8 @@ const SchemaFormWithPlugin = SchemaFormFactory([
 ])
 ```
 
+#### Deleting specific properties
+
 If you ever find yourself needing to delete a certain property from your schema, the `LookupPlugin`'s `mapProps` allows you to do it as well.
 
 Consider the following schema:
@@ -246,6 +248,63 @@ LookupPlugin({
     return {}
   }
 })
+```
+
+#### Preserving the original property <Badge text="2.1.0" type="tip" />
+
+There may be some cases where you want to preserve the original property that is being mapped by `LookupPlugin`, since by default this original property is deleted from the object.
+
+In these cases, you can set the `preserveMappedProps` property of the configuration object and `LookupPlugin` will no longer delete it from your schema.
+
+:::warning
+Properties that are being deleted by setting the property value to `false` will STILL be deleted.
+:::
+
+Consider the following example schema:
+
+```js
+{
+  "firstName": {
+    "type": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "lastName": {
+    "field": "FormText",
+    "label": "Last name",
+    "important": true
+  }
+}
+```
+
+We now can apply our `preserveMappedProps` to keep the `type` property intact.
+
+```js
+LookupPlugin({
+  mapProps: {
+    type: 'component'
+  },
+  preserveMappedProps: true
+})
+```
+
+The schema will now include both the mapped `component` property, plus the original `type`:
+
+```js
+{
+  "firstName": {
+    "type": "FormText",
+    "component": "FormText",
+    "label": "First name",
+    "important": true
+  },
+  "lastName": {
+    "field": "FormText",
+    "component": "FormText",
+    "label": "Last name",
+    "important": true
+  }
+}
 ```
 
 ## Nested Schema Caveats
