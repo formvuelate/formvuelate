@@ -118,7 +118,7 @@ In this case, we set it using the validation object's `setTouched` method as sho
       @input="update($event.target.value)"
       @blur="onBlur"
     >
-    <span v-if="validation.touched">{{ validation.errorMessage }}</span>
+    <span v-if="validation.meta.touched">{{ validation.errorMessage }}</span>
   </div>
 </template>
 
