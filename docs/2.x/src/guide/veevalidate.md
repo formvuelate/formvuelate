@@ -140,6 +140,8 @@ export default {
 </script>
 ```
 
+Note that when the form is submitted, all fields will be automatically "touched". [Read here](https://vee-validate.logaretm.com/v4/guide/components/handling-forms#submission-behavior) for information about form submission behavior in vee-validate.
+
 ## Configuration
 
 The `VeeValidatePlugin` accepts one parameter, a configuration object. Let's look at the properties that we can use.
