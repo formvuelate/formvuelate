@@ -36,7 +36,7 @@ Hi! We are really excited that you are interested in contributing to Vuelidate. 
 
 ## Development Setup
 
-You will need [Node.js](http://nodejs.org) **version 8+** and [yarn](https://yarnpkg.com/en/docs/install).
+You will need [Node.js](http://nodejs.org) **version 14.x** and [yarn](https://yarnpkg.com/en/docs/install).
 
 After cloning the repo, run:
 
