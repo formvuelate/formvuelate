@@ -11213,14 +11213,6 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-cli-plugin-vue-next@^0.1.2:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vue-next/-/vue-cli-plugin-vue-next-0.1.4.tgz#8173186aedb65a7e9fe80889a9c44b023544dd9f"
-  integrity sha512-uSr/2c+enS7Ps5Qu54dOno+oTY69LXJCzksiqoSDE2bdxiqlkFjeayrMKV7GOeYNnmqEpExhZ2ZT0359la/wSA==
-  dependencies:
-    chalk "^4.1.0"
-    vue-loader "^16.0.0-alpha.3"
-
 vue-eslint-parser@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.6.0.tgz#01ea1a2932f581ff244336565d712801f8f72561"
@@ -11267,6 +11259,7 @@ vue-jest@^5.0.0-alpha.0:
     tsconfig "^7.0.0"
 
 "vue-loader-v16@npm:vue-loader@^16.1.0", vue-loader@^16.0.0-alpha.3:
+  name vue-loader-v16
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-16.2.0.tgz#046a53308dd47e58efe20ddec1edec027ce3b46e"
   integrity sha512-TitGhqSQ61RJljMmhIGvfWzJ2zk9m1Qug049Ugml6QP3t0e95o0XJjk29roNEiPKJQBEi8Ord5hFuSuELzSp8Q==

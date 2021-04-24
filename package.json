@@ -66,7 +66,6 @@
     "ts-loader": "^6.2.2",
     "typescript": "^3.8.3",
     "vue": "^3.0.6",
-    "vue-cli-plugin-vue-next": "^0.1.2",
     "vue-jest": "^5.0.0-alpha.0",
     "vue-loader": "^16.0.0-alpha.3"
   },
