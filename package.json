@@ -83,5 +83,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/formvuelate/formvuelate.git"
-  }
+  },
+  "dependencies": {}
 }
