@@ -29,6 +29,8 @@ jobs:
       run: yarn ci:lint
     - name: Test units
       run: yarn test:unit
+    - name: Test e2e
+      run: yarn test:e2e:ci
     - name: Codecov
       uses: codecov/codecov-action@v1.0.7
       with:

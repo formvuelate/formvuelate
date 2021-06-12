@@ -1,0 +1,7 @@
+{
+  "pluginsFile": "tests/e2e/plugins/index.js",
+  "component": {
+    "componentFolder": "src",
+    "testFiles": "**/*.spec.js"
+  }
+}
