@@ -157,6 +157,53 @@ describe('SchemaForm', () => {
     })
   })
 
+  it('renders a form with multiple nested schemas at the same nesting level', () => {
+    const nestedSchema = {
+      work: {
+        component: SchemaForm,
+        schema: {
+          details: {
+            component: SchemaForm,
+            schema: {
+              position: {
+                component: FormText,
+                label: 'Work position'
+              },
+              employees: {
+                component: FormSelect,
+                label: 'Number of employees',
+                options: [
+                  '1', '2', '3', '4+'
+                ]
+              }
+            }
+          },
+          moreDetails: {
+            component: SchemaForm,
+            schema: {
+              department: {
+                component: FormText,
+                label: 'Department'
+              },
+              hours: {
+                component: FormSelect,
+                label: 'Hours per shift',
+                options: [
+                  '1', '2', '3', '4+'
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const wrapper = mount(SchemaWrapperFactory(nestedSchema))
+
+    expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
+    expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
+  })
+
   describe('a11y', () => {
     it('injects a unique id to each component', () => {
       const schema = {
