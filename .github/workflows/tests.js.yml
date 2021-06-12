@@ -33,4 +33,6 @@ jobs:
       uses: codecov/codecov-action@v1.0.7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+    - name: Test e2e
+      run: yarn test:e2e:ci
 

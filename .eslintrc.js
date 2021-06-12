@@ -5,6 +5,10 @@ module.exports = {
     node: true
   },
 
+  plugins: [
+    'cypress'
+  ],
+
   extends: [
     'standard',
     'plugin:vue/vue3-recommended'
@@ -28,10 +32,19 @@ module.exports = {
   overrides: [
     {
       files: [
-        '**/tests/unit/**/*.spec.js'
+        '**/*.spec.js'
       ],
       env: {
         jest: true
+      }
+    },
+    {
+      files: [
+        '**/*.e2e.js'
+      ],
+      env: {
+        mocha: true,
+        'cypress/globals': true
       }
     }
   ]
