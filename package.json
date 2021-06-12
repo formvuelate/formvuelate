@@ -3,28 +3,14 @@
   "version": "3.1.1",
   "description": "Schema Form Generator",
   "author": "Marina Mosti <marina@mosti.com.mx>",
-  "contributors": [
-    {
-      "name": "Marina Mosti",
-      "email": "marina@mosti.com.mx"
-    },
-    {
-      "name": "Damian Dulisz",
-      "email": "damian.dulisz@gmail.com"
-    },
-    {
-      "name": "Tonina Zhelyazkova",
-      "email": "zhelyazkova.tonina@gmail.com"
-    }
-  ],
   "scripts": {
     "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js",
-    "test": "yarn lint && yarn test:unit",
     "test:unit": "vue-cli-service test:unit --coverage",
-    "test:unit:watch": "yarn test:unit --watch",
     "lint": "vue-cli-service lint",
     "ci:lint": "yarn lint --no-fix",
-    "prePackage": "yarn test"
+    "prePackage": "yarn test",
+    "test": "yarn lint && yarn test:unit",
+    "test:unit:watch": "yarn test:unit --watch"
   },
   "main": "dist/formvuelate.common.js",
   "browser": "dist/formvuelate.umd.js",
@@ -33,20 +19,13 @@
     "dist",
     "src"
   ],
-  "keywords": [
-    "vue",
-    "form",
-    "schema",
-    "plugin",
-    "dynamic form"
-  ],
   "devDependencies": {
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
-    "@vue/cli-plugin-babel": "^4.2.0",
-    "@vue/cli-plugin-eslint": "^4.2.0",
-    "@vue/cli-plugin-unit-jest": "^4.4.1",
-    "@vue/cli-service": "^4.2.0",
+    "@vue/cli-plugin-babel": "~4.5.13",
+    "@vue/cli-plugin-eslint": "~4.5.13",
+    "@vue/cli-plugin-unit-jest": "~4.5.13",
+    "@vue/cli-service": "~4.5.13",
     "@vue/compiler-sfc": "^3.0.0-beta.12",
     "@vue/eslint-config-standard": "^5.1.0",
     "@vue/test-utils": "^2.0.0-rc.4",
@@ -71,10 +50,31 @@
   "bugs": {
     "url": "https://github.com/formvuelate/formvuelate"
   },
+  "contributors": [
+    {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    },
+    {
+      "name": "Damian Dulisz",
+      "email": "damian.dulisz@gmail.com"
+    },
+    {
+      "name": "Tonina Zhelyazkova",
+      "email": "zhelyazkova.tonina@gmail.com"
+    }
+  ],
   "engines": {
     "node": ">=12.17.0"
   },
   "homepage": "https://formvuelate.js.org/",
+  "keywords": [
+    "vue",
+    "form",
+    "schema",
+    "plugin",
+    "dynamic form"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/formvuelate/formvuelate.git"
