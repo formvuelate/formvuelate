@@ -1,11 +1,11 @@
 import { inject, provide, toRefs } from 'vue'
 import { INJECTED_SCHEMA, SCHEMA_MODEL_PATH } from '../utils/constants'
 
-export default function useInjectedSchema (props) {
+export default function useInjectedSchema (props, behaveLikeParentSchema) {
   const { schema } = toRefs(props)
 
   let injectedSchema = inject(INJECTED_SCHEMA, false)
-  if (!injectedSchema) {
+  if (behaveLikeParentSchema) {
     // Only the top level schema form should inject the schema
     // That way we dont have to worry about injecting the prop down into
     // sub schemas

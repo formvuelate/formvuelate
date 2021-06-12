@@ -73,7 +73,7 @@ export default {
   setup (props, { emit, attrs }) {
     const { behaveLikeParentSchema, hasParentSchema } = useParentSchema()
 
-    const { schema } = useInjectedSchema(props)
+    const { schema } = useInjectedSchema(props, behaveLikeParentSchema)
     const { parsedSchema } = useParsedSchema(schema, attrs.model)
 
     useFormModel(props, parsedSchema)
