@@ -35,7 +35,14 @@ module.exports = {
         '**/*.spec.js'
       ],
       env: {
-        jest: true,
+        jest: true
+      }
+    },
+    {
+      files: [
+        '**/*.e2e.js'
+      ],
+      env: {
         mocha: true,
         'cypress/globals': true
       }
