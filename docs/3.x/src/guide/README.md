@@ -12,7 +12,7 @@ The schema that you use for your form can be as flexible as you need it to be, i
 :::warning Important
 FormVueLate is a bring-your-own-components library!
 
-We do **not** provide any base components for your to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.
+We do **not** provide any base components for you to build your forms. There are numerous component libraries out there that do a great job of providing carefully constructed components for you to use, and FormVueLate does a great job at allowing you to bring those external components to your forms, or even crafting your own.
 :::
 
 ## Installation
