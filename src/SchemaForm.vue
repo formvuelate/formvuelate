@@ -6,6 +6,7 @@
     <slot
       v-if="behaveLikeParentSchema"
       name="beforeForm"
+      v-bind="slotBinds"
     />
 
     <div
@@ -25,6 +26,7 @@
     <slot
       v-if="behaveLikeParentSchema"
       name="afterForm"
+      v-bind="slotBinds"
     />
   </component>
 </template>
@@ -89,11 +91,16 @@ export default {
       }
     })
 
+    const slotBinds = computed(() => {
+      return {}
+    })
+
     return {
       behaveLikeParentSchema,
       parsedSchema,
       hasParentSchema,
-      formBinds
+      formBinds,
+      slotBinds
     }
   }
 }
