@@ -403,3 +403,38 @@ The form-level `validation` object contains the following properties:
   </SchemaForm>
 </template>
 ```
+
+The following are a few common examples for behaviors implemented with the form-level validation state.
+
+**Disable buttons until all fields are valid**
+
+```html
+<SchemaForm :schema="schema">
+  <template #afterForm="{ validation }">
+    <button :disabled="!validation.meta.valid">Submit</button>
+  </template>
+</SchemaForm>
+```
+
+**Display spinner or loading state when the form is submitting**
+
+```vue
+<SchemaForm :schema="schema">
+  <template #afterForm="{ validation }">
+    <button :class="{ 'is-submitting': validation.isSubmitting }">Submit</button>
+  </template>
+</SchemaForm>
+```
+
+**Display all errors as a summary before the form fields**
+
+```html
+<SchemaForm :schema="schema">
+  <template #beforeForm="{ validation }">
+    <p>Please correct these errors</p>
+    <ul v-if="validation.errors">
+      <li v-for="error in validation.errors">{{ error }}</li>
+    </ul>
+  </template>
+</SchemaForm>
+```
