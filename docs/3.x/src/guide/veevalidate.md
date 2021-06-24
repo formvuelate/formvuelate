@@ -422,7 +422,7 @@ The following are a few common examples for behaviors implemented with the form-
 
 **Display spinner or loading state when the form is submitting**
 
-```vue
+```html
 <SchemaForm :schema="schema">
   <template #afterForm="{ validation }">
     <button :class="{ 'is-submitting': validation.isSubmitting }">Submit</button>
