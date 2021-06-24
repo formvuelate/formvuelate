@@ -25,8 +25,8 @@ npm i vee-validate@next @formvuelate/plugin-vee-validate
 To use the plugin, import and pass it to the `SchemaFormFactory`. This creates a `SchemaForm` component with validation capabilities.
 
 ```js
-import { SchemaFormFactory } from "formvuelate";
-import VeeValidatePlugin from "@formvuelate/plugin-vee-validate";
+import { SchemaFormFactory } from 'formvuelate';
+import VeeValidatePlugin from '@formvuelate/plugin-vee-validate';
 
 const SchemaFormWithValidation = SchemaFormFactory([
   VeeValidatePlugin({
@@ -45,14 +45,14 @@ Now that the component is created, you can register it and use it in your templa
 </template>
 
 <script>
-  export default {
-    components: {
-      SchemaFormWithValidation
-    },
-    setup () {
-      [...]
-    }
+export default {
+  components: {
+    SchemaFormWithValidation
+  },
+  setup () {
+    [...]
   }
+}
 </script>
 ```
 
@@ -80,23 +80,23 @@ You can opt-in to any of these properties or to the entire `validation` object. 
 </template>
 
 <script>
-  export default {
-    props: {
-      // other props
-      modelValue: {
-        required: true
-      },
-      validation: {
-        type: Object,
-        default: () => ({})
-      }
+export default {
+  props: {
+    // other props
+    modelValue: {
+      required: true
     },
-    methods: {
-      update(value) {
-        this.$emit("update:modelValue", value);
-      }
+    validation: {
+      type: Object,
+      default: () => ({})
     }
-  };
+  },
+  methods: {
+    update(value) {
+      this.$emit('update:modelValue', value);
+    }
+  }
+};
 </script>
 ```
 
@@ -119,19 +119,19 @@ In this case, we set it using the validation object's `setTouched` method as sho
 </template>
 
 <script>
-  export default {
-    props: {
-      // ...
+export default {
+  props: {
+    // ...
+  },
+  methods: {
+    update(value) {
+      this.$emit('update:modelValue', value);
     },
-    methods: {
-      update(value) {
-        this.$emit("update:modelValue", value);
-      },
-      onBlur() {
-        this.validation.setTouched(true);
-      }
+    onBlur() {
+      this.validation.setTouched(true);
     }
-  };
+  }
+};
 </script>
 ```
 
@@ -172,7 +172,7 @@ const SchemaFormWithValidation = SchemaFormFactory([
   VeeValidatePlugin({
     mapProps(validation, el) {
       // If the field is the `FormText` component, send the entire validation object
-      if (el.component.name === "FormText") {
+      if (el.component.name === 'FormText') {
         return {
           validation
         };
@@ -199,24 +199,24 @@ The "field-level" approach allows to you add a `validations` property to your fi
 Here is an example of a schema that uses all the possible `validations` value types:
 
 ```js
-import * as yup from "yup";
+import * as yup from 'yup';
 
 const schema = {
   email: {
     component: FormText,
-    label: "Email",
+    label: 'Email',
     // Globally defined rules
-    validations: "required|email"
+    validations: 'required|email'
   },
   password: {
     component: FormText,
-    label: "Password",
+    label: 'Password',
     // Validation functions
     validations: value => value && value.length > 6
   },
   fullName: {
     component: FormText,
-    label: "Full Name",
+    label: 'Full Name',
     // yup validations
     validations: yup.string().required()
   }
@@ -248,39 +248,39 @@ This example uses `yup` to define validation schemas for your forms.
 </template>
 
 <script>
-  import * as yup from "yup";
+import * as yup from 'yup';
 
-  export default {
-    components: {
-      SchemaFormWithValidation
-    },
-    setup() {
-      const schema = ref([
-        // Fields without the `validation` prop
-      ]);
+export default {
+  components: {
+    SchemaFormWithValidation
+  },
+  setup() {
+    const schema = ref([
+      // Fields without the `validation` prop
+    ]);
 
-      const formData = ref({});
-      useSchemaForm(formData);
+    const formData = ref({});
+    useSchemaForm(formData);
 
-      // The validation schema
-      const validationSchema = yup.object().shape({
-        email: yup
-          .string()
-          .email()
-          .required(),
-        password: yup
-          .string()
-          .min(5)
-          .required(),
-        fullName: yup.string().required()
-      });
+    // The validation schema
+    const validationSchema = yup.object().shape({
+      email: yup
+        .string()
+        .email()
+        .required(),
+      password: yup
+        .string()
+        .min(5)
+        .required(),
+      fullName: yup.string().required()
+    });
 
-      return {
-        schema,
-        validationSchema
-      };
-    }
-  };
+    return {
+      schema,
+      validationSchema
+    };
+  }
+};
 </script>
 ```
 
@@ -316,26 +316,26 @@ You can provide initial validation state to the `SchemaForm`, to set initial err
 </template>
 
 <script>
-  export default {
-    setup() {
-      const schema = ref([
-        // schema...
-      ]);
+export default {
+  setup() {
+    const schema = ref([
+      // schema...
+    ]);
 
-      const formData = ref({});
-      useSchemaForm(formData);
+    const formData = ref({});
+    useSchemaForm(formData);
 
-      const initialErrors = {
-        email: "This email is already taken",
-        password: "Password must be at least 8 characters long"
-      };
+    const initialErrors = {
+      email: 'This email is already taken',
+      password: 'Password must be at least 8 characters long'
+    };
 
-      return {
-        schema,
-        initialErrors
-      };
-    }
-  };
+    return {
+      schema,
+      initialErrors
+    };
+  }
+};
 </script>
 ```
 
@@ -353,28 +353,28 @@ You can provide `initial-touched` prop to set the initial `touched` meta flags f
 </template>
 
 <script>
-  export default {
-    setup() {
-      const schema = ref([
-        // schema...
-      ]);
+export default {
+  setup() {
+    const schema = ref([
+      // schema...
+    ]);
 
-      const formData = ref({});
-      useSchemaForm(formData);
+    const formData = ref({});
+    useSchemaForm(formData);
 
-      const initialTouched = {
-        email: true,
-        password: false
-      };
+    const initialTouched = {
+      email: true,
+      password: false
+    };
 
-      return {
-        formData,
-        schema,
-        initialErrors,
-        initialTouched
-      };
-    }
-  };
+    return {
+      formData,
+      schema,
+      initialErrors,
+      initialTouched
+    };
+  }
+};
 </script>
 ```
 
@@ -411,7 +411,7 @@ The following are a few common examples for behaviors implemented with the form-
 ```html
 <SchemaForm :schema="schema">
   <template #afterForm="{ validation }">
-    <button :disabled="!validation.meta.valid">Submit</button>
+    <button :aria-disabled="!validation.meta.valid">Submit</button>
   </template>
 </SchemaForm>
 ```
