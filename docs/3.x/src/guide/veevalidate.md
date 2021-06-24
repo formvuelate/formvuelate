@@ -25,14 +25,14 @@ npm i vee-validate@next @formvuelate/plugin-vee-validate
 To use the plugin, import and pass it to the `SchemaFormFactory`. This creates a `SchemaForm` component with validation capabilities.
 
 ```js
-import { SchemaFormFactory } from 'formvuelate';
-import VeeValidatePlugin from '@formvuelate/plugin-vee-validate';
+import { SchemaFormFactory } from 'formvuelate'
+import VeeValidatePlugin from '@formvuelate/plugin-vee-validate'
 
 const SchemaFormWithValidation = SchemaFormFactory([
   VeeValidatePlugin({
     // plugin configuration here
   })
-]);
+])
 ```
 
 Now that the component is created, you can register it and use it in your template:
@@ -92,11 +92,11 @@ export default {
     }
   },
   methods: {
-    update(value) {
-      this.$emit('update:modelValue', value);
+    update (value) {
+      this.$emit('update:modelValue', value)
     }
   }
-};
+}
 </script>
 ```
 
@@ -124,14 +124,14 @@ export default {
     // ...
   },
   methods: {
-    update(value) {
-      this.$emit('update:modelValue', value);
+    update (value) {
+      this.$emit('update:modelValue', value)
     },
-    onBlur() {
-      this.validation.setTouched(true);
+    onBlur () {
+      this.validation.setTouched(true)
     }
   }
-};
+}
 </script>
 ```
 
@@ -154,13 +154,13 @@ In the following example, the `errorMessage` is extracted to it's own prop.
 ```js
 const SchemaFormWithValidation = SchemaFormFactory([
   VeeValidatePlugin({
-    mapProps(validation) {
+    mapProps (validation) {
       return {
         errorMessage: validation.errorMessage
-      };
+      }
     }
   })
-]);
+])
 ```
 
 Now your component definition can accept the `errorMessage` prop instead of the entire `validation` object.
@@ -175,15 +175,15 @@ const SchemaFormWithValidation = SchemaFormFactory([
       if (el.component.name === 'FormText') {
         return {
           validation
-        };
+        }
       }
       // Otherwise send the error message only
       return {
         errorMessage: validation.errorMessage
-      };
+      }
     }
   })
-]);
+])
 ```
 
 ## Defining Validation Rules
@@ -199,7 +199,7 @@ The "field-level" approach allows to you add a `validations` property to your fi
 Here is an example of a schema that uses all the possible `validations` value types:
 
 ```js
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 const schema = {
   email: {
@@ -220,7 +220,7 @@ const schema = {
     // yup validations
     validations: yup.string().required()
   }
-};
+}
 ```
 
 Then you can use the schema in your template
@@ -248,7 +248,7 @@ This example uses `yup` to define validation schemas for your forms.
 </template>
 
 <script>
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 export default {
   components: {
@@ -257,10 +257,10 @@ export default {
   setup() {
     const schema = ref([
       // Fields without the `validation` prop
-    ]);
+    ])
 
-    const formData = ref({});
-    useSchemaForm(formData);
+    const formData = ref({})
+    useSchemaForm(formData)
 
     // The validation schema
     const validationSchema = yup.object().shape({
@@ -273,14 +273,14 @@ export default {
         .min(5)
         .required(),
       fullName: yup.string().required()
-    });
+    })
 
     return {
       schema,
       validationSchema
-    };
+    }
   }
-};
+}
 </script>
 ```
 
@@ -320,22 +320,22 @@ export default {
   setup() {
     const schema = ref([
       // schema...
-    ]);
+    ])
 
-    const formData = ref({});
-    useSchemaForm(formData);
+    const formData = ref({})
+    useSchemaForm(formData)
 
     const initialErrors = {
       email: 'This email is already taken',
       password: 'Password must be at least 8 characters long'
-    };
+    }
 
     return {
       schema,
       initialErrors
-    };
+    }
   }
-};
+}
 </script>
 ```
 
@@ -357,24 +357,24 @@ export default {
   setup() {
     const schema = ref([
       // schema...
-    ]);
+    ])
 
-    const formData = ref({});
-    useSchemaForm(formData);
+    const formData = ref({})
+    useSchemaForm(formData)
 
     const initialTouched = {
       email: true,
       password: false
-    };
+    }
 
     return {
       formData,
       schema,
       initialErrors,
       initialTouched
-    };
+    }
   }
-};
+}
 </script>
 ```
 
