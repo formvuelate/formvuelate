@@ -384,7 +384,7 @@ export default {
 This feature is only available in FormVuelate <Badge text="3.2" type="warning" vertical="middle" /> and @formvuelate/plugin-vee-validate <Badge text="2.3" type="warning" vertical="middle" />
 :::
 
-You can access the form-level validation state by using either `afterForm` or `beforeForm` slot prop named `validation` on the `SchemaForm` component. Read more about [available slots](/guide/schema-form#slots).
+You can access the form-level validation state by using either `afterForm` or `beforeForm` slot prop named `validation` on the `SchemaForm` component. Read more about [available slots](/guide/schema-form.md#slots).
 
 The form-level `validation` object contains the following properties:
 
@@ -419,6 +419,8 @@ The following are a few common examples for behaviors implemented with the form-
   </template>
 </SchemaForm>
 ```
+
+Learn more about [accessible disabling of form buttons](https://css-tricks.com/making-disabled-buttons-more-inclusive/)
 
 **Display spinner or loading state when the form is submitting**
 
