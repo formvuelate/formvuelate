@@ -100,6 +100,13 @@ Easily incorporate Vuelidate powered validations into your forms.
         <sub><b>Tonina Zhelyazkova</b></sub>
       </a>
     </td>
+    <td align="center">
+      <a href="https://github.com/logaretm">
+        <img src="https://avatars.githubusercontent.com/u/6261322?v=4" width="120px;" alt="Tonina Zhelyazkova"/>
+        <br />
+        <sub><b>Abdelrahman Awad</b></sub>
+      </a>
+    </td>
   </tr>
 </table>
 
