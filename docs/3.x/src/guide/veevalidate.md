@@ -1,6 +1,7 @@
 ---
 sidebarDepth: 3
 ---
+
 # Vee-Validate Plugin
 
 [Vee-Validate Plugin's Repo](https://github.com/formvuelate/formvuelate-plugin-vee-validate).
@@ -39,9 +40,7 @@ Now that the component is created, you can register it and use it in your templa
 ```html
 <template>
   <div id="app">
-    <SchemaFormWithValidation
-      :schema="mySchema"
-    />
+    <SchemaFormWithValidation :schema="mySchema" />
   </div>
 </template>
 
@@ -75,10 +74,7 @@ You can opt-in to any of these properties or to the entire `validation` object. 
 ```html
 <template>
   <div>
-    <input
-      :value="modelValue"
-      @input="update($event.target.value)"
-    >
+    <input :value="modelValue" @input="update($event.target.value)" />
     <span>{{ validation.errorMessage }}</span>
   </div>
 </template>
@@ -117,7 +113,7 @@ In this case, we set it using the validation object's `setTouched` method as sho
       :value="modelValue"
       @input="update($event.target.value)"
       @blur="onBlur"
-    >
+    />
     <span v-if="validation.meta.touched">{{ validation.errorMessage }}</span>
   </div>
 </template>
@@ -131,8 +127,8 @@ export default {
     update (value) {
       this.$emit('update:modelValue', value)
     },
-    onBlur() {
-      this.validation.setTouched(true);
+    onBlur () {
+      this.validation.setTouched(true)
     }
   }
 }
@@ -158,9 +154,9 @@ In the following example, the `errorMessage` is extracted to it's own prop.
 ```js
 const SchemaFormWithValidation = SchemaFormFactory([
   VeeValidatePlugin({
-    mapProps(validation) {
+    mapProps (validation) {
       return {
-        errorMessage: validation.errorMessage,
+        errorMessage: validation.errorMessage
       }
     }
   })
@@ -203,7 +199,7 @@ The "field-level" approach allows to you add a `validations` property to your fi
 Here is an example of a schema that uses all the possible `validations` value types:
 
 ```js
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 const schema = {
   email: {
@@ -216,7 +212,7 @@ const schema = {
     component: FormText,
     label: 'Password',
     // Validation functions
-    validations: (value) => value && value.length > 6
+    validations: value => value && value.length > 6
   },
   fullName: {
     component: FormText,
@@ -231,9 +227,7 @@ Then you can use the schema in your template
 
 ```html
 <div id="app">
-  <SchemaFormWithPlugin
-    :schema="schema"
-  />
+  <SchemaFormWithPlugin :schema="schema" />
 </div>
 ```
 
@@ -254,13 +248,13 @@ This example uses `yup` to define validation schemas for your forms.
 </template>
 
 <script>
-import * as yup from 'yup';
+import * as yup from 'yup'
 
 export default {
   components: {
     SchemaFormWithValidation
   },
-  setup () {
+  setup() {
     const schema = ref([
       // Fields without the `validation` prop
     ])
@@ -270,9 +264,15 @@ export default {
 
     // The validation schema
     const validationSchema = yup.object().shape({
-      email: yup.string().email().required(),
-      password: yup.string().min(5).required(),
-      fullName: yup.string().required(),
+      email: yup
+        .string()
+        .email()
+        .required(),
+      password: yup
+        .string()
+        .min(5)
+        .required(),
+      fullName: yup.string().required()
     })
 
     return {
@@ -290,10 +290,7 @@ The `VeeValidatePlugin` automatically handles `SchemaForm` submits, and triggers
 
 ```html
 <template>
-  <SchemaForm
-    @submit="onSubmit"
-    :schema="schema"
-  >
+  <SchemaForm @submit="onSubmit" :schema="schema">
     <template #afterForm>
       <button>Submit</button>
     </template>
@@ -311,10 +308,7 @@ You can provide initial validation state to the `SchemaForm`, to set initial err
 
 ```html
 <template>
-  <SchemaForm
-    :schema="schema"
-    :initial-errors="initialErrors"
-  >
+  <SchemaForm :schema="schema" :initial-errors="initialErrors">
     <template #afterForm>
       <button>Submit</button>
     </template>
@@ -341,7 +335,7 @@ export default {
       initialErrors
     }
   }
-};
+}
 </script>
 ```
 
@@ -351,10 +345,7 @@ You can provide `initial-touched` prop to set the initial `touched` meta flags f
 
 ```html
 <template>
-  <SchemaForm
-    :schema="schema"
-    :initial-touched="initialTouched"
-  >
+  <SchemaForm :schema="schema" :initial-touched="initialTouched">
     <template #afterForm>
       <button>Submit</button>
     </template>
@@ -380,9 +371,76 @@ export default {
       formData,
       schema,
       initialErrors,
-      initialTouched,
+      initialTouched
     }
   }
-};
+}
 </script>
+```
+
+## SchemaForm slot props
+
+::: warning Important
+This feature is available starting on FormVuelate <Badge text="3.2" type="warning" vertical="middle" /> and @formvuelate/plugin-vee-validate <Badge text="2.3" type="warning" vertical="middle" />
+:::
+
+You can access the form-level validation state by using either `afterForm` or `beforeForm` slot prop named `validation` on the `SchemaForm` component. Read more about [available slots](/guide/schema-form.md#slots).
+
+The form-level `validation` object contains the following properties:
+
+- `isSubmitting`: Indicates if the form is being submitted
+- `submitCount`: Indicates the number of submission attempts
+- `values`: A record object containing fields/values pairs
+- `errors`: A record object containing field/error pairs
+- `meta`: The [form meta](https://vee-validate.logaretm.com/v4/guide/components/validation#form-level-meta) object.
+
+```html
+<template>
+  <SchemaForm @submit="onSubmit" :schema="schema">
+    <template #afterForm="{ validation }">
+      <span>Form is submitting: {{ validation.isSubmitting }}</span>
+      <span>Attempted submits: {{ validation.submitCount }}</span>
+      <span>Values: {{ validation.values }}</span>
+      <span>Errors: {{ validation.errors }}</span>
+      <span>Metadata: {{ validation.meta }}</span>
+    </template>
+  </SchemaForm>
+</template>
+```
+
+The following are a few common examples for behaviors implemented with the form-level validation state.
+
+**Disable buttons until all fields are valid**
+
+```html
+<SchemaForm :schema="schema">
+  <template #afterForm="{ validation }">
+    <button :aria-disabled="!validation.meta.valid">Submit</button>
+  </template>
+</SchemaForm>
+```
+
+Learn more about [accessible disabling of form buttons](https://css-tricks.com/making-disabled-buttons-more-inclusive/)
+
+**Display spinner or loading state when the form is submitting**
+
+```html
+<SchemaForm :schema="schema">
+  <template #afterForm="{ validation }">
+    <button :class="{ 'is-submitting': validation.isSubmitting }">Submit</button>
+  </template>
+</SchemaForm>
+```
+
+**Display all errors as a summary before the form fields**
+
+```html
+<SchemaForm :schema="schema">
+  <template #beforeForm="{ validation }">
+    <p>Please correct these errors</p>
+    <ul v-if="validation.errors">
+      <li v-for="error in validation.errors">{{ error }}</li>
+    </ul>
+  </template>
+</SchemaForm>
 ```
