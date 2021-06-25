@@ -96,14 +96,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "5424":
+/***/ "103b":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_d5b91168_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("8fbd");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_d5b91168_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_d5b91168_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("17c6");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
+
+/***/ }),
+
+/***/ "17c6":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -199,13 +206,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 
 /***/ }),
 
-/***/ "8fbd":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -258,16 +258,16 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=d5b91168
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=162657fa
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SchemaField = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaField");
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])($setup.behaveLikeParentSchema ? 'form' : 'div'), $setup.formBinds, {
     default: Object(external_commonjs_vue_commonjs2_vue_root_Vue_["withCtx"])(function () {
-      return [$setup.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm", {
+      return [$setup.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "beforeForm", Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
         key: 0
-      }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])($setup.parsedSchema, function (fields, index) {
+      }, $setup.slotBinds)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true), (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(true), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(external_commonjs_vue_commonjs2_vue_root_Vue_["Fragment"], null, Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderList"])($setup.parsedSchema, function (fields, index) {
         return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
           class: ['schema-row', $props.schemaRowClasses],
           key: index
@@ -279,14 +279,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             class: "schema-col"
           }, null, 8, ["field", "sharedConfig"]);
         }), 128))], 2);
-      }), 128)), $setup.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", {
+      }), 128)), $setup.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
         key: 1
-      }) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
+      }, $setup.slotBinds)) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
     }),
     _: 3
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=d5b91168
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=162657fa
 
 // CONCATENATED MODULE: ./src/features/UniqueID.js
 function useUniqueID() {
@@ -701,18 +701,22 @@ function useFormModel(props, parsedSchema) {
         }
       };
     });
+    var slotBinds = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      return {};
+    });
     return {
       behaveLikeParentSchema: behaveLikeParentSchema,
       parsedSchema: parsedSchema,
       hasParentSchema: hasParentSchema,
-      formBinds: formBinds
+      formBinds: formBinds,
+      slotBinds: slotBinds
     };
   }
 });
 // CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/SchemaForm.vue?vue&type=style&index=0&id=d5b91168&lang=css
-var SchemaFormvue_type_style_index_0_id_d5b91168_lang_css = __webpack_require__("5424");
+// EXTERNAL MODULE: ./src/SchemaForm.vue?vue&type=style&index=0&id=162657fa&lang=css
+var SchemaFormvue_type_style_index_0_id_162657fa_lang_css = __webpack_require__("103b");
 
 // CONCATENATED MODULE: ./src/SchemaForm.vue
 
