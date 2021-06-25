@@ -103,7 +103,7 @@ Easily incorporate Vuelidate powered validations into your forms.
   </tr>
 </table>
 
-## Emereti
+## Emeriti
 
 Special thanks to these folks which have provided invaluable contributions to the project.
 <ul>
