@@ -381,7 +381,7 @@ export default {
 ## SchemaForm slot props
 
 ::: warning Important
-This feature is only available in FormVuelate <Badge text="3.2" type="warning" vertical="middle" /> and @formvuelate/plugin-vee-validate <Badge text="2.3" type="warning" vertical="middle" />
+This feature is available starting on FormVuelate <Badge text="3.2" type="warning" vertical="middle" /> and @formvuelate/plugin-vee-validate <Badge text="2.3" type="warning" vertical="middle" />
 :::
 
 You can access the form-level validation state by using either `afterForm` or `beforeForm` slot prop named `validation` on the `SchemaForm` component. Read more about [available slots](/guide/schema-form.md#slots).
