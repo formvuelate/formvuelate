@@ -30,6 +30,7 @@ module.exports = {
 
   collectCoverageFrom: [
     'src/**/*.{js,jsx,vue}',
+    '!src/**/*.e2e.js',
     '!src/index.js'
   ],
 

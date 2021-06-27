@@ -26,13 +26,15 @@ export default {
     }
   },
   setup (props) {
-    const binds = props.field.schema
-      ? {
-        // For sub SchemaForm elements
-        ...props.field,
-        nestedSchemaModel: props.field.model
-      }
-      : { ...props.sharedConfig, ...props.field }
+    const binds = computed(() => {
+      return props.field.schema
+        ? {
+          // For sub SchemaForm elements
+          ...props.field,
+          nestedSchemaModel: props.field.model
+        }
+        : { ...props.sharedConfig, ...props.field }
+    })
 
     const formModel = inject(FORM_MODEL, {})
     const path = inject(SCHEMA_MODEL_PATH, null)

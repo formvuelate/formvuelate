@@ -2,7 +2,7 @@ import { mount } from '@cypress/vue'
 import SchemaForm from './SchemaForm.vue'
 
 import useSchemaForm from './features/useSchemaForm'
-import { shallowRef, ref, h } from 'vue'
+import { shallowRef, ref, h, computed } from 'vue'
 
 const SchemaFormWrapper = (schema) => ({
   components: [SchemaForm],
@@ -115,5 +115,27 @@ describe('SchemaForm', () => {
     mount(SchemaFormWrapper(schema))
 
     cy.get('input').should('have.length', 5)
+  })
+
+  it('preserves reactivity for SchemaField element bindings', () => {
+    const label = ref('First name')
+    const schema = computed(() => {
+      return {
+        firstName: {
+          component: BaseInput,
+          label: label.value
+        }
+      }
+    })
+
+    mount(SchemaFormWrapper(schema))
+
+    cy.get('label').should('have.text', 'First name')
+      .then(() => {
+        label.value = 'Name'
+        cy.wait(100)
+
+        cy.get('label').should('have.text', 'Name')
+      })
   })
 })

@@ -444,6 +444,29 @@ describe('SchemaForm', () => {
         expect(input.vm.$attrs.shared).toEqual('test')
       }
     })
+
+    it('preserves reactivity on field properties', async () => {
+      const reactiveRef = ref('reactive')
+      const schema = computed(() => {
+        const schema = {
+          firstName: {
+            component: FormText,
+            label: reactiveRef.value
+          }
+        }
+
+        return schema
+      })
+
+      const wrapper = mount(SchemaWrapperFactory(schema))
+
+      expect(wrapper.findComponent(FormText).props('label')).toEqual('reactive')
+
+      reactiveRef.value = 'something'
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.findComponent(FormText).props('label')).toEqual('something')
+    })
   })
 
   describe('when the schema changes', () => {
