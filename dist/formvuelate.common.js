@@ -443,9 +443,9 @@ function useParsedSchema(refSchema, model) {
     parsedSchema: parsedSchema
   };
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=9a2caea6
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=06797646
 
-function SchemaFieldvue_type_template_id_9a2caea6_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SchemaFieldvue_type_template_id_06797646_render(_ctx, _cache, $props, $setup, $data, $options) {
   return $setup.schemaCondition ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])($props.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
     key: 0
   }, $setup.binds, {
@@ -454,7 +454,7 @@ function SchemaFieldvue_type_template_id_9a2caea6_render(_ctx, _cache, $props, $
     class: "schema-col"
   }), null, 16, ["modelValue", "onUpdate:modelValue"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=9a2caea6
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=06797646
 
 // CONCATENATED MODULE: ./src/utils/constants.js
 var KEY = 'fvl_';
@@ -489,9 +489,11 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
     }
   },
   setup: function setup(props) {
-    var binds = props.field.schema ? SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.field), {}, {
-      nestedSchemaModel: props.field.model
-    }) : SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.sharedConfig), props.field);
+    var binds = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["computed"])(function () {
+      return props.field.schema ? SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.field), {}, {
+        nestedSchemaModel: props.field.model
+      }) : SchemaFieldvue_type_script_lang_js_objectSpread(SchemaFieldvue_type_script_lang_js_objectSpread({}, props.sharedConfig), props.field);
+    });
     var formModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(FORM_MODEL, {});
     var path = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(SCHEMA_MODEL_PATH, null);
     var findNestedFormModelProp = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(FIND_NESTED_FORM_MODEL_PROP);
@@ -527,7 +529,7 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
 
 
 
-SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_9a2caea6_render
+SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_06797646_render
 
 /* harmony default export */ var SchemaField = (SchemaFieldvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/features/ParentSchema.js
