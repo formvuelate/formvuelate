@@ -40,6 +40,15 @@ This function will receive an unwrapped (no need to use `.value`) reference to y
 
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
 
+:::warning Important: <Badge type="tip" text="3.3.0" vertical="middle" />
+
+Starting on FormVueLate 3.3.0 the `condition` property will _remove_ the related property from the model when the condition becomes invalid, even if there was a previous value entered into it.
+
+This mimics the behavior that FormVueLate already applies to schema changes, where when a schema change removes a field the value and property is also removed from the model.
+
+To remove this behavior and allow the form model to remain intact even when a conditional schema field is invalid, use the [`preventModelCleanupOnSchemaChange` property](#preventmodelcleanuponschemachange) on the parent `SchemaForm` component.
+
+:::
 ## markRaw
 
 You will notice that on our examples we use `markRaw(MyImportedComponent)
