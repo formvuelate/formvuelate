@@ -19,6 +19,7 @@
         :key="field.model"
         :field="field"
         :sharedConfig="sharedConfig"
+        :preventModelCleanupOnSchemaChange="preventModelCleanupOnSchemaChange"
         class="schema-col"
       />
     </div>
