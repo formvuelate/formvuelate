@@ -13,3 +13,5 @@ export const FORM_MODEL = `${KEY}formModel`
 export const FIND_NESTED_FORM_MODEL_PROP = `${KEY}findNestedFormModelProp`
 
 export const UPDATE_FORM_MODEL = `${KEY}updateFormModel`
+
+export const DELETE_FORM_MODEL_PROP = `${KEY}deleteFormModelProp`

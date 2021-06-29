@@ -1,5 +1,5 @@
 import { ref, isRef, provide } from 'vue'
-import { UPDATE_FORM_MODEL, FIND_NESTED_FORM_MODEL_PROP, FORM_MODEL } from '../utils/constants'
+import { UPDATE_FORM_MODEL, FIND_NESTED_FORM_MODEL_PROP, FORM_MODEL, DELETE_FORM_MODEL_PROP } from '../utils/constants'
 
 /**
  * Find a key inside an object, or create it if it doesn't exist
@@ -38,7 +38,17 @@ export default function useSchemaForm (initialFormValue = {}) {
     findNestedFormModelProp(path)[prop] = value
   }
 
+  const deleteFormModelProperty = (prop, path) => {
+    if (!path) {
+      delete formModel.value[prop]
+      return
+    }
+
+    delete findNestedFormModelProp(path)[prop]
+  }
+
   provide(UPDATE_FORM_MODEL, updateFormModel)
+  provide(DELETE_FORM_MODEL_PROP, deleteFormModelProperty)
   provide(FIND_NESTED_FORM_MODEL_PROP, findNestedFormModelProp)
   provide(FORM_MODEL, formModel)
 

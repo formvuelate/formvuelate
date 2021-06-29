@@ -161,5 +161,50 @@ describe('SchemaField', () => {
 
       expect(wrapper.findComponent(FormText).exists()).toBe(false)
     })
+
+    it('clears out the model of a schema property that becomes false', async () => {
+      const model = ref({
+        myModel: 'this should disappear',
+        type: 'A'
+      })
+
+      const wrapper = mount(SchemaFieldWrapper({
+        field: {
+          model: 'myModel',
+          component: FormText,
+          condition: model => model.type === 'A'
+        }
+      }, model))
+
+      expect(model.value.myModel).toBe('this should disappear')
+
+      model.value.type = 'B'
+      await wrapper.vm.$nextTick()
+
+      expect(model.value.myModel).toBeUndefined()
+    })
+
+    it('does not clear out the model if the prop preventModelCleanupOnSchemaChange is set to true', async () => {
+      const model = ref({
+        myModel: 'this should not disappear',
+        type: 'A'
+      })
+
+      const wrapper = mount(SchemaFieldWrapper({
+        field: {
+          model: 'myModel',
+          component: FormText,
+          condition: model => model.type === 'A'
+        },
+        preventModelCleanupOnSchemaChange: true
+      }, model))
+
+      expect(model.value.myModel).toBe('this should not disappear')
+
+      model.value.type = 'B'
+      await wrapper.vm.$nextTick()
+
+      expect(model.value.myModel).toBe('this should not disappear')
+    })
   })
 })

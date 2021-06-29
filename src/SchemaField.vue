@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { inject, computed } from 'vue'
-import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL } from './utils/constants'
+import { inject, computed, watch } from 'vue'
+import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, DELETE_FORM_MODEL_PROP } from './utils/constants'
 
 export default {
   name: 'SchemaField',
@@ -23,6 +23,10 @@ export default {
     sharedConfig: {
       type: Object,
       default: () => ({})
+    },
+    preventModelCleanupOnSchemaChange: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props) {
@@ -49,6 +53,7 @@ export default {
     })
 
     const updateFormModel = inject(UPDATE_FORM_MODEL)
+    const deleteFormModelProperty = inject(DELETE_FORM_MODEL_PROP)
 
     const update = (value) => {
       updateFormModel(props.field.model, value, path)
@@ -59,6 +64,13 @@ export default {
       if (!condition || typeof condition !== 'function') return true
 
       return condition(formModel.value)
+    })
+
+    watch(schemaCondition, shouldDisplay => {
+      if (shouldDisplay) return
+      if (props.preventModelCleanupOnSchemaChange) return
+
+      deleteFormModelProperty(props.field.model, path)
     })
 
     return {

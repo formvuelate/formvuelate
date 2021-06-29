@@ -40,6 +40,54 @@ This function will receive an unwrapped (no need to use `.value`) reference to y
 
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
 
+**Important:**
+
+The `condition` property will _remove_ the related property from the model when the condition becomes invalid, even if there was a previous value entered into it.
+
+This mimics the behavior that FormVueLate already applies to schema changes, where when a schema change removes a field the value and property is also removed from the model.
+
+For example, in our previous example schema:
+
+```js
+const form = ref({
+  type: "A",
+  aField: 'default a',
+  bField: 'default b'
+});
+
+useSchemaForm(form)
+
+const schema = ref({
+  type: {
+    component: FormSelect,
+    label: "Schema A or B?",
+    options: ["A", "B"],
+  },
+  aField: {
+    component: FormText,
+    label: "A field",
+    condition: model => model.type === 'A'
+  },
+  bField: {
+    component: FormText,
+    label: 'B field',
+    condition(model) {
+      return model.type === 'B'
+    }
+  }
+})
+```
+
+The form model includes two default values as starting values for `aField` and `bField`. When FormVueLate triggers the `condition` for `bField` where `model.type === 'B'` it will be `false`, so the the model will be updated with the removal of the `bField` property.
+
+```js
+{
+  type: "A",
+  aField: 'default a'
+}
+```
+
+To remove this behavior and allow the form model to remain intact even when a conditional schema field is invalid, use the [`preventModelCleanupOnSchemaChange` property](#preventmodelcleanuponschemachange) on the parent `SchemaForm` component.
 ## markRaw
 
 You will notice that on our examples we use `markRaw(MyImportedComponent)
