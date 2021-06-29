@@ -40,6 +40,8 @@ This function will receive an unwrapped (no need to use `.value`) reference to y
 
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
 
+**Important:**
+
 The `condition` property will _remove_ the related property from the model when the condition becomes invalid, even if there was a previous value entered into it.
 
 This mimics the behavior that FormVueLate already applies to schema changes, where when a schema change removes a field the value and property is also removed from the model.
