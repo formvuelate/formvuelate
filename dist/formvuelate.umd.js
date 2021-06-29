@@ -96,21 +96,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ({
 
-/***/ "103b":
+/***/ "3816":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("17c6");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_162657fa_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_4f4339a1_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("9c8d");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_4f4339a1_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_node_modules_vue_loader_v16_dist_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_v16_dist_index_js_ref_0_1_SchemaForm_vue_vue_type_style_index_0_id_4f4339a1_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
-
-/***/ }),
-
-/***/ "17c6":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -206,6 +199,13 @@ module.exports = __WEBPACK_EXTERNAL_MODULE__8bbf__;
 
 /***/ }),
 
+/***/ "9c8d":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "fb15":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -230,6 +230,7 @@ __webpack_require__.d(constants_namespaceObject, "SCHEMA_MODEL_PATH", function()
 __webpack_require__.d(constants_namespaceObject, "FORM_MODEL", function() { return FORM_MODEL; });
 __webpack_require__.d(constants_namespaceObject, "FIND_NESTED_FORM_MODEL_PROP", function() { return FIND_NESTED_FORM_MODEL_PROP; });
 __webpack_require__.d(constants_namespaceObject, "UPDATE_FORM_MODEL", function() { return UPDATE_FORM_MODEL; });
+__webpack_require__.d(constants_namespaceObject, "DELETE_FORM_MODEL_PROP", function() { return DELETE_FORM_MODEL_PROP; });
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
 // This file is imported into lib/wc client bundles.
@@ -258,7 +259,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=162657fa
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaForm.vue?vue&type=template&id=4f4339a1
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SchemaField = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("SchemaField");
@@ -276,8 +277,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             key: field.model,
             field: field,
             sharedConfig: $props.sharedConfig,
+            preventModelCleanupOnSchemaChange: $props.preventModelCleanupOnSchemaChange,
             class: "schema-col"
-          }, null, 8, ["field", "sharedConfig"]);
+          }, null, 8, ["field", "sharedConfig", "preventModelCleanupOnSchemaChange"]);
         }), 128))], 2);
       }), 128)), $setup.behaveLikeParentSchema ? Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "afterForm", Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
         key: 1
@@ -286,7 +288,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 16);
 }
-// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=162657fa
+// CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=template&id=4f4339a1
 
 // CONCATENATED MODULE: ./src/features/UniqueID.js
 function useUniqueID() {
@@ -452,9 +454,9 @@ function useParsedSchema(refSchema, model) {
     parsedSchema: parsedSchema
   };
 }
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=06797646
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaField.vue?vue&type=template&id=7e85df44
 
-function SchemaFieldvue_type_template_id_06797646_render(_ctx, _cache, $props, $setup, $data, $options) {
+function SchemaFieldvue_type_template_id_7e85df44_render(_ctx, _cache, $props, $setup, $data, $options) {
   return $setup.schemaCondition ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])(Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveDynamicComponent"])($props.field.component), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["mergeProps"])({
     key: 0
   }, $setup.binds, {
@@ -463,7 +465,7 @@ function SchemaFieldvue_type_template_id_06797646_render(_ctx, _cache, $props, $
     class: "schema-col"
   }), null, 16, ["modelValue", "onUpdate:modelValue"])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=06797646
+// CONCATENATED MODULE: ./src/SchemaField.vue?vue&type=template&id=7e85df44
 
 // CONCATENATED MODULE: ./src/utils/constants.js
 var KEY = 'fvl_';
@@ -474,6 +476,7 @@ var SCHEMA_MODEL_PATH = "".concat(KEY, "schemaModelPath");
 var FORM_MODEL = "".concat(KEY, "formModel");
 var FIND_NESTED_FORM_MODEL_PROP = "".concat(KEY, "findNestedFormModelProp");
 var UPDATE_FORM_MODEL = "".concat(KEY, "updateFormModel");
+var DELETE_FORM_MODEL_PROP = "".concat(KEY, "deleteFormModelProp");
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/SchemaField.vue?vue&type=script&lang=js
 function SchemaFieldvue_type_script_lang_js_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -495,6 +498,10 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
       default: function _default() {
         return {};
       }
+    },
+    preventModelCleanupOnSchemaChange: {
+      type: Boolean,
+      default: false
     }
   },
   setup: function setup(props) {
@@ -514,6 +521,7 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
       return formModel.value[props.field.model];
     });
     var updateFormModel = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(UPDATE_FORM_MODEL);
+    var deleteFormModelProperty = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["inject"])(DELETE_FORM_MODEL_PROP);
 
     var update = function update(value) {
       updateFormModel(props.field.model, value, path);
@@ -523,6 +531,11 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
       var condition = props.field.condition;
       if (!condition || typeof condition !== 'function') return true;
       return condition(formModel.value);
+    });
+    Object(external_commonjs_vue_commonjs2_vue_root_Vue_["watch"])(schemaCondition, function (shouldDisplay) {
+      if (shouldDisplay) return;
+      if (props.preventModelCleanupOnSchemaChange) return;
+      deleteFormModelProperty(props.field.model, path);
     });
     return {
       binds: binds,
@@ -538,7 +551,7 @@ function SchemaFieldvue_type_script_lang_js_defineProperty(obj, key, value) { if
 
 
 
-SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_06797646_render
+SchemaFieldvue_type_script_lang_js.render = SchemaFieldvue_type_template_id_7e85df44_render
 
 /* harmony default export */ var SchemaField = (SchemaFieldvue_type_script_lang_js);
 // CONCATENATED MODULE: ./src/features/ParentSchema.js
@@ -717,8 +730,8 @@ function useFormModel(props, parsedSchema) {
 });
 // CONCATENATED MODULE: ./src/SchemaForm.vue?vue&type=script&lang=js
  
-// EXTERNAL MODULE: ./src/SchemaForm.vue?vue&type=style&index=0&id=162657fa&lang=css
-var SchemaFormvue_type_style_index_0_id_162657fa_lang_css = __webpack_require__("103b");
+// EXTERNAL MODULE: ./src/SchemaForm.vue?vue&type=style&index=0&id=4f4339a1&lang=css
+var SchemaFormvue_type_style_index_0_id_4f4339a1_lang_css = __webpack_require__("3816");
 
 // CONCATENATED MODULE: ./src/SchemaForm.vue
 
@@ -867,7 +880,17 @@ function useSchemaForm() {
     findNestedFormModelProp(path)[prop] = value;
   };
 
+  var deleteFormModelProperty = function deleteFormModelProperty(prop, path) {
+    if (!path) {
+      delete formModel.value[prop];
+      return;
+    }
+
+    delete findNestedFormModelProp(path)[prop];
+  };
+
   Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(UPDATE_FORM_MODEL, updateFormModel);
+  Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(DELETE_FORM_MODEL_PROP, deleteFormModelProperty);
   Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(FIND_NESTED_FORM_MODEL_PROP, findNestedFormModelProp);
   Object(external_commonjs_vue_commonjs2_vue_root_Vue_["provide"])(FORM_MODEL, formModel);
   return {
