@@ -156,7 +156,6 @@ describe('SchemaForm', () => {
             component: BaseInput,
             label: 'Input B',
             condition: model => {
-              console.log(model.first)
               return model.first.inputA === 'B'
             }
           }
