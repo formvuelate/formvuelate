@@ -1,7 +1,7 @@
-import { ComputedRef, DefineComponent } from "vue";
+import { ComputedRef, Component } from "vue";
 
 export interface FieldSchema extends Record<string, any> {
-  component: DefineComponent;
+  component: Component;
 }
 
 export interface FieldSchemaWithModel extends FieldSchema {
