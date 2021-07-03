@@ -2,6 +2,7 @@
   "name": "formvuelate",
   "version": "3.2.3",
   "description": "Schema Form Generator",
+  "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",
   "scripts": {
     "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js && yarn ts:defs",

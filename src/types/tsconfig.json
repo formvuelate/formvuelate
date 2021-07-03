@@ -9,5 +9,5 @@
 		"strictNullChecks": false,
 		"moduleResolution": "node",
     "allowJs": true
-	},
+	}
 }
