@@ -38,6 +38,10 @@ Notice that the `condition` property of the `aField` and `bField` holds a functi
 
 This function will receive an unwrapped (no need to use `.value`) reference to your form's model, and should return a `Boolean` value.
 
+Please note that the `model` received in the condition function is a current copy of the model provided by you by the `useSchemaForm` composable function. When using `condition` on deeply nested schemas the whole tree may not be readily available when created unless specifically pre-defined by you on the `useSchemaForm` model.
+
+If you need to check a deeply nested model property, such as `model.first.second.third.myInput` either predefine your model to contain these nested properties/objects, or use conditional checking to avoid an error `model.first?.second?.third?.myInput`
+
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
 
 **Important:**
@@ -88,6 +92,7 @@ The form model includes two default values as starting values for `aField` and `
 ```
 
 To remove this behavior and allow the form model to remain intact even when a conditional schema field is invalid, use the [`preventModelCleanupOnSchemaChange` property](#preventmodelcleanuponschemachange) on the parent `SchemaForm` component.
+
 ## markRaw
 
 You will notice that on our examples we use `markRaw(MyImportedComponent)
