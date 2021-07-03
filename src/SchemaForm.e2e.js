@@ -25,11 +25,15 @@ const SchemaFormWrapper = (schema) => ({
 })
 
 const BaseInput = {
-  props: ['label'],
+  props: ['label', 'modelValue'],
   render () {
     return [
       h('label', this.label),
-      h('input', { ...this.$attrs })
+      h('input', {
+        ...this.$attrs,
+        value: this.modelValue,
+        onInput: ($event) => this.$emit('update:modelValue', $event.target.value)
+      })
     ]
   }
 }
@@ -137,5 +141,32 @@ describe('SchemaForm', () => {
 
         cy.get('label').should('have.text', 'Name')
       })
+  })
+
+  it('works with conditions on nested schemas', () => {
+    const schema = shallowRef({
+      first: {
+        component: SchemaForm,
+        schema: {
+          inputA: {
+            component: BaseInput,
+            label: 'Input A'
+          },
+          inputB: {
+            component: BaseInput,
+            label: 'Input B',
+            condition: model => {
+              console.log(model.first)
+              return model.first.inputA === 'B'
+            }
+          }
+        }
+      }
+    })
+
+    mount(SchemaFormWrapper(schema))
+
+    cy.get('input').type('B')
+    cy.get('label').eq(1).should('have.text', 'Input B')
   })
 })
