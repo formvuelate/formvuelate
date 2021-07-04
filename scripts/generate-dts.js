@@ -8,5 +8,6 @@ const path = require("path");
 dts.bundle({
   name: "formvuelate",
   main: path.resolve(__dirname, "../src/types"),
-  out: path.resolve(__dirname, "../dist/formvuelate.d.ts")
+  out: path.resolve(__dirname, "../dist/formvuelate.d.ts"),
+  indent: "  "
 });
