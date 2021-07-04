@@ -1,0 +1,72 @@
+---
+sidebarDepth: 3
+---
+
+# TypeScript Support <Badge text="3.3" type="warning" vertical="middle" />
+
+Formvuelate has typescript support for its public API. This page is an overview of the level of TypeScript support.
+
+## Component Types
+
+Both `SchemaForm` and `SchemaWizard` have their properties and slots typed, to benefit from this you should use [volar](https://github.com/johnsoncodehk/volar) to enable template TypeScript support for components.
+
+Furthermore the returned component created by `SchemaFormFactory` is also typed and will provide feedback if you pass incorrect type to any of its props.
+
+In addition to component types, Formvuelate also exposes various types you can generally in your project to provide type safety.
+
+Here is an example using `FormArraySchema` and `FormObjectSchema` to make it easier for you to create compatible schemas:
+
+```ts
+import { SchemaForm, SchemaFormFactory, FormArraySchema } from "formvuelate";
+
+export default defineComponent({
+  name: "App",
+  components: {
+    SchemaForm
+  },
+  setup() {
+    const arraySchema = ref<FormArraySchema>([
+      {
+        component: FormText,
+        model: 'firstName'
+      },
+      {
+        model: 'lastName',
+        component: FormText
+      }
+    ])
+
+    const objectSchema = ref<FormObjectSchema>({
+      firstName: {
+        component: FormText
+      },
+      lastName: {
+        component: FormText
+      },
+    })
+
+    return {
+      schema
+    }
+  }
+})
+```
+
+## Plugin API Types
+
+Formvuelate also exposes some types to make it easier for you to create compatible plugins:
+
+```ts
+import { SchemaFormFactory, PluginFunction } from 'formvuelate';
+
+const pluginThatAddsSomethingCool: PluginFunction = function(baseReturns) {
+  return {
+    ...baseReturns,
+    somethingCool: true
+  }
+}
+
+const cumulativeExample = SchemaFormFactory([
+  pluginThatAddsSomethingCool
+])
+```
