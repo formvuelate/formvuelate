@@ -8,6 +8,6 @@
 		"noUnusedParameters": true,
 		"strictNullChecks": false,
 		"moduleResolution": "node",
-    "allowJs": true
+		"allowJs": true
 	}
 }
