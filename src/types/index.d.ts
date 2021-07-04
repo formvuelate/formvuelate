@@ -1,11 +1,11 @@
 import { DefineComponent, PropType, Component, ComputedRef } from "vue";
 
 export interface FieldSchema extends Record<string, any> {
-  component: Component;
+  component: Component | string;
 }
 
 export interface FieldSchemaWithModel extends FieldSchema {
-  model: any;
+  model: string;
 }
 
 export type FormArraySchema = FieldSchemaWithModel[];
