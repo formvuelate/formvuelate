@@ -19,10 +19,6 @@ declare const SchemaForm: DefineComponent<{
     type: PropType<boolean>;
     default: boolean;
   };
-  nestedSchemaModel: {
-    type: PropType<string>;
-    default: string;
-  };
   schemaRowClasses: {
     type: PropType<ClassBindingExpression>;
     default: any;
