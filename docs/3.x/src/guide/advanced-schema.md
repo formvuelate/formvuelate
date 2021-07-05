@@ -57,7 +57,7 @@ If you need to check a deeply nested model property, such as a model that looks 
 You can either predefine your model to contain these nested properties/objects, or use conditional checking to avoid an error.
 
 ```js
-condition: model => model.first?.second?.third?.myInput === 'something'
+condition: model => model.first?.second?.third?.myField === 'something'
 ```
 
 Alternatively, use an external library solution like [Lodash's get](https://lodash.com/docs/4.17.15#get) to make sure the model path is defined. The second value provided here as `false` will be the default in case it isn't.
