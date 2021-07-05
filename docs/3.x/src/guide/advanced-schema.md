@@ -60,7 +60,7 @@ You can either predefine your model to contain these nested properties/objects, 
 condition: model => model.first?.second?.third?.myInput === 'something'
 ```
 
-Alternatively, use an external library solution like [Lodash's get](https://lodash.com/docs/4.17.15#get) to make sure the model path is defined. The second value provided here as `fault` will be the default in case it isn't.
+Alternatively, use an external library solution like [Lodash's get](https://lodash.com/docs/4.17.15#get) to make sure the model path is defined. The second value provided here as `false` will be the default in case it isn't.
 
 ```js
 condition: model => _.get(model, 'first.second.third.myField', false) === 'something'
