@@ -14,7 +14,7 @@ Furthermore the returned component created by `SchemaFormFactory` is also typed 
 
 In addition to component types, FormVueLate also exposes other types you can use in your project to provide type safety.
 
-Here is an example using `FormArraySchema` and `FormObjectSchema` to make it easier for you to create compatible schemas:
+For example, to create typed compatible schemas we can use `FormArraySchema` and `FormObjectSchema` as follows:
 
 ```ts
 import { SchemaForm, SchemaFormFactory, FormArraySchema } from "formvuelate";
