@@ -2,9 +2,11 @@
   "name": "formvuelate",
   "version": "3.2.3",
   "description": "Schema Form Generator",
+  "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",
   "scripts": {
-    "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js",
+    "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js && yarn ts:defs",
+    "ts:defs": "node ./scripts/generate-dts.js",
     "test:unit": "vue-cli-service test:unit --coverage",
     "test:e2e": "cypress open-ct",
     "test:e2e:ci": "cypress run-ct",
@@ -37,6 +39,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.2.6",
     "cypress": "^7.5.0",
+    "dts-bundle": "^0.7.3",
     "eslint": "^6.7.2",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.21.2",
@@ -46,6 +49,7 @@
     "eslint-plugin-vue": "^7.0.0-beta.1",
     "jest": "^25.2.7",
     "stylus": "^0.54.7",
+    "typescript": "^4.3.4",
     "vue": "^3.0.6",
     "vue-jest": "^5.0.0-alpha.0",
     "vue-loader": "^16.0.0-alpha.3"

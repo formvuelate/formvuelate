@@ -70,7 +70,8 @@ module.exports = {
             'schema-form',
             'schema-wizard',
             'advanced-schema',
-            'accessibility'
+            'accessibility',
+            'typescript'
           ]
         },
         {

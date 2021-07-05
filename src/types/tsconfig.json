@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "es2015",
+		"module": "umd",
+		"declaration": false,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedParameters": true,
+		"strictNullChecks": false,
+		"moduleResolution": "node",
+		"allowJs": true
+	}
+}
