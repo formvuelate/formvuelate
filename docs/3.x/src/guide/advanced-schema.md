@@ -63,7 +63,7 @@ condition: model => model.first?.second?.third?.myInput === 'something'
 Alternatively, use an external library solution like [Lodash's get](https://lodash.com/docs/4.17.15#get) to make sure the model path is defined. The second value provided here as `fault` will be the default in case it isn't.
 
 ```js
-condition: model => _.get(model, 'first.second.third.myInput', false) === 'something'
+condition: model => _.get(model, 'first.second.third.myField', false) === 'something'
 ```
 
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
