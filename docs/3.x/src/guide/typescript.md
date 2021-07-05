@@ -54,7 +54,7 @@ export default defineComponent({
 
 ## Plugin API Types
 
-Formvuelate also exposes some types to make it easier for you to create compatible plugins:
+FormVueLate also exposes the `PluginFunction` type to make it easier for you to create compatible plugins:
 
 ```ts
 import { SchemaFormFactory, PluginFunction } from 'formvuelate';
