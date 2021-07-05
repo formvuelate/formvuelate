@@ -4,7 +4,7 @@ sidebarDepth: 3
 
 # TypeScript Support <Badge text="3.3" type="warning" vertical="middle" />
 
-Formvuelate has typescript support for its public API. This page is an overview of the level of TypeScript support.
+FormVueLate has typescript support for its public API. This page is an overview of the level of TypeScript support.
 
 ## Component Types
 
