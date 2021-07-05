@@ -38,6 +38,34 @@ Notice that the `condition` property of the `aField` and `bField` holds a functi
 
 This function will receive an unwrapped (no need to use `.value`) reference to your form's model, and should return a `Boolean` value.
 
+Please note that the `model` received in the condition function is a current copy of the model provided by you by the `useSchemaForm` composable function. When using `condition` on deeply nested schemas the whole tree may not be readily available when created unless specifically pre-defined by you on the `useSchemaForm` model.
+
+If you need to check a deeply nested model property, such as a model that looks like the following:
+
+```json
+{
+  first: {
+    second: {
+      third: {
+        myField: ''
+      }
+    }
+  }
+}
+```
+
+You can either predefine your model to contain these nested properties/objects, or use conditional checking to avoid an error.
+
+```js
+condition: model => model.first?.second?.third?.myField === 'something'
+```
+
+Alternatively, use an external library solution like [Lodash's get](https://lodash.com/docs/4.17.15#get) to make sure the model path is defined. The second value provided here as `false` will be the default in case it isn't.
+
+```js
+condition: model => _.get(model, 'first.second.third.myField', false) === 'something'
+```
+
 If the condition returns `true`, the field will appear in the form, if the condition returns `false`, it will not.
 
 **Important:**
@@ -88,6 +116,7 @@ The form model includes two default values as starting values for `aField` and `
 ```
 
 To remove this behavior and allow the form model to remain intact even when a conditional schema field is invalid, use the [`preventModelCleanupOnSchemaChange` property](#preventmodelcleanuponschemachange) on the parent `SchemaForm` component.
+
 ## markRaw
 
 You will notice that on our examples we use `markRaw(MyImportedComponent)
