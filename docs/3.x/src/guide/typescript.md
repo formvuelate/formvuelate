@@ -12,7 +12,7 @@ Both `SchemaForm` and `SchemaWizard` have their properties and slots typed, to b
 
 Furthermore the returned component created by `SchemaFormFactory` is also typed and will provide feedback if you pass incorrect type to any of its props.
 
-In addition to component types, Formvuelate also exposes various types you can generally in your project to provide type safety.
+In addition to component types, FormVueLate also exposes other types you can use in your project to provide type safety.
 
 Here is an example using `FormArraySchema` and `FormObjectSchema` to make it easier for you to create compatible schemas:
 
