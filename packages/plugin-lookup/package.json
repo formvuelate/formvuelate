@@ -1,0 +1,58 @@
+{
+  "name": "@formvuelate/plugin-lookup",
+  "version": "2.1.0",
+  "description": "FormVueLate Lookup plugin",
+  "main": "dist/formvuelate-plugin-lookup.cjs.js",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/formvuelate/formvuelate-plugin-lookup.git"
+  },
+  "author": {
+    "name": "Marina Mosti",
+    "email": "marina@mosti.com.mx"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "rollit --external vue",
+    "test": "yarn test:unit",
+    "test:unit": "jest --coverage",
+    "test:unit:watch": "yarn test:unit --watch",
+    "lint": "eslint --fix src/**/* tests/**/*"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.2.6",
+    "eslint": "^7.3.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "formvuelate": "^3.0.0",
+    "jest": "^26.0.1",
+    "rollit": "^0.0.9",
+    "vue": "^3.0.0",
+    "vue-jest": "^5.0.0-alpha.0"
+  },
+  "peerDependencies": {
+    "formvuelate": "^3.0.0",
+    "vue": "^3.0.0"
+  },
+  "files": [
+    "src/*",
+    "dist/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/formvuelate/formvuelate-plugin-lookup/issues"
+  },
+  "homepage": "https://github.com/formvuelate/formvuelate-plugin-lookup#readme",
+  "module": "dist/formvuelate-plugin-lookup.es.js",
+  "unpkg": "dist/formvuelate-plugin-lookup.js",
+  "browser": "dist/formvuelate-plugin-lookup.es.js"
+}
