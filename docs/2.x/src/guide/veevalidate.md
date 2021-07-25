@@ -3,8 +3,6 @@ sidebarDepth: 3
 ---
 # Vee-Validate Plugin
 
-[Vee-Validate Plugin's Repo](https://github.com/formvuelate/formvuelate-plugin-vee-validate).
-
 The vee-validate plugin lets you validate your generated fields using [vee-validate](https://github.com/logaretm/vee-validate).
 
 ## Installation
