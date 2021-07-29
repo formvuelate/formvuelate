@@ -284,7 +284,7 @@ export default {
 </script>
 ```
 
-## Validation Messages Labels <Badge text="2.3.1" type="warning" vertical="middle" />
+## Validation Messages Labels <Badge text="2.4.0" type="warning" vertical="middle" />
 
 ::: warning Important
 This section doesn't apply to validation schemas created with `yup`. You can use `yup` own [`.label` method](https://github.com/jquense/yup#mixedlabellabel-string-schema) to provide friendly display names for your fields.
