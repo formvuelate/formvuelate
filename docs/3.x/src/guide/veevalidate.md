@@ -287,7 +287,7 @@ export default {
 ## Validation Messages Labels <Badge text="2.4.0" type="warning" vertical="middle" />
 
 ::: warning Important
-This section doesn't apply to validation schemas created with `yup`. You can use `yup` own [`.label` method](https://github.com/jquense/yup#mixedlabellabel-string-schema) to provide friendly display names for your fields.
+This section doesn't apply to validation schemas created with `yup`. You can use `yup`'s own [`.label` method](https://github.com/jquense/yup#mixedlabellabel-string-schema) to provide friendly display names for your fields.
 :::
 
 By default the vee-validate plugin will use the field's model name in the generated messages for [global string validators](https://vee-validate.logaretm.com/v4/guide/global-validators), this may produce unfriendly messages for your users.
