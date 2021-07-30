@@ -284,6 +284,62 @@ export default {
 </script>
 ```
 
+## Validation Messages Labels <Badge text="2.4.0" type="warning" vertical="middle" />
+
+::: warning Important
+This section doesn't apply to validation schemas created with `yup`. You can use `yup`'s own [`.label` method](https://github.com/jquense/yup#mixedlabellabel-string-schema) to provide friendly display names for your fields.
+:::
+
+By default the vee-validate plugin will use the field's model name in the generated messages for [global string validators](https://vee-validate.logaretm.com/v4/guide/global-validators), this may produce unfriendly messages for your users.
+
+In the following snippet, *'firstName'* will be used as the field validation message.
+
+```js
+const arraySchema = ref([
+  {
+    model: 'firstName',
+    // ...
+  }
+])
+
+const objectSchema = ref({
+  firstName: {
+    // ...
+  }
+})
+```
+
+For the `required` rule, it will produce this message:
+
+```
+The firstName field is required
+```
+
+To override this behavior and give your users better error messages you can include a `label` prop in each field's schema. 
+
+In the following snippet, *'First name'* will be used as the field validation message.
+
+```js
+const arraySchema = ref([
+  {
+    model: 'firstName',
+    label: 'First name',
+  }
+])
+
+const objectSchema = ref({
+  firstName: { 
+    label: 'First name',
+  }
+})
+```
+
+For the `required` rule, it will produce this message:
+
+```
+The First name field is required
+```
+
 ## Handling Submit
 
 The `VeeValidatePlugin` automatically handles `SchemaForm` submits, and triggers validation before the form is submitted. You don't have to do anything special to trigger validations before submitting.
