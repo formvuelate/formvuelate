@@ -8,7 +8,7 @@ import { useForm, useField } from 'vee-validate'
  *
  * @returns {Array}
  */
-export const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
+const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
 
 /**
  * Maps the validation state to props
@@ -116,7 +116,7 @@ export default function VeeValidatePlugin (opts) {
 // very important to avoid re-creating components when re-rendering
 const COMPONENT_LOOKUP = new Map()
 
-export function withField (el) {
+function withField (el) {
   const Comp = el.component
 
   if (COMPONENT_LOOKUP.has(Comp)) {
