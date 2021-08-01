@@ -1,0 +1,61 @@
+{
+  "name": "formvuelate",
+  "version": "3.3.0",
+  "description": "Schema Form Generator",
+  "types": "dist/formvuelate.d.ts",
+  "author": "Marina Mosti <marina@mosti.com.mx>",
+  "scripts": {
+    "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js && yarn ts:defs",
+    "ts:defs": "node ./scripts/generate-dts.js",
+    "test:unit": "vue-cli-service test:unit --coverage",
+    "test:e2e": "cypress open-ct",
+    "test:e2e:ci": "cypress run-ct",
+    "lint": "vue-cli-service lint",
+    "ci:lint": "yarn lint --no-fix",
+    "prePackage": "yarn test",
+    "test": "yarn lint && yarn test:unit",
+    "test:unit:watch": "yarn test:unit --watch"
+  },
+  "main": "dist/formvuelate.common.js",
+  "browser": "dist/formvuelate.umd.js",
+  "unpkg": "dist/formvuelate.umd.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/formvuelate/formvuelate"
+  },
+  "contributors": [
+    {
+      "name": "Marina Mosti",
+      "email": "marina@mosti.com.mx"
+    },
+    {
+      "name": "Damian Dulisz",
+      "email": "damian.dulisz@gmail.com"
+    },
+    {
+      "name": "Tonina Zhelyazkova",
+      "email": "zhelyazkova.tonina@gmail.com"
+    }
+  ],
+  "engines": {
+    "node": ">=12.17.0"
+  },
+  "homepage": "https://formvuelate.js.org/",
+  "keywords": [
+    "vue",
+    "form",
+    "schema",
+    "plugin",
+    "dynamic form"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formvuelate/formvuelate.git"
+  }
+}
