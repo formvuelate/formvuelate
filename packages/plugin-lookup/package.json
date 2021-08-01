@@ -17,7 +17,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "rollit --external vue",
     "test": "yarn test:unit",
     "test:unit": "jest --coverage",
     "test:unit:watch": "yarn test:unit --watch",

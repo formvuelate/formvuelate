@@ -17,7 +17,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "rollit --global vee-validate:VeeValidate vue:Vue --externals vee-validate vue",
     "test": "yarn test:unit",
     "test:unit": "jest --coverage",
     "test:unit:watch": "yarn test:unit --watch",
