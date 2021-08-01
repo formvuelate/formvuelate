@@ -1,7 +1,7 @@
 {
-  "pluginsFile": "tests/e2e/plugins/index.js",
+  "pluginsFile": "packages/formvuelate/tests/e2e/plugins/index.js",
   "component": {
-    "componentFolder": "src",
+    "componentFolder": "packages/formvuelate/src",
     "testFiles": "**/*.e2e.js"
   }
 }

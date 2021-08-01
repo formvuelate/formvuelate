@@ -1,4 +1,6 @@
 module.exports = {
+  rootDir: __dirname,
+
   moduleFileExtensions: [
     'js',
     'jsx',
@@ -17,7 +19,7 @@ module.exports = {
   ],
 
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.+)$': '<rootDir>/packages/$1/src'
   },
 
   snapshotSerializers: [
@@ -25,7 +27,7 @@ module.exports = {
   ],
 
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx)|**/__tests__/*.(js|jsx)'
+    '<rootDir>/packages/**/tests/**/*spec.[jt]s?(x)'
   ],
 
   collectCoverageFrom: [
