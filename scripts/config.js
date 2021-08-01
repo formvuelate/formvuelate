@@ -66,7 +66,7 @@ function createConfig (pkg, format) {
   * ${pkg} v${version}
   */`,
       format,
-      exports: 'named',
+      exports: 'auto',
       name: format === 'umd' ? formatNameMap[pkg] : undefined,
       globals: {
         vue: 'Vue',

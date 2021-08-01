@@ -1,4 +1,4 @@
-import veeValidatePlugin from '../../src/index.js'
+import veeValidatePlugin from '@formvuelate/plugin-vee-validate'
 import { SchemaFormFactory, useSchemaForm } from 'formvuelate'
 import { mount } from '@vue/test-utils'
 import { markRaw, ref, computed } from 'vue'

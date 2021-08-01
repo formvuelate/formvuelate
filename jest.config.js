@@ -23,8 +23,8 @@ module.exports = {
   ],
 
   moduleNameMapper: {
-    '^@/(.+)$': '<rootDir>/packages/$1/src',
-    formvuelate: '<rootDir>/packages/formvuelate/src'
+    '^@formvuelate/(.+)$': '<rootDir>/packages/$1/src',
+    '^(formvuelate)$': '<rootDir>/packages/formvuelate/src'
   },
 
   snapshotSerializers: [
