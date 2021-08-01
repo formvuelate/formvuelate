@@ -1,6 +1,6 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
-import SchemaForm from '../../src/SchemaForm'
-import SchemaField from '../../src/SchemaField'
+import SchemaForm from '../../src/SchemaForm.vue'
+import SchemaField from '../../src/SchemaField.vue'
 
 import { IS_SCHEMA_WIZARD, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
@@ -85,27 +85,29 @@ describe('SchemaForm', () => {
       })
 
       const schema = computed(() => {
-        return model.value.check === 'A' ? {
-          check: {
-            component: FormSelect,
-            options: ['A', 'B'],
-            label: 'A or B'
-          },
-          a: {
-            component: FormText,
-            label: 'A'
-          }
-        } : {
-          check: {
-            component: FormSelect,
-            options: ['A', 'B'],
-            label: 'A or B'
-          },
-          b: {
-            component: FormText,
-            label: 'B'
-          }
-        }
+        return model.value.check === 'A'
+          ? {
+              check: {
+                component: FormSelect,
+                options: ['A', 'B'],
+                label: 'A or B'
+              },
+              a: {
+                component: FormText,
+                label: 'A'
+              }
+            }
+          : {
+              check: {
+                component: FormSelect,
+                options: ['A', 'B'],
+                label: 'A or B'
+              },
+              b: {
+                component: FormText,
+                label: 'B'
+              }
+            }
       })
 
       const wrapper = mount(SchemaWrapperFactory(schema, null, model))

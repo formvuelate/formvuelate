@@ -37,7 +37,7 @@ export default function LookupPlugin ({
  *
  * @returns {Array}
  */
-const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
+export const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
 
 /**
  * Remap components in a schema

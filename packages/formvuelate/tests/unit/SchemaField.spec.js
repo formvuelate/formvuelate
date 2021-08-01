@@ -1,5 +1,5 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
-import SchemaField from '../../src/SchemaField'
+import SchemaField from '../../src/SchemaField.vue'
 import { UPDATE_FORM_MODEL, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'

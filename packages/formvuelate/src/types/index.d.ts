@@ -1,4 +1,4 @@
-import { DefineComponent, PropType, Component, ComputedRef } from "vue";
+import { DefineComponent, PropType, Component, ComputedRef } from 'vue'
 
 export interface FieldSchema extends Record<string, any> {
   component: Component | string;
@@ -24,16 +24,16 @@ export declare function useSchemaForm<
   TValues extends Record<string, any> = Record<string, any>
 >(initialFormValues?: TValues): { formModel: TValues };
 
+export type PluginFunction = (
+  baseReturns: BaseSchemaReturns
+) => BaseSchemaReturns;
+
 export declare function SchemaFormFactory(
   plugins?: PluginFunction[],
   components?: Record<string, Component>
 ): typeof SchemaForm;
 
 export type SlotBinds = Record<string, any>;
-
-export type PluginFunction = (
-  baseReturns: BaseSchemaReturns
-) => BaseSchemaReturns;
 
 // export all the types
 
@@ -44,6 +44,7 @@ type ClassBindingExpression =
   | (string | Record<string, boolean>)[];
 
 interface FormSlots {
+  // eslint-disable-next-line camelcase
   __VLS_slots: {
     beforeForm: SlotBinds;
     afterForm: SlotBinds;
@@ -68,8 +69,9 @@ declare const SchemaForm: DefineComponent<{
     default: any;
   };
 }> &
-  FormSlots;
+  FormSlots
 
+// eslint-disable-next-line no-unused-vars
 declare const SchemaWizard: DefineComponent<{
   schema: {
     type: PropType<(FormObjectSchema | FormArraySchema)[]>;
@@ -80,4 +82,4 @@ declare const SchemaWizard: DefineComponent<{
     required: true;
   };
 }> &
-  FormSlots;
+  FormSlots

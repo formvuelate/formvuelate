@@ -1,5 +1,5 @@
-import SchemaWizard from '../../src/SchemaWizard'
-import SchemaForm from '../../src/SchemaForm'
+import SchemaWizard from '../../src/SchemaWizard.vue'
+import SchemaForm from '../../src/SchemaForm.vue'
 import useSchemaForm from '../../src/features/useSchemaForm'
 
 import { mount } from '@vue/test-utils'

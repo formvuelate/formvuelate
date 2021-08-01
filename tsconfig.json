@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "moduleResolution": "node",
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["esnext", "es2017", "dom"],
+    "allowJs": true,
+    "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["packages/*/src"]
+    }
+  },
+  "include": ["packages/*/src"],
+  "exclude": ["jest.config.js"]
+}
