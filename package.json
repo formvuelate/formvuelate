@@ -5,6 +5,9 @@
   "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "node ./scripts/build.js",
     "ts:defs": "node ./scripts/generate-dts.js",
