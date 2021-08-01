@@ -24,4 +24,4 @@ yarn-error.log*
 *.sw*
 
 
-dist/*
+**/dist/*
