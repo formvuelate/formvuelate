@@ -8,7 +8,7 @@
   "scripts": {
     "build": "node ./scripts/build.js",
     "ts:defs": "node ./scripts/generate-dts.js",
-    "test:unit": "jest test:unit --coverage",
+    "test:unit": "jest --coverage",
     "test:e2e": "cypress open-ct",
     "test:e2e:ci": "cypress run-ct",
     "lint": "eslint . '**/*.{js,jsx,ts,tsx}' --fix",
@@ -29,7 +29,7 @@
     "@vue/eslint-config-standard": "^6.1.0",
     "@vue/test-utils": "^2.0.0-rc.4",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^27.0.6",
     "chalk": "^4.1.2",
     "clean-css": "^5.1.4",
     "cypress": "^8.1.0",
@@ -43,17 +43,21 @@
     "eslint-plugin-vue": "^7.0.0-beta.1",
     "flush-promises": "^1.0.2",
     "fs-extra": "^10.0.0",
-    "jest": "^26.6.3",
+    "jest": "^27.0.6",
+    "jest-serializer-vue": "^2.0.2",
+    "jest-transform-stub": "^2.0.0",
     "lerna": "^4.0.0",
+    "regenerator-runtime": "^0.13.9",
     "rollup": "^2.55.1",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-vue": "^6.0.0",
     "stylus": "^0.54.7",
     "terser": "^5.7.1",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.4",
     "vue": "^3.0.6",
-    "vue-jest": "^5.0.0-alpha.0",
-    "vue-loader": "^16.0.0-alpha.3"
+    "vue-loader": "^16.0.0-alpha.3",
+    "vue3-jest": "^27.0.0-alpha.2"
   },
   "peerDependencies": {
     "vue": "^3.0.0"

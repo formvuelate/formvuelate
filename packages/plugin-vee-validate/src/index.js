@@ -30,7 +30,7 @@ export default function VeeValidatePlugin (opts) {
     const { parsedSchema, formBinds } = baseReturns
 
     // Get additional properties not defined on the `SchemaForm` derivatives
-    const { attrs: formAttrs } = getCurrentInstance()
+    const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
     if (!formContext) {
