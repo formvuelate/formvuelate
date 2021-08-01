@@ -16,11 +16,11 @@
     "test:e2e:ci": "cypress run-ct",
     "lint": "eslint . '**/*.{js,jsx,ts,tsx}' --fix",
     "ci:lint": "yarn lint --no-fix",
-    "prePackage": "yarn test",
     "test": "yarn lint && yarn test:unit",
     "test:unit:watch": "yarn test:unit --watch",
     "docs:dev": "cd docs/3.x && yarn dev && cd -",
-    "docs:build": "cd docs/3.x && yarn build && cd -"
+    "docs:build": "cd docs/3.x && yarn build && cd -",
+    "postversion": "yarn build"
   },
   "devDependencies": {
     "@babel/node": "^7.8.7",
