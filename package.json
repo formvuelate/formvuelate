@@ -34,6 +34,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.2.6",
     "chalk": "^4.1.2",
+    "clean-css": "^5.1.4",
     "cypress": "^7.5.0",
     "dts-bundle": "^0.7.3",
     "eslint": "^6.7.2",

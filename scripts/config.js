@@ -1,7 +1,9 @@
 const path = require('path')
+const fs = require('fs-extra');
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const vue = require('rollup-plugin-vue')
-const css = require('rollup-plugin-css-only');
+const css = require('rollup-plugin-css-only')
+const CleanCSS = require('clean-css');
 
 /**
  * A map of each package umd global name (will be injected in window or global)
@@ -40,6 +42,7 @@ const pkgExternalsMap = {
   'plugin-vee-validate': ['formvuelate', 'vee-validate']
 }
 
+
 function createConfig (pkg, format) {
   const version = require(path.resolve(__dirname, `../packages/${pkg}/package.json`)).version
 
@@ -50,7 +53,9 @@ function createConfig (pkg, format) {
       plugins: [
         nodeResolve(),
         css({
-          output: `${pkg}.css`
+          output (styles) {
+            fs.writeFileSync(path.resolve(__dirname, `../packages/${pkg}/dist/${pkg}.css`), new CleanCSS().minify(styles).styles)
+          }
         }),
         vue({
           css: false

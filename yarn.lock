@@ -4503,6 +4503,13 @@ clean-css@4.2.x:
   dependencies:
     source-map "~0.6.0"
 
+clean-css@^5.1.4:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-5.1.4.tgz#d191c98347f9fc36b301f99bb827898151175782"
+  integrity sha512-e6JAuR0T2ahg7fOSv98Nxqh7mHWOac5TaCSgrr61h/6mkPLwlxX38hzob4h6IKj/UHlrrLXvAEjWqXlvi8r8lQ==
+  dependencies:
+    source-map "~0.6.0"
+
 clean-stack@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-2.2.0.tgz#ee8472dbb129e727b31e8a10a427dee9dfe4008b"
