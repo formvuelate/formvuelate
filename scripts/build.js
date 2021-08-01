@@ -4,7 +4,7 @@ const fs = require('fs-extra')
 const { rollup } = require('rollup')
 const Terser = require('terser')
 const { createConfig } = require('./config')
-// const { generateDts } = require('./generate-dts')
+const { generateDts } = require('./generate-dts')
 
 async function minify ({ code, pkg, bundleName }) {
   const pkgout = path.join(__dirname, `../packages/${pkg}/dist`)
@@ -35,7 +35,7 @@ async function build (pkg) {
     }
   }
 
-  // await generateDts(pkg)
+  await generateDts(pkg)
   console.log(chalk.green(`Successfully bundled: ${pkg}!`))
 
   return true
