@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const fs = require('fs-extra')
 const { rollup } = require('rollup')
 const Terser = require('terser')
+const mkdirp = require('mkdirp');
 const { createConfig } = require('./config')
 const { generateDts } = require('./generate-dts')
 
@@ -21,6 +22,7 @@ async function minify ({ code, pkg, bundleName }) {
 async function build (pkg) {
   console.log(chalk.cyan(`Bundling package: ${pkg}...`))
   const pkgout = path.join(__dirname, `../packages/${pkg}/dist`)
+  await mkdirp(pkgout)
   for (const format of ['es', 'umd', 'cjs']) {
     const { input, output, bundleName } = createConfig(pkg, format)
     const bundle = await rollup(input)
