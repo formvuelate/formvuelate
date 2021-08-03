@@ -1,5 +1,5 @@
 import SchemaFormFactory from '../../src/SchemaFormFactory'
-import SchemaForm from '../../src/SchemaForm'
+import SchemaForm from '../../src/SchemaForm.vue'
 
 const props = {
   schema: {}

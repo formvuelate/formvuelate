@@ -1,58 +1,71 @@
 {
-  "name": "formvuelate",
+  "name": "formvuelate-monorepo",
   "version": "3.3.0",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "yarn prePackage && vue-cli-service build --target lib --name formvuelate src/index.js && yarn ts:defs",
+    "build": "node ./scripts/build.js",
     "ts:defs": "node ./scripts/generate-dts.js",
-    "test:unit": "vue-cli-service test:unit --coverage",
+    "test:unit": "jest --coverage",
     "test:e2e": "cypress open-ct",
     "test:e2e:ci": "cypress run-ct",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint . '**/*.{js,jsx,ts,tsx}' --fix",
     "ci:lint": "yarn lint --no-fix",
-    "prePackage": "yarn test",
     "test": "yarn lint && yarn test:unit",
-    "test:unit:watch": "yarn test:unit --watch"
+    "test:unit:watch": "yarn test:unit --watch",
+    "docs:dev": "cd docs/3.x && yarn dev && cd -",
+    "docs:build": "cd docs/3.x && yarn build && cd -",
+    "postversion": "yarn build"
   },
-  "main": "dist/formvuelate.common.js",
-  "browser": "dist/formvuelate.umd.js",
-  "unpkg": "dist/formvuelate.umd.js",
-  "files": [
-    "dist",
-    "src"
-  ],
   "devDependencies": {
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
     "@cypress/vue": "^3.0.0-beta.1",
     "@cypress/webpack-dev-server": "^1.3.1",
-    "@vue/cli-plugin-babel": "~4.5.13",
-    "@vue/cli-plugin-eslint": "~4.5.13",
-    "@vue/cli-plugin-unit-jest": "~4.5.13",
-    "@vue/cli-service": "~4.5.13",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "@vue/cli-service": "^5.0.0-beta.2",
     "@vue/compiler-sfc": "^3.0.0-beta.12",
-    "@vue/eslint-config-standard": "^5.1.0",
+    "@vue/eslint-config-standard": "^6.1.0",
     "@vue/test-utils": "^2.0.0-rc.4",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.3",
-    "babel-jest": "^25.2.6",
-    "cypress": "^7.5.0",
+    "babel-jest": "^27.0.6",
+    "chalk": "^4.1.2",
+    "clean-css": "^5.1.4",
+    "cypress": "^8.1.0",
     "dts-bundle": "^0.7.3",
-    "eslint": "^6.7.2",
+    "eslint": "^7.32.0",
     "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.0.0-beta.1",
-    "jest": "^25.2.7",
+    "flush-promises": "^1.0.2",
+    "fs-extra": "^10.0.0",
+    "jest": "^27.0.6",
+    "jest-serializer-vue": "^2.0.2",
+    "jest-transform-stub": "^2.0.0",
+    "lerna": "^4.0.0",
+    "regenerator-runtime": "^0.13.9",
+    "rollup": "^2.55.1",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-vue": "^6.0.0",
     "stylus": "^0.54.7",
+    "terser": "^5.7.1",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.4",
-    "vue": "^3.0.6",
-    "vue-jest": "^5.0.0-alpha.0",
-    "vue-loader": "^16.0.0-alpha.3"
+    "vee-validate": "^4.4.8",
+    "vue": "^3.1.5",
+    "vue-loader": "^16.0.0-alpha.3",
+    "vue3-jest": "^27.0.0-alpha.2",
+    "yup": "^0.32.9"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
@@ -76,17 +89,5 @@
   ],
   "engines": {
     "node": ">=12.17.0"
-  },
-  "homepage": "https://formvuelate.js.org/",
-  "keywords": [
-    "vue",
-    "form",
-    "schema",
-    "plugin",
-    "dynamic form"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/formvuelate/formvuelate.git"
   }
 }

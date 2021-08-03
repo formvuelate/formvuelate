@@ -8,7 +8,7 @@ import { useForm, useField } from 'vee-validate'
  *
  * @returns {Array}
  */
-export const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
+const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el => fn(el)))
 
 /**
  * Maps the validation state to props
@@ -30,7 +30,7 @@ export default function VeeValidatePlugin (opts) {
     const { parsedSchema, formBinds } = baseReturns
 
     // Get additional properties not defined on the `SchemaForm` derivatives
-    const { attrs: formAttrs } = getCurrentInstance()
+    const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
     if (!formContext) {
@@ -54,12 +54,14 @@ export default function VeeValidatePlugin (opts) {
         path = path ? `${path}.${el.model}` : el.model
 
         // Make sure we only deal with schema arrays and not nested objects
-        const schemaArray = Array.isArray(el.schema) ? el.schema : Object.keys(el.schema).map(model => {
-          return {
-            model,
-            ...el.schema[model]
-          }
-        })
+        const schemaArray = Array.isArray(el.schema)
+          ? el.schema
+          : Object.keys(el.schema).map(model => {
+            return {
+              model,
+              ...el.schema[model]
+            }
+          })
 
         return {
           ...el,
@@ -116,7 +118,7 @@ export default function VeeValidatePlugin (opts) {
 // very important to avoid re-creating components when re-rendering
 const COMPONENT_LOOKUP = new Map()
 
-export function withField (el) {
+function withField (el) {
   const Comp = el.component
 
   if (COMPONENT_LOOKUP.has(Comp)) {

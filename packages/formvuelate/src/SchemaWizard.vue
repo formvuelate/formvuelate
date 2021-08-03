@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import SchemaForm from './SchemaForm'
+import SchemaForm from './SchemaForm.vue'
 
 import { computed, provide } from 'vue'
 import { IS_SCHEMA_WIZARD } from './utils/constants'

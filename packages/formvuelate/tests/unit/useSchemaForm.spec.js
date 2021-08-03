@@ -7,6 +7,7 @@ const { isRef, ref } = Vue
 describe('useSchemaForm', () => {
   beforeAll(() => {
     // Mock provide since we are going to use it outside of a setup fn and it throws warnings
+    // eslint-disable-next-line no-import-assign
     Vue.provide = jest.fn()
   })
 

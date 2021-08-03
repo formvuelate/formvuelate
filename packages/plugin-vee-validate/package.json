@@ -17,30 +17,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "rollit --global vee-validate:VeeValidate vue:Vue --externals vee-validate vue",
     "test": "yarn test:unit",
     "test:unit": "jest --coverage",
     "test:unit:watch": "yarn test:unit --watch",
     "lint": "eslint --fix src/**/* tests/**/*"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.9.0",
-    "@vue/test-utils": "^2.0.0-alpha.7",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^25.2.6",
-    "eslint": "^7.3.1",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "flush-promises": "^1.0.2",
-    "formvuelate": "^3.0.0",
-    "jest": "^26.6.3",
-    "rollit": "^0.0.9",
-    "vee-validate": "^4.0.0-beta.16",
-    "vue": "^3.0.0-beta.12",
-    "vue-jest": "^5.0.0-alpha.0",
     "yup": "^0.29.3"
   },
   "peerDependencies": {

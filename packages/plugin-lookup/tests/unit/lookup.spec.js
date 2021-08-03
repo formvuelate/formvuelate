@@ -225,23 +225,23 @@ describe('Lookup Plugin', () => {
     const computedSchema = computed(() => {
       return toggle.value === 'A'
         ? [
-          [
-            {
-              model: 'A',
-              component: 'text',
-              label: 'A'
-            }
+            [
+              {
+                model: 'A',
+                component: 'text',
+                label: 'A'
+              }
+            ]
           ]
-        ]
         : [
-          [
-            {
-              model: 'B',
-              component: 'text',
-              label: 'B'
-            }
+            [
+              {
+                model: 'B',
+                component: 'text',
+                label: 'B'
+              }
+            ]
           ]
-        ]
     })
 
     const lookup = LookupPlugin({

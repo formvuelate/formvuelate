@@ -1,4 +1,8 @@
 module.exports = {
+  rootDir: __dirname,
+
+  preset: 'ts-jest',
+
   moduleFileExtensions: [
     'js',
     'jsx',
@@ -6,8 +10,10 @@ module.exports = {
     'vue'
   ],
 
+  testEnvironment: 'jsdom',
+
   transform: {
-    '^.+\\.vue$': 'vue-jest',
+    '^.+\\.vue$': 'vue3-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.jsx?$': 'babel-jest'
   },
@@ -17,23 +23,23 @@ module.exports = {
   ],
 
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@formvuelate/(.+)$': '<rootDir>/packages/$1/src',
+    '^(formvuelate)$': '<rootDir>/packages/formvuelate/src'
   },
 
   snapshotSerializers: [
     'jest-serializer-vue'
   ],
 
-  testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx)|**/__tests__/*.(js|jsx)'
-  ],
+  testMatch: ['<rootDir>/packages/**/tests/**/*spec.[jt]s?(x)'],
 
   collectCoverageFrom: [
-    'src/**/*.{js,jsx,vue}',
-    '!src/**/*.e2e.js',
-    '!src/index.js'
+    '<rootDir>/packages/**/src/*.{js,jsx,vue}',
+    '!<rootDir>/packages/**/*.e2e.js',
+    '!<rootDir>/packages/src/index.js'
   ],
 
-  testURL: 'http://localhost/',
-  preset: '@vue/cli-plugin-unit-jest'
+  setupFilesAfterEnv: ['./jest.setup.js'],
+
+  testURL: 'http://localhost/'
 }
