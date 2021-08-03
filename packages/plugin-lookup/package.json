@@ -1,6 +1,6 @@
 {
   "name": "@formvuelate/plugin-lookup",
-  "version": "3.3.1",
+  "version": "3.3.2-alpha.0",
   "description": "FormVueLate Lookup plugin",
   "main": "dist/formvuelate-plugin-lookup.cjs.js",
   "private": false,
