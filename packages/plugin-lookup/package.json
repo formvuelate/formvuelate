@@ -35,6 +35,6 @@
   },
   "homepage": "https://github.com/formvuelate/formvuelate-plugin-lookup#readme",
   "module": "dist/formvuelate-plugin-lookup.es.js",
-  "unpkg": "dist/formvuelate-plugin-lookup.js",
+  "unpkg": "dist/formvuelate-plugin-lookup.umd.js",
   "browser": "dist/formvuelate-plugin-lookup.es.js"
 }

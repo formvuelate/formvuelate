@@ -13,9 +13,10 @@
     "test": "yarn lint && yarn test:unit",
     "test:unit:watch": "yarn test:unit --watch"
   },
-  "main": "dist/formvuelate.common.js",
+  "main": "dist/formvuelate.cjs.js",
   "browser": "dist/formvuelate.umd.js",
   "unpkg": "dist/formvuelate.umd.js",
+  "module": "dist/formvuelate.es.js",
   "files": [
     "dist",
     "src"

@@ -29,7 +29,7 @@ const pkgNameMap = {
  */
 const formatPostfixMap = {
   es: 'es',
-  umd: '',
+  umd: 'umd',
   cjs: 'cjs'
 }
 

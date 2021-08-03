@@ -39,6 +39,6 @@
   },
   "homepage": "https://github.com/formvuelate/formvuelate#readme",
   "module": "dist/formvuelate-plugin-vee-validate.es.js",
-  "unpkg": "dist/formvuelate-plugin-vee-validate.js",
+  "unpkg": "dist/formvuelate-plugin-vee-validate.umd.js",
   "browser": "dist/formvuelate-plugin-vee-validate.es.js"
 }
