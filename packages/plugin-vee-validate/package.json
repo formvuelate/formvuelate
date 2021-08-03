@@ -1,0 +1,44 @@
+{
+  "name": "@formvuelate/plugin-vee-validate",
+  "version": "2.3.0",
+  "description": "FormVueLate Vee-validate plugin",
+  "main": "dist/formvuelate-plugin-vee-validate.cjs.js",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/formvuelate/formvuelate.git"
+  },
+  "author": {
+    "name": "Abdelrahman Awad",
+    "email": "logaretm1@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn test:unit",
+    "test:unit": "jest --coverage",
+    "test:unit:watch": "yarn test:unit --watch",
+    "lint": "eslint --fix src/**/* tests/**/*"
+  },
+  "devDependencies": {
+    "yup": "^0.29.3"
+  },
+  "peerDependencies": {
+    "formvuelate": "^3.2.0",
+    "vee-validate": "^4.2.0",
+    "vue": "^3.0.0"
+  },
+  "files": [
+    "src/*",
+    "dist/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/formvuelate/formvuelate/issues"
+  },
+  "homepage": "https://github.com/formvuelate/formvuelate#readme",
+  "module": "dist/formvuelate-plugin-vee-validate.es.js",
+  "unpkg": "dist/formvuelate-plugin-vee-validate.js",
+  "browser": "dist/formvuelate-plugin-vee-validate.es.js"
+}

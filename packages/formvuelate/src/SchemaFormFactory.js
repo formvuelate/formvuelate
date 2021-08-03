@@ -1,5 +1,5 @@
-import SchemaForm from './SchemaForm'
-import SchemaField from './SchemaField'
+import SchemaForm from './SchemaForm.vue'
+import SchemaField from './SchemaField.vue'
 
 export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup

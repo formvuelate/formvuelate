@@ -74,12 +74,12 @@ export default {
 `SchemaForm` will automatically update the state within your `formModel` when your components update.
 
 ## Official plugins
-#### [Lookup Plugin](https://github.com/formvuelate/formvuelate-plugin-lookup)
+#### Lookup Plugin
 A mapping and replacement plugin to parse complex schemas into FormVueLate ready structure.
 
-#### [Vee-Validate Plugin](https://github.com/formvuelate/formvuelate-plugin-vee-validate)
+#### Vee-Validate Plugin
 Easily incporate Vee-Validate powered validations into your forms.
-#### [Vuelidate Plugin WIP](https://github.com/formvuelate/formvuelate-plugin-vuelidate)
+#### Vuelidate Plugin WIP
 Easily incorporate Vuelidate powered validations into your forms.
 
 ## Core team

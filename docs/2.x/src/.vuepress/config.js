@@ -75,7 +75,6 @@ module.exports = {
             'plugins',
             'lookup',
             'veevalidate',
-            'vuelidate',
             'customplugins'
           ]
         }

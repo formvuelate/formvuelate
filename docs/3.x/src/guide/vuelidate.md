@@ -7,8 +7,6 @@ sidebarDepth: 3
 Vuelidate is still in testing in pre-release state.
 :::
 
-[Vuelidate Plugin's Repo](https://github.com/formvuelate/formvuelate-plugin-vuelidate)
-
 In order to seamlessly validate `FormVueLatte` by using `Vuelidate`, we provide a `VuelidatePlugin` that will allow you to easily accomplish this.
 
 ## Installation
