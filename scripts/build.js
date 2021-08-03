@@ -3,7 +3,7 @@ const chalk = require('chalk')
 const fs = require('fs-extra')
 const { rollup } = require('rollup')
 const Terser = require('terser')
-const mkdirp = require('mkdirp');
+const mkdirp = require('mkdirp')
 const { createConfig } = require('./config')
 const { generateDts } = require('./generate-dts')
 
