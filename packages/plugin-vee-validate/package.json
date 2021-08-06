@@ -3,6 +3,7 @@
   "version": "3.3.2",
   "description": "FormVueLate Vee-validate plugin",
   "main": "dist/formvuelate-plugin-vee-validate.cjs.js",
+  "types": "dist/formvuelate-plugin-vee-validate.d.ts",
   "private": false,
   "publishConfig": {
     "access": "public"
