@@ -15,12 +15,13 @@ function generateDts (pkg) {
     return
   }
 
-  const name = pkgNameMap[pkg]
+  const namespace = require(path.resolve(__dirname, `../packages/${pkg}/package.json`)).name
+  const fileName = pkgNameMap[pkg]
 
   dts.bundle({
-    name,
+    name: namespace,
     main: entry,
-    out: path.resolve(__dirname, `../packages/${pkg}/dist/${name}.d.ts`),
+    out: path.resolve(__dirname, `../packages/${pkg}/dist/${fileName}.d.ts`),
     indent: '  '
   })
 
