@@ -657,4 +657,78 @@ describe('FVL integration', () => {
     expect(button.element.disabled).toBe(false)
     expect(wrapper.find('#error').text()).toBe('')
   })
+
+  it('validates fields with array in nested array schema', async () => {
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+    const schema = {
+      user: {
+        component: SchemaWithValidation,
+        model: 'subform',
+        schema: [
+          {
+            model: 'email',
+            label: 'Email',
+            component: FormText,
+            validations: yup.string().required(REQUIRED_MESSAGE)
+          }, [
+            {
+              model: 'firstName',
+              label: 'First Name',
+              component: FormText,
+              validations: yup.string().required(REQUIRED_MESSAGE)
+            }, {
+              model: 'lastName',
+              label: 'Last Name',
+              component: FormText,
+              validations: yup.string().required(REQUIRED_MESSAGE)
+            }
+          ]
+        ]
+      }
+    }
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+
+        return {
+          schema
+        }
+      }
+    })
+
+    const inputs = wrapper.findAllComponents(FormText)
+    const errors = wrapper.findAll('span')
+
+    inputs[0].setValue('')
+    await flushPromises()
+    expect(errors[0].text()).toBe(REQUIRED_MESSAGE)
+
+    inputs[0].setValue('test@gmail.com')
+    await flushPromises()
+    expect(errors[0].text()).toBe('')
+
+    inputs[1].setValue('')
+    await flushPromises()
+    expect(errors[1].text()).toBe(REQUIRED_MESSAGE)
+
+    inputs[1].setValue('Tom')
+    await flushPromises()
+    expect(errors[1].text()).toBe('')
+
+    inputs[2].setValue('')
+    await flushPromises()
+    expect(errors[2].text()).toBe(REQUIRED_MESSAGE)
+
+    inputs[2].setValue('Cruise')
+    await flushPromises()
+    expect(errors[2].text()).toBe('')
+  })
 })

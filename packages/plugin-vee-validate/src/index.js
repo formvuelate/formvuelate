@@ -69,15 +69,22 @@ export default function VeeValidatePlugin (opts) {
         }
       }
 
-      return {
-        ...el,
-        // namespaced prop to avoid clash with users' props
-        _veeValidateConfig: {
-          mapProps,
-          path
-        },
-        component: withField(el)
+      const constructField = (field) => {
+        return {
+          ...field,
+          _veeValidateConfig: {
+            mapProps,
+            path
+          },
+          component: withField(field)
+        }
       }
+
+      if (Array.isArray(el)) {
+        return el.map(constructField)
+      }
+
+      return constructField(el)
     }
 
     // Map components in schema to enhanced versions with `useField`
