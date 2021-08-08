@@ -9,20 +9,14 @@
       v-bind="slotBinds"
     />
 
-    <div
-      :class="['schema-row', schemaRowClasses]"
-      v-for="(fields, index) in parsedSchema"
+    <SchemaRow
+      v-for="(row, index) in parsedSchema"
       :key="index"
-    >
-      <SchemaField
-        v-for="field in fields"
-        :key="field.model"
-        :field="field"
-        :sharedConfig="sharedConfig"
-        :preventModelCleanupOnSchemaChange="preventModelCleanupOnSchemaChange"
-        class="schema-col"
-      />
-    </div>
+      :row="row"
+      :schemaRowClasses="schemaRowClasses"
+      :sharedConfig="sharedConfig"
+      :preventModelCleanupOnSchemaChange="preventModelCleanupOnSchemaChange"
+    />
 
     <slot
       v-if="behaveLikeParentSchema"
@@ -34,7 +28,7 @@
 
 <script>
 import useParsedSchema from './features/ParsedSchema'
-import SchemaField from './SchemaField.vue'
+import SchemaRow from './SchemaRow.vue'
 
 import { computed } from 'vue'
 
@@ -44,7 +38,7 @@ import useFormModel from './features/FormModel'
 
 export default {
   name: 'SchemaForm',
-  components: { SchemaField },
+  components: { SchemaRow },
   props: {
     schema: {
       type: [Object, Array],
