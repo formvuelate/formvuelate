@@ -22,6 +22,18 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     }
   }
 
+  const formProps = { ...SchemaForm.props }
+
+  function extendProps (newProps = {}) {
+    Object.assign(formProps, newProps || {})
+  }
+
+  plugins.forEach(plugin => {
+    if (plugin.beforeSetup) {
+      plugin.beforeSetup({ extendProps })
+    }
+  })
+
   const SchemaFieldWithComponents = {
     ...SchemaField,
     components: {
@@ -32,6 +44,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
 
   return {
     ...SchemaForm,
+    props: formProps,
     components: {
       ...components,
       ...SchemaForm.components,
