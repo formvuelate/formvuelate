@@ -9,7 +9,7 @@ const FormText = {
   template: `
     <div>
       <input @input="$emit('update:modelValue', $event.target.value)" />
-      <span>{{ validation.errorMessage }}</span>
+      <span class="error">{{ validation.errorMessage }}</span>
     </div>
   `,
   emits: ['update:modelValue'],
@@ -32,7 +32,7 @@ const FormTextWithProps = {
   template: `
     <div>
       <input @input="$emit('update:modelValue', $event.target.value)" />
-      <span>{{ errorMessage }}</span>
+      <span class="error">{{ errorMessage }}</span>
     </div>
   `,
   emits: ['update:modelValue'],
@@ -77,10 +77,10 @@ describe('FVL integration', () => {
     const input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe(REQUIRED_MESSAGE)
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
     input.setValue('hello')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('')
+    expect(wrapper.find('.error').text()).toBe('')
   })
 
   it('maps validation state to props', async () => {
@@ -123,10 +123,10 @@ describe('FVL integration', () => {
     const input = wrapper.findComponent(FormTextWithProps)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe(REQUIRED_MESSAGE)
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
     input.setValue('hello')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('')
+    expect(wrapper.find('.error').text()).toBe('')
   })
 
   it('does form-level validation with validation-schema attr', async () => {
@@ -170,7 +170,7 @@ describe('FVL integration', () => {
     })
 
     const inputs = wrapper.findAllComponents(FormText)
-    const errors = wrapper.findAll('span')
+    const errors = wrapper.findAll('.error')
     inputs[0].setValue('not email')
     await flushPromises()
     expect(errors[0].text()).toBe(EMAIL_MESSAGE)
@@ -289,7 +289,7 @@ describe('FVL integration', () => {
     })
 
     await flushPromises()
-    const messages = wrapper.findAll('span')
+    const messages = wrapper.findAll('.error')
     expect(messages[0].text()).toBe('wrong')
     expect(messages[1].text()).toBe('short')
   })
@@ -420,10 +420,10 @@ describe('FVL integration', () => {
     const input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe(REQUIRED_MESSAGE)
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
     input.setValue('hello')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('')
+    expect(wrapper.find('.error').text()).toBe('')
   })
 
   it('validates nested fields with array schema', async () => {
@@ -463,10 +463,10 @@ describe('FVL integration', () => {
     const input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe(REQUIRED_MESSAGE)
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
     input.setValue('hello')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('')
+    expect(wrapper.find('.error').text()).toBe('')
   })
 
   it('validates nested fields with object schema', async () => {
@@ -505,10 +505,10 @@ describe('FVL integration', () => {
     const input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe(REQUIRED_MESSAGE)
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
     input.setValue('hello')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('')
+    expect(wrapper.find('.error').text()).toBe('')
   })
 
   it('preserves reactivity in computed schemas', async () => {
@@ -554,14 +554,14 @@ describe('FVL integration', () => {
     let input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('NAME')
+    expect(wrapper.find('.error').text()).toBe('NAME')
 
     toggle.value = 'B'
     await flushPromises()
     input = wrapper.findComponent(FormText)
     input.setValue('')
     await flushPromises()
-    expect(wrapper.find('span').text()).toBe('EMAIL')
+    expect(wrapper.find('.error').text()).toBe('EMAIL')
   })
 
   it('exposes form-level validation state on afterForm slot', async () => {
@@ -705,7 +705,7 @@ describe('FVL integration', () => {
     })
 
     const inputs = wrapper.findAllComponents(FormText)
-    const errors = wrapper.findAll('span')
+    const errors = wrapper.findAll('.error')
 
     inputs[0].setValue('')
     await flushPromises()
@@ -730,5 +730,68 @@ describe('FVL integration', () => {
     inputs[2].setValue('Cruise')
     await flushPromises()
     expect(errors[2].text()).toBe('')
+  })
+
+  it('handles computed schema', async () => {
+    const schema = [
+      {
+        label: 'Email',
+        model: 'email',
+        component: FormText
+      },
+      {
+        label: 'Password',
+        model: 'password',
+        component: FormText
+      }
+    ]
+
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+
+    const onSubmit = jest.fn()
+    const isRequired = ref(true)
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" :validation-schema="validationSchema" @submit.prevent="onSubmit" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+        const validationSchema = computed(() => {
+          const email = yup.string().email(EMAIL_MESSAGE)
+          const password = yup.string()
+
+          return yup.object({
+            email: isRequired.value ? email.required() : email,
+            password: isRequired.value ? password.required() : password
+          })
+        })
+
+        return {
+          schema,
+          formData,
+          validationSchema,
+          onSubmit
+        }
+      }
+    })
+
+    const form = wrapper.find('form')
+
+    form.trigger('submit')
+    await flushPromises()
+    expect(onSubmit).toHaveBeenCalledTimes(0)
+    expect(wrapper.findAll('.error')).toHaveLength(2)
+
+    isRequired.value = false
+    await flushPromises()
+
+    form.trigger('submit')
+    await flushPromises()
+    expect(onSubmit).toHaveBeenCalledTimes(1)
   })
 })

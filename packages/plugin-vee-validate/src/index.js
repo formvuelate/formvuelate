@@ -25,8 +25,8 @@ export default function VeeValidatePlugin (opts) {
   // Maps the validation state exposed by vee-validate to components
   const mapProps = (opts && opts.mapProps) || defaultMapProps
 
-  return function veeValidatePlugin (baseReturns) {
-  // Take the parsed schema from SchemaForm setup returns
+  function veeValidatePlugin (baseReturns, props) {
+    // Take the parsed schema from SchemaForm setup returns
     const { parsedSchema, formBinds } = baseReturns
 
     // Get additional properties not defined on the `SchemaForm` derivatives
@@ -36,7 +36,7 @@ export default function VeeValidatePlugin (opts) {
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
       formContext = useForm({
-        validationSchema: formAttrs['validation-schema'] || formAttrs.validationSchema,
+        validationSchema: props.validationSchema ? computed(() => props.validationSchema) : undefined,
         initialErrors: formAttrs['initial-errors'] || formAttrs.initialErrors,
         initialTouched: formAttrs['initial-touched'] || formAttrs.initialTouched
       })
@@ -119,6 +119,17 @@ export default function VeeValidatePlugin (opts) {
       parsedSchema: formSchemaWithVeeValidate
     }
   }
+
+  veeValidatePlugin.beforeSetup = ({ extendProps }) => {
+    extendProps({
+      validationSchema: {
+        type: null,
+        default: undefined
+      }
+    })
+  }
+
+  return veeValidatePlugin
 }
 
 // Used to track if a component was already marked
