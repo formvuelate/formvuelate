@@ -1,9 +1,29 @@
 import SchemaForm from './SchemaForm.vue'
 import SchemaField from './SchemaField.vue'
+import { isObject } from './utils/assertions'
 
 export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup
   const originalSetup = SchemaForm.setup
+
+  const schemaFormProps = { ...SchemaForm.props }
+
+  function extendProps (newProps) {
+    if (!isObject(newProps)) {
+      if (process.env && process.env.NODE_ENV !== 'production') {
+        console.warn('Formvuelate: extendProps can only receive a Vue props object')
+      }
+      return
+    }
+
+    Object.assign(schemaFormProps, newProps)
+  }
+
+  plugins.forEach(plugin => {
+    if (plugin.beforeSetup) {
+      plugin.beforeSetup({ extendProps })
+    }
+  })
 
   function setup (props, context) {
     // Call the original setup and preserve its results
@@ -22,18 +42,6 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     }
   }
 
-  const formProps = { ...SchemaForm.props }
-
-  function extendProps (newProps = {}) {
-    Object.assign(formProps, newProps || {})
-  }
-
-  plugins.forEach(plugin => {
-    if (plugin.beforeSetup) {
-      plugin.beforeSetup({ extendProps })
-    }
-  })
-
   const SchemaFieldWithComponents = {
     ...SchemaField,
     components: {
@@ -44,7 +52,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
 
   return {
     ...SchemaForm,
-    props: formProps,
+    props: schemaFormProps,
     components: {
       ...components,
       ...SchemaForm.components,
