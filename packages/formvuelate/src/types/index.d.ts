@@ -12,6 +12,12 @@ export type FormArraySchema = FieldSchemaWithModel[];
 
 export type FormObjectSchema = Record<string, FieldSchema>;
 
+interface PluginExtensionFunctions {
+  extendFormProps(extendedProps: Record<string, any>): void;
+}
+
+export type PluginExtenderFunction = (extensions: PluginExtensionFunctions) => unknown;
+
 export interface BaseSchemaReturns {
   behaveLikeParentSchema: ComputedRef<boolean>;
   parsedSchema: ComputedRef<FormArraySchema[]>;
@@ -24,9 +30,9 @@ export declare function useSchemaForm<
   TValues extends Record<string, any> = Record<string, any>
 >(initialFormValues?: TValues): { formModel: TValues };
 
-export type PluginFunction = (
+export type PluginFunction = { extend?: PluginExtenderFunction } & ((
   baseReturns: BaseSchemaReturns
-) => BaseSchemaReturns;
+) => BaseSchemaReturns);
 
 export declare function SchemaFormFactory(
   plugins?: PluginFunction[],
@@ -83,3 +89,5 @@ declare const SchemaWizard: DefineComponent<{
   };
 }> &
   FormSlots
+
+export declare function definePlugin(plugin: PluginFunction | { setup: PluginFunction, extend: PluginExtenderFunction }): PluginFunction;

@@ -8,10 +8,10 @@ export default function SchemaFormFactory (plugins = [], components = null) {
 
   const schemaFormProps = { ...SchemaForm.props }
 
-  function extendProps (newProps) {
+  function extendSchemaFormProps (newProps) {
     if (!isObject(newProps)) {
       if (process.env && process.env.NODE_ENV !== 'production') {
-        console.warn('Formvuelate: extendProps can only receive a Vue props object')
+        console.warn('Formvuelate: extendSchemaFormProps can only receive a Vue props object')
       }
       return
     }
@@ -20,8 +20,8 @@ export default function SchemaFormFactory (plugins = [], components = null) {
   }
 
   plugins.forEach(plugin => {
-    if (plugin.beforeSetup) {
-      plugin.beforeSetup({ extendProps })
+    if (plugin.extend) {
+      plugin.extend({ extendSchemaFormProps })
     }
   })
 
