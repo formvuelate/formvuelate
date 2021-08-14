@@ -1,5 +1,6 @@
 import { toRefs, h, computed, markRaw, watch, getCurrentInstance, unref, resolveDynamicComponent, inject, provide } from 'vue'
 import { useForm, useField } from 'vee-validate'
+import { definePlugin } from 'formvuelate'
 
 /**
  * For a Schema, find the elements in each of the rows and remap the element with the given function
@@ -120,8 +121,9 @@ export default function VeeValidatePlugin (opts) {
     }
   }
 
-  veeValidatePlugin.beforeSetup = ({ extendProps }) => {
-    extendProps({
+  // extends the schema form props
+  const extend = ({ extendSchemaFormProps }) => {
+    extendSchemaFormProps({
       validationSchema: {
         type: null,
         default: undefined
@@ -129,7 +131,10 @@ export default function VeeValidatePlugin (opts) {
     })
   }
 
-  return veeValidatePlugin
+  return definePlugin({
+    setup: veeValidatePlugin,
+    extend
+  })
 }
 
 // Used to track if a component was already marked
