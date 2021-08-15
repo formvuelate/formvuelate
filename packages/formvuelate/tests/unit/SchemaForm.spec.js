@@ -87,27 +87,27 @@ describe('SchemaForm', () => {
       const schema = computed(() => {
         return model.value.check === 'A'
           ? {
-            check: {
-              component: FormSelect,
-              options: ['A', 'B'],
-              label: 'A or B'
-            },
-            a: {
-              component: FormText,
-              label: 'A'
+              check: {
+                component: FormSelect,
+                options: ['A', 'B'],
+                label: 'A or B'
+              },
+              a: {
+                component: FormText,
+                label: 'A'
+              }
             }
-          }
           : {
-            check: {
-              component: FormSelect,
-              options: ['A', 'B'],
-              label: 'A or B'
-            },
-            b: {
-              component: FormText,
-              label: 'B'
+              check: {
+                component: FormSelect,
+                options: ['A', 'B'],
+                label: 'A or B'
+              },
+              b: {
+                component: FormText,
+                label: 'B'
+              }
             }
-          }
       })
 
       const wrapper = mount(SchemaWrapperFactory(schema, null, model))
