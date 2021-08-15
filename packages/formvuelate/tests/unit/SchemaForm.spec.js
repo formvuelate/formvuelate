@@ -87,27 +87,27 @@ describe('SchemaForm', () => {
       const schema = computed(() => {
         return model.value.check === 'A'
           ? {
-              check: {
-                component: FormSelect,
-                options: ['A', 'B'],
-                label: 'A or B'
-              },
-              a: {
-                component: FormText,
-                label: 'A'
-              }
+            check: {
+              component: FormSelect,
+              options: ['A', 'B'],
+              label: 'A or B'
+            },
+            a: {
+              component: FormText,
+              label: 'A'
             }
+          }
           : {
-              check: {
-                component: FormSelect,
-                options: ['A', 'B'],
-                label: 'A or B'
-              },
-              b: {
-                component: FormText,
-                label: 'B'
-              }
+            check: {
+              component: FormSelect,
+              options: ['A', 'B'],
+              label: 'A or B'
+            },
+            b: {
+              component: FormText,
+              label: 'B'
             }
+          }
       })
 
       const wrapper = mount(SchemaWrapperFactory(schema, null, model))
@@ -204,6 +204,59 @@ describe('SchemaForm', () => {
 
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
+  })
+
+  it('populates the formModel with the schema when created if a defaultValue prop exists', () => {
+    const schema = {
+      firstName: {
+        component: FormText,
+        label: 'First Name',
+        defaultValue: 'Darth'
+      },
+      lastName: {
+        component: FormText,
+        label: 'Last Name',
+        defaultValue: 'Vader'
+      },
+      contact: {
+        component: SchemaForm,
+        schema: {
+          email: {
+            component: FormText,
+            label: 'Email',
+            defaultValue: 'darth@deathstarmail.com'
+          },
+          address: {
+            FormText,
+            label: 'Address'
+          },
+          deepNest: {
+            component: SchemaForm,
+            schema: {
+              lightSaber: {
+                component: FormText,
+                label: 'Lightsaber',
+                defaultValue: 'Red'
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const formModel = ref({})
+
+    mount(SchemaWrapperFactory(schema, {}, formModel))
+    expect(formModel.value).toEqual({
+      firstName: 'Darth',
+      lastName: 'Vader',
+      contact: {
+        email: 'darth@deathstarmail.com',
+        deepNest: {
+          lightSaber: 'Red'
+        }
+      }
+    })
   })
 
   describe('a11y', () => {
