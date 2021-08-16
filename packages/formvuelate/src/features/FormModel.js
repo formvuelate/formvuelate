@@ -7,16 +7,16 @@ export default function useFormModel (props, parsedSchema) {
   const hasParentSchema = inject(PARENT_SCHEMA_EXISTS, false)
 
   /**
-   * Loop the schema and check for `defaultValue`. If found, pre-populate the formModel
+   * Loop the schema and check for `default`. If found, pre-populate the formModel
    * This should only execute on top level SchemaForm, as it will recurse the schema itself
    */
   if (!hasParentSchema) {
     const formModel = inject(FORM_MODEL, {})
 
     forEachSchemaElement(parsedSchema, (el, path) => {
-      if (!el.defaultValue) return
+      if (!el.default) return
 
-      updateFormModel(formModel, el.model, el.defaultValue, path)
+      updateFormModel(formModel, el.model, el.default, path)
     })
   }
 

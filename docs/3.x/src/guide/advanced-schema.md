@@ -4,7 +4,7 @@
 
 Sometimes we want our schema to be the one responsible for setting a default value to a field instead of setting it ourselves through `useSchemaForm`. A good example would be if the schema is getting pre-populated with values on our backend, and we don't want to manually loop it to generate the form model.
 
-FormVueLate will look for a property called `defaultValue` in our schema, and use the value inside of it to populate the form's model whenever the top level SchemaForm component is rendered. An example schema would be:
+FormVueLate will look for a property called `default` in our schema, and use the value inside of it to populate the form's model whenever the top level SchemaForm component is rendered. An example schema would be:
 
 ```js
 const form = ref({});
@@ -14,12 +14,12 @@ const schema = ref({
   firstName: {
     component: FormText,
     label: 'First Name',
-    defaultValue: 'Darth'
+    default: 'Darth'
   },
   lastName: {
     component: FormText,
     label: 'Last Name',
-    defaultValue: 'Vader'
+    default: 'Vader'
   },
   contact: {
     component: SchemaForm,
@@ -27,7 +27,7 @@ const schema = ref({
       email: {
         component: FormText,
         label: 'Email',
-        defaultValue: 'darth@deathstarmail.com'
+        default: 'darth@deathstarmail.com'
       },
       address: {
         FormText,
@@ -38,7 +38,7 @@ const schema = ref({
 })
 ```
 
-We can expect our `formModel` to initially be populated with the exception of the `address` field, which doesn't set a `defaultValue` as follows.
+We can expect our `formModel` to initially be populated with the exception of the `address` field, which doesn't set a `default` as follows.
 
 ```js
 {

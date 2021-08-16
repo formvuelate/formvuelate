@@ -206,17 +206,17 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
   })
 
-  it('populates the formModel with the schema when created if a defaultValue prop exists', () => {
+  it('populates the formModel with the schema when created if a default prop exists', () => {
     const schema = {
       firstName: {
         component: FormText,
         label: 'First Name',
-        defaultValue: 'Darth'
+        default: 'Darth'
       },
       lastName: {
         component: FormText,
         label: 'Last Name',
-        defaultValue: 'Vader'
+        default: 'Vader'
       },
       contact: {
         component: SchemaForm,
@@ -224,7 +224,7 @@ describe('SchemaForm', () => {
           email: {
             component: FormText,
             label: 'Email',
-            defaultValue: 'darth@deathstarmail.com'
+            default: 'darth@deathstarmail.com'
           },
           address: {
             FormText,
@@ -236,7 +236,7 @@ describe('SchemaForm', () => {
               lightSaber: {
                 component: FormText,
                 label: 'Lightsaber',
-                defaultValue: 'Red'
+                default: 'Red'
               }
             }
           }
