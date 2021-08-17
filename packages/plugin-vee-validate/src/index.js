@@ -125,7 +125,7 @@ export default function VeeValidatePlugin (opts) {
   const extend = ({ extendSchemaFormProps }) => {
     extendSchemaFormProps({
       validationSchema: {
-        type: null,
+        type: Object,
         default: undefined
       }
     })
