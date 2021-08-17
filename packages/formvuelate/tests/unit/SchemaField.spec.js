@@ -64,19 +64,22 @@ describe('SchemaField', () => {
   })
 
   it('calls the injected updateFormModel to update the value of the input', () => {
+    const formModel = ref({})
+
     const wrapper = mount(
       SchemaFieldWrapper({
         field: {
           model: 'firstName',
           component: FormText
         }
-      }, null, { mockUpdate: true })
+      }, formModel, { mockUpdate: true })
     )
 
     wrapper.findComponent(FormText).vm.$emit('update:modelValue', 'test')
 
     expect(updateFormModel).toHaveBeenCalledTimes(1)
     expect(updateFormModel).toHaveBeenCalledWith(
+      formModel,
       'firstName',
       'test',
       null

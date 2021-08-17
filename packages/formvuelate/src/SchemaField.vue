@@ -46,7 +46,7 @@ export default {
 
     const fieldValue = computed(() => {
       if (path) {
-        return findNestedFormModelProp(path)[props.field.model]
+        return findNestedFormModelProp(formModel, path)[props.field.model]
       }
 
       return formModel.value[props.field.model]
@@ -56,7 +56,7 @@ export default {
     const deleteFormModelProperty = inject(DELETE_FORM_MODEL_PROP)
 
     const update = (value) => {
-      updateFormModel(props.field.model, value, path)
+      updateFormModel(formModel, props.field.model, value, path)
     }
 
     const schemaCondition = computed(() => {
@@ -70,7 +70,7 @@ export default {
       if (shouldDisplay) return
       if (props.preventModelCleanupOnSchemaChange) return
 
-      deleteFormModelProperty(props.field.model, path)
+      deleteFormModelProperty(formModel, props.field.model, path)
     })
 
     return {

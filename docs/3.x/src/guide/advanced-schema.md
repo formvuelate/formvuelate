@@ -1,5 +1,55 @@
 # Advanced Schema Concepts
 
+## Setting default values at Schema level <Badge type="tip" text="3.4.0" vertical="middle" />
+
+Sometimes we want our schema to be the one responsible for setting a default value to a field instead of setting it ourselves through `useSchemaForm`. A good example would be if the schema is getting pre-populated with values on our backend, and we don't want to manually loop it to generate the form model.
+
+FormVueLate will look for a property called `default` in our schema, and use the value inside of it to populate the form's model whenever the top level SchemaForm component is rendered. An example schema would be:
+
+```js
+const form = ref({});
+useSchemaForm(form)
+
+const schema = ref({
+  firstName: {
+    component: FormText,
+    label: 'First Name',
+    default: 'Darth'
+  },
+  lastName: {
+    component: FormText,
+    label: 'Last Name',
+    default: 'Vader'
+  },
+  contact: {
+    component: SchemaForm,
+    schema: {
+      email: {
+        component: FormText,
+        label: 'Email',
+        default: 'darth@deathstarmail.com'
+      },
+      address: {
+        FormText,
+        label: 'Address'
+      }
+    }
+  }
+})
+```
+
+We can expect our `formModel` to initially be populated with the exception of the `address` field, which doesn't set a `default` as follows.
+
+```js
+{
+  firstName: 'Darth',
+  lastName: 'Vader',
+  contact: {
+    email: 'darth@deathstarmail.com'
+  }
+}
+```
+
 ## Conditionally displaying an element within the schema <Badge type="tip" text="3.1.0" vertical="middle" />
 
 If you have a complex schema that requires displaying or hiding a particular element based on a condition dictated by your model, you can always create a `computed` schema which handles the logic for you.

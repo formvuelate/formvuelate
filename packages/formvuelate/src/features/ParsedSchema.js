@@ -56,7 +56,7 @@ const findElementInSchema = (model, normalizedSchema) => {
  * @param {Array|Object} schema
  * @returns
  */
-const normalizeSchema = (schema) => {
+export const normalizeSchema = (schema) => {
   const arraySchema = Array.isArray(schema)
     ? schema
     : Object.keys(schema).map(model => ({

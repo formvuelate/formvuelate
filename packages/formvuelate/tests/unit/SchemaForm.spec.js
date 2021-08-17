@@ -206,6 +206,59 @@ describe('SchemaForm', () => {
     expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
   })
 
+  it('populates the formModel with the schema when created if a default prop exists', () => {
+    const schema = {
+      firstName: {
+        component: FormText,
+        label: 'First Name',
+        default: 'Darth'
+      },
+      lastName: {
+        component: FormText,
+        label: 'Last Name',
+        default: 'Vader'
+      },
+      contact: {
+        component: SchemaForm,
+        schema: {
+          email: {
+            component: FormText,
+            label: 'Email',
+            default: 'darth@deathstarmail.com'
+          },
+          address: {
+            FormText,
+            label: 'Address'
+          },
+          deepNest: {
+            component: SchemaForm,
+            schema: {
+              lightSaber: {
+                component: FormText,
+                label: 'Lightsaber',
+                default: 'Red'
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const formModel = ref({})
+
+    mount(SchemaWrapperFactory(schema, {}, formModel))
+    expect(formModel.value).toEqual({
+      firstName: 'Darth',
+      lastName: 'Vader',
+      contact: {
+        email: 'darth@deathstarmail.com',
+        deepNest: {
+          lightSaber: 'Red'
+        }
+      }
+    })
+  })
+
   describe('a11y', () => {
     it('injects a unique id to each component', () => {
       const schema = {
