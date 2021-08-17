@@ -1,6 +1,6 @@
 # Advanced Schema Concepts
 
-## Setting default values at Schema level <Badge type="tip" text="3.4.0" vertical="middle" />
+## Setting default values at Schema level <Badge type="tip" text="3.5.0" vertical="middle" />
 
 Sometimes we want our schema to be the one responsible for setting a default value to a field instead of setting it ourselves through `useSchemaForm`. A good example would be if the schema is getting pre-populated with values on our backend, and we don't want to manually loop it to generate the form model.
 
