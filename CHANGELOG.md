@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/FormVueLate/formvuelate/compare/v3.4.0...v3.5.0) (2021-08-17)
+
+
+### Bug Fixes
+
+* parser issues with ts parser ([#222](https://github.com/FormVueLate/formvuelate/issues/222)) ([95b3bad](https://github.com/FormVueLate/formvuelate/commit/95b3bad58a1b2b83f0decd5e26fd5b530baa37e9))
+
+
+
+
+
 # [3.4.0](https://github.com/FormVueLate/formvuelate/compare/v3.3.2...v3.4.0) (2021-08-08)
 
 
