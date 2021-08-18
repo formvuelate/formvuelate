@@ -1,5 +1,6 @@
 import { toRefs, h, computed, markRaw, watch, getCurrentInstance, unref, resolveDynamicComponent, inject, provide } from 'vue'
 import { useForm, useField } from 'vee-validate'
+import { definePlugin } from 'formvuelate'
 
 /**
  * For a Schema, find the elements in each of the rows and remap the element with the given function
@@ -25,8 +26,8 @@ export default function VeeValidatePlugin (opts) {
   // Maps the validation state exposed by vee-validate to components
   const mapProps = (opts && opts.mapProps) || defaultMapProps
 
-  return function veeValidatePlugin (baseReturns) {
-  // Take the parsed schema from SchemaForm setup returns
+  function veeValidatePlugin (baseReturns, props) {
+    // Take the parsed schema from SchemaForm setup returns
     const { parsedSchema, formBinds } = baseReturns
 
     // Get additional properties not defined on the `SchemaForm` derivatives
@@ -36,7 +37,7 @@ export default function VeeValidatePlugin (opts) {
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
       formContext = useForm({
-        validationSchema: formAttrs['validation-schema'] || formAttrs.validationSchema,
+        validationSchema: props.validationSchema ? computed(() => props.validationSchema) : undefined,
         initialErrors: formAttrs['initial-errors'] || formAttrs.initialErrors,
         initialTouched: formAttrs['initial-touched'] || formAttrs.initialTouched
       })
@@ -119,6 +120,21 @@ export default function VeeValidatePlugin (opts) {
       parsedSchema: formSchemaWithVeeValidate
     }
   }
+
+  // extends the schema form props
+  const extend = ({ extendSchemaFormProps }) => {
+    extendSchemaFormProps({
+      validationSchema: {
+        type: Object,
+        default: undefined
+      }
+    })
+  }
+
+  return definePlugin({
+    setup: veeValidatePlugin,
+    extend
+  })
 }
 
 // Used to track if a component was already marked

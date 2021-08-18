@@ -1,9 +1,29 @@
 import SchemaForm from './SchemaForm.vue'
 import SchemaField from './SchemaField.vue'
+import { isObject } from './utils/assertions'
 
 export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup
   const originalSetup = SchemaForm.setup
+
+  const schemaFormProps = { ...SchemaForm.props }
+
+  function extendSchemaFormProps (newProps) {
+    if (!isObject(newProps)) {
+      if (process.env && process.env.NODE_ENV !== 'production') {
+        console.warn('FormVueLate: extendSchemaFormProps can only receive a Vue props object')
+      }
+      return
+    }
+
+    Object.assign(schemaFormProps, newProps)
+  }
+
+  plugins.forEach(plugin => {
+    if (plugin.extend) {
+      plugin.extend({ extendSchemaFormProps })
+    }
+  })
 
   function setup (props, context) {
     // Call the original setup and preserve its results
@@ -32,6 +52,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
 
   return {
     ...SchemaForm,
+    props: schemaFormProps,
     components: {
       ...components,
       ...SchemaForm.components,
