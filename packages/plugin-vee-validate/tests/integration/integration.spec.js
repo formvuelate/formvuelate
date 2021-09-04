@@ -1,4 +1,5 @@
 import veeValidatePlugin from '@formvuelate/plugin-vee-validate'
+import { configure, defineRule } from 'vee-validate'
 import { SchemaFormFactory, useSchemaForm } from 'formvuelate'
 import { mount } from '@vue/test-utils'
 import { markRaw, ref, computed } from 'vue'
@@ -793,5 +794,48 @@ describe('FVL integration', () => {
     form.trigger('submit')
     await flushPromises()
     expect(onSubmit).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders label in error messages', async () => {
+    // setup global rules and error message generator
+    defineRule('required', (value) => !!value)
+    configure({
+      generateMessage: (ctx) => `${ctx.field} is REQUIRED`
+    })
+
+    const schema = {
+      firstName: {
+        label: 'First Name',
+        component: FormText,
+        validations: 'required'
+      }
+    }
+
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+
+        return {
+          schema
+        }
+      }
+    })
+
+    const input = wrapper.findComponent(FormText)
+    input.setValue('')
+    await flushPromises()
+    expect(wrapper.find('span').text()).toMatch(/First Name/)
+    input.setValue('hello')
+    await flushPromises()
+    expect(wrapper.find('span').text()).toBe('')
   })
 })
