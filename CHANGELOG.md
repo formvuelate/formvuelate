@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://github.com/FormVueLate/formvuelate/compare/v3.5.0...v3.5.1) (2021-09-05)
+
+
+### Bug Fixes
+
+* pass the label prop to vee-validate useField options closes [#225](https://github.com/FormVueLate/formvuelate/issues/225) ([#226](https://github.com/FormVueLate/formvuelate/issues/226)) ([e896abb](https://github.com/FormVueLate/formvuelate/commit/e896abbbd3feaebe758b0c96a899808a6f29af51))
+
+
+### Features
+
+* add validation schema to form props ([7b54fca](https://github.com/FormVueLate/formvuelate/commit/7b54fca71cc5e87eb79e3169f70a110121eb9631))
+* allow plugins to extend form props ([10610eb](https://github.com/FormVueLate/formvuelate/commit/10610ebcfc2806df2e310c048ea503424a343985))
+
+
+
+
+
 # [3.5.0](https://github.com/FormVueLate/formvuelate/compare/v3.4.0...v3.5.0) (2021-08-17)
 
 
