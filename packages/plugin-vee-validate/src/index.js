@@ -151,6 +151,10 @@ function withField (el) {
   const wrappedComponent = markRaw({
     name: 'withFieldWrapper',
     props: {
+      label: {
+        type: String,
+        default: undefined
+      },
       modelValue: {
         type: null,
         default: undefined
@@ -171,8 +175,10 @@ function withField (el) {
       // Build a fully qualified field name using dot notation for nested fields
       // ex: user.name
       const name = path ? `${path}.${attrs.model}` : attrs.model
+      const label = computed(() => props.label)
       const { value, errorMessage, meta, setTouched, errors } = useField(name, validations, {
-        initialValue
+        initialValue,
+        label
       })
 
       if (modelValue) {
