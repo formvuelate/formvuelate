@@ -41,7 +41,7 @@ export const deleteFormModelProperty = (formModel, prop, path) => {
     return
   }
 
-  delete findNestedFormModelProp(path)[prop]
+  delete findNestedFormModelProp(formModel, path)[prop]
 }
 
 /**
