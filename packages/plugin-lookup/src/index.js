@@ -1,4 +1,14 @@
-import { computed } from 'vue'
+import { computed, provide } from 'vue'
+import { constants } from 'formvuelate'
+
+/**
+ * Signal ParsedSchema to replace all instances of subschema `SchemaForm` components
+ * with the SchemaFormWithPlugins component
+ * @param {Object} SchemaFormWithPlugins
+ */
+export const lookupSubSchemas = (SchemaFormWithPlugins) => {
+  provide(constants.LOOKUP_PARSE_SUB_SCHEMA_FORMS, SchemaFormWithPlugins)
+}
 
 /**
  * LookupPlugin
@@ -50,6 +60,7 @@ const mapComps = (schema, mapComponents) => {
   return mapElementsInSchema(schema, el => {
     const newKey = mapComponents[el.component]
 
+    if (el.schema) return { ...el }
     if (!newKey) return { ...el }
 
     return {
