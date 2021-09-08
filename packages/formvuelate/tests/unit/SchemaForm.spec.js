@@ -679,6 +679,53 @@ describe('SchemaForm', () => {
   })
 
   describe('handling nested schemas', () => {
+    it('cleans up the model', async () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name'
+        },
+        properties: {
+          component: SchemaForm,
+          schema: {
+            favoriteThingAboutVue: {
+              component: FormSelect,
+              label: 'Favorite thing about Vue',
+              required: true,
+              condition: model => !!model.firstName,
+              options: ['Ease of use', 'Documentation', 'Community']
+            }
+          }
+        }
+      }
+
+      const formModel = ref({
+        firstName: 'Victor',
+        lastName: 'Lambert',
+        properties: {
+          favoriteThingAboutVue: 'Community'
+        }
+      })
+
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
+
+      const copySchema = { ...schema }
+      delete copySchema.firstName
+      wrapper.setProps({
+        schema: copySchema
+      })
+      await wrapper.vm.$nextTick()
+
+      expect(formModel.value).toEqual({
+        lastName: 'Lambert',
+        properties: {}
+      })
+    })
+
     it('injects the nestedSchemaModel prop as part of the path', () => {
       const schema = {
         firstName: {
