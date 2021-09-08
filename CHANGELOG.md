@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.3](https://github.com/FormVueLate/formvuelate/compare/v3.5.2...v3.5.3) (2021-09-08)
+
+
+### Bug Fixes
+
+* model cleanup not working with nested schemas (fix [#227](https://github.com/FormVueLate/formvuelate/issues/227)) ([#228](https://github.com/FormVueLate/formvuelate/issues/228)) ([24be6e0](https://github.com/FormVueLate/formvuelate/commit/24be6e0bd09b3a946f02f4e69a5cb3679342832d))
+
+
+
+
+
 ## [3.5.2](https://github.com/FormVueLate/formvuelate/compare/v3.5.1...v3.5.2) (2021-09-05)
 
 **Note:** Version bump only for package formvuelate-monorepo
