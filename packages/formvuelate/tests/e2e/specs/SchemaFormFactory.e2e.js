@@ -1,7 +1,7 @@
 import { mount } from '@cypress/vue'
 
 import { h, ref, shallowRef } from 'vue'
-import { SchemaFormFactory, SchemaForm, useSchemaForm } from '../../../src/index'
+import { SchemaFormFactory, useSchemaForm } from '../../../src/index'
 import LookupPlugin, { lookupSubSchemas } from '../../../../plugin-lookup/src/index'
 import { BaseInput } from '../../utils/components'
 

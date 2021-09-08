@@ -104,8 +104,6 @@ export default function useParsedSchema (refSchema, model) {
           (field.component.name === 'SchemaForm' || field.component === 'SchemaForm')
         ) {
           fieldCopy.component = injectedLookupSchemaForm
-
-          console.log(fieldCopy)
         }
 
         return {
