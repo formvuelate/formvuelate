@@ -1,8 +1,9 @@
 import { mount } from '@cypress/vue'
-import SchemaForm from './SchemaForm.vue'
+import SchemaForm from '../../../src/SchemaForm.vue'
 
-import useSchemaForm from './features/useSchemaForm'
+import useSchemaForm from '../../../src/features/useSchemaForm'
 import { shallowRef, ref, h, computed } from 'vue'
+import { BaseInput } from '../../utils/components'
 
 const SchemaFormWrapper = (schema) => ({
   components: [SchemaForm],
@@ -23,20 +24,6 @@ const SchemaFormWrapper = (schema) => ({
     })
   }
 })
-
-const BaseInput = {
-  props: ['label', 'modelValue'],
-  render () {
-    return [
-      h('label', this.label),
-      h('input', {
-        ...this.$attrs,
-        value: this.modelValue,
-        onInput: ($event) => this.$emit('update:modelValue', $event.target.value)
-      })
-    ]
-  }
-}
 
 describe('SchemaForm', () => {
   it('renders elements', () => {
