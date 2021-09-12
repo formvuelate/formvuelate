@@ -16,7 +16,7 @@
     "test:e2e:ci": "cypress run-ct",
     "lint": "eslint . '**/*.{js,jsx,ts,tsx}' --fix",
     "ci:lint": "yarn lint --no-fix",
-    "test": "yarn lint && yarn test:unit",
+    "test": "yarn lint && yarn test:unit && yarn test:e2e:ci",
     "test:unit:watch": "yarn test:unit --watch",
     "docs:dev": "cd docs/3.x && yarn dev && cd -",
     "docs:build": "cd docs/3.x && yarn build && cd -",

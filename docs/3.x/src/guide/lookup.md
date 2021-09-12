@@ -309,6 +309,7 @@ The schema will now include both the mapped `component` property, plus the origi
 
 ## Nested Schema Caveats
 
+### lookupSubSchemas <Badge text="3.6.0" type="warning" vertical="middle" />
 When dealing with schemas that have sub-schemas like the following:
 
 ```json
@@ -321,15 +322,15 @@ When dealing with schemas that have sub-schemas like the following:
     "component": "SchemaForm",
     "schema": {
       "address": {
-        "type": "FormText",
+        "type": "string",
         "label": "Work address"
       },
       "details": {
         "component": "SchemaForm",
         "schema": {
           "position": {
-            "type": "FormText",
-            "label": "Work position"
+            "type": "string",
+            "label": "Work email"
           }
         }
       }
@@ -338,16 +339,39 @@ When dealing with schemas that have sub-schemas like the following:
 }
 ```
 
-Make sure that you use `mapComponents` to change `SchemaForm` for whatever you named the output of your `SchemaFormFactory` function call.
+We have to do a little extra work to allow the lookup plugin to remap the sub-schema `SchemaForm` components.
+
+First, import the `lookupSubSchemas` composition function from the `plugin-lookup` package.
 
 ```js
-// Note "SchemaFormWithPlugin" getting remapped
+import LookupPlugin, { lookupSubSchemas } from '@formvuelate/plugin-lookup'
+```
 
-const SchemaFormWithPlugin = SchemaFormFactory([
+Next, create your schema form with plugins as you normally would.
+
+```js
+const SchemaFormWithPlugins = SchemaFormFactory([
   LookupPlugin({
-      SchemaForm: 'SchemaFormWithPlugin',
-      [...]
+    mapComponents: {
+      Text: BaseInput
     }
   })
 ])
+```
+
+Finally, in your setup function and _before_ the `useSchemaForm` call, call the `lookupSubSchemas` function that we just imported and pass in as a parameter the plugin-enhanced `SchemaForm` component returned by `SchemaFormFactory`.
+
+```js
+setup () {
+  const model = ref({})
+
+  lookupSubSchemas(SchemaFormWithPlugins)
+  useSchemaForm(model)
+
+  const schema = shallowRef(MY_SCHEMA)
+
+  return {
+    schema
+  }
+}
 ```

@@ -1,4 +1,5 @@
-import { computed, unref } from 'vue'
+import { computed, inject, unref } from 'vue'
+import { LOOKUP_PARSE_SUB_SCHEMA_FORMS } from '../utils/constants'
 import useUniqueID from './UniqueID'
 
 /**
@@ -89,11 +90,27 @@ export default function useParsedSchema (refSchema, model) {
       }
     }
 
+    const injectedLookupSchemaForm = inject(LOOKUP_PARSE_SUB_SCHEMA_FORMS, null)
+
     return normalizedSchema.map(fieldGroup => {
-      return fieldGroup.map(field => ({
-        ...field,
-        uuid: getID(field.model)
-      }))
+      return fieldGroup.map(field => {
+        const fieldCopy = { ...field }
+
+        /**
+         * If LookupPlugin has injected a plugin-enhanced version of SchemaForm
+         * through `lookupSubSchemas` function, replace the regular `SchemaForm` with it
+         */
+        if (injectedLookupSchemaForm &&
+          (field.component.name === 'SchemaForm' || field.component === 'SchemaForm')
+        ) {
+          fieldCopy.component = injectedLookupSchemaForm
+        }
+
+        return {
+          ...fieldCopy,
+          uuid: getID(field.model)
+        }
+      })
     })
   })
 
