@@ -4,8 +4,6 @@ sidebarDepth: 3
 
 # Vee-Validate Plugin
 
-[Vee-Validate Plugin's Repo](https://github.com/formvuelate/formvuelate-plugin-vee-validate).
-
 The vee-validate plugin lets you validate your generated fields using [vee-validate](https://github.com/logaretm/vee-validate).
 
 ## Installation
@@ -315,7 +313,7 @@ For the `required` rule, it will produce this message:
 The firstName field is required
 ```
 
-To override this behavior and give your users better error messages you can include a `label` prop in each field's schema. 
+To override this behavior and give your users better error messages you can include a `label` prop in each field's schema.
 
 In the following snippet, *'First name'* will be used as the field validation message.
 
@@ -328,7 +326,7 @@ const arraySchema = ref([
 ])
 
 const objectSchema = ref({
-  firstName: { 
+  firstName: {
     label: 'First name',
   }
 })

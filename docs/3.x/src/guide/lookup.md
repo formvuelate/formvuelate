@@ -3,8 +3,6 @@ sidebarDepth: 3
 ---
 # Lookup Plugin
 
-[Lookup Plugin's Repo](https://github.com/vuelidate/formvuelate-plugin-lookup).
-
 Whenever you find yourself working with a `schema` that has already been generated or created with a specific structure that does not comply to the requirements of `SchemaForm`, it becomes a necessary step to parse it to modify the structure.
 
 In order to make this task easier, FormVueLate provides a core plugin called `@formvuelate/plugin-lookup`.
