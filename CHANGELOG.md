@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.1](https://github.com/FormVueLate/formvuelate/compare/v3.6.0...v3.6.1) (2021-09-14)
+
+
+### Bug Fixes
+
+* added babel rollup plugin fixes [#232](https://github.com/FormVueLate/formvuelate/issues/232) ([#233](https://github.com/FormVueLate/formvuelate/issues/233)) ([25d293c](https://github.com/FormVueLate/formvuelate/commit/25d293c4195fc431e1cd48ed38e1605494a8bcd0))
+
+
+
+
+
 # [3.6.0](https://github.com/FormVueLate/formvuelate/compare/v3.5.3...v3.6.0) (2021-09-12)
 
 
