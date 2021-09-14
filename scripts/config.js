@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 const { nodeResolve } = require('@rollup/plugin-node-resolve')
+const { babel } = require('@rollup/plugin-babel')
 const vue = require('rollup-plugin-vue')
 const css = require('rollup-plugin-css-only')
 const CleanCSS = require('clean-css')
@@ -58,7 +59,8 @@ function createConfig (pkg, format) {
         }),
         vue({
           css: false
-        })
+        }),
+        babel({ babelHelpers: 'bundled' })
       ]
     },
     output: {
