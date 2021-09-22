@@ -57,17 +57,36 @@ export const mapElementsInSchema = (schema, fn) => schema.map(row => row.map(el 
 * @returns {Array}
  */
 const mapComps = (schema, mapComponents) => {
-  return mapElementsInSchema(schema, el => {
+  function mapSchemaElement (el) {
     const newKey = mapComponents[el.component]
 
-    if (el.schema) return { ...el }
+    // recursively exhaust all sub schemas
+    if (el.schema) {
+      const schemaArray = Array.isArray(el.schema)
+        ? el.schema
+        : Object.keys(el.schema).map(model => {
+          return {
+            model,
+            ...el.schema[model]
+          }
+        })
+
+      return {
+        ...el,
+        component: mapComponents[el.component] || el.component,
+        schema: schemaArray.map(mapSchemaElement)
+      }
+    }
+
     if (!newKey) return { ...el }
 
     return {
       ...el,
       component: mapComponents[el.component]
     }
-  })
+  }
+
+  return mapElementsInSchema(schema, mapSchemaElement)
 }
 
 /**
