@@ -1,7 +1,7 @@
 import { h } from 'vue'
 
 export const BaseInput = {
-  props: ['label', 'modelValue'],
+  props: ['label', 'modelValue', 'validation'],
   render () {
     return [
       h('label', this.label),
@@ -9,7 +9,15 @@ export const BaseInput = {
         ...this.$attrs,
         value: this.modelValue,
         onInput: ($event) => this.$emit('update:modelValue', $event.target.value)
-      })
+      }),
+      this.$props.validation?.errorMessage
+        ? h('div',
+          {
+            class: 'error'
+          },
+          this.$props.validation.errorMessage
+        )
+        : null
     ]
   }
 }
