@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.2](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.1...v3.6.2) (2021-09-26)
+
+
+### Bug Fixes
+
+* deep map schema fields against lookup components fixes [#224](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/224) ([#234](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/234)) ([77c1a0f](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/77c1a0f0e86b2b0ce48886cef4ce5f920dd34ba2))
+
+
+
+
+
 ## [3.6.1](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.0...v3.6.1) (2021-09-14)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
