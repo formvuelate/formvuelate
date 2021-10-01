@@ -1,5 +1,8 @@
+import { inject, h } from 'vue'
 import SchemaFormFactory from '../../src/SchemaFormFactory'
 import SchemaForm from '../../src/SchemaForm.vue'
+import { INJECTED_LOCAL_COMPONENTS } from '../../src/utils/constants'
+import { mount } from '@vue/test-utils'
 
 const props = {
   schema: {}
@@ -80,5 +83,35 @@ describe('SchemaFormFactory', () => {
     expect(factory.components).toEqual(
       expect.objectContaining({ FormText, FormSelect })
     )
+  })
+
+  it('provides the local components to sub FVL components', () => {
+    const factory = SchemaFormFactory([], {
+      FormText, FormSelect
+    })
+
+    const injecting = {
+      setup () {
+        const locals = inject(INJECTED_LOCAL_COMPONENTS)
+
+        return {
+          locals
+        }
+      }
+    }
+
+    const wrapper = mount({
+      components: { injecting },
+      setup () {
+        factory.setup(props, context)
+
+        return () => h(injecting)
+      }
+    })
+
+    expect(wrapper.findComponent(injecting).vm.locals).toEqual({
+      FormText,
+      FormSelect
+    })
   })
 })

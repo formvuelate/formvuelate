@@ -2,7 +2,7 @@
   <component
     v-if="schemaCondition"
     v-bind="binds"
-    :is="field.component"
+    :is="component"
     :modelValue="fieldValue"
     @update:modelValue="update"
     class="schema-col"
@@ -11,7 +11,7 @@
 
 <script>
 import { inject, computed, watch } from 'vue'
-import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, DELETE_FORM_MODEL_PROP } from './utils/constants'
+import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, DELETE_FORM_MODEL_PROP, INJECTED_LOCAL_COMPONENTS } from './utils/constants'
 
 export default {
   name: 'SchemaField',
@@ -66,6 +66,13 @@ export default {
       return condition(formModel.value)
     })
 
+    const component = computed(() => {
+      // Possible local components injected by user from SchemaFormFactory
+      const locals = inject(INJECTED_LOCAL_COMPONENTS, {})
+
+      return locals[props.field.component] || props.field.component
+    })
+
     watch(schemaCondition, shouldDisplay => {
       if (shouldDisplay) return
       if (props.preventModelCleanupOnSchemaChange) return
@@ -77,7 +84,8 @@ export default {
       binds,
       fieldValue,
       update,
-      schemaCondition
+      schemaCondition,
+      component
     }
   }
 }

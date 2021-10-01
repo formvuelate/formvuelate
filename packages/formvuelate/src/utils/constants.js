@@ -17,3 +17,5 @@ export const UPDATE_FORM_MODEL = `${KEY}updateFormModel`
 export const DELETE_FORM_MODEL_PROP = `${KEY}deleteFormModelProp`
 
 export const LOOKUP_PARSE_SUB_SCHEMA_FORMS = `${KEY}parseSubSchemaForms`
+
+export const INJECTED_LOCAL_COMPONENTS = `${KEY}injectedLocalComponents`
