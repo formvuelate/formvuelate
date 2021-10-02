@@ -90,15 +90,8 @@ Easily incorporate Vuelidate powered validations into your forms.
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/tzhelyazkova">
-        <img src="https://avatars0.githubusercontent.com/u/24877689?s=460&u=3800bb7ec37a732fa56d47f097f8d2eaf2518f57&v=4" width="120px;" alt="Tonina Zhelyazkova"/>
-        <br />
-        <sub><b>Tonina Zhelyazkova</b></sub>
-      </a>
-    </td>
-    <td align="center">
       <a href="https://github.com/logaretm">
-        <img src="https://avatars.githubusercontent.com/u/6261322?v=4" width="120px;" alt="Tonina Zhelyazkova"/>
+        <img src="https://avatars.githubusercontent.com/u/6261322?v=4" width="120px;" alt="Abdelrahman Awad"/>
         <br />
         <sub><b>Abdelrahman Awad</b></sub>
       </a>
