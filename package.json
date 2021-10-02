@@ -1,6 +1,5 @@
 {
   "name": "formvuelate-monorepo",
-  "version": "3.3.0",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",
