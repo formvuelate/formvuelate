@@ -7,6 +7,52 @@ import VeeValidatePlugin from '../../../../plugin-vee-validate/src/index'
 import { BaseInput } from '../../utils/components'
 
 describe('SchemaFormFactory', () => {
+  it('works with a blank plugin configuration and locally defined components', () => {
+    const SchemaFormWithPlugins = SchemaFormFactory([], { BaseInput })
+
+    mount({
+      components: { SchemaFormWithPlugins },
+      setup () {
+        const model = ref({
+          name: '',
+          pet: 'something',
+          nested: {
+
+          }
+        })
+
+        lookupSubSchemas(SchemaFormWithPlugins)
+        useSchemaForm(model)
+
+        const schemaRef = shallowRef({
+          name: {
+            component: 'BaseInput',
+            label: 'Your name'
+          },
+          pet: {
+            component: 'BaseInput',
+            label: 'Your pet'
+          },
+          nested: {
+            component: 'SchemaForm',
+            schema: {
+              game: {
+                component: 'BaseInput',
+                label: 'Videogame'
+              }
+            }
+          }
+        })
+
+        return () => h(SchemaFormWithPlugins, {
+          schema: schemaRef
+        })
+      }
+    })
+
+    cy.get('input').should('have.length', 3)
+  })
+
   describe('with lookup plugin', () => {
     it('parses subschema SchemaForm elements', () => {
       const SCHEMA = [

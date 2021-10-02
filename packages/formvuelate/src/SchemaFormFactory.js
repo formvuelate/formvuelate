@@ -1,6 +1,7 @@
+import { provide, inject } from 'vue'
 import SchemaForm from './SchemaForm.vue'
-import SchemaField from './SchemaField.vue'
 import { isObject } from './utils/assertions'
+import { INJECTED_LOCAL_COMPONENTS } from './utils/constants'
 
 export default function SchemaFormFactory (plugins = [], components = null) {
   // Copy the original SchemaForm setup
@@ -29,10 +30,18 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     // Call the original setup and preserve its results
     const baseSchemaFormReturns = originalSetup(props, context)
 
+    if (components) {
+      // If user defined local components to be used inside the SchemaForm
+      // injected them so that SchemaField can use them if declared
+      if (!inject(INJECTED_LOCAL_COMPONENTS)) {
+        provide(INJECTED_LOCAL_COMPONENTS, components)
+      }
+    }
+
     if (!plugins.length) return baseSchemaFormReturns
     else {
       // Apply plugins on the data returned
-      // by the original Schemaform
+      // by the original SchemaForm
       return plugins.reduce(
         (schemaFormReturns, plugin) => {
           return plugin(schemaFormReturns, props, context)
@@ -42,21 +51,12 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     }
   }
 
-  const SchemaFieldWithComponents = {
-    ...SchemaField,
-    components: {
-      ...components,
-      ...SchemaField.components
-    }
-  }
-
   return {
     ...SchemaForm,
     props: schemaFormProps,
     components: {
       ...components,
-      ...SchemaForm.components,
-      SchemaField: SchemaFieldWithComponents
+      ...SchemaForm.components
     },
     // Return a customized setup function with plugins
     // as the new SchemaForm setup

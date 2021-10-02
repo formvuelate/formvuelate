@@ -1,6 +1,6 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
 import SchemaField from '../../src/SchemaField.vue'
-import { UPDATE_FORM_MODEL, SCHEMA_MODEL_PATH } from '../../src/utils/constants'
+import { UPDATE_FORM_MODEL, SCHEMA_MODEL_PATH, INJECTED_LOCAL_COMPONENTS } from '../../src/utils/constants'
 
 import { mount } from '@vue/test-utils'
 import { ref, provide } from 'vue'
@@ -16,7 +16,11 @@ const updateFormModel = jest.fn()
 const SchemaFieldWrapper = (
   binds,
   formModel = null,
-  { mockUpdate = false, path = '' } = {}
+  {
+    mockUpdate = false,
+    path = '',
+    injectedLocalComponents = null
+  } = {}
 ) => {
   return {
     components: { SchemaField },
@@ -36,6 +40,11 @@ const SchemaFieldWrapper = (
       if (path) {
         // Usually provided by SchemaForm
         provide(SCHEMA_MODEL_PATH, path)
+      }
+
+      if (injectedLocalComponents) {
+        // Usually provided by SchemaFormFactory
+        provide(INJECTED_LOCAL_COMPONENTS, injectedLocalComponents)
       }
 
       return {
@@ -84,6 +93,24 @@ describe('SchemaField', () => {
       'test',
       null
     )
+  })
+
+  it('uses the injected local components if available', () => {
+    const FormText = { name: 'LocalFormText' }
+
+    const wrapper = mount(
+      SchemaFieldWrapper(
+        {
+          field: {
+            model: 'firstName',
+            component: 'FormText'
+          }
+        }, null,
+        { injectedLocalComponents: { FormText } }
+      )
+    )
+
+    expect(wrapper.findComponent({ name: 'LocalFormText' }).exists()).toBe(true)
   })
 
   describe('binding v-model', () => {
