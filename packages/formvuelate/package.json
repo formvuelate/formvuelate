@@ -1,6 +1,6 @@
 {
   "name": "formvuelate",
-  "version": "3.6.2",
+  "version": "3.6.3",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti <marina@mosti.com.mx>",

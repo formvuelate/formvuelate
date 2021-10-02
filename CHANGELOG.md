@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.3](https://github.com/FormVueLate/formvuelate/compare/v3.6.2...v3.6.3) (2021-10-02)
+
+
+### Bug Fixes
+
+* local component injection refactor fixes [#238](https://github.com/FormVueLate/formvuelate/issues/238) ([#239](https://github.com/FormVueLate/formvuelate/issues/239)) ([34fad96](https://github.com/FormVueLate/formvuelate/commit/34fad96569a99e109680828934ce8d51624dd6ec))
+
+
+
+
+
 ## [3.6.2](https://github.com/FormVueLate/formvuelate/compare/v3.6.1...v3.6.2) (2021-09-26)
 
 
