@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.4](https://github.com/formvuelate/formvuelate/compare/v3.6.3...v3.6.4) (2021-10-05)
+
+**Note:** Version bump only for package @formvuelate/plugin-vee-validate
+
+
+
+
+
 ## [3.6.3](https://github.com/formvuelate/formvuelate/compare/v3.6.2...v3.6.3) (2021-10-02)
 
 **Note:** Version bump only for package @formvuelate/plugin-vee-validate

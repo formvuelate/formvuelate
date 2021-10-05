@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.4](https://github.com/formvuelate/formvuelate/compare/v3.6.3...v3.6.4) (2021-10-05)
+
+
+### Bug Fixes
+
+* default boolean false is not accepted ([#241](https://github.com/formvuelate/formvuelate/issues/241)) ([2d52bd4](https://github.com/formvuelate/formvuelate/commit/2d52bd4f3fb3810f8e4f05f460c0591afc1490a7))
+
+
+
+
+
 ## [3.6.3](https://github.com/formvuelate/formvuelate/compare/v3.6.2...v3.6.3) (2021-10-02)
 
 
