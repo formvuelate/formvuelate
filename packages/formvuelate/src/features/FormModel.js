@@ -14,7 +14,7 @@ export default function useFormModel (props, parsedSchema) {
     const formModel = inject(FORM_MODEL, {})
 
     forEachSchemaElement(parsedSchema, (el, path) => {
-      if (!el.default) return
+      if (!('default' in el)) return
 
       updateFormModel(formModel, el.model, el.default, path)
     })

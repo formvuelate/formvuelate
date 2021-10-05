@@ -159,6 +159,98 @@ describe('SchemaForm', () => {
     })
   })
 
+  describe('default schema values', () => {
+    it('populates the formModel with the schema when created if a default prop exists', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+          default: 'Darth'
+        },
+        lastName: {
+          component: FormText,
+          label: 'Last Name',
+          default: 'Vader'
+        },
+        contact: {
+          component: SchemaForm,
+          schema: {
+            email: {
+              component: FormText,
+              label: 'Email',
+              default: 'darth@deathstarmail.com'
+            },
+            address: {
+              FormText,
+              label: 'Address'
+            },
+            deepNest: {
+              component: SchemaForm,
+              schema: {
+                lightSaber: {
+                  component: FormText,
+                  label: 'Lightsaber',
+                  default: 'Red'
+                }
+              }
+            }
+          }
+        }
+      }
+
+      const formModel = ref({})
+
+      mount(SchemaWrapperFactory(schema, {}, formModel))
+      expect(formModel.value).toEqual({
+        firstName: 'Darth',
+        lastName: 'Vader',
+        contact: {
+          email: 'darth@deathstarmail.com',
+          deepNest: {
+            lightSaber: 'Red'
+          }
+        }
+      })
+    })
+
+    it('can set default schema values to boolean false', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+          default: false
+        },
+        contact: {
+          component: SchemaForm,
+          schema: {
+            deepNest: {
+              component: SchemaForm,
+              schema: {
+                lightSaber: {
+                  component: FormText,
+                  label: 'Lightsaber',
+                  default: false
+                }
+              }
+            }
+          }
+        }
+      }
+
+      const formModel = ref({})
+
+      mount(SchemaWrapperFactory(schema, {}, formModel))
+      expect(formModel.value).toEqual({
+        firstName: false,
+        contact: {
+          deepNest: {
+            lightSaber: false
+          }
+        }
+      })
+    })
+  })
+
   it('renders a form with multiple nested schemas at the same nesting level', () => {
     const nestedSchema = {
       work: {
@@ -204,59 +296,6 @@ describe('SchemaForm', () => {
 
     expect(wrapper.findAllComponents(FormText)).toHaveLength(2)
     expect(wrapper.findAllComponents(FormSelect)).toHaveLength(2)
-  })
-
-  it('populates the formModel with the schema when created if a default prop exists', () => {
-    const schema = {
-      firstName: {
-        component: FormText,
-        label: 'First Name',
-        default: 'Darth'
-      },
-      lastName: {
-        component: FormText,
-        label: 'Last Name',
-        default: 'Vader'
-      },
-      contact: {
-        component: SchemaForm,
-        schema: {
-          email: {
-            component: FormText,
-            label: 'Email',
-            default: 'darth@deathstarmail.com'
-          },
-          address: {
-            FormText,
-            label: 'Address'
-          },
-          deepNest: {
-            component: SchemaForm,
-            schema: {
-              lightSaber: {
-                component: FormText,
-                label: 'Lightsaber',
-                default: 'Red'
-              }
-            }
-          }
-        }
-      }
-    }
-
-    const formModel = ref({})
-
-    mount(SchemaWrapperFactory(schema, {}, formModel))
-    expect(formModel.value).toEqual({
-      firstName: 'Darth',
-      lastName: 'Vader',
-      contact: {
-        email: 'darth@deathstarmail.com',
-        deepNest: {
-          lightSaber: 'Red'
-        }
-      }
-    })
   })
 
   describe('a11y', () => {
