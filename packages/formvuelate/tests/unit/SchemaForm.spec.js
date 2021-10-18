@@ -249,6 +249,37 @@ describe('SchemaForm', () => {
         }
       })
     })
+
+    it('populates the formModel with defaults on schemas with multiple top levels', async () => {
+      const formModel = ref({ })
+
+      const schema = ref({
+        levelOneA: {
+          component: SchemaForm,
+          schema: {
+            amount: {
+              component: FormText,
+              label: 'Amount A',
+              default: '0'
+            }
+          }
+        },
+        levelOneB: {
+          component: SchemaForm,
+          schema: {
+            amount: {
+              component: FormText,
+              label: 'Amount B',
+              default: '0'
+            }
+          }
+        }
+      })
+
+      mount(SchemaWrapperFactory(schema, null, formModel))
+      expect(formModel.value.levelOneA.amount).toEqual('0')
+      expect(formModel.value.levelOneB.amount).toEqual('0')
+    })
   })
 
   it('renders a form with multiple nested schemas at the same nesting level', () => {
