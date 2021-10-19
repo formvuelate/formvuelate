@@ -155,4 +155,60 @@ describe('SchemaForm', () => {
     cy.get('input').type('B')
     cy.get('label').eq(1).should('have.text', 'Input B')
   })
+
+  it.only('can use a custom form element', () => {
+    mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+
+        const schema = shallowRef({
+          first: {
+            component: SchemaForm,
+            schema: {
+              inputA: {
+                component: BaseInput,
+                label: 'Input A'
+              },
+              inputB: {
+                component: BaseInput,
+                label: 'Input B',
+                condition: model => {
+                  return model.first.inputA === 'B'
+                }
+              }
+            }
+          }
+        })
+
+        const submitted = ref(false)
+
+        const mySubmit = (e) => {
+          e.preventDefault()
+          submitted.value = true
+        }
+
+        return () => h('form', {
+          id: 'myForm',
+          onSubmit: mySubmit
+        }, [
+          !submitted.value
+            ? h(SchemaForm, {
+              schema,
+              useCustomFormWrapper: true
+            })
+            : h('p', 'Submitted!'),
+          h('button', { type: 'submit' }, 'Submit')
+        ])
+      }
+    })
+
+    cy.get('#myForm').within(() => {
+      cy.get('input').type('B')
+      cy.get('input').eq('1').type('C')
+
+      cy.get('button').click()
+      cy.contains('Submitted!')
+    })
+  })
 })

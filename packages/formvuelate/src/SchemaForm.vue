@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="behaveLikeParentSchema ? 'form' : 'div'"
+    :is="behaveLikeParentSchema && !useCustomFormWrapper ? 'form' : 'div'"
     v-bind="formBinds"
   >
     <slot
@@ -64,6 +64,10 @@ export default {
     schemaRowClasses: {
       type: [String, Object, Array],
       default: null
+    },
+    useCustomFormWrapper: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['submit', 'update:modelValue'],
@@ -76,7 +80,7 @@ export default {
     useFormModel(props, parsedSchema)
 
     const formBinds = computed(() => {
-      if (hasParentSchema) return {}
+      if (hasParentSchema && !props.useCustomFormWrapper) return {}
 
       return {
         onSubmit: event => {

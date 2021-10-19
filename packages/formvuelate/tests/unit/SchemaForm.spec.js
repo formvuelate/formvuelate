@@ -87,27 +87,27 @@ describe('SchemaForm', () => {
       const schema = computed(() => {
         return model.value.check === 'A'
           ? {
-              check: {
-                component: FormSelect,
-                options: ['A', 'B'],
-                label: 'A or B'
-              },
-              a: {
-                component: FormText,
-                label: 'A'
-              }
+            check: {
+              component: FormSelect,
+              options: ['A', 'B'],
+              label: 'A or B'
+            },
+            a: {
+              component: FormText,
+              label: 'A'
             }
+          }
           : {
-              check: {
-                component: FormSelect,
-                options: ['A', 'B'],
-                label: 'A or B'
-              },
-              b: {
-                component: FormText,
-                label: 'B'
-              }
+            check: {
+              component: FormSelect,
+              options: ['A', 'B'],
+              label: 'A or B'
+            },
+            b: {
+              component: FormText,
+              label: 'B'
             }
+          }
       })
 
       const wrapper = mount(SchemaWrapperFactory(schema, null, model))
@@ -366,6 +366,22 @@ describe('SchemaForm', () => {
       fields.forEach(field => {
         expect(field.props().sharedConfig).toEqual({ custom: 1 })
       })
+    })
+
+    it('can allow the user to use their own wrapping form tag', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        }
+      }
+
+      const wrapper = mount(SchemaWrapperFactory(
+        schema,
+        { useCustomFormWrapper: true }
+      ))
+
+      expect(wrapper.element.tagName).toEqual('DIV')
     })
   })
 
