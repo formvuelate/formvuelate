@@ -58,7 +58,7 @@ export const forEachSchemaElement = (schema, fn, path = '') => {
 
   for (const row of normalizedSchema) {
     let rowPath = path
-    
+
     for (const el of row) {
       if (el.schema) {
         rowPath = rowPath === '' ? el.model : `${rowPath}.${el.model}`
