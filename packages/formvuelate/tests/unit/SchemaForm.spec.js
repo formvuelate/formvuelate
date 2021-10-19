@@ -260,7 +260,7 @@ describe('SchemaForm', () => {
             amount: {
               component: FormText,
               label: 'Amount A',
-              default: '0'
+              default: '10'
             }
           }
         },
@@ -270,15 +270,15 @@ describe('SchemaForm', () => {
             amount: {
               component: FormText,
               label: 'Amount B',
-              default: '0'
+              default: '20'
             }
           }
         }
       })
 
       mount(SchemaWrapperFactory(schema, null, formModel))
-      expect(formModel.value.levelOneA.amount).toEqual('0')
-      expect(formModel.value.levelOneB.amount).toEqual('0')
+      expect(formModel.value.levelOneA.amount).toEqual('10')
+      expect(formModel.value.levelOneB.amount).toEqual('20')
     })
   })
 
