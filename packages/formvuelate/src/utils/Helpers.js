@@ -57,15 +57,15 @@ export const forEachSchemaElement = (schema, fn, path = '') => {
   const normalizedSchema = normalizeSchema(unref(schema))
 
   for (const row of normalizedSchema) {
+    let rowPath = path
+
     for (const el of row) {
       if (el.schema) {
-        path = path === '' ? el.model : `${path}.${el.model}`
-
-        forEachSchemaElement(el.schema, fn, path)
-        return
+        rowPath = rowPath === '' ? el.model : `${rowPath}.${el.model}`
+        forEachSchemaElement(el.schema, fn, rowPath)
       }
 
-      fn(el, path)
+      fn(el, rowPath)
     }
   }
 }
