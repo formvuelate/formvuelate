@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.5](https://github.com/FormVueLate/formvuelate/compare/v3.6.4...v3.6.5) (2021-10-19)
+
+
+### Bug Fixes
+
+* default value parallel schemas ([#246](https://github.com/FormVueLate/formvuelate/issues/246)) ([7f96fff](https://github.com/FormVueLate/formvuelate/commit/7f96fff4bceb557047ed64f086f6e0499676ac4c))
+
+
+
+
+
 ## [3.6.4](https://github.com/FormVueLate/formvuelate/compare/v3.6.3...v3.6.4) (2021-10-05)
 
 
