@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/FormVueLate/formvuelate/compare/v3.6.5...v3.7.0) (2021-10-23)
+
+
+### Features
+
+* add a useCustomFormWrapper prop to remove default form tag (closes [#243](https://github.com/FormVueLate/formvuelate/issues/243)) ([#247](https://github.com/FormVueLate/formvuelate/issues/247)) ([c966ebd](https://github.com/FormVueLate/formvuelate/commit/c966ebd9c6050e88eb224e003faa66e24f4fe218))
+
+
+
+
+
 ## [3.6.5](https://github.com/FormVueLate/formvuelate/compare/v3.6.4...v3.6.5) (2021-10-19)
 
 
