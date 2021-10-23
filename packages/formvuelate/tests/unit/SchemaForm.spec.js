@@ -398,6 +398,22 @@ describe('SchemaForm', () => {
         expect(field.props().sharedConfig).toEqual({ custom: 1 })
       })
     })
+
+    it('can allow the user to use their own wrapping form tag', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name'
+        }
+      }
+
+      const wrapper = mount(SchemaWrapperFactory(
+        schema,
+        { useCustomFormWrapper: true }
+      ))
+
+      expect(wrapper.element.tagName).toEqual('DIV')
+    })
   })
 
   describe('array schema', () => {

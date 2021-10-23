@@ -235,6 +235,23 @@ If you want to disable this behavior, set the `preventModelCleanupOnSchemaChange
 
 Now `SchemaForm` will not automatically delete the `lastName` property, even if `schema` removes the property, and you will preserve the value of the input if it was already present.
 
+### useCustomFormWrapper <Badge text="3.7.0" type="tip" vertical="middle" />
+
+In some cases, specially when using component libraries, you may need to set a custom `form` tag for your form as a wrapper.
+
+In these scenarios you can use the prop `useCustomFormWrapper` of SchemaForm to disable the automatic generation of a wrapping `form` tag. Be warned that this will also **remove** the `submit` event listener that FormVueLate usually adds. So you will have to make sure that either you, or the library are listening and reacting to it.
+
+An basic example using `QForm` with Quasar would look like this:
+
+```html
+<q-form>
+  <SchemaForm
+    :schema="schema"
+    useCustomFormWrapper
+  />
+</q-form>
+```
+
 ## Handling submit
 
 `SchemaForm` will automatically create a `<form>` wrapper for you on the top level `SchemaForm` in the case of single and multi dimensional schemas, and fire a `submit` event when the form is submitted.
