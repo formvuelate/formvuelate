@@ -72,6 +72,10 @@ export const normalizeSchema = (schema) => {
 
 export default function useParsedSchema (refSchema, model) {
   const { getID } = useUniqueID()
+  const injectedLookupSchemaForm = inject(
+    LOOKUP_PARSE_SUB_SCHEMA_FORMS,
+    null
+  )
 
   const parsedSchema = computed(() => {
     const schema = unref(refSchema)
@@ -89,8 +93,6 @@ export default function useParsedSchema (refSchema, model) {
         normalizedSchema = normalizeSchema(element.schema)
       }
     }
-
-    const injectedLookupSchemaForm = inject(LOOKUP_PARSE_SUB_SCHEMA_FORMS, null)
 
     return normalizedSchema.map(fieldGroup => {
       return fieldGroup.map(field => {
