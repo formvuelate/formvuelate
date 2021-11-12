@@ -18,6 +18,8 @@
       :preventModelCleanupOnSchemaChange="preventModelCleanupOnSchemaChange"
     />
 
+    <pre v-if="debug">{{ parsedSchema }}</pre>
+
     <slot
       v-if="behaveLikeParentSchema"
       name="afterForm"
@@ -68,7 +70,8 @@ export default {
     useCustomFormWrapper: {
       type: Boolean,
       default: false
-    }
+    },
+    debug: { type: Boolean, default: false }
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {
