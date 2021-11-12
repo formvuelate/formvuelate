@@ -2903,10 +2903,15 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.1.5.tgz#74ee3aad995d0a3996a6bb9533d4d280514ede03"
   integrity sha512-oJ4F3TnvpXaQwZJNF3ZK+kLPHKarDmJjJ6jyzVNDKH9md1dptjC7lWR//jrGuLdek/U6iltWxqAnYOu8gCiOvA==
 
-"@vue/test-utils@^2.0.0-rc.10", "@vue/test-utils@^2.0.0-rc.4":
+"@vue/test-utils@^2.0.0-rc.10":
   version "2.0.0-rc.12"
   resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.0.0-rc.12.tgz#716a84d915d6045640eeac416cc2a2acd514e06e"
   integrity sha512-G9BGRYlfwWjhorGjnpniC3hcYn1pCG2NqKG68fdUpk3DgWKordZ+BsEFD/SAmKdTZVMCY1huFwY3XAbPc+AgRw==
+
+"@vue/test-utils@^2.0.0-rc.16":
+  version "2.0.0-rc.16"
+  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-2.0.0-rc.16.tgz#59380f02870f856ac002a29c02681d3f3fcbafeb"
+  integrity sha512-TubikDVkI2LuRKRPSLv3lYpbpvvucT2DIcGqfBVpvYs4W19u0EBTJEdmfwmSuLY7H1TyAr9Stur3PI1sWWvTGQ==
 
 "@vue/vue-loader-v15@npm:vue-loader@^15.9.7":
   version "15.9.7"
