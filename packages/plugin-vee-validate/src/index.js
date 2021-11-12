@@ -1,7 +1,7 @@
 import { toRefs, h, computed, markRaw, watch, getCurrentInstance, unref, resolveDynamicComponent, inject, provide } from 'vue'
 import { useForm, useField } from 'vee-validate'
-import { definePlugin } from 'formvuelate'
-
+import { definePlugin, constants } from 'formvuelate'
+import { injectWithSelf } from './utils'
 /**
  * For a Schema, find the elements in each of the rows and remap the element with the given function
  * @param {Array} schema
@@ -34,6 +34,8 @@ export default function VeeValidatePlugin (opts) {
     const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
+    const localComponents = injectWithSelf(constants.INJECTED_LOCAL_COMPONENTS, {})
+
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
       formContext = useForm({
@@ -77,7 +79,7 @@ export default function VeeValidatePlugin (opts) {
             mapProps,
             path
           },
-          component: withField(field)
+          component: withField(field, localComponents)
         }
       }
 
@@ -141,7 +143,7 @@ export default function VeeValidatePlugin (opts) {
 // very important to avoid re-creating components when re-rendering
 const COMPONENT_LOOKUP = new Map()
 
-function withField (el) {
+function withField (el, localComponents) {
   const Comp = el.component
 
   if (COMPONENT_LOOKUP.has(Comp)) {
@@ -187,7 +189,7 @@ function withField (el) {
         })
       }
 
-      const resolvedComponent = resolveDynamicComponent(Comp)
+      const resolvedComponent = resolveComponent(Comp, localComponents)
 
       return function renderWithField () {
         return h(resolvedComponent, {
@@ -208,4 +210,17 @@ function withField (el) {
   COMPONENT_LOOKUP.set(Comp, wrappedComponent)
 
   return wrappedComponent
+}
+
+/**
+ * Resolves the component definition by checking the local injection first then trying the vue dynamic resolve algorithm.
+ * @param {*} component The component object or name
+ * @param {*} localComponents The injected components lookup from SchemaFormFactory
+ */
+function resolveComponent (component, localComponents) {
+  if (localComponents && typeof component === 'string' && component in localComponents) {
+    return localComponents[component]
+  }
+
+  return resolveDynamicComponent(component)
 }
