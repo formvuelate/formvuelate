@@ -37,5 +37,5 @@
   "module": "dist/formvuelate-plugin-lookup.es.js",
   "unpkg": "dist/formvuelate-plugin-lookup.umd.js",
   "browser": "dist/formvuelate-plugin-lookup.es.js",
-  "types": "dist/formvuelate-plugin-lookup.d.ts.js"
+  "types": "dist/formvuelate-plugin-lookup.d.ts"
 }
