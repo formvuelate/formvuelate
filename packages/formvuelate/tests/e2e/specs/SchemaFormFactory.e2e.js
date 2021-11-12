@@ -116,6 +116,73 @@ describe('SchemaFormFactory', () => {
       cy.get('input').should('have.length', 4)
       cy.get('label').eq(3).should('have.text', 'Double nested text')
     })
+
+    it('works when also having to mapProps the component property and mapComponents', () => {
+      const SCHEMA = [
+        {
+          model: 'firstName',
+          type: 'Text',
+          label: 'First Name'
+        },
+        {
+          model: 'nested',
+          type: 'Container',
+          schema: [
+            {
+              model: 'nestedfirstName',
+              type: 'Text',
+              label: 'First Name nested'
+            },
+            {
+              model: 'nestedLastName',
+              type: BaseInput,
+              label: 'Last name nested'
+            },
+            {
+              model: 'doubleNested',
+              type: 'Container',
+              schema: [
+                {
+                  model: 'doubleNestedName',
+                  type: 'Text',
+                  label: 'Double nested text'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+
+      const SchemaFormWithPlugins = SchemaFormFactory([
+        LookupPlugin({
+          mapProps: {
+            type: 'component'
+          },
+          mapComponents: {
+            Text: BaseInput,
+            Container: 'SchemaForm'
+          }
+        })
+      ])
+
+      mount({
+        components: { SchemaFormWithPlugins },
+        setup () {
+          const model = ref({})
+          lookupSubSchemas(SchemaFormWithPlugins)
+          useSchemaForm(model)
+
+          const schemaRef = shallowRef(SCHEMA)
+
+          return () => h(SchemaFormWithPlugins, {
+            schema: schemaRef
+          })
+        }
+      })
+
+      cy.get('input').should('have.length', 4)
+      cy.get('label').eq(3).should('have.text', 'Double nested text')
+    })
   })
 
   describe('with lookup and vee-validate', () => {
@@ -123,16 +190,16 @@ describe('SchemaFormFactory', () => {
       const SCHEMA = [
         {
           model: 'firstName',
-          component: 'Text',
+          type: 'Text',
           label: 'First Name'
         },
         {
           model: 'nested',
-          component: 'SchemaForm',
+          type: 'Container',
           schema: [
             {
               model: 'nestedfirstName',
-              component: 'Text',
+              type: 'Text',
               label: 'First Name nested',
               validations: value => value && value.length > 3
             }
@@ -142,8 +209,12 @@ describe('SchemaFormFactory', () => {
 
       const SchemaFormWithPlugins = SchemaFormFactory([
         LookupPlugin({
+          mapProps: {
+            type: 'component'
+          },
           mapComponents: {
-            Text: BaseInput
+            Text: BaseInput,
+            Container: 'SchemaForm'
           }
         }),
         VeeValidatePlugin({})
