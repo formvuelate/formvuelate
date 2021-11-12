@@ -96,7 +96,7 @@ describe('SchemaField', () => {
   })
 
   it('uses the injected local components if available', () => {
-    const FormText = { name: 'LocalFormText' }
+    const FormText = { name: 'LocalFormText', template: '<input />' }
 
     const wrapper = mount(
       SchemaFieldWrapper(
