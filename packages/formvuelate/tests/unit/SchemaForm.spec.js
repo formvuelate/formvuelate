@@ -157,6 +157,12 @@ describe('SchemaForm', () => {
       expect(wrapper.findAllComponents(FormText)).toHaveLength(3)
       expect(wrapper.findAllComponents(FormSelect)).toHaveLength(1)
     })
+
+    it('works with an empty array schema', () => {
+      const wrapper = mount(SchemaWrapperFactory([]))
+
+      expect(wrapper.find('form').exists()).toBe(true)
+    })
   })
 
   describe('default schema values', () => {
