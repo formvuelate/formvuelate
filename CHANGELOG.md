@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.7.2](https://github.com/FormVueLate/formvuelate/compare/v3.7.1...v3.7.2) (2021-11-13)
+
+
+### Bug Fixes
+
+* **lookup, formvuelate:** remapped nested ([#254](https://github.com/FormVueLate/formvuelate/issues/254)) ([bb1595e](https://github.com/FormVueLate/formvuelate/commit/bb1595e1e6d5bc18bd1c10cdff13daae6da14d5e)), closes [#252](https://github.com/FormVueLate/formvuelate/issues/252)
+* **lookup:** types file extension in package.json ([#255](https://github.com/FormVueLate/formvuelate/issues/255)) ([ce79e43](https://github.com/FormVueLate/formvuelate/commit/ce79e431cd6520d56f378319b2b8fbafd77f8f38))
+* no warnings on empty array schemas ([#251](https://github.com/FormVueLate/formvuelate/issues/251)) ([c351359](https://github.com/FormVueLate/formvuelate/commit/c351359a47f2681c9cff202a83d84e0e410d7f67))
+
+
+
+
+
 ## [3.7.1](https://github.com/formvuelate/formvuelate/compare/v3.7.0...v3.7.1) (2021-10-27)
 
 **Note:** Version bump only for package formvuelate-monorepo
