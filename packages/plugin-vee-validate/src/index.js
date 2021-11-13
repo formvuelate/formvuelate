@@ -1,7 +1,7 @@
 import { toRefs, h, computed, markRaw, watch, getCurrentInstance, unref, resolveDynamicComponent, inject, provide } from 'vue'
 import { useForm, useField } from 'vee-validate'
 import { definePlugin, constants } from 'formvuelate'
-import { injectWithSelf } from './utils'
+
 /**
  * For a Schema, find the elements in each of the rows and remap the element with the given function
  * @param {Array} schema
@@ -34,7 +34,6 @@ export default function VeeValidatePlugin (opts) {
     const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
-    const localComponents = injectWithSelf(constants.INJECTED_LOCAL_COMPONENTS, {})
 
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
@@ -79,7 +78,7 @@ export default function VeeValidatePlugin (opts) {
             mapProps,
             path
           },
-          component: withField(field, localComponents)
+          component: withField(field)
         }
       }
 
@@ -143,7 +142,7 @@ export default function VeeValidatePlugin (opts) {
 // very important to avoid re-creating components when re-rendering
 const COMPONENT_LOOKUP = new Map()
 
-function withField (el, localComponents) {
+function withField (el) {
   const Comp = el.component
 
   if (COMPONENT_LOOKUP.has(Comp)) {
@@ -189,6 +188,7 @@ function withField (el, localComponents) {
         })
       }
 
+      const localComponents = inject(constants.INJECTED_LOCAL_COMPONENTS, {})
       const resolvedComponent = resolveComponent(Comp, localComponents)
 
       return function renderWithField () {
