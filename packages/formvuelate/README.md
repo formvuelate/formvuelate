@@ -1,4 +1,4 @@
-# FormVueLate 2.0 (Vue 3)
+# FormVueLate
 
 ![FormVueLate Logo](https://raw.githubusercontent.com/formvuelate/formvuelate/main/docs/3.x/src/.vuepress/public/formvuelate-logo.jpg)
 
