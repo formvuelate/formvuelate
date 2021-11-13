@@ -1,13 +1,29 @@
-import { computed, provide } from 'vue'
+import { computed, provide, unref } from 'vue'
 import { constants } from 'formvuelate'
 
+let extendedSchemaForm
 /**
  * Signal ParsedSchema to replace all instances of subschema `SchemaForm` components
  * with the SchemaFormWithPlugins component
  * @param {Object} SchemaFormWithPlugins
  */
 export const lookupSubSchemas = (SchemaFormWithPlugins) => {
-  provide(constants.LOOKUP_PARSE_SUB_SCHEMA_FORMS, SchemaFormWithPlugins)
+  provide(constants.LOOKUP_PARSE_SUB_SCHEMA_FORMS, { SchemaFormWithPlugins, remapSubSchemaForms })
+  extendedSchemaForm = SchemaFormWithPlugins
+}
+
+const remapSubSchemaForms = (refSchema, extendedSchemaForm) => {
+  const schema = unref(refSchema)
+
+  return mapElementsInSchema(schema, field => {
+    if (extendedSchemaForm && field.component &&
+      (field.component === 'SchemaForm' || field.component.name === 'SchemaForm')
+    ) {
+      field.component = extendedSchemaForm
+    }
+
+    return field
+  })
 }
 
 /**
@@ -23,14 +39,17 @@ export default function LookupPlugin ({
   mapComponents = {},
   mapProps = null,
   preserveMappedProps = false
-}) {
+} = {}) {
   return function (baseReturns) {
     const { parsedSchema } = baseReturns
 
     const replacedSchema = computed(() => {
       const schemaWithRemappedProps = mapProperties(parsedSchema.value, mapProps, { preserveMappedProps })
 
-      return mapComps(schemaWithRemappedProps, mapComponents)
+      const schemaWithMappedComps = mapComps(schemaWithRemappedProps, mapComponents)
+      if (!extendedSchemaForm) return schemaWithMappedComps
+
+      return remapSubSchemaForms(schemaWithMappedComps, extendedSchemaForm)
     })
 
     return {

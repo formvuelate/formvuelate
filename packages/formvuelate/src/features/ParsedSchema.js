@@ -70,16 +70,17 @@ export const normalizeSchema = (schema) => {
   )
 }
 
-export default function useParsedSchema (refSchema, model) {
+export default function useParsedSchema (refSchema, model = null) {
   const { getID } = useUniqueID()
-  const injectedLookupSchemaForm = inject(
+
+  const replaceSubSchemaForms = inject(
     LOOKUP_PARSE_SUB_SCHEMA_FORMS,
     null
   )
 
   const parsedSchema = computed(() => {
     const schema = unref(refSchema)
-    let normalizedSchema = normalizeSchema(schema)
+    let normalized = normalizeSchema(schema)
 
     if (model) {
       /**
@@ -88,25 +89,15 @@ export default function useParsedSchema (refSchema, model) {
        * use provided schema. We dig into the sub schemas to find it and normalize it
        * before setting it as the returned parsed schema
        */
-      const element = findElementInSchema(model, normalizedSchema)
+      const element = findElementInSchema(model, normalized)
       if (element) {
-        normalizedSchema = normalizeSchema(element.schema)
+        normalized = normalizeSchema(element.schema)
       }
     }
 
-    return normalizedSchema.map(fieldGroup => {
+    normalized = normalized.map(fieldGroup => {
       return fieldGroup.map(field => {
         const fieldCopy = { ...field }
-
-        /**
-         * If LookupPlugin has injected a plugin-enhanced version of SchemaForm
-         * through `lookupSubSchemas` function, replace the regular `SchemaForm` with it
-         */
-        if (injectedLookupSchemaForm &&
-          (field.component.name === 'SchemaForm' || field.component === 'SchemaForm')
-        ) {
-          fieldCopy.component = injectedLookupSchemaForm
-        }
 
         return {
           ...fieldCopy,
@@ -114,6 +105,17 @@ export default function useParsedSchema (refSchema, model) {
         }
       })
     })
+
+    if (!replaceSubSchemaForms) return normalized
+
+    /**
+     * If LookupPlugin has injected a plugin-enhanced version of SchemaForm
+     * through `lookupSubSchemas` function, calls the remap function in case the
+     * LookupPlugin is not actually being used.
+     *
+     * Ex: SchemaFormFactory.e2e.js "works with a blank plugin configuration and locally defined components"
+     */
+    return replaceSubSchemaForms.remapSubSchemaForms(normalized, replaceSubSchemaForms.SchemaFormWithPlugins)
   })
 
   return {

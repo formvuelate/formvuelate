@@ -33,7 +33,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     if (components) {
       // If user defined local components to be used inside the SchemaForm
       // injected them so that SchemaField can use them if declared
-      if (!inject(INJECTED_LOCAL_COMPONENTS)) {
+      if (!inject(INJECTED_LOCAL_COMPONENTS, null)) {
         provide(INJECTED_LOCAL_COMPONENTS, components)
       }
     }
@@ -58,6 +58,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
       ...components,
       ...SchemaForm.components
     },
+    name: 'SchemaFormWithPlugins',
     // Return a customized setup function with plugins
     // as the new SchemaForm setup
     setup
