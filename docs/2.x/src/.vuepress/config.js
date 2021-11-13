@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         text: 'GitHub',
-        link: 'https://github.com/formvuelate'
+        link: 'https://github.com/formvuelate/formvuelate'
       },
       {
         text: '2.x',
