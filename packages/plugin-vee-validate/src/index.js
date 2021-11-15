@@ -1,6 +1,6 @@
 import { toRefs, h, computed, markRaw, watch, getCurrentInstance, unref, resolveDynamicComponent, inject, provide } from 'vue'
 import { useForm, useField } from 'vee-validate'
-import { definePlugin } from 'formvuelate'
+import { definePlugin, constants } from 'formvuelate'
 
 /**
  * For a Schema, find the elements in each of the rows and remap the element with the given function
@@ -34,6 +34,7 @@ export default function VeeValidatePlugin (opts) {
     const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
+
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
       formContext = useForm({
@@ -187,7 +188,8 @@ function withField (el) {
         })
       }
 
-      const resolvedComponent = resolveDynamicComponent(Comp)
+      const localComponents = inject(constants.INJECTED_LOCAL_COMPONENTS, {})
+      const resolvedComponent = resolveComponent(Comp, localComponents)
 
       return function renderWithField () {
         return h(resolvedComponent, {
@@ -208,4 +210,17 @@ function withField (el) {
   COMPONENT_LOOKUP.set(Comp, wrappedComponent)
 
   return wrappedComponent
+}
+
+/**
+ * Resolves the component definition by checking the local injection first then trying the vue dynamic resolve algorithm.
+ * @param {*} component The component object or name
+ * @param {*} localComponents The injected components lookup from SchemaFormFactory
+ */
+function resolveComponent (component, localComponents) {
+  if (localComponents && typeof component === 'string' && component in localComponents) {
+    return localComponents[component]
+  }
+
+  return resolveDynamicComponent(component)
 }

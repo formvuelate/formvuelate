@@ -66,10 +66,9 @@ export default {
       return condition(formModel.value)
     })
 
+    // Possible local components injected by user from SchemaFormFactory
+    const locals = inject(INJECTED_LOCAL_COMPONENTS, {})
     const component = computed(() => {
-      // Possible local components injected by user from SchemaFormFactory
-      const locals = inject(INJECTED_LOCAL_COMPONENTS, {})
-
       return locals[props.field.component] || props.field.component
     })
 

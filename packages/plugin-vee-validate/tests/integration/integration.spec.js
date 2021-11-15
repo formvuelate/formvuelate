@@ -838,4 +838,45 @@ describe('FVL integration', () => {
     await flushPromises()
     expect(wrapper.find('span').text()).toBe('')
   })
+
+  // #253
+  it('renders local form factory components', async () => {
+    // setup global rules and error message generator
+    defineRule('required', (value) => !!value)
+    configure({
+      generateMessage: (ctx) => `${ctx.field} is REQUIRED`
+    })
+
+    const schema = {
+      firstName: {
+        label: 'First Name',
+        component: 'FormText',
+        validations: 'required'
+      }
+    }
+
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()], {
+      FormText
+    })
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+
+        return {
+          schema
+        }
+      }
+    })
+
+    const input = wrapper.findComponent(FormText)
+    expect(input.exists()).toBe(true)
+  })
 })
