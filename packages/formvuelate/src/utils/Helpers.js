@@ -26,7 +26,7 @@ export const findNestedFormModelProp = (formModel, path) => {
   return nestedProp
 }
 
-export const updateFormModel = (formModel, prop, value, path) => {
+export const updateFormModel = (formModel, prop, value, path = null) => {
   if (!path) {
     formModel.value[prop] = value
     return

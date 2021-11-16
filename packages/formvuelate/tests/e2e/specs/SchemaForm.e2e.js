@@ -4,26 +4,7 @@ import SchemaForm from '../../../src/SchemaForm.vue'
 import useSchemaForm from '../../../src/features/useSchemaForm'
 import { shallowRef, ref, h, computed } from 'vue'
 import { BaseInput } from '../../utils/components'
-
-const SchemaFormWrapper = (schema) => ({
-  components: [SchemaForm],
-  setup () {
-    const model = ref({})
-    useSchemaForm(model)
-
-    const schemaRef = shallowRef(schema)
-
-    return {
-      schema: schemaRef
-    }
-  },
-  render () {
-    return h(SchemaForm, {
-      schema,
-      onSubmit: this.$emit('submit')
-    })
-  }
-})
+import { SchemaFormWrapper } from '../support/helpers'
 
 describe('SchemaForm', () => {
   it('renders elements', () => {
@@ -39,7 +20,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper(schema))
+    mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 2)
   })
@@ -62,7 +43,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper(schema))
+    mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 2)
   })
@@ -103,7 +84,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper(schema))
+    mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 5)
   })
@@ -119,7 +100,7 @@ describe('SchemaForm', () => {
       }
     })
 
-    mount(SchemaFormWrapper(schema))
+    mount(SchemaFormWrapper({ schema }))
 
     cy.get('label').should('have.text', 'First name')
       .then(() => {
@@ -150,7 +131,7 @@ describe('SchemaForm', () => {
       }
     })
 
-    mount(SchemaFormWrapper(schema))
+    mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').type('B')
     cy.get('label').eq(1).should('have.text', 'Input B')

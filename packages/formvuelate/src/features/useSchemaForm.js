@@ -10,7 +10,28 @@ export default function useSchemaForm (initialFormValue = {}) {
   provide(FIND_NESTED_FORM_MODEL_PROP, findNestedFormModelProp)
   provide(FORM_MODEL, formModel)
 
+  /**
+   * Update the form model manually providing a path to the model
+   * @param {String} modelPath
+   * @param {*} value
+   */
+  const _updateFormModel = (modelPath, value) => {
+    if (typeof modelPath !== 'string') throw new Error('path for updateFormModel should be a string separated by dots (.)')
+
+    const prop = modelPath.includes('.')
+      ? modelPath.split('.').pop()
+      : modelPath
+
+    updateFormModel(
+      formModel,
+      prop,
+      value,
+      modelPath.split('.').slice(0, -1).join('.')
+    )
+  }
+
   return {
-    formModel
+    formModel,
+    updateFormModel: _updateFormModel
   }
 }
