@@ -210,3 +210,40 @@ const schema = ref({
 :::tip
 `markRaw` is not needed when working with `String` format for component names in the schema, since FormVueLate leverages `:is` from Vue's component behind the scenes. Read more about [using locally imported components](/guide/plugins.html#using-locally-imported-components)
 :::
+
+## Updating the form's model directly <Badge type="tip" text="3.8.0" vertical="middle" />
+
+There are some rare cases in which you will need a component to update the form's model directly, for example, a complex component that handles several v-model bindings and outputs.
+
+A simple approach would be to make use of Vue's provide/inject mechanism to give access to the component to the form's model, however exposing the whole model may leave it open to bugs and hard to track problems.
+
+For these cases FormVueLate exposes an `updateFormModel` function directly from the `useSchemaForm` composable.
+
+```js
+const { model, updateFormModel } = useSchemaForm({
+  name: '',
+  email: '',
+  nested: {
+    phone: ''
+  }
+})
+```
+
+The model returned by `useSchemaForm`, or provided by you as a ref on the first argument for this same composable, can be directly modified as it is a Vue ref under the hood.
+
+```js
+model.value.name = 'My name'
+```
+
+For better control and future proofing, we recommend using the exposed `updateFormModel` function instead.
+
+```js
+// The first param is the name of the model to update, in this case "name"
+updateFormModel('name', 'My name')
+console.log(model.value.name) // outputs My name
+
+// We can also use . notation for nested values
+updateFormModel('nested.phone', '555-555-555')
+console.log(model.value.nested.phone) // outputs 555-555-555
+```
+
