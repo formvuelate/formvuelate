@@ -1,5 +1,6 @@
 import useSchemaForm from '../../src/features/useSchemaForm'
 import { FORM_MODEL } from '../../src/utils/constants'
+import * as Helpers from '../../src/utils/Helpers'
 
 import * as Vue from 'vue'
 const { isRef, ref } = Vue
@@ -32,6 +33,28 @@ describe('useSchemaForm', () => {
     expect(Vue.provide).toHaveBeenCalledWith(
       FORM_MODEL,
       model
+    )
+  })
+
+  it('exposes a wrapped version of the updateFormModel helper', () => {
+    const spy = jest.spyOn(Helpers, 'updateFormModel')
+
+    const model = ref({
+      nested: {
+        path: {
+          name: ''
+        }
+      }
+    })
+    const { updateFormModel } = useSchemaForm(model)
+
+    updateFormModel('nested.path.name', 'Marina')
+
+    expect(spy).toHaveBeenCalledWith(
+      model,
+      'name',
+      'Marina',
+      'nested.path'
     )
   })
 })
