@@ -111,6 +111,8 @@ Special thanks to these folks which have provided invaluable contributions to th
   <li><a href="https://github.com/tzhelyazkova">Tonina Zhelyazkova</a></li>
 </ul>
 
-## Licence
+## Licence and Support
 
 This package is [Treeware](https://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/formvuelate/formvuelate) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
+
+If you want to use paypal, you can make any donations at [https://www.paypal.com/paypalme/mostimarina](https://www.paypal.com/paypalme/mostimarina). All donations recieved here will go directly into buying more trees as well!
