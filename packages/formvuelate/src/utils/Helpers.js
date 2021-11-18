@@ -35,13 +35,30 @@ export const updateFormModel = (formModel, prop, value, path = null) => {
   findNestedFormModelProp(formModel, path)[prop] = value
 }
 
+/**
+ * Delete a property in the form's model
+ * @param {Ref} formModel
+ * @param {String} prop
+ * @param {String} path
+ */
 export const deleteFormModelProperty = (formModel, prop, path) => {
   if (!path) {
     delete formModel.value[prop]
     return
   }
 
-  delete findNestedFormModelProp(formModel, path)[prop]
+  const nested = findNestedFormModelProp(formModel, path)
+  delete nested[prop]
+
+  // Check the parent to ensure that we dont leave empty objects behind
+  const pathArray = path.split('.')
+  const parentProp = pathArray.pop()
+  const nestedParent = findPropertyForPath(pathArray.join('.'), formModel.value)
+
+  if (
+    nestedParent &&
+    !Object.keys(nestedParent[parentProp]).length
+  ) delete nestedParent[parentProp]
 }
 
 /**
@@ -67,5 +84,35 @@ export const forEachSchemaElement = (schema, fn, path = '') => {
 
       fn(el, rowPath)
     }
+  }
+}
+
+/**
+ * https://stackoverflow.com/questions/6393943/convert-a-javascript-string-in-dot-notation-into-an-object-reference
+ * @param {String} path - The path plus the property ex. "nested.firstName" NOT "nested" by itself
+ * @param {Object} object
+ * @returns {*} property value
+ */
+export const findPropertyForPath = (path, object) => {
+  return path.split('.').reduce((step, index) => step[index], object)
+}
+
+/**
+ * Execute a user defined function for each element in a form model object
+ * @param {Object|Ref} formModel
+ * @param {Function} fn
+ * @param {String} path
+ */
+export const forEachPropInModel = (formModel, fn, path = '') => {
+  const rawModel = unref(formModel)
+
+  for (const prop in rawModel) {
+    const value = rawModel[prop]
+
+    if (typeof value === 'object') {
+      path = path === '' ? prop : `${path}.${prop}`
+      return forEachPropInModel(value, fn, path)
+    }
+    fn(prop, value, path)
   }
 }
