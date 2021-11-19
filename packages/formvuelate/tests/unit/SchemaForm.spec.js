@@ -39,7 +39,7 @@ const SchemaWrapperFactory = (
     components: { SchemaForm },
     setup () {
       const schemaRef = isRef(schema) ? schema : ref(schema)
-      useSchemaForm(formModel || schemaRef)
+      useSchemaForm(formModel || {})
 
       if (insideWizard) {
         // Mock it being inside a SchemaWizard with provide
@@ -644,12 +644,98 @@ describe('SchemaForm', () => {
 
       const copySchema = { ...schema }
       delete copySchema.firstName
+
       wrapper.setProps({
         schema: copySchema
       })
       await wrapper.vm.$nextTick()
 
       expect(formModel.value).toEqual({ favoriteThingAboutVue: 'Documentation' })
+    })
+
+    it('cleans up the model with nested array schemas', async () => {
+      const schema = [
+        {
+          model: 'firstName',
+          component: FormText,
+          label: 'First Name',
+          default: 'Mr Piddles'
+        },
+        {
+          model: 'favoriteThingAboutVue',
+          component: FormSelect,
+          label: 'Favorite thing about Vue',
+          required: true,
+          default: 'Documentation',
+          options: [
+            'Ease of use',
+            'Documentation',
+            'Community'
+          ]
+        },
+        {
+          model: 'nested',
+          schema: [
+            {
+              model: 'lastName',
+              component: FormText,
+              label: 'Last name',
+              default: 'International Cat of Mistery'
+            },
+            {
+              model: 'email',
+              component: FormText,
+              label: 'Email',
+              default: 'meow@mail.purr'
+            },
+            {
+              model: 'nested2',
+              schema: [
+                {
+                  model: 'middleName',
+                  component: FormText,
+                  label: 'Middle name',
+                  default: 'Le meow'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+
+      const formModel = ref({})
+
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
+      expect(formModel.value).toEqual({
+        firstName: 'Mr Piddles',
+        favoriteThingAboutVue: 'Documentation',
+        nested: {
+          email: 'meow@mail.purr',
+          lastName: 'International Cat of Mistery',
+          nested2: {
+            middleName: 'Le meow'
+          }
+        }
+      })
+
+      const copySchema = [...schema]
+      // Delete first name
+      copySchema.splice(0, 1)
+
+      // Delete email and nested 2
+      copySchema[1].schema.splice(1, 2)
+
+      wrapper.setProps({
+        schema: copySchema
+      })
+      await wrapper.vm.$nextTick()
+
+      expect(formModel.value).toEqual({
+        favoriteThingAboutVue: 'Documentation',
+        nested: {
+          lastName: 'International Cat of Mistery'
+        }
+      })
     })
 
     it('prevents model clean up if the preventModelCleanupOnSchemaChange prop is true', async () => {
