@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.1](https://github.com/FormVueLate/formvuelate/compare/v3.8.0...v3.8.1) (2021-11-19)
+
+
+### Bug Fixes
+
+* nested schemas not cleared on schema change ([#259](https://github.com/FormVueLate/formvuelate/issues/259)) ([9271b79](https://github.com/FormVueLate/formvuelate/commit/9271b7935d43080c211d0a6e149b8f2ee6f95580))
+
+
+
+
+
 # [3.8.0](https://github.com/FormVueLate/formvuelate/compare/v3.7.3...v3.8.0) (2021-11-16)
 
 
