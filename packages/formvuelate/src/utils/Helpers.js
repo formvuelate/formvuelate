@@ -109,7 +109,7 @@ export const forEachPropInModel = (formModel, fn, path = '') => {
   for (const prop in rawModel) {
     const value = rawModel[prop]
 
-    if (typeof value === 'object') {
+    if (typeof value === 'object' && value !== null) {
       path = path === '' ? prop : `${path}.${prop}`
       return forEachPropInModel(value, fn, path)
     }
