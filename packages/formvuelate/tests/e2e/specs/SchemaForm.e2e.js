@@ -137,7 +137,7 @@ describe('SchemaForm', () => {
     cy.get('label').eq(1).should('have.text', 'Input B')
   })
 
-  it.only('can use a custom form element', () => {
+  it('can use a custom form element', () => {
     mount({
       setup () {
         const model = ref({})
