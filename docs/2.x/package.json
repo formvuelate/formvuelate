@@ -4,8 +4,7 @@
   "description": "FormVueLate documentation",
   "main": "index.js",
   "authors": {
-    "name": "Marina Mosti",
-    "email": "marina@mosti.com.mx"
+    "name": "Marina Mosti"
   },
   "repository": "https://github.com/formvuelate/formvuelate/fvl-docs",
   "scripts": {

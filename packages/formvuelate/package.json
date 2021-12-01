@@ -3,7 +3,7 @@
   "version": "3.8.1",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
-  "author": "Marina Mosti <marina@mosti.com.mx>",
+  "author": "Marina Mosti",
   "scripts": {
     "test:unit": "vue-cli-service test:unit --coverage",
     "test:e2e": "cypress open-ct",

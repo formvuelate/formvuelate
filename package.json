@@ -2,7 +2,7 @@
   "name": "formvuelate-monorepo",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
-  "author": "Marina Mosti <marina@mosti.com.mx>",
+  "author": "Marina Mosti",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -76,12 +76,10 @@
   },
   "contributors": [
     {
-      "name": "Marina Mosti",
-      "email": "marina@mosti.com.mx"
+      "name": "Marina Mosti"
     },
     {
-      "name": "Abdelrahman Awad",
-      "email": "logaretm1@gmail.com"
+      "name": "Abdelrahman Awad"
     }
   ],
   "engines": {

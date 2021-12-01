@@ -12,8 +12,7 @@
     "url": "git+ssh://git@github.com/formvuelate/formvuelate-plugin-lookup.git"
   },
   "author": {
-    "name": "Marina Mosti",
-    "email": "marina@mosti.com.mx"
+    "name": "Marina Mosti"
   },
   "license": "MIT",
   "scripts": {
