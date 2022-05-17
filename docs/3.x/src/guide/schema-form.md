@@ -188,6 +188,26 @@ Example output:
 </form>
 
 ```
+### schemaRowSlim
+
+If you need to display schema elements without a wrapper in `div.schema-row`, just add the `schemaRowSlim` property to the `SchemaForm` component.
+
+```html
+<SchemaForm
+  schemaRowSlim
+  :schema="mySchema"
+/>
+```
+
+Example output:
+
+```html
+
+<form>
+  [...]
+</form>
+
+```
 ### preventModelCleanupOnSchemaChange
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.

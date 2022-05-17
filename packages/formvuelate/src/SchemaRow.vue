@@ -1,16 +1,26 @@
 <template>
-  <div
-    v-if="rowHasVisibleElements"
-    :class="['schema-row', schemaRowClasses]"
-  >
+  <template v-if="rowHasVisibleElements">
     <SchemaField
+      v-if="schemaRowSlim"
       v-for="field in row"
       :key="field.model"
       :field="field"
       v-bind="$attrs"
       class="schema-col"
     />
-  </div>
+    <div
+      v-else
+      :class="['schema-row', schemaRowClasses]"
+    >
+      <SchemaField
+        v-for="field in row"
+        :key="field.model"
+        :field="field"
+        v-bind="$attrs"
+        class="schema-col"
+      />
+    </div>
+  </template>
 </template>
 
 <script>
@@ -31,6 +41,10 @@ export default {
     schemaRowClasses: {
       type: [String, Object, Array],
       default: null
+    },
+    schemaRowSlim: {
+      type: Boolean,
+      default: false
     }
   },
 

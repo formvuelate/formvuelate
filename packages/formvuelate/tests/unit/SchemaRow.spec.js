@@ -55,4 +55,28 @@ describe('SchemaRow', () => {
 
     expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
   })
+
+  it('doesnt render wrapper elements in slim mode', () => {
+    const wrapper = shallowMount(SchemaRow, {
+      props: {
+        row: [
+          {
+            model: 'FirstName',
+            component: FormText,
+            label: 'First Name',
+            condition: model => false
+          },
+          {
+            model: 'LastName',
+            component: FormText,
+            label: 'Last Name',
+            condition: model => false
+          }
+        ],
+        schemaRowSlim: true
+      }
+    })
+
+    expect(wrapper.element.tagName).toBeUndefined()
+  })
 })
