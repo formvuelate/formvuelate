@@ -199,14 +199,6 @@ For cases where you need your components to be rendered without FormVueLate's de
 />
 ```
 
-Example output:
-
-```html
-
-<form>
-  [...]
-</form>
-
 ```
 ### preventModelCleanupOnSchemaChange
 
