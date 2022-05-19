@@ -8,6 +8,7 @@
       v-bind="$attrs"
       class="schema-col"
     />
+
     <div
       v-else
       :class="['schema-row', schemaRowClasses]"
