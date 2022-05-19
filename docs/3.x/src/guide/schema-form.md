@@ -188,9 +188,9 @@ Example output:
 </form>
 
 ```
-### schemaRowSlim
+### unwrappedRows
 
-If you need to display schema elements without a wrapper in `div.schema-row`, just add the `schemaRowSlim` property to the `SchemaForm` component.
+For cases where you need your components to be rendered without FormVueLate's default `.schema-row` wrapping div, add the `unwrappedRow` boolean property to `SchemaForm`. This can be explicitly set to `true`, or with Vue's boolean shorthand as in the following example.
 
 ```html
 <SchemaForm
