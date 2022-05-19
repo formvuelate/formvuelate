@@ -56,7 +56,7 @@ describe('SchemaRow', () => {
     expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
   })
 
-  it('doesnt render wrapper elements in slim mode', () => {
+  it('doesnt render wrapper elements when unwrappedRow is set', () => {
     const wrapper = shallowMount(SchemaRow, {
       props: {
         row: [
