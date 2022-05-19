@@ -1,7 +1,7 @@
 <template>
   <template v-if="rowHasVisibleElements">
     <SchemaField
-      v-if="schemaRowSlim"
+      v-if="unwrappedRows"
       v-for="field in row"
       :key="field.model"
       :field="field"
@@ -43,7 +43,7 @@ export default {
       type: [String, Object, Array],
       default: null
     },
-    schemaRowSlim: {
+    unwrappedRows: {
       type: Boolean,
       default: false
     }

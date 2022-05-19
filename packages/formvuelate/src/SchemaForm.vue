@@ -14,7 +14,7 @@
       :key="index"
       :row="row"
       :schemaRowClasses="schemaRowClasses"
-      :schemaRowSlim="schemaRowSlim"
+      :unwrappedRows="unwrappedRows"
       :sharedConfig="sharedConfig"
       :preventModelCleanupOnSchemaChange="preventModelCleanupOnSchemaChange"
     />
@@ -74,10 +74,7 @@ export default {
       default: false
     },
     debug: { type: Boolean, default: false },
-    schemaRowSlim: {
-      type: Boolean,
-      default: false
-    }
+    unwrappedRows: { type: Boolean, default: false }
   },
   emits: ['submit', 'update:modelValue'],
   setup (props, { emit, attrs }) {

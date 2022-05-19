@@ -63,8 +63,7 @@ describe('SchemaRow', () => {
           {
             model: 'FirstName',
             component: FormText,
-            label: 'First Name',
-            condition: model => false
+            label: 'First Name'
           },
           {
             model: 'LastName',
@@ -77,6 +76,6 @@ describe('SchemaRow', () => {
       }
     })
 
-    expect(wrapper.element.tagName).toBeUndefined()
+    expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
   })
 })

@@ -194,12 +194,11 @@ For cases where you need your components to be rendered without FormVueLate's de
 
 ```html
 <SchemaForm
-  schemaRowSlim
+  unwrappedRows
   :schema="mySchema"
 />
 ```
 
-```
 ### preventModelCleanupOnSchemaChange
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.
