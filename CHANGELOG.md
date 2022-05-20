@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/FormVueLate/formvuelate/compare/v3.8.1...v3.9.0) (2022-05-20)
+
+
+### Features
+
+* add props schemaRowSlim for show elements without a wrapper ([#293](https://github.com/FormVueLate/formvuelate/issues/293)) ([04e0e53](https://github.com/FormVueLate/formvuelate/commit/04e0e532c9f9e65d3b2f8480a70d3f591572b049))
+
+
+
+
+
 ## [3.8.1](https://github.com/FormVueLate/formvuelate/compare/v3.8.0...v3.8.1) (2021-11-19)
 
 
