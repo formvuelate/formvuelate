@@ -71,7 +71,7 @@ describe('SchemaRow', () => {
             label: 'Last Name'
           }
         ],
-        schemaRowSlim: true
+        unwrappedRows: true
       }
     })
 
