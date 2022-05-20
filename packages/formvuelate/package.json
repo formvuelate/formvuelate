@@ -1,6 +1,6 @@
 {
   "name": "formvuelate",
-  "version": "3.9.0",
+  "version": "3.9.1",
   "description": "Schema Form Generator",
   "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti",
