@@ -68,8 +68,7 @@ describe('SchemaRow', () => {
           {
             model: 'LastName',
             component: FormText,
-            label: 'Last Name',
-            condition: model => false
+            label: 'Last Name'
           }
         ],
         schemaRowSlim: true
@@ -77,5 +76,6 @@ describe('SchemaRow', () => {
     })
 
     expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
+    expect(wrapper.findAll('div').length).toBe(0)
   })
 })
