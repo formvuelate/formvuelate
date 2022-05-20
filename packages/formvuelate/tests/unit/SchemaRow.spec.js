@@ -55,4 +55,27 @@ describe('SchemaRow', () => {
 
     expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
   })
+
+  it('doesnt render wrapper elements when unwrappedRow is set', () => {
+    const wrapper = shallowMount(SchemaRow, {
+      props: {
+        row: [
+          {
+            model: 'FirstName',
+            component: FormText,
+            label: 'First Name'
+          },
+          {
+            model: 'LastName',
+            component: FormText,
+            label: 'Last Name'
+          }
+        ],
+        unwrappedRows: true
+      }
+    })
+
+    expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
+    expect(wrapper.findAll('div').length).toBe(0)
+  })
 })

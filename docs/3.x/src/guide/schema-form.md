@@ -188,6 +188,17 @@ Example output:
 </form>
 
 ```
+### unwrappedRows
+
+For cases where you need your components to be rendered without FormVueLate's default `.schema-row` wrapping div, add the `unwrappedRow` boolean property to `SchemaForm`. This can be explicitly set to `true`, or with Vue's boolean shorthand as in the following example.
+
+```html
+<SchemaForm
+  unwrappedRows
+  :schema="mySchema"
+/>
+```
+
 ### preventModelCleanupOnSchemaChange
 
 By default `SchemaForm` cleans up the value output of properties that are no longer present inside the schema every time the schema changes.
