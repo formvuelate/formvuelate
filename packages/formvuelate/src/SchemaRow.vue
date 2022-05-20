@@ -1,13 +1,14 @@
 <template>
   <template v-if="rowHasVisibleElements">
-    <SchemaField
-      v-if="unwrappedRows"
-      v-for="field in row"
-      :key="field.model"
-      :field="field"
-      v-bind="$attrs"
-      class="schema-col"
-    />
+    <template v-if="unwrappedRows">
+      <SchemaField
+        v-for="field in row"
+        :key="field.model"
+        :field="field"
+        v-bind="$attrs"
+        class="schema-col"
+      />
+    </template>
 
     <div
       v-else
