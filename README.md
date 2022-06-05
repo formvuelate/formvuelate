@@ -1,5 +1,12 @@
 # FormVueLate
 
+## ⚠️ IMPORTANT ⚠️
+
+It makes us very sad but as of June 2022 this repository is officially unmaintained.
+We do not have the required time and space to make the updates it needs to grow, and the possibly necessary rewrite to bring in new and better features.
+If anyone wishes to take over and continue with the project, please ping Marina on twitter.com/marinamosti
+
+
 ![FormVueLate Logo](https://raw.githubusercontent.com/formvuelate/formvuelate/main/docs/3.x/src/.vuepress/public/formvuelate-logo.jpg)
 
 [![FormVueLate NPM](https://img.shields.io/npm/v/formvuelate?color=42b883)](https://www.npmjs.com/package/formvuelate)
