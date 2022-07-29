@@ -1,6 +1,6 @@
 import { mount } from '@cypress/vue'
 
-import { h, ref, shallowRef } from 'vue'
+import { h, ref, shallowRef, computed, toDisplayString } from 'vue'
 import { SchemaFormFactory, useSchemaForm } from '../../../src/index'
 import LookupPlugin, { lookupSubSchemas } from '../../../../plugin-lookup/src/index'
 import VeeValidatePlugin from '../../../../plugin-vee-validate/src/index'
@@ -182,6 +182,71 @@ describe('SchemaFormFactory', () => {
 
       cy.get('input').should('have.length', 4)
       cy.get('label').eq(3).should('have.text', 'Double nested text')
+    })
+
+    it('preserves model changes when schema is recalculated', () => {
+      const SchemaFormWithPlugins = SchemaFormFactory([
+        LookupPlugin({
+          mapProps: {
+            name: 'model',
+            type: 'component'
+          },
+          mapComponents: {
+            text: BaseInput
+          }
+        })
+      ])
+
+      mount({
+        components: { SchemaFormWithPlugins },
+        setup () {
+          const currentSchema = ref(1)
+
+          const schema = computed(() => {
+            return currentSchema.value === 1
+              ? [
+                  { name: 'first', type: 'text', default: 'Luke' },
+                  { name: 'last', type: 'text', default: 'Skywalker' },
+                  {
+                    name: 'nested',
+                    type: 'SchemaForm',
+                    schema: [
+                      { name: 'saber', type: 'text', default: 'Green' }
+                    ]
+                  }
+                ]
+              : [
+                  { name: 'first', type: 'text', default: 'Luke' },
+                  {
+                    name: 'nested',
+                    schema: [
+                      { name: 'saber', type: 'text', default: 'Green' }
+                    ]
+                  }
+                ]
+          })
+
+          lookupSubSchemas(SchemaFormWithPlugins)
+          const { formModel } = useSchemaForm({})
+
+          return () => h('div', [
+            h(SchemaFormWithPlugins, { schema, debug: true }),
+            h('button', {
+              onClick: () => { currentSchema.value = 2 }
+            }, 'Switch schema'),
+            h('pre', { class: 'model' }, toDisplayString(formModel.value))
+          ])
+        }
+      })
+
+      cy.get('.model').contains('"first": "Luke"')
+      cy.get('.model').contains('"last": "Skywalker"')
+      cy.get('input').should('have.length', 3)
+
+      cy.get('button').click()
+
+      cy.get('.model').contains('"first": "Luke"')
+      cy.get('.model').should('not.contain', 'Skywalker')
     })
   })
 

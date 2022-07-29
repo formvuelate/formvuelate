@@ -1,5 +1,5 @@
 import SchemaForm from '../../../src/SchemaForm.vue'
-import { shallowRef, ref, h } from 'vue'
+import { shallowRef, ref, h, isRef } from 'vue'
 import useSchemaForm from '../../../src/features/useSchemaForm'
 
 export const SchemaFormWrapper = ({
@@ -12,7 +12,7 @@ export const SchemaFormWrapper = ({
     const formModel = model || ref({})
     const { updateFormModel } = useSchemaForm(formModel)
 
-    const schemaRef = shallowRef(schema)
+    const schemaRef = isRef(schema) ? schema : shallowRef(schema)
 
     onSetup({ formModel, updateFormModel })
 
