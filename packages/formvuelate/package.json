@@ -21,8 +21,7 @@
     "src"
   ],
   "scripts": {
-    "build": "vite build && pnpm build:types",
-    "build:types": "node ../../scripts/build-types.mjs",
+    "build": "vite build",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest",
     "test:e2e": "cypress open --component",
