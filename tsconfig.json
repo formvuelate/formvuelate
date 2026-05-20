@@ -2,19 +2,26 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "moduleResolution": "node",
-    "target": "es2017",
+    "moduleResolution": "bundler",
+    "target": "es2022",
     "module": "esnext",
-    "lib": ["esnext", "es2017", "dom"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "allowJs": true,
-    "typeRoots": ["node_modules/@types"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "types": ["vitest/globals", "node"],
     "paths": {
       "@/*": ["packages/*/src"]
     }
   },
-  "include": ["packages/*/src"],
-  "exclude": ["jest.config.js"]
+  "include": [
+    "packages/*/src",
+    "packages/*/tests",
+    "vitest.config.ts",
+    "eslint.config.js"
+  ],
+  "exclude": ["**/dist", "**/node_modules"]
 }

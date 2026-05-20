@@ -1,40 +1,55 @@
 {
   "name": "@formvuelate/plugin-lookup",
-  "version": "3.9.1",
+  "version": "4.0.0",
   "description": "FormVueLate Lookup plugin",
+  "license": "MIT",
+  "type": "module",
   "main": "dist/formvuelate-plugin-lookup.cjs.js",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
+  "module": "dist/formvuelate-plugin-lookup.es.js",
+  "types": "dist/formvuelate-plugin-lookup.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/formvuelate-plugin-lookup.d.ts",
+      "import": "./dist/formvuelate-plugin-lookup.es.js",
+      "require": "./dist/formvuelate-plugin-lookup.cjs.js"
+    },
+    "./package.json": "./package.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/formvuelate/formvuelate-plugin-lookup.git"
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build && pnpm build:types",
+    "build:types": "node ../../scripts/build-types.mjs",
+    "test:unit": "vitest run --coverage",
+    "test:unit:watch": "vitest",
+    "lint": "eslint . --fix",
+    "test": "pnpm lint && pnpm test:unit"
+  },
+  "devDependencies": {
+    "formvuelate": "workspace:*"
+  },
+  "peerDependencies": {
+    "formvuelate": "^4.0.0",
+    "vue": "^3.4.0"
+  },
+  "engines": {
+    "node": ">=20.18.0"
   },
   "author": {
     "name": "Marina Mosti"
   },
-  "license": "MIT",
-  "scripts": {
-    "test": "yarn test:unit",
-    "test:unit": "jest --coverage",
-    "test:unit:watch": "yarn test:unit --watch",
-    "lint": "eslint --fix src/**/* tests/**/*"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formvuelate/formvuelate.git",
+    "directory": "packages/plugin-lookup"
   },
-  "peerDependencies": {
-    "formvuelate": "^3.0.0",
-    "vue": "^3.0.0"
-  },
-  "files": [
-    "src/*",
-    "dist/*"
-  ],
   "bugs": {
-    "url": "https://github.com/formvuelate/formvuelate-plugin-lookup/issues"
+    "url": "https://github.com/formvuelate/formvuelate/issues"
   },
-  "homepage": "https://github.com/formvuelate/formvuelate-plugin-lookup#readme",
-  "module": "dist/formvuelate-plugin-lookup.es.js",
-  "unpkg": "dist/formvuelate-plugin-lookup.umd.js",
-  "browser": "dist/formvuelate-plugin-lookup.es.js",
-  "types": "dist/formvuelate-plugin-lookup.d.ts"
+  "homepage": "https://github.com/formvuelate/formvuelate#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }

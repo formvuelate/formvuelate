@@ -1,34 +1,40 @@
 {
   "name": "formvuelate",
-  "version": "3.9.1",
+  "version": "4.0.0",
   "description": "Schema Form Generator",
-  "types": "dist/formvuelate.d.ts",
   "author": "Marina Mosti",
-  "scripts": {
-    "test:unit": "vue-cli-service test:unit --coverage",
-    "test:e2e": "cypress open-ct",
-    "test:e2e:ci": "cypress run-ct",
-    "lint": "vue-cli-service lint",
-    "ci:lint": "yarn lint --no-fix",
-    "test": "yarn lint && yarn test:unit",
-    "test:unit:watch": "yarn test:unit --watch"
-  },
+  "license": "MIT",
+  "type": "module",
   "main": "dist/formvuelate.cjs.js",
-  "browser": "dist/formvuelate.umd.js",
-  "unpkg": "dist/formvuelate.umd.js",
   "module": "dist/formvuelate.es.js",
+  "types": "dist/formvuelate.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/formvuelate.d.ts",
+      "import": "./dist/formvuelate.es.js",
+      "require": "./dist/formvuelate.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
     "src"
   ],
-  "peerDependencies": {
-    "vue": "^3.0.0"
+  "scripts": {
+    "build": "vite build && pnpm build:types",
+    "build:types": "node ../../scripts/build-types.mjs",
+    "test:unit": "vitest run --coverage",
+    "test:unit:watch": "vitest",
+    "test:e2e": "cypress open --component",
+    "test:e2e:ci": "cypress run --component",
+    "lint": "eslint . --fix",
+    "test": "pnpm lint && pnpm test:unit"
   },
-  "bugs": {
-    "url": "https://github.com/formvuelate/formvuelate"
+  "peerDependencies": {
+    "vue": "^3.4.0"
   },
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=20.18.0"
   },
   "homepage": "https://formvuelate.js.org/",
   "keywords": [
@@ -40,6 +46,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/formvuelate/formvuelate.git"
+    "url": "git+https://github.com/formvuelate/formvuelate.git",
+    "directory": "packages/formvuelate"
+  },
+  "bugs": {
+    "url": "https://github.com/formvuelate/formvuelate/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,45 +1,58 @@
 {
   "name": "@formvuelate/plugin-vee-validate",
-  "version": "3.9.1",
+  "version": "4.0.0",
   "description": "FormVueLate Vee-validate plugin",
+  "license": "MIT",
+  "type": "module",
   "main": "dist/formvuelate-plugin-vee-validate.cjs.js",
+  "module": "dist/formvuelate-plugin-vee-validate.es.js",
   "types": "dist/formvuelate-plugin-vee-validate.d.ts",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
+  "exports": {
+    ".": {
+      "types": "./dist/formvuelate-plugin-vee-validate.d.ts",
+      "import": "./dist/formvuelate-plugin-vee-validate.es.js",
+      "require": "./dist/formvuelate-plugin-vee-validate.cjs.js"
+    },
+    "./package.json": "./package.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/formvuelate/formvuelate.git"
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build && pnpm build:types",
+    "build:types": "node ../../scripts/build-types.mjs",
+    "test:unit": "vitest run --coverage",
+    "test:unit:watch": "vitest",
+    "lint": "eslint . --fix",
+    "test": "pnpm lint && pnpm test:unit"
+  },
+  "devDependencies": {
+    "formvuelate": "workspace:*",
+    "yup": "^1.4.0"
+  },
+  "peerDependencies": {
+    "formvuelate": "^4.0.0",
+    "vee-validate": "^4.13.0",
+    "vue": "^3.4.0"
+  },
+  "engines": {
+    "node": ">=20.18.0"
   },
   "author": {
     "name": "Abdelrahman Awad",
     "email": "logaretm1@gmail.com"
   },
-  "license": "MIT",
-  "scripts": {
-    "test": "yarn test:unit",
-    "test:unit": "jest --coverage",
-    "test:unit:watch": "yarn test:unit --watch",
-    "lint": "eslint --fix src/**/* tests/**/*"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formvuelate/formvuelate.git",
+    "directory": "packages/plugin-vee-validate"
   },
-  "devDependencies": {
-    "yup": "^0.29.3"
-  },
-  "peerDependencies": {
-    "formvuelate": "^3.2.0",
-    "vee-validate": "^4.2.0",
-    "vue": "^3.0.0"
-  },
-  "files": [
-    "src/*",
-    "dist/*"
-  ],
   "bugs": {
     "url": "https://github.com/formvuelate/formvuelate/issues"
   },
   "homepage": "https://github.com/formvuelate/formvuelate#readme",
-  "module": "dist/formvuelate-plugin-vee-validate.es.js",
-  "unpkg": "dist/formvuelate-plugin-vee-validate.umd.js",
-  "browser": "dist/formvuelate-plugin-vee-validate.es.js"
+  "publishConfig": {
+    "access": "public"
+  }
 }
