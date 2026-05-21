@@ -54,3 +54,9 @@ const mySchema = {
 ```
 
 `SchemaForm` writes user input into `formModel.value` reactively — no `v-model` required.
+
+## Older versions
+
+FormVueLate **2.x and 3.x are no longer maintained**. The project was archived between 2022 and the 4.x revival, and the code from those releases is significantly out of date with the current Vue 3 ecosystem.
+
+If you have a 3.x project and you're trying to come over, see [Migrating from 3.x](/migration/3-to-4). If you need to reference the old code, the `v3.9.1` git tag and the `v2.x` series of tags preserve it. New users should ignore those entirely and go straight to 4.x.
