@@ -857,9 +857,7 @@ describe('SchemaForm', () => {
   })
 
   describe('handling nested schemas', () => {
-    // TODO(4.0): nested conditional cleanup behavior regressed against Vue 3.5+;
-    // see vee-validate audit phase for related plugin-level investigation.
-    it.skip('cleans up the model', async () => {
+    it('cleans up the model', async () => {
       const schema = {
         firstName: {
           component: FormText,

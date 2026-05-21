@@ -21,6 +21,27 @@ export default function useFormModel (props, parsedSchema) {
   }
 
   /**
+   * Walk the schema and run any conditional cleanup for fields whose
+   * `condition(model)` returns false. Runs at the top-level SchemaForm and
+   * sees the whole schema tree via forEachSchemaElement recursion, so nested
+   * conditional fields get cleaned up too. Done from here (and not inside
+   * SchemaField) so the SchemaField can be safely v-if'd out by SchemaRow
+   * when an entire row's fields are hidden — without that, the SchemaField
+   * unmounts before its condition watcher can fire and the conditional
+   * field's value stays orphaned in the model.
+   */
+  const cleanupConditionalFields = () => {
+    if (props.preventModelCleanupOnSchemaChange) return
+
+    forEachSchemaElement(parsedSchema, (el, path) => {
+      if (!el.condition || typeof el.condition !== 'function') return
+      if (el.condition(formModel.value) === true) return
+
+      deleteFormModelProperty(formModel, el.model, path)
+    })
+  }
+
+  /**
    * Loop the schema and check for `default`. If found, pre-populate the formModel
    * This should only execute on top level SchemaForm, as it will recurse the schema itself
    */
@@ -32,5 +53,6 @@ export default function useFormModel (props, parsedSchema) {
     })
 
     watch(parsedSchema, cleanupModelChanges)
+    watch(formModel, cleanupConditionalFields, { deep: true })
   }
 }

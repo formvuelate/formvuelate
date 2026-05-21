@@ -101,7 +101,8 @@ describe('SchemaForm', () => {
 
     cy.mount(SchemaFormWrapper({ schema }))
 
-    cy.get('label').should('have.text', 'First name')
+    cy.get('label')
+      .should('have.text', 'First name')
       .then(() => {
         label.value = 'Name'
         cy.wait(100)
@@ -138,7 +139,7 @@ describe('SchemaForm', () => {
 
   it('can use a custom form element', () => {
     cy.mount({
-      setup () {
+      setup() {
         const model = ref({})
         useSchemaForm(model)
 
@@ -163,23 +164,28 @@ describe('SchemaForm', () => {
 
         const submitted = ref(false)
 
-        const mySubmit = (e) => {
+        const mySubmit = e => {
           e.preventDefault()
           submitted.value = true
         }
 
-        return () => h('form', {
-          id: 'myForm',
-          onSubmit: mySubmit
-        }, [
-          !submitted.value
-            ? h(SchemaForm, {
-              schema,
-              useCustomFormWrapper: true
-            })
-            : h('p', 'Submitted!'),
-          h('button', { type: 'submit' }, 'Submit')
-        ])
+        return () =>
+          h(
+            'form',
+            {
+              id: 'myForm',
+              onSubmit: mySubmit
+            },
+            [
+              !submitted.value
+                ? h(SchemaForm, {
+                    schema,
+                    useCustomFormWrapper: true
+                  })
+                : h('p', 'Submitted!'),
+              h('button', { type: 'submit' }, 'Submit')
+            ]
+          )
       }
     })
 
@@ -189,6 +195,64 @@ describe('SchemaForm', () => {
 
       cy.get('button').click()
       cy.contains('Submitted!')
+    })
+  })
+
+  it('cleans conditional fields out of the model when their condition flips to false', () => {
+    cy.mount({
+      setup() {
+        const model = ref({})
+        useSchemaForm(model)
+
+        const schema = shallowRef({
+          displayName: {
+            component: BaseInput,
+            label: 'Display name: '
+          },
+          preferences: {
+            component: SchemaForm,
+            schema: {
+              favoriteVueFeature: {
+                component: BaseInput,
+                label: 'Favorite Vue feature: ',
+                condition: m => !!m.displayName
+              }
+            }
+          }
+        })
+
+        return () =>
+          h('div', [
+            h(SchemaForm, { schema }),
+            h('pre', { class: 'model' }, JSON.stringify(model.value))
+          ])
+      }
+    })
+
+    // Initially only the displayName input is visible. The conditional
+    // favoriteVueFeature is hidden because displayName is empty.
+    cy.get('input').should('have.length', 1)
+
+    // Reveal the conditional field by entering a name.
+    cy.get('input').first().type('Marina')
+    cy.get('input').should('have.length', 2)
+
+    // Fill in the conditional field and confirm it lands in the model.
+    cy.get('input').eq(1).type('Composition API')
+    cy.get('.model').should('contain', '"favoriteVueFeature":"Composition API"')
+
+    // Clear displayName — the conditional field's wrapper row hides AND its
+    // value is cleaned out of the model (the regression that Phase 7.6 fixed).
+    cy.get('input').first().clear()
+    cy.get('input').should('have.length', 1)
+    cy.get('.model').should('not.contain', 'favoriteVueFeature')
+    cy.get('.model').should('contain', '"preferences":{}')
+
+    // Sanity check: no empty <div class="schema-row"> in the DOM (the
+    // regression that PR #218 / issue #208 fixed — re-enshrined by the
+    // SchemaRow `rowHasVisibleElements` guard).
+    cy.get('.schema-row').each($el => {
+      expect($el.children().length).to.be.greaterThan(0)
     })
   })
 })

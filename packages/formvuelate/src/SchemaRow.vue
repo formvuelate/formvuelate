@@ -53,13 +53,20 @@ export default {
   setup (props) {
     const formModel = inject(FORM_MODEL, {})
 
+    // Suppress the row's wrapper element when every field in the row is
+    // hidden by a `condition`. Without this guard, schemas that use
+    // conditions to hide fields would still emit empty <div class="schema-row">
+    // elements (regression of #208 / fixed in #218).
+    //
+    // Important: this is a render-only optimization. Cleanup of formModel
+    // values for fields whose conditions flip to false happens in
+    // useFormModel — it watches the formModel directly so it works regardless
+    // of whether the SchemaField is mounted or v-if'd out.
     const rowHasVisibleElements = computed(() => {
       for (const field of props.row) {
-        // If a field doesnt have a condition it guarantees itll be rendered
         if (!field.condition) return true
-
-        // If a field condition is true, it will be rendered
-        if (typeof condition !== 'function' && field.condition(formModel.value) === true) return true
+        if (typeof field.condition !== 'function') return true
+        if (field.condition(formModel.value) === true) return true
       }
 
       return false
