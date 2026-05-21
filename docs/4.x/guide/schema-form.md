@@ -90,7 +90,7 @@ In the above example, we use the component `FormText` that we imported as the va
 
 You can use the name of the component as a `String` instead, for example `'FormText'`, but be aware that the component needs to either be imported globally.
 
-If you need to declare your components locally, you can leverage the second parameter of the `SchemaFormFactory` component. Please refer to the [plugins](plugins/#using-locally-imported-components) documentation for more information on how to accomplish this.
+If you need to declare your components locally, you can leverage the second parameter of the `SchemaFormFactory` component. Please refer to the [plugins](./plugins#using-locally-imported-components) documentation for more information on how to accomplish this.
 :::
 
 #### Array Schemas

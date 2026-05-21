@@ -78,9 +78,7 @@ export default {
 A mapping and replacement plugin to parse complex schemas into FormVueLate ready structure.
 
 #### Vee-Validate Plugin
-Easily incporate Vee-Validate powered validations into your forms.
-#### Vuelidate Plugin WIP
-Easily incorporate Vuelidate powered validations into your forms.
+Easily incorporate Vee-Validate powered validations into your forms.
 
 ## Core team
 
