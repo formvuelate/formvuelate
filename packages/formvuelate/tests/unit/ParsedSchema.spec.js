@@ -1,5 +1,5 @@
 import useParsedSchema from '../../src/features/ParsedSchema'
-import SchemaForm from '../../src/SchemaForm'
+import SchemaForm from '../../src/SchemaForm.vue'
 import { LOOKUP_PARSE_SUB_SCHEMA_FORMS } from '../../src/utils/constants'
 
 import { ref, shallowRef } from 'vue'
@@ -63,7 +63,7 @@ describe('ParsedSchema feature', () => {
       }
     })
 
-    const remapSubSchemaForms = jest.fn()
+    const remapSubSchemaForms = vi.fn()
     const SchemaFormWithPlugins = { name: 'SFwP', template: '<div />' }
 
     factory({

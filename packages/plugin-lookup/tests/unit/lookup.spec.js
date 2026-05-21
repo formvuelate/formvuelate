@@ -31,10 +31,10 @@ const rawSchema = [
 ]
 
 const schema = computed(() => rawSchema)
-const warn = jest.spyOn(console, 'warn').mockImplementation()
+const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
 describe('Lookup Plugin', () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
   afterAll(() => warn.mockRestore())
 
   describe('mapComponents', () => {
@@ -121,7 +121,7 @@ describe('Lookup Plugin', () => {
 
       const schema = computed(() => rawSchema)
 
-      const mapper = jest.fn((el) => {
+      const mapper = vi.fn((el) => {
         if (el.type === 'FormText') {
           return {
             mappable: 'remapped',

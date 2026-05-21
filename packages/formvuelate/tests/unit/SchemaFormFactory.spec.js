@@ -8,7 +8,7 @@ const props = {
   schema: {}
 }
 
-const emit = jest.fn()
+const emit = vi.fn()
 const attrs = {}
 const context = { emit, attrs }
 
@@ -27,7 +27,7 @@ let warn
 describe('SchemaFormFactory', () => {
   beforeAll(() => {
     // Disable inject and provide warnings
-    warn = jest.spyOn(console, 'warn').mockImplementation()
+    warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
     expect.extend({
       toEqualFunction (received, compare) {
@@ -53,7 +53,7 @@ describe('SchemaFormFactory', () => {
 
   it('applies the plugins to the data returned from schema form', () => {
     let paramFn
-    const plugin = jest.fn((fn) => {
+    const plugin = vi.fn((fn) => {
       paramFn = fn
       return fn
     })

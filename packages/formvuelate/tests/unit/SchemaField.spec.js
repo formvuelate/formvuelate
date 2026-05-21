@@ -11,7 +11,7 @@ const FormText = {
   emits: ['update:modelValue']
 }
 
-const updateFormModel = jest.fn()
+const updateFormModel = vi.fn()
 
 const SchemaFieldWrapper = (
   binds,
@@ -56,7 +56,7 @@ const SchemaFieldWrapper = (
 
 describe('SchemaField', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders a dynamic component', () => {
