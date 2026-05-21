@@ -1,4 +1,3 @@
-import { mount } from '@cypress/vue'
 
 import { h, ref, shallowRef } from 'vue'
 import { SchemaFormFactory, useSchemaForm } from '../../../src/index'
@@ -10,7 +9,7 @@ describe('SchemaFormFactory', () => {
   it('works with a blank plugin configuration and locally defined components', () => {
     const SchemaFormWithPlugins = SchemaFormFactory([], { BaseInput })
 
-    mount({
+    cy.mount({
       components: { SchemaFormWithPlugins },
       setup () {
         const model = ref({
@@ -98,7 +97,7 @@ describe('SchemaFormFactory', () => {
         })
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})
@@ -165,7 +164,7 @@ describe('SchemaFormFactory', () => {
         })
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})
@@ -220,7 +219,7 @@ describe('SchemaFormFactory', () => {
         VeeValidatePlugin({})
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})

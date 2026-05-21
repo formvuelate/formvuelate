@@ -1,4 +1,3 @@
-import { mount } from '@cypress/vue'
 import SchemaForm from '../../../src/SchemaForm.vue'
 
 import useSchemaForm from '../../../src/features/useSchemaForm'
@@ -20,7 +19,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper({ schema }))
+    cy.mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 2)
   })
@@ -43,7 +42,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper({ schema }))
+    cy.mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 2)
   })
@@ -84,7 +83,7 @@ describe('SchemaForm', () => {
       }
     }
 
-    mount(SchemaFormWrapper({ schema }))
+    cy.mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').should('have.length', 5)
   })
@@ -100,7 +99,7 @@ describe('SchemaForm', () => {
       }
     })
 
-    mount(SchemaFormWrapper({ schema }))
+    cy.mount(SchemaFormWrapper({ schema }))
 
     cy.get('label').should('have.text', 'First name')
       .then(() => {
@@ -131,14 +130,14 @@ describe('SchemaForm', () => {
       }
     })
 
-    mount(SchemaFormWrapper({ schema }))
+    cy.mount(SchemaFormWrapper({ schema }))
 
     cy.get('input').type('B')
     cy.get('label').eq(1).should('have.text', 'Input B')
   })
 
   it('can use a custom form element', () => {
-    mount({
+    cy.mount({
       setup () {
         const model = ref({})
         useSchemaForm(model)
