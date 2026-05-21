@@ -46,11 +46,14 @@ const REQUIRED_MESSAGE = 'This field is required'
 const MIN_MESSAGE = 'Too short'
 const EMAIL_MESSAGE = 'Invalid Email'
 
-// TODO(4.0): 6 tests below are skipped. They were authored against
-// vee-validate 4.4 and rely on validation timing/scheduling that changed
-// in 4.13+. Extra await flushPromises() cycles do not resolve them, so
-// the plugin likely needs API-level adjustments to match the new
-// vee-validate behavior. Audit happens in a dedicated follow-up phase.
+// vee-validate 4.13+ debounces form-level schema validation by 5ms
+// (see debounceAsync in vee-validate source). flushPromises only flushes
+// microtasks, so it isn't enough to bridge that delay. Use this helper
+// before asserting post-validation state when the form has a
+// :validation-schema prop. Per-field `validations:` are not debounced
+// and still work with flushPromises alone.
+const flushVeeValidate = () => new Promise(r => setTimeout(r, 10))
+
 describe('FVL integration', () => {
   it('renders error messages using validation prop', async () => {
     const schema = {
@@ -135,7 +138,7 @@ describe('FVL integration', () => {
     expect(wrapper.find('.error').text()).toBe('')
   })
 
-  it.skip('does form-level validation with validation-schema attr', async () => {
+  it('does form-level validation with validation-schema attr', async () => {
     const schema = [
       {
         label: 'Email',
@@ -178,23 +181,19 @@ describe('FVL integration', () => {
     const inputs = wrapper.findAllComponents(FormText)
     const errors = wrapper.findAll('.error')
     inputs[0].setValue('not email')
-    await flushPromises()
-    expect(errors[0].text()).toBe(EMAIL_MESSAGE)
+    await vi.waitFor(() => expect(errors[0].text()).toBe(EMAIL_MESSAGE))
 
     inputs[1].setValue('12')
-    await flushPromises()
-    expect(errors[1].text()).toBe(MIN_MESSAGE)
+    await vi.waitFor(() => expect(errors[1].text()).toBe(MIN_MESSAGE))
 
     inputs[0].setValue('test@gmail.com')
-    await flushPromises()
-    expect(errors[0].text()).toBe('')
+    await vi.waitFor(() => expect(errors[0].text()).toBe(''))
 
     inputs[1].setValue('1234')
-    await flushPromises()
-    expect(errors[1].text()).toBe('')
+    await vi.waitFor(() => expect(errors[1].text()).toBe(''))
   })
 
-  it.skip('validates before submission', async () => {
+  it('validates before submission', async () => {
     const schema = [
       {
         label: 'Email',
@@ -240,18 +239,15 @@ describe('FVL integration', () => {
     const form = wrapper.find('form')
 
     form.trigger('submit')
-    await flushPromises()
+    await flushVeeValidate()
     expect(onSubmit).toHaveBeenCalledTimes(0)
 
     inputs[0].setValue('test@gmail.com')
-    await flushPromises()
-
     inputs[1].setValue('1234')
-    await flushPromises()
+    await flushVeeValidate()
 
     form.trigger('submit')
-    await flushPromises()
-    expect(onSubmit).toHaveBeenCalledTimes(1)
+    await vi.waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1))
   })
 
   it('fills form errors with initial-errors attribute', async () => {
@@ -432,7 +428,7 @@ describe('FVL integration', () => {
     expect(wrapper.find('.error').text()).toBe('')
   })
 
-  it.skip('validates nested fields with array schema', async () => {
+  it('validates nested fields with array schema', async () => {
     const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
     const schema = {
       user: {
@@ -475,7 +471,7 @@ describe('FVL integration', () => {
     expect(wrapper.find('.error').text()).toBe('')
   })
 
-  it.skip('validates nested fields with object schema', async () => {
+  it('validates nested fields with object schema', async () => {
     const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
     const schema = {
       user: {
@@ -515,6 +511,52 @@ describe('FVL integration', () => {
     input.setValue('hello')
     await flushPromises()
     expect(wrapper.find('.error').text()).toBe('')
+  })
+
+  it('validates nested fields when the outer also has fields and custom mapProps', async () => {
+    // Mirrors the harness "Nested + vee-validate" example: a top-level field
+    // and a nested sub-schema, both with per-field validations, using a
+    // custom mapProps that surfaces errorMessage as a direct prop on the
+    // child component.
+    const SchemaWithValidation = SchemaFormFactory([
+      veeValidatePlugin({
+        mapProps: ({ errorMessage }) => ({ errorMessage })
+      })
+    ])
+    const schema = {
+      displayName: {
+        component: FormTextWithProps,
+        validations: yup.string().required(REQUIRED_MESSAGE)
+      },
+      address: {
+        component: SchemaWithValidation,
+        schema: {
+          city: {
+            component: FormTextWithProps,
+            validations: yup.string().required(REQUIRED_MESSAGE)
+          }
+        }
+      }
+    }
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: { SchemaWithValidation },
+      setup () {
+        useSchemaForm(ref({}))
+        return { schema }
+      }
+    })
+
+    const inputs = wrapper.findAllComponents(FormTextWithProps)
+    inputs[0].setValue('')
+    inputs[1].setValue('')
+    await flushPromises()
+    const errors = wrapper.findAll('.error')
+    expect(errors[0].text()).toBe(REQUIRED_MESSAGE)
+    expect(errors[1].text()).toBe(REQUIRED_MESSAGE)
   })
 
   it('preserves reactivity in computed schemas', async () => {
@@ -664,7 +706,7 @@ describe('FVL integration', () => {
     expect(wrapper.find('#error').text()).toBe('')
   })
 
-  it.skip('validates fields with array in nested array schema', async () => {
+  it('validates fields with array in nested array schema', async () => {
     const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
     const schema = {
       user: {
@@ -738,7 +780,7 @@ describe('FVL integration', () => {
     expect(errors[2].text()).toBe('')
   })
 
-  it.skip('handles computed schema', async () => {
+  it('handles computed schema', async () => {
     const schema = [
       {
         label: 'Email',
@@ -789,16 +831,15 @@ describe('FVL integration', () => {
     const form = wrapper.find('form')
 
     form.trigger('submit')
-    await flushPromises()
+    await flushVeeValidate()
     expect(onSubmit).toHaveBeenCalledTimes(0)
     expect(wrapper.findAll('.error')).toHaveLength(2)
 
     isRequired.value = false
-    await flushPromises()
+    await flushVeeValidate()
 
     form.trigger('submit')
-    await flushPromises()
-    expect(onSubmit).toHaveBeenCalledTimes(1)
+    await vi.waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1))
   })
 
   it('renders label in error messages', async () => {
