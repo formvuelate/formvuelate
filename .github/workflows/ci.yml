@@ -39,6 +39,9 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Install Cypress binary
+        run: pnpm exec cypress install
+
       - name: Component tests (Cypress)
         uses: cypress-io/github-action@v6
         with:
