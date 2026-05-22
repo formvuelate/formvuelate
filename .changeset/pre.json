@@ -1,0 +1,11 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "fvl-docs": "0.0.1",
+    "formvuelate": "4.0.0",
+    "@formvuelate/plugin-lookup": "4.0.0",
+    "@formvuelate/plugin-vee-validate": "4.0.0"
+  },
+  "changesets": []
+}
