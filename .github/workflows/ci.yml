@@ -17,9 +17,9 @@ jobs:
           fetch-depth: 0
 
       - name: Install pnpm
+        # pnpm version is pinned via `packageManager` in package.json,
+        # so we don't pass `version:` here (action-setup@v4 errors on conflict).
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - name: Set up Node
         uses: actions/setup-node@v4
