@@ -47,4 +47,8 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # No NPM_TOKEN — publishing uses npm Trusted Publishing via OIDC.
+          # Each of the three packages has the formvuelate/formvuelate repo
+          # + this workflow registered as a trusted publisher on npmjs.com,
+          # and the id-token: write permission above grants the OIDC
+          # handshake. npm CLI 10+ picks it up automatically.
