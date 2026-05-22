@@ -13,7 +13,7 @@
     "test:e2e": "cypress open --component",
     "test:e2e:ci": "cypress run --component",
     "lint": "eslint . --fix",
-    "ci:lint": "eslint .",
+    "ci:lint": "eslint . --max-warnings 0",
     "format": "prettier --write .",
     "docs:dev": "pnpm --filter=\"./docs/4.x\" run dev",
     "docs:build": "pnpm --filter=\"./docs/4.x\" run build",

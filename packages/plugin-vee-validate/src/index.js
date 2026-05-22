@@ -183,7 +183,7 @@ function withField (el) {
     setup (props, { attrs }) {
       const { path, mapProps } = props._veeValidateConfig
       const { validations, modelValue } = toRefs(props)
-      const initialValue = modelValue ? modelValue.value : undefined
+      const initialValue = modelValue.value
       // Build a fully qualified field name using dot notation for nested fields
       // ex: user.name
       const name = path ? `${path}.${attrs.model}` : attrs.model
@@ -193,11 +193,9 @@ function withField (el) {
         label
       })
 
-      if (modelValue) {
-        watch(modelValue, (val) => {
-          value.value = val
-        })
-      }
+      watch(modelValue, (val) => {
+        value.value = val
+      })
 
       const localComponents = inject(constants.INJECTED_LOCAL_COMPONENTS, {})
       const resolvedComponent = resolveComponent(Comp, localComponents)

@@ -6,7 +6,7 @@ export default function useFormModel (props, parsedSchema) {
   const formModel = inject(FORM_MODEL, {})
   const hasParentSchema = inject(PARENT_SCHEMA_EXISTS, false)
 
-  const cleanupModelChanges = (schema, oldSchema) => {
+  const cleanupModelChanges = (schema) => {
     if (props.preventModelCleanupOnSchemaChange) return
 
     forEachPropInModel(formModel, (model, value, path) => {

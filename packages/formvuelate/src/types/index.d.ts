@@ -50,7 +50,7 @@ type ClassBindingExpression =
   | (string | Record<string, boolean>)[];
 
 interface FormSlots {
-  // eslint-disable-next-line camelcase
+   
   __VLS_slots: {
     beforeForm: SlotBinds;
     afterForm: SlotBinds;
@@ -77,7 +77,7 @@ declare const SchemaForm: DefineComponent<{
 }> &
   FormSlots
 
-// eslint-disable-next-line no-unused-vars
+ 
 declare const SchemaWizard: DefineComponent<{
   schema: {
     type: PropType<(FormObjectSchema | FormArraySchema)[]>;

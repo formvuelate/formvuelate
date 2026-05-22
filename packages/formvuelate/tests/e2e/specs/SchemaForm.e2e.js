@@ -105,7 +105,6 @@ describe('SchemaForm', () => {
       .should('have.text', 'First name')
       .then(() => {
         label.value = 'Name'
-        cy.wait(100)
 
         cy.get('label').should('have.text', 'Name')
       })

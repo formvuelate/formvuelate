@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import vue from 'eslint-plugin-vue'
 import n from 'eslint-plugin-n'
 import cypress from 'eslint-plugin-cypress/flat'
+import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
 import globals from 'globals'
 
@@ -11,6 +12,8 @@ export default [
       '**/dist/**',
       '**/coverage/**',
       '**/node_modules/**',
+      '**/.vitepress/cache/**',
+      '**/.vitepress/dist/**',
       'docs/2.x/**',
       'docs/3.x/**'
     ]
@@ -19,6 +22,26 @@ export default [
   js.configs.recommended,
   ...vue.configs['flat/recommended'],
   n.configs['flat/recommended-module'],
+
+  // Parse TypeScript files with the TS parser so syntax like `declare global`
+  // doesn't blow up the parser. Keep type-aware rules off — we don't want
+  // to enforce a full TS lint pass on a JS codebase.
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: tseslint.parser
+    }
+  },
+
+  // .d.ts files document type signatures. Parameter names that aren't
+  // "used" inside the declaration are intentional (they document the API).
+  // no-unused-vars makes no sense on declarations.
+  {
+    files: ['**/*.d.ts'],
+    rules: {
+      'no-unused-vars': 'off'
+    }
+  },
 
   {
     languageOptions: {
@@ -37,6 +60,9 @@ export default [
       'vue/attribute-hyphenation': 'off',
       'vue/attributes-order': 'off',
       'vue/multi-word-component-names': 'off',
+      // The `@update:modelValue` form is the convention in user-facing schema
+      // examples, so leave it alone.
+      'vue/v-on-event-hyphenation': 'off',
       'vue/component-tags-order': ['error', {
         order: [['template', 'script'], 'style']
       }],
@@ -69,8 +95,18 @@ export default [
   },
 
   {
-    files: ['**/*.e2e.{js,ts}', '**/cypress/**/*.{js,ts}'],
+    files: ['**/*.e2e.{js,ts}', '**/cypress/**/*.{js,ts}', '**/tests/e2e/**/*.{js,ts}'],
     ...cypress.configs.recommended
+  },
+
+  // Cypress support files do module augmentation with `declare global`;
+  // the type-level names inside namespace blocks look "unused" to the
+  // base no-unused-vars rule.
+  {
+    files: ['**/tests/e2e/support/*.{js,ts}'],
+    rules: {
+      'no-unused-vars': 'off'
+    }
   },
 
   prettier

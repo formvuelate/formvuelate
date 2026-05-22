@@ -180,7 +180,7 @@ describe('Lookup Plugin', () => {
         const { parsedSchema } = lookup({ parsedSchema: schema })
 
         // Force computed property to execute so that warning are fired
-        // eslint-disable-next-line
+         
         parsedSchema.value
 
         expect(warn).toHaveBeenCalledTimes(3)
@@ -204,7 +204,7 @@ describe('Lookup Plugin', () => {
 
       it('can delete a property through a function', () => {
         const lookup = LookupPlugin({
-          mapProps: (el) => {
+          mapProps: () => {
             return {
               label: false
             }
