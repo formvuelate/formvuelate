@@ -20,7 +20,10 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['packages/**/src/**/*.{js,vue}'],
-      exclude: ['packages/**/src/index.js']
+      // Only the core package's index.js is a pure re-export barrel.
+      // The plugin packages keep their actual implementation in src/index.js,
+      // so they must NOT be excluded or coverage would hide most of them.
+      exclude: ['packages/formvuelate/src/index.js']
     }
   }
 })
