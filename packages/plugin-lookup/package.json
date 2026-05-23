@@ -1,6 +1,6 @@
 {
   "name": "@formvuelate/plugin-lookup",
-  "version": "3.9.1",
+  "version": "4.0.0",
   "description": "FormVueLate Lookup plugin",
   "license": "MIT",
   "type": "module",

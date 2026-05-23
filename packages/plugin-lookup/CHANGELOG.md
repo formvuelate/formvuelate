@@ -1,5 +1,34 @@
 # Change Log
 
+## 4.0.0
+
+### Major Changes
+
+- a38fcae: FormVueLate 4.0 — a full revival and modernization of the library after its archival.
+
+  The public API (`SchemaForm`, `useSchemaForm`, `SchemaFormFactory`, `definePlugin`) is unchanged. For most consumers, upgrading is just a matter of bumping peer dependencies — see the [3.x → 4.x migration guide](https://formvuelate.js.org/migration/3-to-4).
+
+  ### Breaking changes
+  - **Vue `^3.4.0` required** (was `^3.0.0`).
+  - **UMD bundles dropped.** Packages ship ES + CJS + types with a modern `exports` map. Use a bundler instead of script tags.
+  - **`@formvuelate/plugin-vuelidate` removed.** It was never published; a Regle-based plugin may replace it in a later 4.x.
+  - **`@formvuelate/plugin-vee-validate` requires `vee-validate@^4.13`.**
+  - **Deep imports unsupported.** Import from the package root (`import { SchemaForm } from 'formvuelate'`), not `formvuelate/dist/*`.
+  - **Node `>=20.18` for development** (runtime consumers unaffected).
+  - 2.x and 3.x are no longer maintained.
+
+  ### Bug fixes
+  - Conditional fields are now cleaned out of `formModel` when their `condition` flips to false, including inside nested schemas.
+  - Nested `SchemaFormFactory` + vee-validate no longer double-registers fields with vee-validate (which previously suppressed validation errors on nested fields).
+
+  ### Internal / tooling
+  - Jest → Vitest, custom Rollup scripts → per-package Vite lib mode, VuePress 1 → VitePress, Lerna → Changesets, yarn 1 → pnpm 9. Cypress upgraded to v15.
+
+### Patch Changes
+
+- Updated dependencies [a38fcae]
+  - formvuelate@4.0.0
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
@@ -7,139 +36,72 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 # [3.9.0](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.8.1...v3.9.0) (2022-05-20)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
-
-
-
-
 
 ## [3.8.1](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.8.0...v3.8.1) (2021-11-19)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 # [3.8.0](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.7.3...v3.8.0) (2021-11-16)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
-
-
-
-
 
 ## [3.7.3](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.7.2...v3.7.3) (2021-11-15)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 ## [3.7.2](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.7.1...v3.7.2) (2021-11-13)
-
 
 ### Bug Fixes
 
-* **lookup, formvuelate:** remapped nested ([#254](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/254)) ([bb1595e](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/bb1595e1e6d5bc18bd1c10cdff13daae6da14d5e)), closes [#252](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/252)
-* **lookup:** types file extension in package.json ([#255](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/255)) ([ce79e43](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/ce79e431cd6520d56f378319b2b8fbafd77f8f38))
-
-
-
-
+- **lookup, formvuelate:** remapped nested ([#254](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/254)) ([bb1595e](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/bb1595e1e6d5bc18bd1c10cdff13daae6da14d5e)), closes [#252](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/252)
+- **lookup:** types file extension in package.json ([#255](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/255)) ([ce79e43](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/ce79e431cd6520d56f378319b2b8fbafd77f8f38))
 
 ## [3.7.1](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.7.0...v3.7.1) (2021-10-27)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 # [3.7.0](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.5...v3.7.0) (2021-10-23)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
-
-
-
-
 
 ## [3.6.5](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.4...v3.6.5) (2021-10-19)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 ## [3.6.4](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.3...v3.6.4) (2021-10-05)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
-
-
-
-
 
 ## [3.6.3](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.2...v3.6.3) (2021-10-02)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 ## [3.6.2](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.1...v3.6.2) (2021-09-26)
-
 
 ### Bug Fixes
 
-* deep map schema fields against lookup components fixes [#224](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/224) ([#234](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/234)) ([77c1a0f](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/77c1a0f0e86b2b0ce48886cef4ce5f920dd34ba2))
-
-
-
-
+- deep map schema fields against lookup components fixes [#224](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/224) ([#234](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/234)) ([77c1a0f](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/77c1a0f0e86b2b0ce48886cef4ce5f920dd34ba2))
 
 ## [3.6.1](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.6.0...v3.6.1) (2021-09-14)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 # [3.6.0](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.5.3...v3.6.0) (2021-09-12)
-
 
 ### Features
 
-* lookup plugin replace SchemaForm with plugin version in sub schemas closes [#224](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/224) ([#229](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/229)) ([90577e7](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/90577e7662f211d69cc6c3126142f154c3d9be12))
-
-
-
-
+- lookup plugin replace SchemaForm with plugin version in sub schemas closes [#224](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/224) ([#229](https://github.com/formvuelate/formvuelate-plugin-lookup/issues/229)) ([90577e7](https://github.com/formvuelate/formvuelate-plugin-lookup/commit/90577e7662f211d69cc6c3126142f154c3d9be12))
 
 ## [3.5.3](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.5.2...v3.5.3) (2021-09-08)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
 
-
-
-
-
 ## [3.5.2](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.5.1...v3.5.2) (2021-09-05)
 
 **Note:** Version bump only for package @formvuelate/plugin-lookup
-
-
-
-
 
 # [3.4.0](https://github.com/formvuelate/formvuelate-plugin-lookup/compare/v3.3.2...v3.4.0) (2021-08-08)
 
