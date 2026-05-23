@@ -29,8 +29,6 @@ Each plugin will modify the `setup` function of `SchemaForm` and change the way 
 </template>
 
 <script>
-import useVuelidate from '@vuelidate'
-import VuelidatePlugin from '@formvuelate/plugin-vuelidate'
 import LookupPlugin from '@formvuelate/plugin-lookup'
 import VeeValidatePlugin from '@formvuelate/plugin-vee-validate'
 
@@ -39,12 +37,11 @@ import { ref } from 'vue'
 
 const SchemaFormWithPlugins = SchemaFormFactory([
   LookupPlugin({
-      mapComponents: {
+    mapComponents: {
       string: 'FormText',
       array: 'FormSelect'
     }
   }),
-  VuelidatePlugin(useVuelidate),
   VeeValidatePlugin(),
 ])
 
@@ -70,7 +67,7 @@ export default {
 
 Now that we have defined a new component called `SchemaFormWithPlugins`, you can use it as you normally use any other component in your application.
 
-### Using locally imported components
+## Using locally imported components
 
 The second parameter accepted by the `SchemaFormFactory` function is an `Object` with a key-value pair for component registration. This object will get merged into the `components: {}` declaration for generated `SchemaForm` component.
 
