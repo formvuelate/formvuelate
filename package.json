@@ -18,7 +18,7 @@
     "docs:dev": "pnpm --filter=\"./docs/4.x\" run dev",
     "docs:build": "pnpm --filter=\"./docs/4.x\" run build",
     "changeset": "changeset",
-    "version-packages": "changeset version",
+    "version-packages": "changeset version && git checkout -- docs/4.x/package.json",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
