@@ -1,6 +1,11 @@
 ---
 sidebarDepth: 3
 ---
+
+<script setup>
+import { horizontalSchema } from '../.vitepress/theme/demoSchemas.js'
+</script>
+
 # SchemaForm
 
 The `SchemaForm` requires one `prop`, `schema`, which is the meta-data of your form. You must also import the `useSchemaForm` composable which we will use in our setup function to initialize the form's `model` where the user's data is kept.
@@ -155,12 +160,60 @@ The `div` will have a class named `schema-row` to apply the layout. You can targ
 The example below applies a `margin-right` style to the first input.
 :::
 
-<iframe src="https://codesandbox.io/embed/fvl-horizontal-form-3x-ldt0i?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="FVL Horizontal Form"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+<DemoContainer>
+<template #demo>
+<ClientOnly>
+<SchemaPlayground :initial-schema="horizontalSchema" />
+</ClientOnly>
+</template>
+<template #code>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { SchemaForm, useSchemaForm } from 'formvuelate'
+
+// Sub-arrays render as a horizontal row (a div.schema-row with display:flex).
+// `style` is passed straight through to the field — here a right margin.
+const schema = ref([
+  [
+    {
+      component: 'FormText',
+      label: 'First Name',
+      model: 'firstName',
+      style: 'margin-right: 10px;'
+    },
+    { component: 'FormText', label: 'Last Name', model: 'lastName' }
+  ],
+  {
+    component: 'FormText',
+    label: 'Email',
+    model: 'email',
+    config: { type: 'email' }
+  },
+  [
+    {
+      component: 'FormSelect',
+      label: 'Favorite thing about Vue',
+      model: 'favoriteThingAboutVue',
+      options: ['Ease of use', 'Documentation', 'Community'],
+      style: 'margin-right: 10px;'
+    },
+    { component: 'FormCheckbox', label: 'Are you a Vue fan?', model: 'isVueFan' }
+  ]
+])
+
+const userData = ref({})
+useSchemaForm(userData)
+</script>
+
+<template>
+  <SchemaForm :schema="schema" />
+</template>
+```
+
+</template>
+</DemoContainer>
 
 ### schemaRowClasses
 
