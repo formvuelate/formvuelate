@@ -2,7 +2,12 @@
 // the playgrounds show the same content users saw in the old CodeSandboxes.
 // Components are referenced by STRING name and resolved against the components
 // registered globally in theme/index.ts.
+//
+// These are the JSON-serialisable schemas used by the editable SchemaPlayground
+// demos. Function/loop-based examples (conditional, 100-nested, wizard) live in
+// their own components since functions can't survive a JSON text editor.
 
+// --- Getting Started playground (object <-> array switch) ---
 export const objSchema = {
   firstName: {
     component: 'FormText',
@@ -126,4 +131,80 @@ export const arraySchema = [
       }
     ]
   }
+]
+
+// --- Example: SchemaForm with useSchemaForm (basic object schema) ---
+export const basicSchema = {
+  firstName: { component: 'FormText', label: 'First Name' },
+  lastName: { component: 'FormText', label: 'Last Name' },
+  email: { component: 'FormText', label: 'Email', config: { type: 'email' } },
+  favoriteThingAboutVue: {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    options: ['Ease of use', 'Documentation', 'Community']
+  }
+}
+
+// --- Example: nested schemas (SchemaForm inside SchemaForm) ---
+export const nestedSchema = {
+  firstName: { component: 'FormText', label: 'First Name' },
+  lastName: { component: 'FormText', label: 'Last Name' },
+  work: {
+    component: 'SchemaForm',
+    schema: {
+      address: { component: 'FormText', label: 'Work address' },
+      details: {
+        component: 'SchemaForm',
+        schema: {
+          position: { component: 'FormText', label: 'Position' },
+          employees: {
+            component: 'FormSelect',
+            label: 'Number of employees',
+            options: ['1', '2', '3', '4+']
+          }
+        }
+      }
+    }
+  }
+}
+
+// --- Example: array-based schema (each field names itself via `model`) ---
+export const arrayExampleSchema = [
+  { component: 'FormText', label: 'First Name', model: 'firstName' },
+  { component: 'FormText', label: 'Last Name', model: 'lastName' },
+  {
+    component: 'FormSelect',
+    label: 'Favorite thing about Vue',
+    model: 'favoriteThingAboutVue',
+    options: ['Ease of use', 'Documentation', 'Community']
+  }
+]
+
+// --- Guide: horizontal form (sub-arrays render as side-by-side rows) ---
+export const horizontalSchema = [
+  [
+    {
+      component: 'FormText',
+      label: 'First Name',
+      model: 'firstName',
+      style: 'margin-right: 10px;'
+    },
+    { component: 'FormText', label: 'Last Name', model: 'lastName' }
+  ],
+  {
+    component: 'FormText',
+    label: 'Email',
+    model: 'email',
+    config: { type: 'email' }
+  },
+  [
+    {
+      component: 'FormSelect',
+      label: 'Favorite thing about Vue',
+      model: 'favoriteThingAboutVue',
+      options: ['Ease of use', 'Documentation', 'Community'],
+      style: 'margin-right: 10px;'
+    },
+    { component: 'FormCheckbox', label: 'Are you a Vue fan?', model: 'isVueFan' }
+  ]
 ]

@@ -64,6 +64,19 @@
   margin: 0;
 }
 
+/* 100-nested demo: keep the deep form scrollable instead of very tall */
+.fvl-demo--scroll {
+  max-height: 420px;
+  overflow: auto;
+}
+
+/* Wizard step navigation */
+.fvl-demo .fvl-wizard-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
 .fvl-demo__options {
   margin-bottom: 1.5rem;
 }

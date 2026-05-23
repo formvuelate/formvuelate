@@ -134,9 +134,53 @@ You don't have to listen to this `submit` button's click events, as `SchemaWizar
 
 The following example uses the `afterForm` slot to toggle Next and Back button s to navigate through the form.
 
-<iframe src="https://codesandbox.io/embed/fvl-wizard-3x-uye2z?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="FVL Horizontal Form"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+<DemoContainer>
+<template #demo>
+<ClientOnly>
+<WizardPlayground />
+</ClientOnly>
+</template>
+<template #code>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { SchemaWizard, useSchemaForm } from 'formvuelate'
+
+const step = ref(0)
+const userData = ref({})
+useSchemaForm(userData)
+
+const wizardSchema = [
+  // Step 1 — name
+  {
+    firstName: { component: 'FormText', label: 'First Name' },
+    lastName: { component: 'FormText', label: 'Last Name' }
+  },
+  // Step 2 — contact
+  {
+    email: { component: 'FormText', label: 'Email', config: { type: 'email' } },
+    isVueFan: { component: 'FormCheckbox', label: 'Are you a Vue fan?' }
+  }
+]
+
+const lastStep = wizardSchema.length - 1
+const next = () => { if (step.value < lastStep) step.value++ }
+const prev = () => { if (step.value > 0) step.value-- }
+const onSubmit = () => alert('Form submitted')
+</script>
+
+<template>
+  <SchemaWizard :schema="wizardSchema" :step="step" @submit="onSubmit">
+    <!-- Put the nav in afterForm so the buttons render inside the <form> -->
+    <template #afterForm>
+      <button v-if="step > 0" type="button" @click="prev">Back</button>
+      <button v-if="step < lastStep" type="button" @click="next">Next</button>
+      <button v-else type="submit">Submit</button>
+    </template>
+  </SchemaWizard>
+</template>
+```
+
+</template>
+</DemoContainer>
