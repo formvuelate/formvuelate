@@ -13,11 +13,12 @@ const tab = ref('demo')
 
 <template>
   <div class="fvl-demo-card">
-    <div class="fvl-demo-card__tabs" role="tablist">
+    <div class="fvl-demo-card__tabs">
       <button
         type="button"
         class="fvl-demo-card__tab"
         :class="{ 'is-active': tab === 'demo' }"
+        :aria-pressed="tab === 'demo'"
         @click="tab = 'demo'"
       >
         Demo
@@ -27,6 +28,7 @@ const tab = ref('demo')
         type="button"
         class="fvl-demo-card__tab"
         :class="{ 'is-active': tab === 'code' }"
+        :aria-pressed="tab === 'code'"
         @click="tab = 'code'"
       >
         Code

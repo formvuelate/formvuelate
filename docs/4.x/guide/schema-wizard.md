@@ -132,7 +132,7 @@ Always use the `afterForm` slot to add your `type="submit"` button, that way it 
 You don't have to listen to this `submit` button's click events, as `SchemaWizard` will take care of emitting a `submit` event whenever it is clicked, or the form is submitted in any other way.
 :::
 
-The following example uses the `afterForm` slot to toggle Next and Back button s to navigate through the form.
+The following example uses the `afterForm` slot to toggle Next and Back buttons to navigate through the form.
 
 <DemoContainer>
 <template #demo>

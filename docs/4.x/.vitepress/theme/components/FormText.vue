@@ -7,6 +7,9 @@ defineProps({
   modelValue: { type: [String, Number], default: '' },
   label: { type: String, default: '' },
   required: { type: Boolean, default: false },
+  // Schemas set the input type either at the top level (type: 'email') or via
+  // config ({ config: { type: 'email' } }); honour both.
+  type: { type: String, default: 'text' },
   config: { type: Object, default: () => ({}) }
 })
 defineEmits(['update:modelValue'])
@@ -19,8 +22,9 @@ defineEmits(['update:modelValue'])
     </span>
     <input
       class="fvl-field__input"
-      :value="modelValue"
+      :type="type"
       v-bind="config"
+      :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
   </label>
