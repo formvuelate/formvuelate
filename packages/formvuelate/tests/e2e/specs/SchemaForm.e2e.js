@@ -254,4 +254,242 @@ describe('SchemaForm', () => {
       expect($el.children().length).to.be.greaterThan(0)
     })
   })
+
+  it('writes user input back into the model', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          firstName: { component: BaseInput, label: 'First name' },
+          lastName: { component: BaseInput, label: 'Last name' }
+        })
+        return () => h('div', [
+          h(SchemaForm, { schema }),
+          h('pre', { class: 'model' }, JSON.stringify(model.value))
+        ])
+      }
+    })
+
+    cy.get('input').eq(0).type('Marina')
+    cy.get('input').eq(1).type('Mosti')
+
+    cy.get('.model').should('contain', '"firstName":"Marina"')
+    cy.get('.model').should('contain', '"lastName":"Mosti"')
+  })
+
+  it('pre-populates inputs from `default` schema values', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          firstName: { component: BaseInput, label: 'First', default: 'Ada' },
+          lastName: { component: BaseInput, label: 'Last', default: 'Lovelace' },
+          subscribed: { component: BaseInput, label: 'Subscribed', default: false }
+        })
+        return () => h('div', [
+          h(SchemaForm, { schema }),
+          h('pre', { class: 'model' }, JSON.stringify(model.value))
+        ])
+      }
+    })
+
+    cy.get('input').eq(0).should('have.value', 'Ada')
+    cy.get('input').eq(1).should('have.value', 'Lovelace')
+    // `false` is a legitimate default and must be applied (not skipped).
+    cy.get('.model').should('contain', '"subscribed":false')
+  })
+
+  it('renders an array schema as horizontal rows', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef([
+          [
+            { model: 'firstName', component: BaseInput, label: 'First' },
+            { model: 'lastName', component: BaseInput, label: 'Last' }
+          ],
+          [
+            { model: 'email', component: BaseInput, label: 'Email' }
+          ]
+        ])
+        return () => h(SchemaForm, { schema })
+      }
+    })
+
+    cy.get('.schema-row').should('have.length', 2)
+    cy.get('.schema-row').eq(0).find('input').should('have.length', 2)
+    cy.get('.schema-row').eq(1).find('input').should('have.length', 1)
+  })
+
+  it('applies sharedConfig to every field', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          a: { component: BaseInput, label: 'A' },
+          b: { component: BaseInput, label: 'B' }
+        })
+        return () => h(SchemaForm, { schema, sharedConfig: { placeholder: 'shared' } })
+      }
+    })
+
+    cy.get('input[placeholder="shared"]').should('have.length', 2)
+  })
+
+  it('toggles a top-level conditional field based on another field', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          hasPet: { component: BaseInput, label: 'Has pet? (type yes)' },
+          petName: {
+            component: BaseInput,
+            label: 'Pet name',
+            condition: m => m.hasPet === 'yes'
+          }
+        })
+        return () => h(SchemaForm, { schema })
+      }
+    })
+
+    cy.get('input').should('have.length', 1)
+    cy.get('input').first().type('yes')
+    cy.get('input').should('have.length', 2)
+    cy.get('label').eq(1).should('have.text', 'Pet name')
+
+    // Flipping the condition back hides the dependent field again.
+    cy.get('input').first().clear()
+    cy.get('input').first().type('no')
+    cy.get('input').should('have.length', 1)
+  })
+
+  it('writes a deeply nested (3-level) input to the correct model path', () => {
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          level1: {
+            component: SchemaForm,
+            schema: {
+              level2: {
+                component: SchemaForm,
+                schema: {
+                  deepField: { component: BaseInput, label: 'Deep' }
+                }
+              }
+            }
+          }
+        })
+        return () => h('div', [
+          h(SchemaForm, { schema }),
+          h('pre', { class: 'model' }, JSON.stringify(model.value))
+        ])
+      }
+    })
+
+    cy.get('input').type('deepvalue')
+    cy.get('.model').should('contain', '"level1":{"level2":{"deepField":"deepvalue"}}')
+  })
+
+  it('preserves compatible model values across a runtime schema swap', () => {
+    const variant = ref('a')
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = computed(() =>
+          variant.value === 'a'
+            ? {
+                shared: { component: BaseInput, label: 'Shared' },
+                onlyA: { component: BaseInput, label: 'Only A' }
+              }
+            : {
+                shared: { component: BaseInput, label: 'Shared' },
+                onlyB: { component: BaseInput, label: 'Only B' }
+              }
+        )
+        return () => h('div', [
+          h(SchemaForm, { schema }),
+          h('pre', { class: 'model' }, JSON.stringify(model.value))
+        ])
+      }
+    })
+
+    cy.get('input').eq(0).type('keepme')
+    cy.get('input').eq(1).type('willbecleaned')
+    cy.get('.model').should('contain', '"shared":"keepme"')
+    cy.get('.model')
+      .should('contain', '"onlyA":"willbecleaned"')
+      .then(() => {
+        variant.value = 'b'
+
+        // shared field's value survives the swap; onlyA is cleaned up
+        // because it's no longer in the schema.
+        cy.get('.model').should('contain', '"shared":"keepme"')
+        cy.get('.model').should('not.contain', 'onlyA')
+        cy.get('label').eq(1).should('have.text', 'Only B')
+      })
+  })
+
+  it('keeps removed-field data when preventModelCleanupOnSchemaChange is set', () => {
+    const variant = ref('a')
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = computed(() =>
+          variant.value === 'a'
+            ? {
+                keep: { component: BaseInput, label: 'Keep' },
+                removeme: { component: BaseInput, label: 'Remove' }
+              }
+            : {
+                keep: { component: BaseInput, label: 'Keep' }
+              }
+        )
+        return () => h('div', [
+          h(SchemaForm, { schema, preventModelCleanupOnSchemaChange: true }),
+          h('pre', { class: 'model' }, JSON.stringify(model.value))
+        ])
+      }
+    })
+
+    cy.get('input').eq(0).type('kept')
+    cy.get('input').eq(1).type('stays')
+    cy.get('.model')
+      .should('contain', '"removeme":"stays"')
+      .then(() => {
+        variant.value = 'b'
+
+        cy.get('input').should('have.length', 1)
+        // With cleanup prevented, the removed field's value is retained.
+        cy.get('.model').should('contain', '"removeme":"stays"')
+      })
+  })
+
+  it('emits submit from the default form wrapper', () => {
+    const onSubmit = cy.stub().as('submit')
+    cy.mount({
+      setup () {
+        const model = ref({})
+        useSchemaForm(model)
+        const schema = shallowRef({
+          name: { component: BaseInput, label: 'Name' }
+        })
+        return () =>
+          h(SchemaForm, { schema, onSubmit }, {
+            afterForm: () => h('button', { type: 'submit' }, 'Go')
+          })
+      }
+    })
+
+    cy.get('button').click()
+    cy.get('@submit').should('have.been.calledOnce')
+  })
 })
