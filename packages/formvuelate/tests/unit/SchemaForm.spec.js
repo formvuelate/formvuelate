@@ -163,6 +163,20 @@ describe('SchemaForm', () => {
 
       expect(wrapper.find('form').exists()).toBe(true)
     })
+
+    it('does not crash when a schema row is empty', () => {
+      // normalizeSchema preserves empty rows. The SchemaRow :key must not
+      // assume row[0] exists, or rendering throws on row[0].uuid.
+      const schema = [
+        [],
+        [{ model: 'firstName', component: FormText, label: 'First Name' }]
+      ]
+
+      const wrapper = mount(SchemaWrapperFactory(schema))
+
+      expect(wrapper.find('form').exists()).toBe(true)
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(1)
+    })
   })
 
   describe('default schema values', () => {
@@ -905,25 +919,27 @@ describe('SchemaForm', () => {
     })
 
     it('injects the nestedSchemaModel prop as part of the path', () => {
-      const schema = {
-        firstName: {
-          component: FormText,
-          label: 'First Name'
-        },
-        lastName: {
-          component: FormText,
-          label: 'Last Name'
+      let capturedPath = null
+      const PathInspector = markRaw({
+        template: '<span data-test="path">{{ path }}</span>',
+        props: ['label'],
+        emits: ['update:modelValue'],
+        setup () {
+          capturedPath = Vue.inject(SCHEMA_MODEL_PATH, null)
+          return { path: capturedPath }
         }
-      }
+      })
 
-      const provideSpy = jest.spyOn(Vue, 'provide')
+      const schema = {
+        firstName: { component: PathInspector, label: 'First Name' }
+      }
 
       mount(SchemaWrapperFactory(
         schema,
         { nestedSchemaModel: 'myNestedPath' }
       ))
 
-      expect(provideSpy).toHaveBeenCalledWith(SCHEMA_MODEL_PATH, 'myNestedPath')
+      expect(capturedPath).toBe('myNestedPath')
     })
   })
 })

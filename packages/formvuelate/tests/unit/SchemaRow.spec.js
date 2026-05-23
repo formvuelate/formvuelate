@@ -18,13 +18,13 @@ describe('SchemaRow', () => {
             model: 'FirstName',
             component: FormText,
             label: 'First Name',
-            condition: model => false
+            condition: () => false
           },
           {
             model: 'LastName',
             component: FormText,
             label: 'Last Name',
-            condition: model => false
+            condition: () => false
           }
         ]
       }
@@ -41,13 +41,13 @@ describe('SchemaRow', () => {
             model: 'FirstName',
             component: FormText,
             label: 'First Name',
-            condition: model => false
+            condition: () => false
           },
           {
             model: 'LastName',
             component: FormText,
             label: 'Last Name',
-            condition: model => true
+            condition: () => true
           }
         ]
       }

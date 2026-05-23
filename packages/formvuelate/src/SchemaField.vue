@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import { inject, computed, watch } from 'vue'
-import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, DELETE_FORM_MODEL_PROP, INJECTED_LOCAL_COMPONENTS } from './utils/constants'
+import { inject, computed } from 'vue'
+import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, INJECTED_LOCAL_COMPONENTS } from './utils/constants'
 
 export default {
   name: 'SchemaField',
@@ -53,12 +53,15 @@ export default {
     })
 
     const updateFormModel = inject(UPDATE_FORM_MODEL)
-    const deleteFormModelProperty = inject(DELETE_FORM_MODEL_PROP)
 
     const update = (value) => {
       updateFormModel(formModel, props.field.model, value, path)
     }
 
+    // Render-time visibility. Conditional cleanup of formModel values for
+    // hidden fields is handled by useFormModel (see features/FormModel.js),
+    // because a v-if'd-out SchemaField wouldn't be mounted to run cleanup
+    // itself.
     const schemaCondition = computed(() => {
       const condition = props.field.condition
       if (!condition || typeof condition !== 'function') return true
@@ -70,13 +73,6 @@ export default {
     const locals = inject(INJECTED_LOCAL_COMPONENTS, {})
     const component = computed(() => {
       return locals[props.field.component] || props.field.component
-    })
-
-    watch(schemaCondition, shouldDisplay => {
-      if (shouldDisplay) return
-      if (props.preventModelCleanupOnSchemaChange) return
-
-      deleteFormModelProperty(formModel, props.field.model, path)
     })
 
     return {

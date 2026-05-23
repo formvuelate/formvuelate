@@ -1,6 +1,6 @@
 # FormVueLate Contributing Guide
 
-Hi! We are really excited that you are interested in contributing to Vuelidate. Before submitting your contribution, please make sure to take a moment and read through the following guidelines:
+Hi! We are really excited that you are interested in contributing to FormVueLate. Before submitting your contribution, please take a moment to read through the following guidelines:
 
 - [Code of Conduct](https://github.com/formvuelate/formvuelate/blob/main/.github/CODE_OF_CONDUCT.md)
 - [Issue Reporting Guidelines](#issue-reporting-guidelines)
@@ -10,59 +10,66 @@ Hi! We are really excited that you are interested in contributing to Vuelidate. 
 
 ## Issue Reporting Guidelines
 
-- Make sure that you are familiar with documentation before submitting an issue. [https://formvuelate.js.org/](https://formvuelate.js.org/)
-- Try to provide an example to your issue. Issues without a working fiddle are generally much harder to solve and usually take much more time to actually do it.
+- Make sure you're familiar with the documentation before submitting an issue: [https://formvuelate.js.org/](https://formvuelate.js.org/)
+- Try to provide a minimal reproduction. Issues without a runnable repro are much harder to triage.
 
 ## Pull Request Guidelines
 
-- The `main` branch is just a snapshot of the latest stable release. All development should be done in dedicated branches. **Do not submit PRs against the `main` branch.**
-
-- Checkout a topic branch from the relevant branch, e.g. `dev`, and merge back against that branch.
-
-- Work in the `src` folder of packages and **DO NOT** check-in `dist` in the commits.
-
-- It's OK to have multiple small commits as you work on the PR - GitHub will automatically squash it before merging.
-
-- Make sure `yarn test` passes. (see [development setup](#development-setup))
-
-- If adding a new feature:
-  - Add accompanying test case.
-  - Provide a convincing reason to add this feature. Ideally, you should open a suggestion issue first and have it approved before working on it.
-
-- If fixing bug:
-  - If you are resolving a special issue, add `(fix #xxxx[,#xxxx])` (#xxxx is the issue id) in your PR title for a better release log, e.g. `update entities encoding/decoding (fix #3899)`.
-  - Provide a detailed description of the bug in the PR. Live demo preferred.
-  - Add appropriate test coverage if applicable.
+- Branch from `main`. Open PRs against `main`.
+- Work in `src/` of each package and **do not** check in `dist/`.
+- Multiple small commits during review are fine — GitHub will squash on merge.
+- Make sure `pnpm test` passes (see [Development Setup](#development-setup)).
+- Add a [changeset](../.changeset/README.md) for any user-visible change: `pnpm changeset`. The changeset bot will block PRs that need one.
+- Bug fixes: reference the issue number in the PR title, e.g. `fix: handle nested cleanup (fix #123)`.
+- New features: open a suggestion issue first to align before implementing.
 
 ## Development Setup
 
-You will need [Node.js](http://nodejs.org) **version 14.x** and [yarn](https://yarnpkg.com/en/docs/install).
+You'll need [Node.js](http://nodejs.org) **20.18+** and [pnpm 9](https://pnpm.io). The Node version is pinned in `.nvmrc`; the pnpm version is pinned via `packageManager` in `package.json` (so [Corepack](https://nodejs.org/api/corepack.html) will use the right one automatically).
 
-After cloning the repo, run:
-
-``` bash
-yarn install
+```bash
+pnpm install
 ```
 
-### Commonly used NPM scripts
+### Common scripts
 
-``` bash
-# build the package
-$ yarn build
+```bash
+# Build all packages
+pnpm build
 
-# watch and auto re-run unit tests of a package
-$ yarn test:unit:watch
+# Run unit tests (vitest)
+pnpm test:unit
 
-# run the full test suite, including linting
-$ yarn test
+# Watch mode unit tests
+pnpm test:unit:watch
+
+# Run component tests (Cypress)
+pnpm test:e2e:ci
+
+# Lint everything
+pnpm lint
 ```
 
-The `docs` folder includes versions 2.x and 3.x, each with their own NPM scripts.
+### Docs
 
-``` bash
-# serve and watch for changes on the docs
-yarn dev
+The active documentation lives at `docs/4.x` and is built with VitePress.
 
-# build the docs
-yarn build
+```bash
+# Serve docs locally with HMR
+pnpm docs:dev
+
+# Build the static docs site
+pnpm docs:build
+```
+
+## Project Structure
+
+```
+packages/
+  formvuelate/                 # core library
+  plugin-lookup/               # @formvuelate/plugin-lookup
+  plugin-vee-validate/         # @formvuelate/plugin-vee-validate
+docs/
+  4.x/                         # VitePress docs (the active docs site)
+.changeset/                    # release notes drive npm publishing
 ```

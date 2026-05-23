@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main, '4.0']
+  pull_request:
+    branches: [main, '4.0']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        # pnpm version is pinned via `packageManager` in package.json,
+        # so we don't pass `version:` here (action-setup@v4 errors on conflict).
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm ci:lint
+
+      - name: Unit tests
+        run: pnpm test:unit
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Install Cypress binary
+        run: pnpm exec cypress install
+
+      - name: Component tests (Cypress)
+        uses: cypress-io/github-action@v6
+        with:
+          install: false
+          component: true
+
+      - name: Upload coverage
+        if: always()
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

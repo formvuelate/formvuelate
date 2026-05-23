@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        # pnpm version is pinned via `packageManager` in package.json,
+        # so we don't pass `version:` here (action-setup@v4 errors on conflict).
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm build
+
+      - name: Create release PR or publish
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          version: pnpm run version-packages
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No NPM_TOKEN — publishing uses npm Trusted Publishing via OIDC.
+          # Each of the three packages has the formvuelate/formvuelate repo
+          # + this workflow registered as a trusted publisher on npmjs.com,
+          # and the id-token: write permission above grants the OIDC
+          # handshake. npm CLI 10+ picks it up automatically.

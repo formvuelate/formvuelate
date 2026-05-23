@@ -1,6 +1,5 @@
 import { SchemaFormWrapper } from '../support/helpers'
 import { ref } from 'vue'
-import { mount } from '@cypress/vue'
 import { BaseInput } from '../../utils/components'
 import SchemaForm from '../../../src/SchemaForm.vue'
 
@@ -30,7 +29,7 @@ describe('useSchemaForm', () => {
       }
     })
 
-    mount(SchemaFormWrapper({
+    cy.mount(SchemaFormWrapper({
       schema,
       model,
       onSetup: ({ updateFormModel }) => {

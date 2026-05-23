@@ -50,7 +50,7 @@ type ClassBindingExpression =
   | (string | Record<string, boolean>)[];
 
 interface FormSlots {
-  // eslint-disable-next-line camelcase
+   
   __VLS_slots: {
     beforeForm: SlotBinds;
     afterForm: SlotBinds;
@@ -77,7 +77,7 @@ declare const SchemaForm: DefineComponent<{
 }> &
   FormSlots
 
-// eslint-disable-next-line no-unused-vars
+ 
 declare const SchemaWizard: DefineComponent<{
   schema: {
     type: PropType<(FormObjectSchema | FormArraySchema)[]>;
@@ -91,3 +91,19 @@ declare const SchemaWizard: DefineComponent<{
   FormSlots
 
 export declare function definePlugin(plugin: PluginFunction | { setup: PluginFunction, extend: PluginExtenderFunction }): PluginFunction;
+
+export declare const constants: {
+  IS_SCHEMA_WIZARD: string;
+  PARENT_SCHEMA_EXISTS: string;
+  INJECTED_SCHEMA: string;
+  SCHEMA_MODEL_PATH: string;
+  FORM_MODEL: string;
+  FIND_NESTED_FORM_MODEL_PROP: string;
+  UPDATE_FORM_MODEL: string;
+  DELETE_FORM_MODEL_PROP: string;
+  LOOKUP_PARSE_SUB_SCHEMA_FORMS: string;
+  INJECTED_LOCAL_COMPONENTS: string;
+};
+
+export { SchemaForm, SchemaWizard };
+export default SchemaForm;

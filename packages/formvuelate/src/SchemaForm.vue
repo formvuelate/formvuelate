@@ -11,7 +11,7 @@
 
     <SchemaRow
       v-for="(row, index) in parsedSchema"
-      :key="index"
+      :key="row[0]?.uuid ?? index"
       :row="row"
       :schemaRowClasses="schemaRowClasses"
       :unwrappedRows="unwrappedRows"

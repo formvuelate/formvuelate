@@ -1,8 +1,0 @@
-{
-  "pluginsFile": "packages/formvuelate/tests/e2e/plugins/index.js",
-  "supportFile": "packages/formvuelate/tests/e2e/support/index.js",
-  "component": {
-    "componentFolder": "packages/formvuelate/tests/e2e/specs",
-    "testFiles": "**/*.e2e.js"
-  }
-}

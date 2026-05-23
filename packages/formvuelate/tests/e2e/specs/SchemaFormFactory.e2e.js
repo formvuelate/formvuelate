@@ -1,4 +1,3 @@
-import { mount } from '@cypress/vue'
 
 import { h, ref, shallowRef } from 'vue'
 import { SchemaFormFactory, useSchemaForm } from '../../../src/index'
@@ -10,7 +9,7 @@ describe('SchemaFormFactory', () => {
   it('works with a blank plugin configuration and locally defined components', () => {
     const SchemaFormWithPlugins = SchemaFormFactory([], { BaseInput })
 
-    mount({
+    cy.mount({
       components: { SchemaFormWithPlugins },
       setup () {
         const model = ref({
@@ -98,7 +97,7 @@ describe('SchemaFormFactory', () => {
         })
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})
@@ -165,7 +164,7 @@ describe('SchemaFormFactory', () => {
         })
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})
@@ -182,6 +181,54 @@ describe('SchemaFormFactory', () => {
 
       cy.get('input').should('have.length', 4)
       cy.get('label').eq(3).should('have.text', 'Double nested text')
+    })
+
+    it('maps props through a function form', () => {
+      const SchemaFormWithPlugins = SchemaFormFactory([
+        LookupPlugin({
+          mapComponents: { text: BaseInput },
+          mapProps: () => ({ heading: 'label' })
+        })
+      ])
+
+      cy.mount({
+        components: { SchemaFormWithPlugins },
+        setup () {
+          useSchemaForm(ref({}))
+          const schemaRef = shallowRef({
+            name: { component: 'text', heading: 'Your name' }
+          })
+          return () => h(SchemaFormWithPlugins, { schema: schemaRef })
+        }
+      })
+
+      // `heading` was renamed to `label`, so BaseInput renders it.
+      cy.get('label').should('have.text', 'Your name')
+      cy.get('input').should('have.length', 1)
+    })
+
+    it('binds user input through lookup-mapped components', () => {
+      const SchemaFormWithPlugins = SchemaFormFactory([
+        LookupPlugin({ mapComponents: { text: BaseInput } })
+      ])
+
+      cy.mount({
+        components: { SchemaFormWithPlugins },
+        setup () {
+          const model = ref({})
+          useSchemaForm(model)
+          const schemaRef = shallowRef({
+            username: { component: 'text', label: 'Username' }
+          })
+          return () => h('div', [
+            h(SchemaFormWithPlugins, { schema: schemaRef }),
+            h('pre', { class: 'model' }, JSON.stringify(model.value))
+          ])
+        }
+      })
+
+      cy.get('input').type('marina')
+      cy.get('.model').should('contain', '"username":"marina"')
     })
   })
 
@@ -220,7 +267,7 @@ describe('SchemaFormFactory', () => {
         VeeValidatePlugin({})
       ])
 
-      mount({
+      cy.mount({
         components: { SchemaFormWithPlugins },
         setup () {
           const model = ref({})
@@ -241,7 +288,9 @@ describe('SchemaFormFactory', () => {
       cy.get('input').eq(1).type('Ma')
       cy.get('.error').should('have.text', 'First Name nested is not valid.')
 
+      // Reaching a valid value (length > 3) clears the nested error.
       cy.get('input').eq(1).type('rina')
+      cy.get('.error').should('not.exist')
     })
   })
 })

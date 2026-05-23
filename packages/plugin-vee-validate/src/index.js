@@ -49,6 +49,17 @@ export default function VeeValidatePlugin (opts) {
     const { handleSubmit } = formContext
 
     function mapField (el, path = '') {
+      // If this element's component is already a withFieldWrapper (because an
+      // outer plugin instance wrapped it for a nested SchemaForm), leave it
+      // alone. Re-wrapping would register the field with vee-validate twice and
+      // the first registration gets marked pendingUnmount, suppressing errors.
+      // Only valid when the wrapper survived sibling-plugin processing — e.g.
+      // when LookupPlugin's mapProperties re-resolves the component, we still
+      // need to wrap fresh.
+      if (el && el.component && el.component.name === 'withFieldWrapper') {
+        return el
+      }
+
       // Handles nested schemas
       // doesn't treat nested forms as fields
       // instead goes over their fields and maps them recursively
@@ -172,7 +183,7 @@ function withField (el) {
     setup (props, { attrs }) {
       const { path, mapProps } = props._veeValidateConfig
       const { validations, modelValue } = toRefs(props)
-      const initialValue = modelValue ? modelValue.value : undefined
+      const initialValue = modelValue.value
       // Build a fully qualified field name using dot notation for nested fields
       // ex: user.name
       const name = path ? `${path}.${attrs.model}` : attrs.model
@@ -182,11 +193,9 @@ function withField (el) {
         label
       })
 
-      if (modelValue) {
-        watch(modelValue, (val) => {
-          value.value = val
-        })
-      }
+      watch(modelValue, (val) => {
+        value.value = val
+      })
 
       const localComponents = inject(constants.INJECTED_LOCAL_COMPONENTS, {})
       const resolvedComponent = resolveComponent(Comp, localComponents)

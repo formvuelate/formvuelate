@@ -31,10 +31,10 @@ const rawSchema = [
 ]
 
 const schema = computed(() => rawSchema)
-const warn = jest.spyOn(console, 'warn').mockImplementation()
+const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
 
 describe('Lookup Plugin', () => {
-  beforeEach(() => jest.clearAllMocks())
+  beforeEach(() => vi.clearAllMocks())
   afterAll(() => warn.mockRestore())
 
   describe('mapComponents', () => {
@@ -54,6 +54,59 @@ describe('Lookup Plugin', () => {
       expect(parsedSchema.value[0][0].component).toEqual('BaseInput')
       expect(parsedSchema.value[1][0].component).toEqual('BaseSelect')
       expect(parsedSchema.value[1][1].component).toEqual('FormCheckbox')
+    })
+
+    it('deep-maps components inside nested sub-schemas (array form)', () => {
+      const nestedSchema = computed(() => [
+        [{ model: 'name', component: 'FormText', label: 'Name' }],
+        [
+          {
+            model: 'address',
+            component: 'FormGroup',
+            schema: [
+              { model: 'street', component: 'FormText', label: 'Street' },
+              { model: 'city', component: 'FormText', label: 'City' }
+            ]
+          }
+        ]
+      ])
+
+      const lookup = LookupPlugin({
+        mapComponents: { FormText: 'BaseInput', FormGroup: 'BaseGroup' }
+      })
+      const { parsedSchema } = lookup({ parsedSchema: nestedSchema })
+
+      expect(parsedSchema.value[0][0].component).toEqual('BaseInput')
+      // the container itself is mapped
+      expect(parsedSchema.value[1][0].component).toEqual('BaseGroup')
+      // and so are its nested children (the recursive branch of mapComps)
+      expect(parsedSchema.value[1][0].schema[0].component).toEqual('BaseInput')
+      expect(parsedSchema.value[1][0].schema[1].component).toEqual('BaseInput')
+    })
+
+    it('deep-maps components when the nested schema is in object form', () => {
+      // The top-level schema reaching the plugin is always normalized to 2D
+      // by FormVueLate; only the nested `.schema` can still be an object,
+      // which mapComps normalizes during its recursion.
+      const nestedSchema = computed(() => [
+        [
+          {
+            model: 'address',
+            component: 'FormGroup',
+            schema: {
+              street: { component: 'FormText', label: 'Street' }
+            }
+          }
+        ]
+      ])
+
+      const lookup = LookupPlugin({
+        mapComponents: { FormText: 'BaseInput', FormGroup: 'BaseGroup' }
+      })
+      const { parsedSchema } = lookup({ parsedSchema: nestedSchema })
+
+      expect(parsedSchema.value[0][0].component).toEqual('BaseGroup')
+      expect(parsedSchema.value[0][0].schema[0].component).toEqual('BaseInput')
     })
   })
 
@@ -121,7 +174,7 @@ describe('Lookup Plugin', () => {
 
       const schema = computed(() => rawSchema)
 
-      const mapper = jest.fn((el) => {
+      const mapper = vi.fn((el) => {
         if (el.type === 'FormText') {
           return {
             mappable: 'remapped',
@@ -180,7 +233,7 @@ describe('Lookup Plugin', () => {
         const { parsedSchema } = lookup({ parsedSchema: schema })
 
         // Force computed property to execute so that warning are fired
-        // eslint-disable-next-line
+         
         parsedSchema.value
 
         expect(warn).toHaveBeenCalledTimes(3)
@@ -204,7 +257,7 @@ describe('Lookup Plugin', () => {
 
       it('can delete a property through a function', () => {
         const lookup = LookupPlugin({
-          mapProps: (el) => {
+          mapProps: () => {
             return {
               label: false
             }

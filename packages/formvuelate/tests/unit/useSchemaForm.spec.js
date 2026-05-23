@@ -1,3 +1,8 @@
+vi.mock('vue', async (importOriginal) => {
+  const actual = await importOriginal()
+  return { ...actual, provide: vi.fn() }
+})
+
 import useSchemaForm from '../../src/features/useSchemaForm'
 import { FORM_MODEL } from '../../src/utils/constants'
 import * as Helpers from '../../src/utils/Helpers'
@@ -6,10 +11,8 @@ import * as Vue from 'vue'
 const { isRef, ref } = Vue
 
 describe('useSchemaForm', () => {
-  beforeAll(() => {
-    // Mock provide since we are going to use it outside of a setup fn and it throws warnings
-    // eslint-disable-next-line no-import-assign
-    Vue.provide = jest.fn()
+  beforeEach(() => {
+    Vue.provide.mockClear()
   })
 
   it('makes the form model a ref if it isnt', () => {
@@ -37,7 +40,7 @@ describe('useSchemaForm', () => {
   })
 
   it('exposes a wrapped version of the updateFormModel helper', () => {
-    const spy = jest.spyOn(Helpers, 'updateFormModel')
+    const spy = vi.spyOn(Helpers, 'updateFormModel')
 
     const model = ref({
       nested: {

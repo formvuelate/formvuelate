@@ -1,0 +1,6 @@
+**/dist/**
+**/coverage/**
+**/node_modules/**
+docs/2.x/**
+docs/3.x/**
+pnpm-lock.yaml

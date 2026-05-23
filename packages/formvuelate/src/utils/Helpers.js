@@ -74,15 +74,16 @@ export const forEachSchemaElement = (schema, fn, path = '') => {
   const normalizedSchema = normalizeSchema(unref(schema))
 
   for (const row of normalizedSchema) {
-    let rowPath = path
-
     for (const el of row) {
+      // Each element lives at the current `path`. Its own model is only part
+      // of the path for its *children*. Use a per-element local so the path
+      // doesn't leak to later elements in the same row.
       if (el.schema) {
-        rowPath = rowPath === '' ? el.model : `${rowPath}.${el.model}`
-        forEachSchemaElement(el.schema, fn, rowPath)
+        const nestedPath = path === '' ? el.model : `${path}.${el.model}`
+        forEachSchemaElement(el.schema, fn, nestedPath)
       }
 
-      fn(el, rowPath)
+      fn(el, path)
     }
   }
 }
@@ -110,9 +111,14 @@ export const forEachPropInModel = (formModel, fn, path = '') => {
     const value = rawModel[prop]
 
     if (typeof value === 'object' && value !== null) {
-      path = path === '' ? prop : `${path}.${prop}`
-      return forEachPropInModel(value, fn, path)
+      // Recurse into the nested object using a per-prop local path. Crucially
+      // we do NOT return here — returning would skip every sibling prop that
+      // comes after the first nested object at this level.
+      const nestedPath = path === '' ? prop : `${path}.${prop}`
+      forEachPropInModel(value, fn, nestedPath)
+      continue
     }
+
     fn(prop, value, path)
   }
 }
