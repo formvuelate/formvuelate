@@ -300,6 +300,56 @@ describe('SchemaForm', () => {
       expect(formModel.value.levelOneA.amount).toEqual('10')
       expect(formModel.value.levelOneB.amount).toEqual('20')
     })
+
+    // Regression for #271: a nested array schema whose fields declare `default`
+    // values used to leak its path onto the sibling fields that came *after* it,
+    // nesting those siblings under the group instead of keeping them at the
+    // parent level. Defaults are the trigger — without them the bug disappeared.
+    it('does not nest sibling fields declared after a nested schema with defaults (#271)', () => {
+      const schema = [
+        {
+          model: 'group',
+          schema: [
+            {
+              model: 'inner',
+              component: FormText,
+              label: 'Inner',
+              default: 'innerDefault'
+            },
+            {
+              model: 'deepGroup',
+              schema: [
+                {
+                  model: 'deepInner',
+                  component: FormText,
+                  label: 'Deep inner',
+                  default: 'deepDefault'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          model: 'topLevel',
+          component: FormText,
+          label: 'Top level',
+          default: 'topDefault'
+        }
+      ]
+
+      const formModel = ref({})
+
+      mount(SchemaWrapperFactory(schema, null, formModel))
+      expect(formModel.value).toEqual({
+        group: {
+          inner: 'innerDefault',
+          deepGroup: {
+            deepInner: 'deepDefault'
+          }
+        },
+        topLevel: 'topDefault'
+      })
+    })
   })
 
   it('renders a form with multiple nested schemas at the same nesting level', () => {
