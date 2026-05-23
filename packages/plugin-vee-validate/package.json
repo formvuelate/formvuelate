@@ -31,7 +31,7 @@
     "yup": "^1.4.0"
   },
   "peerDependencies": {
-    "formvuelate": "^4.0.0",
+    "formvuelate": "^4.0.1",
     "vee-validate": "^4.13.0",
     "vue": "^3.4.0"
   },
