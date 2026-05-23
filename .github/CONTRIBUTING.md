@@ -25,7 +25,7 @@ Hi! We are really excited that you are interested in contributing to FormVueLate
 
 ## Development Setup
 
-You'll need [Node.js](http://nodejs.org) **20.18+** and [pnpm 9](https://pnpm.io). The Node version is pinned in `.nvmrc`; the pnpm version is pinned via `packageManager` in `package.json` (so [Corepack](https://nodejs.org/api/corepack.html) will use the right one automatically).
+You'll need [Node.js](http://nodejs.org) **20.19+** and [pnpm 9](https://pnpm.io). The Node version is pinned in `.nvmrc` (**Node 24 LTS**); the pnpm version is pinned via `packageManager` in `package.json` (so [Corepack](https://nodejs.org/api/corepack.html) will use the right one automatically).
 
 ```bash
 pnpm install

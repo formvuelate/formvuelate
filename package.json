@@ -48,7 +48,7 @@
     "yup": "^1.4.0"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   },
   "bugs": {
     "url": "https://github.com/formvuelate/formvuelate/issues"

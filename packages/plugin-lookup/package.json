@@ -34,7 +34,7 @@
     "vue": "^3.4.0"
   },
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   },
   "author": {
     "name": "Marina Mosti"
