@@ -10,8 +10,8 @@
     />
 
     <SchemaRow
-      v-for="row in parsedSchema"
-      :key="row[0].uuid"
+      v-for="(row, index) in parsedSchema"
+      :key="row[0]?.uuid ?? index"
       :row="row"
       :schemaRowClasses="schemaRowClasses"
       :unwrappedRows="unwrappedRows"

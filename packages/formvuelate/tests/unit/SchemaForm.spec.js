@@ -163,6 +163,20 @@ describe('SchemaForm', () => {
 
       expect(wrapper.find('form').exists()).toBe(true)
     })
+
+    it('does not crash when a schema row is empty', () => {
+      // normalizeSchema preserves empty rows. The SchemaRow :key must not
+      // assume row[0] exists, or rendering throws on row[0].uuid.
+      const schema = [
+        [],
+        [{ model: 'firstName', component: FormText, label: 'First Name' }]
+      ]
+
+      const wrapper = mount(SchemaWrapperFactory(schema))
+
+      expect(wrapper.find('form').exists()).toBe(true)
+      expect(wrapper.findAllComponents(FormText)).toHaveLength(1)
+    })
   })
 
   describe('default schema values', () => {
