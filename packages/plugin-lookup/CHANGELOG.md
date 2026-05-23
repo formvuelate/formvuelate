@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.1
+
+### Patch Changes
+
+- Version bump to keep the @formvuelate/* packages in lockstep with formvuelate@4.0.1. No functional changes.
+
 ## 4.0.0
 
 ### Major Changes
