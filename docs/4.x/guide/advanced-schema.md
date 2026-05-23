@@ -247,3 +247,36 @@ updateFormModel('nested.phone', '555-555-555')
 console.log(model.value.nested.phone) // outputs 555-555-555
 ```
 
+## Dynamic and multi-step models
+
+`useSchemaForm` must be called **once, synchronously, inside your component's `setup()`**. Under the hood it uses Vue's `provide()`, which only works while a component is being set up. Calling it later — for example inside a click handler when switching tabs or steps — triggers the following warning, and the form's model will not be wired up:
+
+```
+[Vue warn]: provide() can only be used inside setup().
+```
+
+Instead of re-calling the composable, create a single model up front and change its **contents** as the user navigates. Point `useSchemaForm` at a `ref` and swap its `value`:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+import { SchemaForm, useSchemaForm } from 'formvuelate'
+
+const step = ref(0)
+const contacts = ref([{ name: '', email: '' }])
+
+// Point useSchemaForm at a ref, then swap its value — never re-call the composable.
+const currentContact = ref(contacts.value[step.value])
+useSchemaForm(currentContact)
+
+function selectTab (index) {
+  step.value = index
+  currentContact.value = contacts.value[index]
+}
+</script>
+```
+
+:::tip
+For paginated, step-by-step forms, [`SchemaWizard`](/guide/schema-wizard.html) manages the active step for you while keeping a single model.
+:::
+
