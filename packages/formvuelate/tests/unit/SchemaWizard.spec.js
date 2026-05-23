@@ -3,7 +3,7 @@ import SchemaForm from '../../src/SchemaForm.vue'
 import useSchemaForm from '../../src/features/useSchemaForm'
 
 import { mount } from '@vue/test-utils'
-import { markRaw, ref } from 'vue'
+import { markRaw, ref, h, nextTick } from 'vue'
 
 const FormText = {
   template: '<input/>',
@@ -93,5 +93,45 @@ describe('SchemaWizard', () => {
     }))
 
     expect(wrapper.findComponent(SchemaForm).vm.behaveLikeParentSchema).toBe(false)
+  })
+
+  it('preserves model data across step changes (no cleanup on step switch)', async () => {
+    // The wizard renders each step's schema through a SchemaForm with
+    // preventModelCleanupOnSchemaChange. Switching steps must NOT wipe data
+    // that belongs to other steps — that's the whole point of a wizard.
+    const formModel = ref({
+      firstName: 'Marina',
+      lastName: 'Mosti',
+      email: 'marina@example.com'
+    })
+    const step = ref(0)
+
+    mount({
+      components: { SchemaWizard },
+      setup () {
+        useSchemaForm(formModel)
+        return () => h(SchemaWizard, { schema: wizardSchema, step: step.value })
+      }
+    })
+
+    // Step 0 only renders firstName/lastName; email belongs to step 1. Moving
+    // to step 1 must keep firstName/lastName even though they leave the
+    // rendered schema.
+    step.value = 1
+    await nextTick()
+    expect(formModel.value).toEqual({
+      firstName: 'Marina',
+      lastName: 'Mosti',
+      email: 'marina@example.com'
+    })
+
+    // And back again — still intact.
+    step.value = 0
+    await nextTick()
+    expect(formModel.value).toEqual({
+      firstName: 'Marina',
+      lastName: 'Mosti',
+      email: 'marina@example.com'
+    })
   })
 })
