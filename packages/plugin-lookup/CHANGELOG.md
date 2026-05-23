@@ -14,7 +14,7 @@
   - **`@formvuelate/plugin-vuelidate` removed.** It was never published; a Regle-based plugin may replace it in a later 4.x.
   - **`@formvuelate/plugin-vee-validate` requires `vee-validate@^4.13`.**
   - **Deep imports unsupported.** Import from the package root (`import { SchemaForm } from 'formvuelate'`), not `formvuelate/dist/*`.
-  - **Node `>=20.18` for development** (runtime consumers unaffected).
+  - **Node `>=20.19` for development** (Node 24 LTS pinned in `.nvmrc`; runtime consumers unaffected).
   - 2.x and 3.x are no longer maintained.
 
   ### Bug fixes
