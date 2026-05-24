@@ -1,0 +1,54 @@
+{
+  "name": "@formvuelate/plugin-json-schema",
+  "version": "4.0.1",
+  "description": "FormVueLate JSON Schema plugin",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/formvuelate-plugin-json-schema.cjs.js",
+  "module": "dist/formvuelate-plugin-json-schema.es.js",
+  "types": "dist/formvuelate-plugin-json-schema.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/formvuelate-plugin-json-schema.d.ts",
+      "import": "./dist/formvuelate-plugin-json-schema.es.js",
+      "require": "./dist/formvuelate-plugin-json-schema.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "test:unit": "vitest run --coverage",
+    "test:unit:watch": "vitest",
+    "lint": "eslint . --fix",
+    "test": "pnpm lint && pnpm test:unit"
+  },
+  "devDependencies": {
+    "formvuelate": "workspace:*"
+  },
+  "peerDependencies": {
+    "formvuelate": "^4.0.1",
+    "vue": "^3.4.0"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "author": {
+    "name": "Marina Mosti"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/formvuelate/formvuelate.git",
+    "directory": "packages/plugin-json-schema"
+  },
+  "bugs": {
+    "url": "https://github.com/formvuelate/formvuelate/issues"
+  },
+  "homepage": "https://github.com/formvuelate/formvuelate#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

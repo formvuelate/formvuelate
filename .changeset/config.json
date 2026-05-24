@@ -6,12 +6,16 @@
     [
       "formvuelate",
       "@formvuelate/plugin-vee-validate",
-      "@formvuelate/plugin-lookup"
+      "@formvuelate/plugin-lookup",
+      "@formvuelate/plugin-json-schema"
     ]
   ],
   "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["fvl-docs"]
+  "ignore": ["fvl-docs"],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
 }

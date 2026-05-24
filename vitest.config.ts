@@ -10,7 +10,8 @@ export default defineConfig({
     alias: {
       formvuelate: here('./packages/formvuelate/src/index.js'),
       '@formvuelate/plugin-lookup': here('./packages/plugin-lookup/src/index.js'),
-      '@formvuelate/plugin-vee-validate': here('./packages/plugin-vee-validate/src/index.js')
+      '@formvuelate/plugin-vee-validate': here('./packages/plugin-vee-validate/src/index.js'),
+      '@formvuelate/plugin-json-schema': here('./packages/plugin-json-schema/src/index.js')
     }
   },
   test: {

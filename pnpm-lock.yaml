@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       '@changesets/cli':
-        specifier: ^2.27.9
+        specifier: 2.31.0
         version: 2.31.0(@types/node@25.9.1)
       '@vitejs/plugin-vue':
         specifier: ^6.0.0
@@ -95,6 +95,16 @@ importers:
       vue:
         specifier: ^3.4.0
         version: 3.5.34(typescript@5.9.3)
+
+  packages/plugin-json-schema:
+    dependencies:
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.34(typescript@5.9.3)
+    devDependencies:
+      formvuelate:
+        specifier: workspace:*
+        version: link:../formvuelate
 
   packages/plugin-lookup:
     dependencies:

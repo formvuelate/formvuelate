@@ -7,7 +7,7 @@ export default function useSchemaForm (initialFormValue = {}) {
   // inside setup(). Calling it from an event handler or async callback (e.g.
   // to swap the model when switching tabs) fails with a cryptic Vue warning.
   // Surface a clearer, actionable message before that happens. See #302.
-  if (process.env && process.env.NODE_ENV !== 'production' && !getCurrentInstance()) {
+  if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production' && !getCurrentInstance()) {
     console.warn(
       'FormVueLate: useSchemaForm() must be called synchronously inside setup(). ' +
       'Calling it from an event handler or async callback fails because it relies on provide(). ' +
