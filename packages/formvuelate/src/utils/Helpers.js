@@ -110,14 +110,18 @@ export const forEachPropInModel = (formModel, fn, path = '') => {
   for (const prop in rawModel) {
     const value = rawModel[prop]
 
-    if (typeof value === 'object' && value !== null) {
+    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
       // Recurse into the nested object using a per-prop local path. Crucially
-      // we do NOT return here — returning would skip every sibling prop that
+      // we do NOT return here, since returning would skip every sibling prop that
       // comes after the first nested object at this level.
       const nestedPath = path === '' ? prop : `${path}.${prop}`
       forEachPropInModel(value, fn, nestedPath)
       continue
     }
+
+    // Arrays are treated as a single leaf value (SchemaArray owns them as a
+    // whole). Recursing would walk numeric indices as if they were model props
+    // and let cleanup delete them, corrupting the array.
 
     fn(prop, value, path)
   }

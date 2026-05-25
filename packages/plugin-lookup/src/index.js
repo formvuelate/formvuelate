@@ -181,7 +181,7 @@ const replacePropInElement = (el, prop, replacement, { preserveMappedProps = fal
   }
 
   if (!(prop in el)) {
-    if (process.env && process.env.NODE_ENV !== 'production') {
+    if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
       console.warn(`LookupPlugin: property "${prop}" not found in`, el)
     }
 
