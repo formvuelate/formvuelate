@@ -6,6 +6,7 @@
       class="schema-array-row"
     >
       <SchemaArrayRow
+        :key="isScalar ? 'scalar' : 'group'"
         :items="items"
         :modelValue="row.value"
         @update:modelValue="value => updateRow(row.key, value)"
@@ -47,7 +48,6 @@ import { INJECTED_LOCAL_COMPONENTS } from './utils/constants'
 export default {
   name: 'SchemaArray',
   components: { SchemaArrayRow },
-  inheritAttrs: false,
   props: {
     modelValue: {
       type: Array,
@@ -186,6 +186,7 @@ export default {
 
     return {
       rows,
+      isScalar,
       resolvedAfter,
       resolvedAppend,
       canAdd,

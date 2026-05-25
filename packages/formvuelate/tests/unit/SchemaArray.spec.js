@@ -419,4 +419,37 @@ describe('SchemaArray', () => {
       expect(wrapper.findAll('.text')).toHaveLength(3)
     })
   })
+
+  describe('attribute forwarding', () => {
+    it('keeps the schema-col layout class on its root', () => {
+      const model = ref({ tags: ['a'] })
+      const wrapper = mountForm(
+        { tags: { component: SchemaArray, items: { component: TextInput } } },
+        model
+      )
+
+      expect(wrapper.find('.schema-array').classes()).toContain('schema-col')
+    })
+  })
+
+  describe('dynamic item shape (runtime schema changes)', () => {
+    it('re-initialises a row when items flips from scalar to group', async () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: ['a'], items: { component: TextInput } }
+      })
+      expect(wrapper.findAll('.text')).toHaveLength(1)
+
+      // flip the item shape from scalar to group at runtime
+      await wrapper.setProps({ items: { name: { component: TextInput } } })
+      await flushPromises()
+
+      // the row remounted as a group with its own model; editing writes an
+      // object into the entry rather than binding to the wrong model
+      await wrapper.find('.text').setValue('Ada')
+      await flushPromises()
+
+      const emitted = wrapper.emitted('update:modelValue')
+      expect(emitted[emitted.length - 1][0][0]).toEqual({ name: 'Ada' })
+    })
+  })
 })
