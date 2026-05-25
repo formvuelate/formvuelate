@@ -392,4 +392,31 @@ describe('SchemaArray', () => {
       }).not.toThrow()
     })
   })
+
+  describe('dynamic min (runtime schema changes)', () => {
+    it('pads the array when min increases at runtime', async () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: ['a'], items: { component: TextInput }, min: 1 }
+      })
+      expect(wrapper.findAll('.text')).toHaveLength(1)
+
+      await wrapper.setProps({ min: 3 })
+      await flushPromises()
+
+      expect(wrapper.findAll('.text')).toHaveLength(3)
+      const emitted = wrapper.emitted('update:modelValue')
+      expect(emitted[emitted.length - 1][0]).toHaveLength(3)
+    })
+
+    it('does not shrink the array when min decreases', async () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: ['a', 'b', 'c'], items: { component: TextInput }, min: 3 }
+      })
+
+      await wrapper.setProps({ min: 1 })
+      await flushPromises()
+
+      expect(wrapper.findAll('.text')).toHaveLength(3)
+    })
+  })
 })

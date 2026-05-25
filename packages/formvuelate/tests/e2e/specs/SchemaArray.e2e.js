@@ -1,7 +1,7 @@
 import SchemaForm from '../../../src/SchemaForm.vue'
 import SchemaArray from '../../../src/SchemaArray.vue'
 import useSchemaForm from '../../../src/features/useSchemaForm'
-import { ref, h } from 'vue'
+import { ref, computed, h } from 'vue'
 import { BaseInput } from '../../utils/components'
 
 // User-provided control components: they only emit, and SchemaArray ships none.
@@ -173,5 +173,34 @@ describe('SchemaArray', () => {
     cy.get('input').should('have.length', 2)
     cy.get('.add').should('not.exist')
     cy.get('.remove').should('not.exist')
+  })
+
+  it('pads the list when a dynamic schema raises min at runtime', () => {
+    cy.mount({
+      setup () {
+        const min = ref(1)
+        const model = ref({ tags: ['a'] })
+        useSchemaForm(model)
+        const schema = computed(() => ({
+          tags: {
+            component: SchemaArray,
+            items: { component: BaseInput },
+            after: RemoveControl,
+            append: AddControl,
+            min: min.value
+          }
+        }))
+        return () =>
+          h('div', [
+            h('button', { class: 'raise-min', type: 'button', onClick: () => { min.value = 3 } }, 'raise'),
+            h(SchemaForm, { schema: schema.value }),
+            h('pre', { class: 'model' }, JSON.stringify(model.value))
+          ])
+      }
+    })
+
+    cy.get('input').should('have.length', 1)
+    cy.get('.raise-min').click()
+    cy.get('input').should('have.length', 3)
   })
 })

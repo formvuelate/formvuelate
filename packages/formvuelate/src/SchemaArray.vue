@@ -132,6 +132,24 @@ export default {
       { deep: true }
     )
 
+    // If `min` increases at runtime (e.g. a computed schema raises it), pad the
+    // list up to the new minimum. Existing rows keep their keys, so they are
+    // not remounted; only the new blank entries are appended.
+    watch(
+      () => props.min,
+      () => {
+        const min = Number(props.min) || 0
+        if (rows.value.length >= min) return
+
+        const additions = []
+        while (rows.value.length + additions.length < min) {
+          additions.push({ key: keyCounter++, value: blankValue() })
+        }
+        rows.value = [...rows.value, ...additions]
+        emitValue()
+      }
+    )
+
     const canAdd = computed(() => props.max == null || rows.value.length < props.max)
     const canRemove = computed(() => props.min == null || rows.value.length > props.min)
 
