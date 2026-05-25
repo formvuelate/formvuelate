@@ -114,4 +114,29 @@ describe('SchemaFormFactory', () => {
       FormSelect
     })
   })
+
+  it('warns when a plugin passes a non-object to extendSchemaFormProps', () => {
+    warn.mockClear()
+    const badPlugin = () => {}
+    badPlugin.extend = ({ extendSchemaFormProps }) => extendSchemaFormProps('not-an-object')
+
+    SchemaFormFactory([badPlugin])
+
+    expect(warn).toHaveBeenCalled()
+  })
+
+  it('skips the dev warning when process is not defined (browser)', () => {
+    warn.mockClear()
+    const badPlugin = () => {}
+    badPlugin.extend = ({ extendSchemaFormProps }) => extendSchemaFormProps('not-an-object')
+
+    vi.stubGlobal('process', undefined)
+    try {
+      SchemaFormFactory([badPlugin])
+    } finally {
+      vi.unstubAllGlobals()
+    }
+
+    expect(warn).not.toHaveBeenCalled()
+  })
 })

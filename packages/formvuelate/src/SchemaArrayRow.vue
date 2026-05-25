@@ -74,24 +74,13 @@ export default {
       provide(SCHEMA_MODEL_PATH, '')
       provide(IS_SCHEMA_WIZARD, false)
 
-      let internal = false
+      // The row's own model is the source of truth for its entry, so we emit
+      // upward on every change. There's no inbound sync to do: an external
+      // change to the array remounts the row (SchemaArray reseeds with fresh
+      // keys), which rebuilds this model from the new modelValue on setup.
       watch(
         model,
-        value => {
-          internal = true
-          emit('update:modelValue', { ...value })
-        },
-        { deep: true }
-      )
-      watch(
-        () => props.modelValue,
-        value => {
-          if (internal) {
-            internal = false
-            return
-          }
-          model.value = isObjectValue(value) ? { ...value } : {}
-        },
+        value => emit('update:modelValue', { ...value }),
         { deep: true }
       )
     }
