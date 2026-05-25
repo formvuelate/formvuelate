@@ -30,6 +30,7 @@ export default defineConfig({
             { text: 'Getting Started', link: '/guide/' },
             { text: 'SchemaForm', link: '/guide/schema-form' },
             { text: 'SchemaWizard', link: '/guide/schema-wizard' },
+            { text: 'SchemaArray', link: '/guide/arrays' },
             { text: 'Advanced schema', link: '/guide/advanced-schema' },
             { text: 'Accessibility', link: '/guide/accessibility' },
             { text: 'TypeScript', link: '/guide/typescript' }

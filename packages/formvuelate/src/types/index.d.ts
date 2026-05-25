@@ -90,6 +90,38 @@ declare const SchemaWizard: DefineComponent<{
 }> &
   FormSlots
 
+declare const SchemaArray: DefineComponent<{
+  modelValue: {
+    type: PropType<any[]>;
+    default: any;
+  };
+  // Per-row schema: an object of fields (repeatable group) or a single field
+  // descriptor (repeatable scalar).
+  items: {
+    type: PropType<FormObjectSchema | FieldSchema>;
+    default: any;
+  };
+  // User-provided control components (component or local-component name).
+  // `after` renders after each row and emits `remove` / `move`; `append`
+  // renders once and emits `add`.
+  after: {
+    type: PropType<Component | string>;
+    default: any;
+  };
+  append: {
+    type: PropType<Component | string>;
+    default: any;
+  };
+  min: {
+    type: PropType<number>;
+    default: any;
+  };
+  max: {
+    type: PropType<number>;
+    default: any;
+  };
+}>
+
 export declare function definePlugin(plugin: PluginFunction | { setup: PluginFunction, extend: PluginExtenderFunction }): PluginFunction;
 
 export declare const constants: {
@@ -105,5 +137,5 @@ export declare const constants: {
   INJECTED_LOCAL_COMPONENTS: string;
 };
 
-export { SchemaForm, SchemaWizard };
+export { SchemaForm, SchemaWizard, SchemaArray };
 export default SchemaForm;

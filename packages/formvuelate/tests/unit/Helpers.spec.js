@@ -118,6 +118,22 @@ describe('Helpers', () => {
 
       expect(paths.sort()).toEqual(['a.x', 'b.y'])
     })
+
+    it('treats an array value as a single leaf (does not recurse into indices)', () => {
+      // SchemaArray owns arrays as a whole. Recursing would walk numeric
+      // indices as model props and let cleanup delete them, corrupting the
+      // array.
+      const model = ref({ tags: ['a', 'b'], name: 'x' })
+      const visited = []
+      forEachPropInModel(model, (prop, value, path) => {
+        visited.push({ key: path ? `${path}.${prop}` : prop, value })
+      })
+
+      const tags = visited.find(v => v.key === 'tags')
+      expect(tags.value).toEqual(['a', 'b'])
+      // no per-index entries like "tags.0"
+      expect(visited.some(v => v.key.startsWith('tags.'))).toBe(false)
+    })
   })
 
   describe('forEachSchemaElement', () => {
