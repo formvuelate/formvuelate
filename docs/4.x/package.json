@@ -13,7 +13,7 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "formvuelate": "^4.1.0",
+    "formvuelate": "^4.0.0",
     "vitepress": "^1.6.4"
   }
 }
