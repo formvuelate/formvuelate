@@ -276,6 +276,6 @@ describe('SchemaArray', () => {
     cy.get('.model').should('contain', 'Ada').and('contain', 'Grace')
     cy.get('.gremove').first().click()
     cy.get('.gtext').should('have.length', 4)
-    cy.get('.model').should('contain', 'Grace')
+    cy.get('.model').should('contain', 'Grace').and('not.contain', 'Ada')
   })
 })
