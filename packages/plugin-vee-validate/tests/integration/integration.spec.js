@@ -55,6 +55,15 @@ const EMAIL_MESSAGE = 'Invalid Email'
 const flushVeeValidate = () => new Promise(r => setTimeout(r, 10))
 
 describe('FVL integration', () => {
+  it('does not throw when extended by a core without extendEmits', () => {
+    // Older formvuelate cores don't pass `extendEmits` to a plugin's `extend`
+    // hook. The plugin must degrade gracefully and simply skip declaring the
+    // `update:validation` event rather than crashing.
+    const plugin = veeValidatePlugin()
+
+    expect(() => plugin.extend({ extendSchemaFormProps: () => {} })).not.toThrow()
+  })
+
   it('renders error messages using validation prop', async () => {
     const schema = {
       firstName: {

@@ -8,7 +8,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
   const originalSetup = SchemaForm.setup
 
   const schemaFormProps = { ...SchemaForm.props }
-  const schemaFormEmits = [...(SchemaForm.emits || [])]
+  const schemaFormEmits = [...SchemaForm.emits]
 
   function extendSchemaFormProps (newProps) {
     if (!isObject(newProps)) {

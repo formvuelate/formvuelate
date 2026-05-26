@@ -139,4 +139,43 @@ describe('SchemaFormFactory', () => {
 
     expect(warn).not.toHaveBeenCalled()
   })
+
+  it('lets a plugin add events via extendEmits, preserving and de-duping', () => {
+    const plugin = () => {}
+    // includes a brand new event, an event already declared by SchemaForm,
+    // and a duplicate, to exercise both sides of the de-dupe check.
+    plugin.extend = ({ extendEmits }) => extendEmits(['custom-event', 'submit', 'custom-event'])
+
+    const factory = SchemaFormFactory([plugin])
+
+    expect(factory.emits).toContain('custom-event')
+    expect(factory.emits).toContain('submit')
+    expect(factory.emits.filter(e => e === 'custom-event')).toHaveLength(1)
+    expect(factory.emits.filter(e => e === 'submit')).toHaveLength(1)
+  })
+
+  it('warns when a plugin passes a non-array to extendEmits', () => {
+    warn.mockClear()
+    const badPlugin = () => {}
+    badPlugin.extend = ({ extendEmits }) => extendEmits('not-an-array')
+
+    SchemaFormFactory([badPlugin])
+
+    expect(warn).toHaveBeenCalled()
+  })
+
+  it('skips the extendEmits dev warning when process is not defined (browser)', () => {
+    warn.mockClear()
+    const badPlugin = () => {}
+    badPlugin.extend = ({ extendEmits }) => extendEmits('not-an-array')
+
+    vi.stubGlobal('process', undefined)
+    try {
+      SchemaFormFactory([badPlugin])
+    } finally {
+      vi.unstubAllGlobals()
+    }
+
+    expect(warn).not.toHaveBeenCalled()
+  })
 })
