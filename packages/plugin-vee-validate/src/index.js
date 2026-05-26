@@ -157,6 +157,11 @@ export default function VeeValidatePlugin (opts) {
   // extends the schema form props and emits
   const extend = ({ extendSchemaFormProps, extendEmits }) => {
     extendSchemaFormProps({
+      // absorb `v-model:validation` so it doesn't fall through to the root element
+      validation: {
+        type: Object,
+        default: undefined
+      },
       validationSchema: {
         type: Object,
         default: undefined
