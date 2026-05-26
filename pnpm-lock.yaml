@@ -84,8 +84,8 @@ importers:
   docs/4.x:
     devDependencies:
       formvuelate:
-        specifier: ^4.0.0
-        version: 4.0.0(vue@3.5.34(typescript@5.9.3))
+        specifier: ^4.1.0
+        version: 4.1.0(vue@3.5.34(typescript@5.9.3))
       vitepress:
         specifier: ^1.6.4
         version: 1.6.4(@algolia/client-search@5.52.1)(@types/node@25.9.1)(postcss@8.5.15)(search-insights@2.17.3)(typescript@5.9.3)
@@ -1897,8 +1897,8 @@ packages:
     resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
     engines: {node: '>= 6'}
 
-  formvuelate@4.0.0:
-    resolution: {integrity: sha512-U5EGDyUE4Pi+tcyEnYN0BR2wlfx8vQuLNi1ltWb65UCMSH24SOVgn5YoZfsX8HAHgn+4ddT0vv4rJ9J5VTxpdg==}
+  formvuelate@4.1.0:
+    resolution: {integrity: sha512-UDwTmWn7C0AG7htU86AyqnUCxl8CjS4JnQaub+yOxMqZuF3W2tqdkUA+C6eQbLi23nB2lymOU1tIuvMrnCNS+g==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       vue: ^3.4.0
@@ -5167,7 +5167,7 @@ snapshots:
       hasown: 2.0.3
       mime-types: 2.1.35
 
-  formvuelate@4.0.0(vue@3.5.34(typescript@5.9.3)):
+  formvuelate@4.1.0(vue@3.5.34(typescript@5.9.3)):
     dependencies:
       vue: 3.5.34(typescript@5.9.3)
 

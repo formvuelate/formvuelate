@@ -56,6 +56,52 @@ friends: {
 { friends: [{ name: 'Ada', age: 36 }, { name: 'Grace', age: 45 }] }
 ```
 
+Here it is running. Each row is its own little form. Add a friend, edit the fields, and remove a row (the last one stays put, because `min` is `1`):
+
+<DemoContainer>
+<template #demo>
+<ClientOnly>
+<ArrayGroupPlayground />
+</ClientOnly>
+</template>
+<template #code>
+
+```vue
+<script setup>
+import { SchemaForm, SchemaArray, useSchemaForm } from 'formvuelate'
+import FormText from './FormText.vue'
+import AddButton from './AddButton.vue'
+import RemoveButton from './RemoveButton.vue'
+
+const { formModel } = useSchemaForm({
+  friends: [
+    { name: 'Ada', role: 'Engineer' },
+    { name: 'Grace', role: 'Designer' }
+  ]
+})
+
+const schema = {
+  friends: {
+    component: SchemaArray,
+    items: {
+      name: { component: FormText, label: 'Name' },
+      role: { component: FormText, label: 'Role' }
+    },
+    after: RemoveButton,
+    append: AddButton,
+    min: 1
+  }
+}
+</script>
+
+<template>
+  <SchemaForm :schema="schema" />
+</template>
+```
+
+</template>
+</DemoContainer>
+
 ### A scalar (array of primitives)
 
 When `items` is a single field, meaning it has its own `component`, each row is one input, and your array holds plain values:
@@ -71,6 +117,43 @@ tags: {
 // formModel
 { tags: ['vue', 'forms'] }
 ```
+
+And here's the scalar version. Each row is a single input, and the model stays a plain array of values:
+
+<DemoContainer>
+<template #demo>
+<ClientOnly>
+<ArrayScalarPlayground />
+</ClientOnly>
+</template>
+<template #code>
+
+```vue
+<script setup>
+import { SchemaForm, SchemaArray, useSchemaForm } from 'formvuelate'
+import FormText from './FormText.vue'
+import AddButton from './AddButton.vue'
+import RemoveButton from './RemoveButton.vue'
+
+const { formModel } = useSchemaForm({ tags: ['vue', 'forms'] })
+
+const schema = {
+  tags: {
+    component: SchemaArray,
+    items: { component: FormText, label: 'Tag' },
+    after: RemoveButton,
+    append: AddButton
+  }
+}
+</script>
+
+<template>
+  <SchemaForm :schema="schema" />
+</template>
+```
+
+</template>
+</DemoContainer>
 
 ## Adding and removing rows
 

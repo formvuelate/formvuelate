@@ -1,5 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
-import { SchemaForm } from 'formvuelate'
+import { SchemaForm, SchemaArray } from 'formvuelate'
 
 import FormText from './components/FormText.vue'
 import FormSelect from './components/FormSelect.vue'
@@ -12,6 +12,10 @@ import ConditionalComputedDemo from './components/ConditionalComputedDemo.vue'
 import ConditionalConditionDemo from './components/ConditionalConditionDemo.vue'
 import HundredNestedDemo from './components/HundredNestedDemo.vue'
 import WizardPlayground from './components/WizardPlayground.vue'
+import ArrayGroupPlayground from './components/ArrayGroupPlayground.vue'
+import ArrayScalarPlayground from './components/ArrayScalarPlayground.vue'
+import ArrayAddButton from './components/ArrayAddButton.vue'
+import ArrayRemoveButton from './components/ArrayRemoveButton.vue'
 
 import './styles/demos.css'
 
@@ -34,5 +38,10 @@ export default {
     app.component('ConditionalConditionDemo', ConditionalConditionDemo)
     app.component('HundredNestedDemo', HundredNestedDemo)
     app.component('WizardPlayground', WizardPlayground)
+    app.component('SchemaArray', SchemaArray)
+    app.component('ArrayGroupPlayground', ArrayGroupPlayground)
+    app.component('ArrayScalarPlayground', ArrayScalarPlayground)
+    app.component('ArrayAddButton', ArrayAddButton)
+    app.component('ArrayRemoveButton', ArrayRemoveButton)
   }
 }
