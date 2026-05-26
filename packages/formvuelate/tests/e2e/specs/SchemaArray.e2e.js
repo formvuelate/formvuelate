@@ -222,7 +222,11 @@ describe('SchemaArray', () => {
       props: ['count', 'canAdd'],
       emits: ['add'],
       render () {
-        return h('button', { class: 'gadd', type: 'button', onClick: () => this.$emit('add') }, 'add')
+        return h(
+          'button',
+          { class: 'gadd', type: 'button', disabled: this.canAdd === false, onClick: () => this.$emit('add') },
+          'add'
+        )
       }
     }
     const GRemove = {
