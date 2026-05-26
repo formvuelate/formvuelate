@@ -26,7 +26,7 @@ export default function VeeValidatePlugin (opts) {
   // Maps the validation state exposed by vee-validate to components
   const mapProps = (opts && opts.mapProps) || defaultMapProps
 
-  function veeValidatePlugin (baseReturns, props) {
+  function veeValidatePlugin (baseReturns, props, context) {
     // Take the parsed schema from SchemaForm setup returns
     const { parsedSchema, formBinds } = baseReturns
 
@@ -34,6 +34,10 @@ export default function VeeValidatePlugin (opts) {
     const { attrs: formAttrs } = getCurrentInstance() || { attrs: {} }
     // try to retrieve vee-validate form from the root schema if possible
     let formContext = inject(VEE_VALIDATE_FVL_FORM_KEY, undefined)
+    // Only the schema form that creates the vee-validate context (the root) owns
+    // the form-level state, so only it should publish it via `update:validation`.
+    // Nested schema forms reuse the injected context and must stay silent.
+    const isRootForm = !formContext
 
     if (!formContext) {
       // if non-existent create one and provide it for nested schemas
@@ -109,6 +113,29 @@ export default function VeeValidatePlugin (opts) {
       formSubmit(evt)
     })
 
+    // The form-level validation state, shared between the `validation` slot prop
+    // and the `update:validation` event so the two can never drift apart.
+    const validation = computed(() => {
+      return {
+        errors: formContext.errors.value,
+        values: formContext.values,
+        isSubmitting: formContext.isSubmitting.value,
+        submitCount: formContext.submitCount.value,
+        meta: formContext.meta.value
+      }
+    })
+
+    // Publish the validation state to the parent scope so it can be consumed
+    // outside the form via `v-model:validation` (or a plain `@update:validation`
+    // listener). `immediate` seeds the parent with the initial state on mount.
+    if (isRootForm && context && typeof context.emit === 'function') {
+      watch(
+        validation,
+        value => context.emit('update:validation', value),
+        { deep: true, immediate: true }
+      )
+    }
+
     return {
       ...baseReturns,
       formBinds: computed(() => {
@@ -120,27 +147,27 @@ export default function VeeValidatePlugin (opts) {
       slotBinds: computed(() => {
         return {
           ...baseReturns.slotBinds.value,
-          validation: {
-            errors: formContext.errors.value,
-            values: formContext.values,
-            isSubmitting: formContext.isSubmitting.value,
-            submitCount: formContext.submitCount.value,
-            meta: formContext.meta.value
-          }
+          validation: validation.value
         }
       }),
       parsedSchema: formSchemaWithVeeValidate
     }
   }
 
-  // extends the schema form props
-  const extend = ({ extendSchemaFormProps }) => {
+  // extends the schema form props and emits
+  const extend = ({ extendSchemaFormProps, extendEmits }) => {
     extendSchemaFormProps({
       validationSchema: {
         type: Object,
         default: undefined
       }
     })
+
+    // Allows `v-model:validation` / `@update:validation` on the generated
+    // SchemaForm so the form-level validation state can be read outside it.
+    if (typeof extendEmits === 'function') {
+      extendEmits(['update:validation'])
+    }
   }
 
   return definePlugin({

@@ -14,6 +14,7 @@ export type FormObjectSchema = Record<string, FieldSchema>;
 
 interface PluginExtensionFunctions {
   extendFormProps(extendedProps: Record<string, any>): void;
+  extendEmits(emits: string[]): void;
 }
 
 export type PluginExtenderFunction = (extensions: PluginExtensionFunctions) => unknown;

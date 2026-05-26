@@ -706,6 +706,138 @@ describe('FVL integration', () => {
     expect(wrapper.find('#error').text()).toBe('')
   })
 
+  it('emits update:validation with the initial form-level state on mount', async () => {
+    const schema = {
+      firstName: {
+        label: 'First Name',
+        component: FormText,
+        validations: yup.string().required(REQUIRED_MESSAGE)
+      }
+    }
+
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+
+        return {
+          schema
+        }
+      }
+    })
+
+    await flushPromises()
+
+    const form = wrapper.findComponent(SchemaWithValidation)
+    const emitted = form.emitted('update:validation')
+    expect(emitted).toBeTruthy()
+
+    const state = emitted[emitted.length - 1][0]
+    expect(state).toHaveProperty('errors')
+    expect(state).toHaveProperty('values')
+    expect(state).toHaveProperty('meta')
+    expect(state).toHaveProperty('isSubmitting', false)
+    expect(state).toHaveProperty('submitCount', 0)
+  })
+
+  it('supports v-model:validation to read state outside the form', async () => {
+    const schema = {
+      firstName: {
+        label: 'First Name',
+        component: FormText,
+        validations: yup.string().required(REQUIRED_MESSAGE)
+      }
+    }
+
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+
+    const wrapper = mount({
+      template: `
+        <div>
+          <SchemaWithValidation :schema="schema" v-model:validation="validation" />
+          <button id="outside" :disabled="!validation?.meta?.valid"></button>
+          <span id="outside-error">{{ validation?.errors?.firstName }}</span>
+        </div>
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+        const validation = ref()
+
+        return {
+          schema,
+          validation
+        }
+      }
+    })
+
+    await flushPromises()
+    const input = wrapper.findComponent(FormText)
+    const button = wrapper.find('#outside')
+    expect(button.element.disabled).toBe(true)
+    await input.setValue('')
+    await flushPromises()
+    expect(wrapper.find('#outside-error').text()).toBe(REQUIRED_MESSAGE)
+    await input.setValue('hi')
+    await flushPromises()
+    expect(button.element.disabled).toBe(false)
+    expect(wrapper.find('#outside-error').text()).toBe('')
+  })
+
+  it('only the root schema form emits update:validation', async () => {
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+    const schema = {
+      user: {
+        component: SchemaWithValidation,
+        model: 'subform',
+        schema: [
+          {
+            model: 'email',
+            label: 'Email',
+            component: FormText,
+            validations: yup.string().required(REQUIRED_MESSAGE)
+          }
+        ]
+      }
+    }
+
+    const wrapper = mount({
+      template: `
+        <SchemaWithValidation :schema="schema" />
+      `,
+      components: {
+        SchemaWithValidation
+      },
+      setup () {
+        const formData = ref({})
+        useSchemaForm(formData)
+
+        return {
+          schema
+        }
+      }
+    })
+
+    await flushPromises()
+
+    const forms = wrapper.findAllComponents(SchemaWithValidation)
+    expect(forms.length).toBeGreaterThan(1)
+
+    const emittingForms = forms.filter(form => form.emitted('update:validation'))
+    expect(emittingForms).toHaveLength(1)
+  })
+
   it('validates fields with array in nested array schema', async () => {
     const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
     const schema = {

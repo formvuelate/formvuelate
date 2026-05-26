@@ -8,6 +8,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
   const originalSetup = SchemaForm.setup
 
   const schemaFormProps = { ...SchemaForm.props }
+  const schemaFormEmits = [...(SchemaForm.emits || [])]
 
   function extendSchemaFormProps (newProps) {
     if (!isObject(newProps)) {
@@ -20,9 +21,22 @@ export default function SchemaFormFactory (plugins = [], components = null) {
     Object.assign(schemaFormProps, newProps)
   }
 
+  function extendEmits (newEmits) {
+    if (!Array.isArray(newEmits)) {
+      if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
+        console.warn('FormVueLate: extendEmits can only receive an array of event names')
+      }
+      return
+    }
+
+    newEmits.forEach(name => {
+      if (!schemaFormEmits.includes(name)) schemaFormEmits.push(name)
+    })
+  }
+
   plugins.forEach(plugin => {
     if (plugin.extend) {
-      plugin.extend({ extendSchemaFormProps })
+      plugin.extend({ extendSchemaFormProps, extendEmits })
     }
   })
 
@@ -54,6 +68,7 @@ export default function SchemaFormFactory (plugins = [], components = null) {
   return {
     ...SchemaForm,
     props: schemaFormProps,
+    emits: schemaFormEmits,
     components: {
       ...components,
       ...SchemaForm.components
