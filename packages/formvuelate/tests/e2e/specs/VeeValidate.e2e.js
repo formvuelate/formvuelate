@@ -122,4 +122,46 @@ describe('vee-validate plugin (browser)', () => {
 
     cy.get('.submit-count').should('have.text', '0')
   })
+
+  it('exposes form-level validation state outside the form via v-model:validation', () => {
+    const SchemaWithValidation = SchemaFormFactory([VeeValidatePlugin()])
+
+    cy.mount({
+      components: { SchemaWithValidation },
+      setup () {
+        useSchemaForm(ref({}))
+        const schema = shallowRef({
+          email: {
+            component: BaseInput,
+            label: 'Email',
+            validations: yup.string().required(REQUIRED).email(EMAIL)
+          }
+        })
+        const validation = ref({})
+
+        // The button and error summary are siblings of the form, not slot
+        // content, so they can only react thanks to the emitted state.
+        return () => [
+          h(SchemaWithValidation, {
+            schema,
+            'onUpdate:validation': v => { validation.value = v }
+          }),
+          h('button', {
+            class: 'outside-submit',
+            disabled: !validation.value?.meta?.valid
+          }, 'Submit'),
+          h('span', { class: 'outside-error' }, validation.value?.errors?.email || '')
+        ]
+      }
+    })
+
+    cy.get('input').type('notanemail')
+    cy.get('.outside-error').should('have.text', EMAIL)
+    cy.get('button.outside-submit').should('be.disabled')
+
+    cy.get('input').clear()
+    cy.get('input').type('marina@test.com')
+    cy.get('.outside-error').should('have.text', '')
+    cy.get('button.outside-submit').should('not.be.disabled')
+  })
 })

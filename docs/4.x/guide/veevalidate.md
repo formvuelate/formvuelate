@@ -498,3 +498,43 @@ Learn more about [accessible disabling of form buttons](https://css-tricks.com/m
   </template>
 </SchemaForm>
 ```
+
+## Accessing validation state outside the form <Badge text="4.2.0" type="warning" vertical="middle" />
+
+The slot props above are perfect when the UI that reacts to validation lives inside the `SchemaForm`. But sooner or later you will want that same state somewhere else on the page, think of a submit button pinned to a sticky footer, or a progress indicator in a sidebar that sits well outside the form element.
+
+For those cases the plugin also emits the form-level validation state through an `update:validation` event, so you can bind it with `v-model:validation` and use it anywhere in your template:
+
+```html
+<template>
+  <SchemaFormWithValidation
+    :schema="schema"
+    v-model:validation="validation"
+  />
+
+  <!-- anywhere else, completely outside the form -->
+  <button :disabled="!validation.meta?.valid">
+    Save
+  </button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const validation = ref({})
+const schema = ref({ /* ... */ })
+</script>
+```
+
+The bound object carries the exact same properties as the slot prop: `errors`, `values`, `isSubmitting`, `submitCount` and `meta`. It is seeded with the initial state as soon as the form mounts, and refreshes on every change, so any reactive UI you point at it stays in sync.
+
+Notice the `?.` in the example. Your `ref` starts as an empty object and is only populated once the form mounts and emits, so reach for nested keys like `meta.valid` with optional chaining to stay safe on that very first render.
+
+If you only care about reacting to changes and do not need to keep the value around, skip `v-model` and listen to the event directly:
+
+```html
+<SchemaFormWithValidation
+  :schema="schema"
+  @update:validation="onValidationChange"
+/>
+```
