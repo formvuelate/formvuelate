@@ -128,6 +128,11 @@ export default function VeeValidatePlugin (opts) {
     // Publish the validation state to the parent scope so it can be consumed
     // outside the form via `v-model:validation` (or a plain `@update:validation`
     // listener). `immediate` seeds the parent with the initial state on mount.
+    // `deep` is required, not redundant: the computed reads `formContext.values`
+    // shallowly (a plain property access, not a tracked ref), so it does not
+    // recompute when a field value mutates in place. Without `deep` the watcher
+    // would miss those changes and the emitted `values` would go stale between
+    // validity flips.
     if (isRootForm && context && typeof context.emit === 'function') {
       watch(
         validation,

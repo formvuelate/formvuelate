@@ -513,7 +513,7 @@ For those cases the plugin also emits the form-level validation state through an
   />
 
   <!-- anywhere else, completely outside the form -->
-  <button :disabled="!validation.meta.valid">
+  <button :disabled="!validation.meta?.valid">
     Save
   </button>
 </template>
@@ -527,6 +527,8 @@ const schema = ref({ /* ... */ })
 ```
 
 The bound object carries the exact same properties as the slot prop: `errors`, `values`, `isSubmitting`, `submitCount` and `meta`. It is seeded with the initial state as soon as the form mounts, and refreshes on every change, so any reactive UI you point at it stays in sync.
+
+Notice the `?.` in the example. Your `ref` starts as an empty object and is only populated once the form mounts and emits, so reach for nested keys like `meta.valid` with optional chaining to stay safe on that very first render.
 
 If you only care about reacting to changes and do not need to keep the value around, skip `v-model` and listen to the event directly:
 

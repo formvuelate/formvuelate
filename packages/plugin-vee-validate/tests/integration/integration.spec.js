@@ -792,6 +792,10 @@ describe('FVL integration', () => {
     })
 
     await flushPromises()
+    // The `validation` prop side of `v-model:validation` is absorbed by the
+    // component and must not fall through to the root <form> as a
+    // `validation="[object Object]"` attribute.
+    expect(wrapper.find('form').attributes('validation')).toBeUndefined()
     const input = wrapper.findComponent(FormText)
     const button = wrapper.find('#outside')
     expect(button.element.disabled).toBe(true)
