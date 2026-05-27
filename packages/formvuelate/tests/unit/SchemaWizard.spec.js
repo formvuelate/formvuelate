@@ -87,6 +87,16 @@ describe('SchemaWizard', () => {
     expect(wrapper.findComponent(SchemaForm).vm.schema).toEqual(wizardSchema[1])
   })
 
+  it('emits submit when its form is submitted', async () => {
+    const wrapper = mount(SchemaWrapperFactory(wizardSchema, {
+      step: 0
+    }))
+
+    await wrapper.find('form').trigger('submit')
+
+    expect(wrapper.findComponent(SchemaWizard).emitted('submit')).toHaveLength(1)
+  })
+
   it('notifies child SchemaForms that they are under a wizard', () => {
     const wrapper = mount(SchemaWrapperFactory(wizardSchema, {
       step: 0

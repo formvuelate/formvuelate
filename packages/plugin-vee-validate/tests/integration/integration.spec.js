@@ -522,6 +522,46 @@ describe('FVL integration', () => {
     expect(wrapper.find('.error').text()).toBe('')
   })
 
+  it('builds dot-paths for fields nested two schema levels deep', async () => {
+    // Two levels of sub-schema force mapField to recurse with a non-empty
+    // path, exercising the `path ? ... : el.model` branch.
+    const SchemaWithValidation = SchemaFormFactory([veeValidatePlugin()])
+    const schema = {
+      user: {
+        component: SchemaWithValidation,
+        schema: {
+          address: {
+            component: SchemaWithValidation,
+            schema: {
+              city: {
+                component: FormText,
+                validations: yup.string().required(REQUIRED_MESSAGE)
+              }
+            }
+          }
+        }
+      }
+    }
+
+    const wrapper = mount({
+      template: '<SchemaWithValidation :schema="schema" />',
+      components: { SchemaWithValidation },
+      setup () {
+        useSchemaForm(ref({}))
+
+        return { schema }
+      }
+    })
+
+    const input = wrapper.findComponent(FormText)
+    input.setValue('')
+    await flushPromises()
+    expect(wrapper.find('.error').text()).toBe(REQUIRED_MESSAGE)
+    input.setValue('hello')
+    await flushPromises()
+    expect(wrapper.find('.error').text()).toBe('')
+  })
+
   it('validates nested fields when the outer also has fields and custom mapProps', async () => {
     // Mirrors the harness "Nested + vee-validate" example: a top-level field
     // and a nested sub-schema, both with per-field validations, using a

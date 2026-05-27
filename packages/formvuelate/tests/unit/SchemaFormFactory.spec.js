@@ -1,6 +1,7 @@
-import { inject, h } from 'vue'
+import { inject, h, ref } from 'vue'
 import SchemaFormFactory from '../../src/SchemaFormFactory'
 import SchemaForm from '../../src/SchemaForm.vue'
+import useSchemaForm from '../../src/features/useSchemaForm'
 import { INJECTED_LOCAL_COMPONENTS } from '../../src/utils/constants'
 import { mount } from '@vue/test-utils'
 
@@ -113,6 +114,27 @@ describe('SchemaFormFactory', () => {
       FormText,
       FormSelect
     })
+  })
+
+  it('does not re-provide local components when an ancestor already provided them', () => {
+    const factory = SchemaFormFactory([], { Local: FormSelect })
+
+    const wrapper = mount({
+      components: { Factory: factory },
+      setup () {
+        useSchemaForm(ref({ name: '' }))
+
+        return () => h(factory, {
+          schema: { name: { component: 'Ancestor', label: 'Name' } }
+        })
+      }
+    }, {
+      // An ancestor already published a local-component map. The factory must
+      // not stomp it with its own, so "Ancestor" still resolves inside.
+      global: { provide: { [INJECTED_LOCAL_COMPONENTS]: { Ancestor: FormText } } }
+    })
+
+    expect(wrapper.findComponent(FormText).exists()).toBe(true)
   })
 
   it('warns when a plugin passes a non-object to extendSchemaFormProps', () => {

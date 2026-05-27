@@ -239,6 +239,27 @@ describe('Lookup Plugin', () => {
         expect(warn).toHaveBeenCalledTimes(3)
         expect(warn).toHaveBeenCalledWith(expect.stringContaining('property "foo" not found'), expect.anything())
       })
+
+      it('skips the dev warning when process is not defined (browser)', () => {
+        vi.stubGlobal('process', undefined)
+        try {
+          const lookup = LookupPlugin({
+            mapProps: {
+              foo: 'bar'
+            }
+          })
+
+          const { parsedSchema } = lookup({ parsedSchema: schema })
+
+          // Force computed property to execute so that the lookup runs
+
+          parsedSchema.value
+
+          expect(warn).not.toHaveBeenCalled()
+        } finally {
+          vi.unstubAllGlobals()
+        }
+      })
     })
 
     describe('deleting properties', () => {

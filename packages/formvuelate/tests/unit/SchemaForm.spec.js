@@ -164,6 +164,44 @@ describe('SchemaForm', () => {
       expect(wrapper.find('form').exists()).toBe(true)
     })
 
+    it('renders the parsed schema as debug output when the debug prop is set', () => {
+      const schema = {
+        firstName: { component: FormText, label: 'First Name' }
+      }
+
+      const wrapper = mount(SchemaWrapperFactory(schema, { debug: true }))
+
+      expect(wrapper.find('pre').exists()).toBe(true)
+    })
+
+    describe('the schema prop validator', () => {
+      const { validator } = SchemaForm.props.schema
+
+      it('accepts any object schema', () => {
+        expect(validator({ firstName: { component: FormText } })).toBe(true)
+      })
+
+      it('accepts an empty array schema', () => {
+        expect(validator([])).toBe(true)
+      })
+
+      it('accepts array fields that declare a model', () => {
+        expect(validator([{ model: 'firstName', component: FormText }])).toBe(true)
+      })
+
+      it('accepts array fields that declare a nested schema', () => {
+        expect(validator([{ schema: [{ model: 'a', component: FormText }] }])).toBe(true)
+      })
+
+      it('accepts rows of horizontal elements (nested arrays)', () => {
+        expect(validator([[{ model: 'firstName', component: FormText }]])).toBe(true)
+      })
+
+      it('rejects array fields that declare neither a model nor a schema', () => {
+        expect(validator([{ label: 'orphan field' }])).toBe(false)
+      })
+    })
+
     it('does not crash when a schema row is empty', () => {
       // normalizeSchema preserves empty rows. The SchemaRow :key must not
       // assume row[0] exists, or rendering throws on row[0].uuid.
@@ -838,6 +876,46 @@ describe('SchemaForm', () => {
         firstName: 'Mr Piddles International Cat of Mistery',
         favoriteThingAboutVue: 'Documentation'
       })
+    })
+  })
+
+  describe('conditional field cleanup on model changes', () => {
+    it('keeps a conditional field whose condition stays true when the model changes', async () => {
+      const schema = {
+        trigger: { component: FormText, label: 'Trigger' },
+        kept: { component: FormText, label: 'Kept', condition: () => true }
+      }
+
+      const formModel = ref({ trigger: 'x', kept: 'keep-me' })
+      const wrapper = mount(SchemaWrapperFactory(schema, null, formModel))
+
+      // A model mutation runs cleanupConditionalFields; a condition that is
+      // still true must leave its field's value untouched.
+      formModel.value.trigger = 'y'
+      await wrapper.vm.$nextTick()
+
+      expect(formModel.value.kept).toBe('keep-me')
+    })
+
+    it('skips conditional cleanup entirely when preventModelCleanupOnSchemaChange is set', async () => {
+      const schema = {
+        trigger: { component: FormText, label: 'Trigger' },
+        hidden: { component: FormText, label: 'Hidden', condition: () => false }
+      }
+
+      const formModel = ref({ trigger: 'x', hidden: 'still-here' })
+      const wrapper = mount(SchemaWrapperFactory(
+        schema,
+        { preventModelCleanupOnSchemaChange: true },
+        formModel
+      ))
+
+      // `condition: () => false` would normally prune `hidden`; the prevent
+      // flag short-circuits cleanupConditionalFields before it can.
+      formModel.value.trigger = 'y'
+      await wrapper.vm.$nextTick()
+
+      expect(formModel.value.hidden).toBe('still-here')
     })
   })
 

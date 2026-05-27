@@ -72,6 +72,25 @@ describe('useSchemaForm', () => {
     )
   })
 
+  it('throws if updateFormModel is given a non-string path', () => {
+    const { updateFormModel } = useSchemaForm(ref({}))
+
+    expect(() => updateFormModel(123, 'value')).toThrow(
+      'path for updateFormModel should be a string separated by dots (.)'
+    )
+  })
+
+  it('updates a top-level model prop when the path has no dots', () => {
+    const spy = vi.spyOn(Helpers, 'updateFormModel')
+
+    const model = ref({ name: '' })
+    const { updateFormModel } = useSchemaForm(model)
+
+    updateFormModel('name', 'Marina')
+
+    expect(spy).toHaveBeenCalledWith(model, 'name', 'Marina', '')
+  })
+
   // #302: provide() only works inside setup(), so calling useSchemaForm() from
   // an event handler or async callback silently breaks the form. Surface a
   // clear dev-only warning instead of Vue's cryptic one.
