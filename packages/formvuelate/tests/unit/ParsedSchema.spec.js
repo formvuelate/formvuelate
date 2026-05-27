@@ -56,6 +56,47 @@ describe('ParsedSchema feature', () => {
     )
   })
 
+  it('returns the matched subschema when the model targets a direct schema element', () => {
+    const schema = shallowRef({
+      info: {
+        component: SchemaForm,
+        schema: {
+          firstName: { component: 'test' },
+          lastName: { component: 'test' }
+        }
+      }
+    })
+
+    const wrapper = factory({ schema, model: 'info' })
+
+    expect(wrapper.vm.parsedSchema).toEqual([
+      [expect.objectContaining({ component: 'test', model: 'firstName' })],
+      [expect.objectContaining({ component: 'test', model: 'lastName' })]
+    ])
+  })
+
+  it('finds a model nested inside a deeper subschema (recursive lookup)', () => {
+    const schema = shallowRef({
+      outer: {
+        component: SchemaForm,
+        schema: {
+          inner: {
+            component: SchemaForm,
+            schema: {
+              deep: { component: 'test' }
+            }
+          }
+        }
+      }
+    })
+
+    const wrapper = factory({ schema, model: 'inner' })
+
+    expect(wrapper.vm.parsedSchema).toEqual([
+      [expect.objectContaining({ component: 'test', model: 'deep' })]
+    ])
+  })
+
   it('calls the remapSubSchemaForms fn if it was provided by lookup', () => {
     const schema = shallowRef({
       someElement: {

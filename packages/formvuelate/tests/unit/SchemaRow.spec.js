@@ -56,6 +56,25 @@ describe('SchemaRow', () => {
     expect(wrapper.findAllComponents(SchemaField).length).toBe(2)
   })
 
+  it('treats a non-function condition as always visible', () => {
+    const wrapper = shallowMount(SchemaRow, {
+      props: {
+        row: [
+          {
+            model: 'FirstName',
+            component: FormText,
+            label: 'First Name',
+            // a truthy but non-function `condition` is not a real condition,
+            // so the field stays visible
+            condition: true
+          }
+        ]
+      }
+    })
+
+    expect(wrapper.findAllComponents(SchemaField).length).toBe(1)
+  })
+
   it('doesnt render wrapper elements when unwrappedRow is set', () => {
     const wrapper = shallowMount(SchemaRow, {
       props: {

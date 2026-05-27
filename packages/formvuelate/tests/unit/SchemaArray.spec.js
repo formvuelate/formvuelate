@@ -368,6 +368,46 @@ describe('SchemaArray', () => {
 
       expect(wrapper.find('.text').exists()).toBe(true)
     })
+
+    it('resolves string after / append controls via the factory local components', () => {
+      const Form = SchemaFormFactory([], { Remove: RemoveControl, Add: AddControl })
+      const wrapper = mount({
+        components: { Form },
+        setup () {
+          useSchemaForm(ref({ tags: ['a'] }))
+          return {
+            schema: {
+              tags: {
+                component: SchemaArray,
+                items: { component: TextInput },
+                after: 'Remove',
+                append: 'Add'
+              }
+            }
+          }
+        },
+        template: '<Form :schema="schema" />'
+      })
+
+      expect(wrapper.find('.remove').exists()).toBe(true)
+      expect(wrapper.find('.add').exists()).toBe(true)
+    })
+
+    it('falls back to the raw string when an after control is not a local component', () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: ['a'], items: { component: TextInput }, after: 'unknown-control' }
+      })
+
+      expect(wrapper.find('unknown-control').exists()).toBe(true)
+    })
+
+    it('falls back to the raw string when a scalar item component is not local', () => {
+      const wrapper = mount(SchemaArrayRow, {
+        props: { items: { component: 'mystery-input' } }
+      })
+
+      expect(wrapper.find('mystery-input').exists()).toBe(true)
+    })
   })
 
   describe('bare mounts (prop defaults)', () => {
@@ -390,6 +430,26 @@ describe('SchemaArray', () => {
         wrapper.vm.updateRow('nope', 'x')
         wrapper.vm.move('nope', 1)
       }).not.toThrow()
+    })
+
+    it('tolerates a non-array modelValue', () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: null, items: { component: TextInput } }
+      })
+
+      expect(wrapper.findAll('.text')).toHaveLength(0)
+      expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    })
+
+    it('SchemaArrayRow scalarProps tolerates a falsy items object', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+      // A falsy `items` makes the row a (degenerate) group, so scalarProps is
+      // never used by the template — but its `props.items || {}` guard must
+      // still hold up when evaluated directly.
+      const wrapper = mount(SchemaArrayRow, { props: { items: false } })
+
+      expect(wrapper.vm.scalarProps).toEqual({})
+      warn.mockRestore()
     })
   })
 
@@ -417,6 +477,21 @@ describe('SchemaArray', () => {
       await flushPromises()
 
       expect(wrapper.findAll('.text')).toHaveLength(3)
+    })
+
+    it('treats a removed min as zero when it changes at runtime', async () => {
+      const wrapper = mount(SchemaArray, {
+        props: { modelValue: ['a'], items: { component: TextInput }, min: 2 }
+      })
+      await flushPromises()
+      expect(wrapper.findAll('.text')).toHaveLength(2)
+
+      // min -> null makes `Number(props.min) || 0` fall through to 0; there is
+      // nothing left to pad, so the rows stay as they are.
+      await wrapper.setProps({ min: null })
+      await flushPromises()
+
+      expect(wrapper.findAll('.text')).toHaveLength(2)
     })
   })
 
