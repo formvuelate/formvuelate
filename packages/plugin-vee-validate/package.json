@@ -1,6 +1,6 @@
 {
   "name": "@formvuelate/plugin-vee-validate",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "FormVueLate Vee-validate plugin",
   "license": "MIT",
   "type": "module",
