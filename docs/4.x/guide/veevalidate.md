@@ -538,3 +538,78 @@ If you only care about reacting to changes and do not need to keep the value aro
   @update:validation="onValidationChange"
 />
 ```
+
+## Multi-step (wizard) forms
+
+FormVueLate ships a [`SchemaWizard`](/guide/schema-wizard.md) component for stepped forms, but it renders the plain `SchemaForm` under the hood and does not run plugins, so it will not pick up vee-validate on its own. That is not a dead end. A wizard is really just a little glue: a `<form>` wrapper, a schema indexed by the current step, and a flag that keeps your model intact as the schema changes. Recreate that around your validated form and you get validation on every step.
+
+The trick is to keep a single `SchemaFormWithValidation` mounted for the whole wizard and only swap its `schema` when the step changes. Because the component instance never unmounts, one vee-validate context lives across the entire flow. As the schema swaps, the previous step's fields unregister and the new ones register, so the form-level `validation.meta.valid` always reflects the step the user is looking at. That is exactly what you need to gate a Next button.
+
+Pair it with `preventModelCleanupOnSchemaChange` so the data a user typed on step one survives when they move to step two and back.
+
+```vue
+<script setup>
+import { ref, computed } from 'vue'
+import { SchemaFormFactory, useSchemaForm } from 'formvuelate'
+import VeeValidatePlugin from '@formvuelate/plugin-vee-validate'
+import * as yup from 'yup'
+
+const SchemaFormWithValidation = SchemaFormFactory([VeeValidatePlugin()])
+
+const step = ref(0)
+const userData = ref({})
+useSchemaForm(userData)
+
+const steps = [
+  // Step 1: name
+  {
+    firstName: { component: 'FormText', label: 'First name', validations: yup.string().required() },
+    lastName: { component: 'FormText', label: 'Last name', validations: yup.string().required() }
+  },
+  // Step 2: contact
+  {
+    email: { component: 'FormText', label: 'Email', validations: yup.string().email().required() }
+  }
+]
+
+const currentSchema = computed(() => steps[step.value])
+const lastStep = steps.length - 1
+
+const onSubmit = () => {
+  // Every step has been validated by now, userData holds the full result
+  console.log(userData.value)
+}
+</script>
+
+<template>
+  <SchemaFormWithValidation
+    :schema="currentSchema"
+    preventModelCleanupOnSchemaChange
+    @submit="onSubmit"
+  >
+    <!-- Keep the nav in afterForm so the buttons render inside the <form> -->
+    <template #afterForm="{ validation }">
+      <button v-if="step > 0" type="button" @click="step--">Back</button>
+      <button
+        v-if="step < lastStep"
+        type="button"
+        :disabled="!validation.meta.valid"
+        @click="step++"
+      >
+        Next
+      </button>
+      <button v-else type="submit" :disabled="!validation.meta.valid">Submit</button>
+    </template>
+  </SchemaFormWithValidation>
+</template>
+```
+
+A few things worth pointing out:
+
+- `validation.meta.valid` only accounts for the fields currently on screen. That is the behavior you want for a stepper: the user advances one valid step at a time, and you never block Next on fields they have not reached yet.
+- Because the model is shared and cleanup is turned off, returning to an earlier step re-seeds every field with what the user already entered.
+- If you would rather drive the buttons from somewhere outside the form, swap the slot prop for `v-model:validation` and read the same state anywhere on the page. See [Accessing validation state outside the form](#accessing-validation-state-outside-the-form).
+
+:::tip
+Keep your `type="submit"` button in the `afterForm` slot, just as you would with `SchemaWizard`, so it sits inside the generated `<form>` and triggers vee-validate's submission handling.
+:::
