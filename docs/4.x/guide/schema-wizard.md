@@ -7,6 +7,10 @@ FormVueLate also ships with a component called `SchemaWizard`, that allows you t
 
 The `SchemaWizard` component exposes and **requires** two props: `schema` and `step`.
 
+:::tip Validating a wizard
+`SchemaWizard` renders the base `SchemaForm` internally, so it does not run plugins such as vee-validate. To build a stepped form with validation, recreate the wizard around your validated form instead. See [Multi-step (wizard) forms](/guide/veevalidate.md#multi-step-wizard-forms) in the vee-validate guide.
+:::
+
 ## Form model
 
 The `SchemaWizard` component implements `SchemaForm` components under the hood. This means that when using `SchemaWizard` you should also make use of the `useSchemaForm` composable that ships with FormVueLate.
