@@ -62,4 +62,36 @@ describe('VeeValidatePlugin setup (unit)', () => {
 
     warn.mockRestore()
   })
+
+  it('leaves read-only elements unwrapped so they never register as fields', () => {
+    const Input = { name: 'Input', template: '<input/>' }
+    const Display = { name: 'Display', template: '<div/>' }
+
+    const plugin = VeeValidatePlugin()
+
+    const result = plugin(
+      {
+        parsedSchema: {
+          value: [
+            [{ model: 'name', component: Input }],
+            [{ model: 'note', component: Display, readonly: true }]
+          ]
+        },
+        formBinds: { value: { onSubmit: vi.fn() } },
+        slotBinds: { value: {} }
+      },
+      { validationSchema: undefined },
+      { emit: vi.fn() }
+    )
+
+    const enhanced = result.parsedSchema.value
+    const nameEl = enhanced[0][0]
+    const noteEl = enhanced[1][0]
+
+    // A normal field gets wrapped with the vee-validate field wrapper...
+    expect(nameEl.component.name).toBe('withFieldWrapper')
+    // ...while a read-only element keeps its original component untouched.
+    expect(noteEl.component).toBe(Display)
+    expect(noteEl.readonly).toBe(true)
+  })
 })
