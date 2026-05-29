@@ -218,6 +218,29 @@ describe('SchemaForm', () => {
   })
 
   describe('default schema values', () => {
+    it('does not populate the formModel from a default on a read-only element', () => {
+      const schema = {
+        firstName: {
+          component: FormText,
+          label: 'First Name',
+          default: 'Darth'
+        },
+        summary: {
+          component: FormText,
+          label: 'Summary',
+          readonly: true,
+          default: 'should be ignored'
+        }
+      }
+
+      const formModel = ref({})
+
+      mount(SchemaWrapperFactory(schema, {}, formModel))
+      expect(formModel.value).toEqual({
+        firstName: 'Darth'
+      })
+    })
+
     it('populates the formModel with the schema when created if a default prop exists', () => {
       const schema = {
         firstName: {

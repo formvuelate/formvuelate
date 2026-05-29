@@ -2,7 +2,7 @@ import { h, ref, shallowRef } from 'vue'
 import * as yup from 'yup'
 import { SchemaFormFactory, useSchemaForm } from '../../../src/index'
 import VeeValidatePlugin from '../../../../plugin-vee-validate/src/index'
-import { BaseInput } from '../../utils/components'
+import { BaseInput, ReadOnlySummary } from '../../utils/components'
 
 const REQUIRED = 'Required'
 const EMAIL = 'Must be an email'
@@ -163,5 +163,41 @@ describe('vee-validate plugin (browser)', () => {
     cy.get('input').type('marina@test.com')
     cy.get('.outside-error').should('have.text', '')
     cy.get('button.outside-submit').should('not.be.disabled')
+  })
+
+  it('does not register read-only elements as validated fields', () => {
+    const SchemaWithValidation = SchemaFormFactory([VeeValidatePlugin()])
+
+    cy.mount({
+      components: { SchemaWithValidation },
+      setup () {
+        useSchemaForm(ref({}))
+        const schema = shallowRef([
+          {
+            model: 'email',
+            component: BaseInput,
+            label: 'Email',
+            validations: yup.string().required(REQUIRED).email(EMAIL)
+          },
+          {
+            model: 'note',
+            component: ReadOnlySummary,
+            label: 'Note',
+            readonly: true
+          }
+        ])
+        return () => h(SchemaWithValidation, { schema })
+      }
+    })
+
+    // The read-only element renders alongside the validated field...
+    cy.get('.summary').should('exist')
+
+    // ...and an invalid email surfaces exactly one error. If the read-only
+    // element had been wrapped as a field, it would register its own
+    // perpetually-empty (and failing) entry.
+    cy.get('input').type('notanemail')
+    cy.get('.error').should('have.length', 1)
+    cy.get('.error').should('have.text', EMAIL)
   })
 })

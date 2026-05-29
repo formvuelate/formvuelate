@@ -11,6 +11,12 @@ const FormText = {
   emits: ['update:modelValue']
 }
 
+const DisplaySummary = {
+  template: '<div class="summary" />',
+  props: ['label', 'formModel'],
+  emits: ['update:modelValue']
+}
+
 const updateFormModel = vi.fn()
 
 const SchemaFieldWrapper = (
@@ -198,5 +204,66 @@ describe('SchemaField', () => {
     // SchemaForm.spec.js — see 'cleans up the model' and
     // 'prevents model clean up if the preventModelCleanupOnSchemaChange prop
     // is true'.
+  })
+
+  describe('read-only elements', () => {
+    it('renders the component and passes the whole form model for reading', () => {
+      const model = ref({
+        firstName: 'Marina',
+        lastName: 'Mosti'
+      })
+
+      const wrapper = mount(
+        SchemaFieldWrapper({
+          field: {
+            model: 'summary',
+            component: DisplaySummary,
+            readonly: true
+          }
+        }, model)
+      )
+
+      const summary = wrapper.findComponent(DisplaySummary)
+      expect(summary.exists()).toBe(true)
+      expect(summary.props().formModel).toEqual({
+        firstName: 'Marina',
+        lastName: 'Mosti'
+      })
+    })
+
+    it('does not wire v-model, so it can never write to the form model', () => {
+      const formModel = ref({})
+
+      const wrapper = mount(
+        SchemaFieldWrapper({
+          field: {
+            model: 'summary',
+            component: DisplaySummary,
+            readonly: true
+          }
+        }, formModel, { mockUpdate: true })
+      )
+
+      wrapper.findComponent(DisplaySummary).vm.$emit('update:modelValue', 'nope')
+
+      expect(updateFormModel).not.toHaveBeenCalled()
+    })
+
+    it('still respects the condition function', () => {
+      const model = ref({ type: 'A' })
+
+      const wrapper = mount(
+        SchemaFieldWrapper({
+          field: {
+            model: 'summary',
+            component: DisplaySummary,
+            readonly: true,
+            condition: model => model.type === 'B'
+          }
+        }, model)
+      )
+
+      expect(wrapper.findComponent(DisplaySummary).exists()).toBe(false)
+    })
   })
 })

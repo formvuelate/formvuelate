@@ -64,6 +64,13 @@ export default function VeeValidatePlugin (opts) {
         return el
       }
 
+      // Read-only elements are not form fields, so they must not be wrapped in
+      // `withField`/`useField`. Doing so would register them with vee-validate
+      // and pull their (non-existent) value into the validated form state.
+      if (el && el.readonly) {
+        return el
+      }
+
       // Handles nested schemas
       // doesn't treat nested forms as fields
       // instead goes over their fields and maps them recursively

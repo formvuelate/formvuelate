@@ -61,6 +61,9 @@ export default function useFormModel (props, parsedSchema) {
    */
   if (!hasParentSchema) {
     forEachSchemaElement(parsedSchema, (el, path) => {
+      // Read-only elements never contribute a value to the form output, so a
+      // `default` on one is ignored rather than seeded into the model.
+      if (el.readonly) return
       if (!('default' in el)) return
 
       updateFormModel(formModel, el.model, el.default, path)

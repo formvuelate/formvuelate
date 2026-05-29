@@ -167,6 +167,58 @@ The form model includes two default values as starting values for `aField` and `
 
 To remove this behavior and allow the form model to remain intact even when a conditional schema field is invalid, use the [`preventModelCleanupOnSchemaChange` property](#preventmodelcleanuponschemachange) on the parent `SchemaForm` component.
 
+## Read-only elements <Badge type="tip" text="4.3.0" vertical="middle" />
+
+Not everything in a form is an input. Sometimes you want to drop a heading between two groups of fields, show a little helper paragraph, or render a live summary of what the user has filled in so far. FormVueLate stays out of your way here, it does not ship any of that markup for you, but it does let you declare those pieces right alongside your fields.
+
+Mark any element with `readonly: true` and FormVueLate will render its component without wiring up `v-model`. That means the element can never write a value back into your form model, and it will never show up in your form output. It is purely there to display.
+
+So how does a read-only element show anything useful? It receives the entire form model through a `formModel` prop, ready for you to read from.
+
+```js
+const form = ref({})
+useSchemaForm(form)
+
+const schema = ref({
+  firstName: {
+    component: FormText,
+    label: 'First name'
+  },
+  lastName: {
+    component: FormText,
+    label: 'Last name'
+  },
+  summary: {
+    component: FormSummary,
+    readonly: true
+  }
+})
+```
+
+Your `FormSummary` component just declares the prop and uses it however you like.
+
+```vue
+<script setup>
+defineProps(['formModel'])
+</script>
+
+<template>
+  <p>Hello, {{ formModel.firstName }} {{ formModel.lastName }}!</p>
+</template>
+```
+
+Because the `formModel` prop is reactive, your summary updates live as the user types, all without ever becoming a field itself.
+
+A few things worth knowing:
+
+- A read-only element still needs a unique `model` value (the key you give it in an object schema, or an explicit `model` in an array schema). It is only used internally as a key, it never becomes a property on your form model.
+- A `default` on a read-only element is ignored, since read-only elements never contribute to the model.
+- The `condition` property works exactly as it does for regular fields, so you can show or hide a read-only element based on your model.
+
+:::tip
+Read-only elements are also skipped by the [vee-validate plugin](/guide/veevalidate.html), so they are never registered as fields or pulled into your validation state.
+:::
+
 ## markRaw
 
 You will notice that on our examples we use `markRaw(MyImportedComponent)

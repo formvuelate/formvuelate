@@ -1,6 +1,16 @@
 <template>
+  <!-- Read-only elements render their component and receive the whole form
+  model for display, but are never wired to v-model so they can't write a
+  value back or land in the form output. -->
   <component
-    v-if="schemaCondition"
+    v-if="schemaCondition && isReadonly"
+    v-bind="binds"
+    :is="component"
+    :formModel="formData"
+    class="schema-col"
+  />
+  <component
+    v-else-if="schemaCondition"
     v-bind="binds"
     :is="component"
     :modelValue="fieldValue"
@@ -10,7 +20,7 @@
 </template>
 
 <script>
-import { inject, computed } from 'vue'
+import { inject, computed, unref } from 'vue'
 import { FIND_NESTED_FORM_MODEL_PROP, SCHEMA_MODEL_PATH, FORM_MODEL, UPDATE_FORM_MODEL, INJECTED_LOCAL_COMPONENTS } from './utils/constants'
 
 export default {
@@ -58,6 +68,15 @@ export default {
       updateFormModel(formModel, props.field.model, value, path)
     }
 
+    // A read-only element opts out of model binding entirely: it can read the
+    // form data (via the `formModel` prop) but never emits an update.
+    const isReadonly = computed(() => props.field.readonly === true)
+
+    // The reactive form model object, handed to read-only elements so they can
+    // display live values. `unref` covers both the injected ref and the `{}`
+    // fallback used when no SchemaForm provides one.
+    const formData = computed(() => unref(formModel))
+
     // Render-time visibility. Conditional cleanup of formModel values for
     // hidden fields is handled by useFormModel (see features/FormModel.js),
     // because a v-if'd-out SchemaField wouldn't be mounted to run cleanup
@@ -80,7 +99,9 @@ export default {
       fieldValue,
       update,
       schemaCondition,
-      component
+      component,
+      isReadonly,
+      formData
     }
   }
 }
