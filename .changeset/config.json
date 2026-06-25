@@ -6,7 +6,8 @@
     [
       "formvuelate",
       "@formvuelate/plugin-vee-validate",
-      "@formvuelate/plugin-lookup"
+      "@formvuelate/plugin-lookup",
+      "@formvuelate/plugin-json-schema"
     ]
   ],
   "linked": [],
